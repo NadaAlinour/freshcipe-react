@@ -13,17 +13,27 @@ export default function Login() {
     <>
       <div className="form-container">
         <h2>Login</h2>
-        <form>
-          <label htmlFor="login-email">E-mail: </label>
-          <input type="text" id="login-email" />
-          <label htmlFor="login-password">Password: </label>
-          <input type="password" id="login-password" />
-          <label htmlFor="persist-login-checkbox">Keep me logged in</label>
-          <input type="checkbox" id="persist-login-checkbox" />
-          <Link>
-            <span>forgot password?</span> {/* dont forget to actually implement this again */}
-          </Link>
+        <form className="login-container">
+          <div>
+            <label htmlFor="login-email">E-mail: </label>
+            <input type="text" id="login-email" />
+          </div>
+          <div>
+            <label htmlFor="login-password">Password: </label>
+            <input type="password" id="login-password" />
+          </div>
+          <div>
+            <label htmlFor="persist-login-checkbox">Keep me logged in</label>
+            <input type="checkbox" id="persist-login-checkbox" />
+          </div>
+          <div>
+            <Link>
+              <span>forgot password?</span>{" "}
+              {/* dont forget to actually implement this again */}
+            </Link>
+          </div>
           <button type="submit">Login</button>
+          {/*<span>don't have an account yet?<Link to="signup">sign up now</Link></span>*/}
         </form>
       </div>
     </>
