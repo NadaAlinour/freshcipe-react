@@ -46,8 +46,8 @@ export default function Navbar() {
                   </Link>
                   <div className="user-dropdown-list">
                     <Link to="account/personal-details">My Account</Link>
-                    <Link to="">My Orders</Link>
-                    <Link to="">Settings</Link>
+                    <Link>My Orders</Link>
+                    <Link>Settings</Link>
                     {loggedIn ? (
                       <Link to="login">Log In</Link>
                     ) : (
