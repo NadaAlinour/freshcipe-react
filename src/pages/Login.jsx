@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import * as userMock from "../data/userMock.json";
 import "../assets/stylesheets/form.css";
 export default function Login() {
-  
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -24,11 +24,26 @@ export default function Login() {
         });
   };
 
+  // server validation mock (NOT client-side)
+  const mockValidate = () => {
+    return (
+      loginForm.email === userMock.email &&
+      loginForm.password === userMock.password
+    );
+  };
+
   /* api calls will be functions imported from /services
     validation functions will be imported from features/validateForm.js
     handling user context change will be done via login function in /features */
   const submitHandler = (e) => {
     e.preventDefault();
+    //call client-side validator
+
+    //server validation mock
+    const isValid = mockValidate();
+    console.log(isValid);
+    /* do something with server response */
+    /* navigate somewhere */
   };
 
   return (
