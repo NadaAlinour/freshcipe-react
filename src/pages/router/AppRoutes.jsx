@@ -5,8 +5,10 @@ import Recipes from "../Recipes";
 import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
-import Account from "../Account/Account"
+import Cart from "../Cart";
+import PersonalDetails from "../Account/PersonalDetails";
 import PageNotFound from "../PageNotFound";
+
 
 const AppRoutes = () => {
   //i wanted to put them in an array of objects and use map :(
@@ -21,7 +23,12 @@ const AppRoutes = () => {
       <Route path="login" element={<Login />}></Route>
       <Route path="signup" element={<Signup />}></Route>
       <Route path="login/signup" element={<Signup />}></Route>
-      <Route path="account" element={<Account />}></Route>
+      <Route path="cart" element={<Cart />}></Route>
+
+      <Route path="account/personal-details" element={<PersonalDetails />}></Route>
+
+
+
       <Route path="*" element={<PageNotFound />}></Route>
     </Routes>
   );

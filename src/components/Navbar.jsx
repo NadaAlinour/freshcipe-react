@@ -2,9 +2,15 @@ import { Link, NavLink } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import Logo from "/src/assets/images/logoipsum.svg";
 import UserIcon from "/src/assets/images/user-icon.png";
+import CartIcon from "/src/assets/images/cart-logo.png";
 import "/src/assets/stylesheets/navbar.css";
 
 export default function Navbar() {
+  //just temporary for testing enabling and disabling stuff based on login
+  //realistically it's based on authContext isLoggedIn
+  //protect routes later
+  const loggedIn = false;
+
   return (
     <>
       <nav className="navbar">
@@ -35,16 +41,25 @@ export default function Navbar() {
                 {/* make hamburger menu for smaller screens */}
                 {/* make dropdown menu (what's the difference) for more options */}
                 <div className="user-dropdown">
-                  <NavLink to="/login">
+                  <Link to="/login">
                     <img src={UserIcon}></img>
-                  </NavLink>
+                  </Link>
                   <div className="user-dropdown-list">
-                    <NavLink to="account">My Account</NavLink>
-                    <NavLink to="signup">Sign Up</NavLink>
-                    <NavLink>Log Out</NavLink> {/* call logout function */}
-                    {/*conditionally render signup/login depending on isLoggedIn */}
+                    <Link to="account/personal-details">My Account</Link>
+                    <Link to="">My Orders</Link>
+                    <Link to="">Settings</Link>
+                    {loggedIn ? (
+                      <Link to="login">Log In</Link>
+                    ) : (
+                      <Link to="signup">Sign Up</Link>
+                    )}
                   </div>
                 </div>
+              </li>
+              <li>
+                <Link to="cart">
+                  <img src={CartIcon} title="Go to cart" width="25px"></img>
+                </Link>
               </li>
             </ul>
           </div>

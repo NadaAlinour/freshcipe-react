@@ -23,7 +23,7 @@ export default function Contact() {
             <textarea rows="4" id="contact-message" />
           </div>
           <div>
-            <button type="submit">submit</button>
+            <button type="submit">Submit</button>
           </div>
         </form>
       </div>

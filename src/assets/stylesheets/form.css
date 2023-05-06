@@ -9,28 +9,34 @@
   border-color: white;
   text-align: center;
   box-shadow: 0px 0px 30px -10px #cecece;
-
 }
 
 .form-container > form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .form-container input {
   border-radius: 5px;
   border-width: 1px;
-  border-color: grey;
+  border: solid;
+  border-color: rgb(207, 206, 206);
   padding: 5px;
   /*width: 200px;*/
 }
 
+.form-container label {
+  color: #2f234f;
+}
+
 .form-container button {
-    width: 30%;
-    background-color: rgb(130, 129, 129);
-    border: none;
-    border-radius: 5px;
-    padding: 4px;
-    color: white;
+  width: 30%;
+  background-color: rgb(238, 236, 236);
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  line-height: 1.5;
+  font-weight: 700;
+  color: black;
 }

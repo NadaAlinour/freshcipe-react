@@ -2,6 +2,7 @@
     height: 60px;
     background-color: white;
     position: relative;
+    box-shadow: 0px 0px 30px -10px #cecece;
   }
 
 .container {
@@ -28,7 +29,7 @@
 
 .nav-elements ul a {
 font-size: 16px;
-font-weight: 400;
+font-weight: 500;
 color: #2f234f;
 text-decoration: none;
 }
@@ -67,10 +68,6 @@ background-color: #574c4c;
 
 /* dropdown menu */
 
-.user-dropdown:hover{
-  background-color: blue;
-}
-
 .user-dropdown-list {
   display: none;
   position: absolute;
@@ -81,13 +78,11 @@ background-color: #574c4c;
 }
 
 .user-dropdown-list a:hover {
-  background-color: blue;
+  background-color: rgb(169, 168, 168);
 }
 
 .user-dropdown:hover .user-dropdown-list {
   display: flex;
   flex-direction: column;
-
 }
 
-  
