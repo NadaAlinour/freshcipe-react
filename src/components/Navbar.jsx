@@ -10,7 +10,9 @@ export default function Navbar() {
       <nav className="navbar">
         <div className="container">
           <div className="logo">
-            <Link to="/"><img src={Logo} alt="logo"></img></Link>
+            <Link to="/">
+              <img src={Logo} alt="logo" title="Go to home page"></img>
+            </Link>
           </div>
           <div>
             <Searchbar />
@@ -32,7 +34,17 @@ export default function Navbar() {
               <li>
                 {/* make hamburger menu for smaller screens */}
                 {/* make dropdown menu (what's the difference) for more options */}
-                <NavLink to="/login"><img src={UserIcon}></img></NavLink>
+                <div className="user-dropdown">
+                  <NavLink to="/login">
+                    <img src={UserIcon}></img>
+                  </NavLink>
+                  <div className="user-dropdown-list">
+                    <NavLink to="account">My Account</NavLink>
+                    <NavLink to="signup">Sign Up</NavLink>
+                    <NavLink>Log Out</NavLink> {/* call logout function */}
+                    {/*conditionally render signup/login depending on isLoggedIn */}
+                  </div>
+                </div>
               </li>
             </ul>
           </div>

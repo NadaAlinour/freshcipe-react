@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../assets/stylesheets/form.css";
 export default function Login() {
   //state stuff
 
@@ -15,14 +16,16 @@ export default function Login() {
         <h2>Login</h2>
         <form className="login-container">
           <div>
-            <label htmlFor="login-email">E-mail: </label>
+            <label htmlFor="login-email">Email: </label>
+            <br></br>
             <input type="text" id="login-email" />
           </div>
           <div>
             <label htmlFor="login-password">Password: </label>
+            <br></br>
             <input type="password" id="login-password" />
           </div>
-          <div>
+          <div className="label-checkbox-container">
             <label htmlFor="persist-login-checkbox">Keep me logged in</label>
             <input type="checkbox" id="persist-login-checkbox" />
           </div>
@@ -32,8 +35,12 @@ export default function Login() {
               {/* dont forget to actually implement this again */}
             </Link>
           </div>
-          <button type="submit">Login</button>
-          {/*<span>don't have an account yet?<Link to="signup">sign up now</Link></span>*/}
+          <div>
+          <button type="submit">Log In</button>
+          </div>
+          <div>
+            Don't have an account?<Link to="Signup">Create one now.</Link>
+          </div>
         </form>
       </div>
     </>

@@ -5,6 +5,7 @@ import Recipes from "../Recipes";
 import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
+import Account from "../Account/Account"
 import PageNotFound from "../PageNotFound";
 
 const AppRoutes = () => {
@@ -19,6 +20,8 @@ const AppRoutes = () => {
       <Route path="contact" element={<Contact />}></Route>
       <Route path="login" element={<Login />}></Route>
       <Route path="signup" element={<Signup />}></Route>
+      <Route path="login/signup" element={<Signup />}></Route>
+      <Route path="account" element={<Account />}></Route>
       <Route path="*" element={<PageNotFound />}></Route>
     </Routes>
   );

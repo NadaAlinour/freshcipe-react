@@ -8,7 +8,7 @@ export default function Searchbar() {
     <>
       <div className="searchbar-container">
         <Link>
-          <img src={SearchIcon} width="15px"></img>
+          <img src={SearchIcon} width="15px" title="Search"></img>
         </Link>
         <input type="search" placeholder="what are you looking for?"></input>
       </div>

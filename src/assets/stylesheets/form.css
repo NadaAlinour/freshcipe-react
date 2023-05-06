@@ -1,0 +1,36 @@
+.form-container {
+  margin: auto;
+  margin-top: 70px;
+  padding: 20px;
+  width: 30%;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: white;
+  text-align: center;
+  box-shadow: 0px 0px 30px -10px #cecece;
+
+}
+
+.form-container > form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-container input {
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: grey;
+  padding: 5px;
+  /*width: 200px;*/
+}
+
+.form-container button {
+    width: 30%;
+    background-color: rgb(130, 129, 129);
+    border: none;
+    border-radius: 5px;
+    padding: 4px;
+    color: white;
+}

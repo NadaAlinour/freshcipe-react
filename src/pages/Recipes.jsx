@@ -1,7 +1,7 @@
 export default function Recipes() {
     return (
       <>
-        <h1>this is recipes</h1>
+        <h1 className="placeholder-text">this is recipes</h1>
       </>
     );
   }

@@ -52,5 +52,12 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background-color: #fcfcfc;
+  /*background-color: #fcfcfc;*/
+  background-color: white;
+}
+
+.placeholder-text {
+  text-align: center;
+  color: darkcyan;
+  padding-top: 20px;
 }
