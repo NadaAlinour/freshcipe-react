@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { validateLogin } from "../features/validateForm";
 import * as userMock from "../data/userMock.json";
 import "../assets/stylesheets/form.css";
 export default function Login() {
@@ -10,6 +11,11 @@ export default function Login() {
   });
 
   //console.log(loginForm);
+  //error state
+  const [error, setError] = useState({
+    emailErr: "",
+    passwordErr: "",
+  });
 
   const changeHandler = (e) => {
     const { name, value, type, checked } = e.target;
@@ -37,13 +43,29 @@ export default function Login() {
     handling user context change will be done via login function in /features */
   const submitHandler = (e) => {
     e.preventDefault();
+    const { email, password } = loginForm;
     //call client-side validator
+    const errorMessages = validateLogin(email, password);
+    //set error messages
+    setError({
+      //overwrite them all it doesn't matter
+      emailErr: errorMessages.emailError,
+      passwordErr: errorMessages.passwordError
+    })
 
-    //server validation mock
-    const isValid = mockValidate();
-    console.log(isValid);
-    /* do something with server response */
-    /* navigate somewhere */
+
+
+    
+
+    /*if (isInputValid) {
+      //send request to server
+      const isUserValid = mockValidate();
+      if (isUserValid) {
+        console.log("correct data, user is logged in");
+      } else {
+        console.log("Invalid login or password. Please try again."); //display this later
+      }
+    } else console.log("field is empty/wrong email format etc..")*/
   };
 
   return (
@@ -61,6 +83,8 @@ export default function Login() {
               value={loginForm.email}
               onChange={changeHandler}
             />
+            <br></br>
+            <span style={{ color: "red", fontSize: "13px" }}>{error.emailErr}</span>
           </div>
           <div>
             <label htmlFor="login-password">Password: </label>
@@ -72,6 +96,8 @@ export default function Login() {
               value={loginForm.password}
               onChange={changeHandler}
             />
+            <br></br>
+            <span style={{ color: "red", fontSize: "13px" }}>{error.passwordErr}</span>
           </div>
           <div className="label-checkbox-container">
             <label htmlFor="persist-login-checkbox">Keep me logged in</label>
@@ -85,7 +111,7 @@ export default function Login() {
           </div>
           <div>
             <Link>
-              <span>forgot password?</span>{" "}
+              <span>Forgot password?</span>{" "}
               {/* dont forget to actually implement this again */}
             </Link>
           </div>
