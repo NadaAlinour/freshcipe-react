@@ -1,6 +1,4 @@
 import "../assets/stylesheets/products.css";
-import Anya from "../assets/images/anya.jpg";
-import AddIcon from "../assets/images/add-icon.png";
 
 export default function ProductCard(props) {
   const {image, title, price} = props;

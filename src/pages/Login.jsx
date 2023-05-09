@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { validateLogin } from "../features/validateForm";
-import * as userMock from "../data/userMock.json";
+import { validateLogin, mockValidate } from "../features/validateForm";
 import "../assets/stylesheets/form.css";
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
@@ -14,6 +13,8 @@ export default function Login() {
     emailErr: "",
     passwordErr: "",
   });
+
+  const [serverErr, setServerErr] = useState("");
 
   const changeHandler = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,19 +29,12 @@ export default function Login() {
         });
   };
 
-  // server validation mock (NOT client-side)
-  const mockValidate = () => {
-    return (
-      loginForm.email === userMock.email &&
-      loginForm.password === userMock.password
-    );
-  };
-
   /* api calls will be functions imported from /services
     validation functions will be imported from features/validateForm.js
     handling user context change will be done via login function in /features */
   const submitHandler = (e) => {
     e.preventDefault();
+    setServerErr("");
     const { email, password } = loginForm;
     //call client-side validator
     const errorMessages = validateLogin(email, password);
@@ -53,15 +47,16 @@ export default function Login() {
 
     if (errorMessages.anyErr === false) {
       //send request to server
-      const isUserValid = mockValidate();
-      if (isUserValid) {
+      const mockMessage = mockValidate(loginForm.email, loginForm.password);
+
+      if (mockMessage.isValid) {
         console.log("correct data, user is logged in");
         //received user's id, name
         //set authContext stuff
-        const { id, email, name, password } = userMock;
-       
+        //const { id, email, name, password } = userMock;
       } else {
         console.log("Invalid login or password. Please try again."); //display this later
+        setServerErr(mockMessage.message);
       }
     } else console.log("field is empty/wrong email format etc..");
   };
@@ -69,8 +64,9 @@ export default function Login() {
   return (
     <>
       <div className="form-container">
-        <h2>Login</h2>
+        <h2>Login</h2><br></br>
         <form className="login-container" onSubmit={submitHandler}>
+          {serverErr && <div className="server-err">{serverErr}</div>}
           <div>
             <label htmlFor="login-email">Email: </label>
             <br></br>
