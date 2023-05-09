@@ -1,5 +1,7 @@
 {
-    "user-id": 123,
+    "id": 123,
     "email": "test@gmail.com",
-    "password": "test"
+    "name": "testname",
+    "password": "test",
+    "authtoken": "placeholder"
 }

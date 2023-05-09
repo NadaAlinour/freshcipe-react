@@ -4,3 +4,9 @@ Instructions must also be provided to define the meaning of the symbols or text.
 - clicking logout from the navbar redirects to login page/ homepage (idk) if user was in account page, otherwise no need to redirect anywhere.
 
 - maybe add a back "link" (maybe it's actually a link idk) but not on the homepage in the navbar
+
+- after successful signup, navigate to login
+
+- still use different classNames with different stylesheets
+
+- set product card clickable areas and what happens on click

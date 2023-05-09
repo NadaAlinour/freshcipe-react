@@ -17,7 +17,12 @@ export const validateLogin = (email, password) => {
       errorMessages.emailError = "Please enter a valid email format.";
   } else errorMessages.emailError = "Please enter your email.";
 
+  if(errorMessages.emailError || errorMessages.passwordError !== "")
+    errorMessages.anyErr = true;
+
   return errorMessages;
 };
+
+
 
 export const validateSignup = () => {};

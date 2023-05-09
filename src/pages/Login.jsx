@@ -10,8 +10,6 @@ export default function Login() {
     isChecked: false,
   });
 
-  //console.log(loginForm);
-  //error state
   const [error, setError] = useState({
     emailErr: "",
     passwordErr: "",
@@ -50,22 +48,22 @@ export default function Login() {
     setError({
       //overwrite them all it doesn't matter
       emailErr: errorMessages.emailError,
-      passwordErr: errorMessages.passwordError
-    })
+      passwordErr: errorMessages.passwordError,
+    });
 
-
-
-    
-
-    /*if (isInputValid) {
+    if (errorMessages.anyErr === false) {
       //send request to server
       const isUserValid = mockValidate();
       if (isUserValid) {
         console.log("correct data, user is logged in");
+        //received user's id, name
+        //set authContext stuff
+        const { id, email, name, password } = userMock;
+       
       } else {
         console.log("Invalid login or password. Please try again."); //display this later
       }
-    } else console.log("field is empty/wrong email format etc..")*/
+    } else console.log("field is empty/wrong email format etc..");
   };
 
   return (
@@ -84,7 +82,9 @@ export default function Login() {
               onChange={changeHandler}
             />
             <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>{error.emailErr}</span>
+            <span style={{ color: "red", fontSize: "13px" }}>
+              {error.emailErr}
+            </span>
           </div>
           <div>
             <label htmlFor="login-password">Password: </label>
@@ -97,7 +97,9 @@ export default function Login() {
               onChange={changeHandler}
             />
             <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>{error.passwordErr}</span>
+            <span style={{ color: "red", fontSize: "13px" }}>
+              {error.passwordErr}
+            </span>
           </div>
           <div className="label-checkbox-container">
             <label htmlFor="persist-login-checkbox">Keep me logged in</label>

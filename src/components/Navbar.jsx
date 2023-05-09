@@ -58,7 +58,7 @@ export default function Navbar() {
               </li>
               <li>
                 <Link to="cart">
-                  <img src={CartIcon} title="Go to cart" width="25px"></img>
+                  <img src={CartIcon} title="View cart" width="25px"></img>
                 </Link>
               </li>
             </ul>
