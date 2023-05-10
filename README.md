@@ -10,6 +10,7 @@ Preview of the pages so far:
 
 
 
+just testing rendering an array as jsx elements:
 ![image](https://github.com/NadaAlinour/gradProject/assets/48387157/00f4eb4d-0216-493f-a762-fc53e71b15fd)
 
 
