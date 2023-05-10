@@ -64,7 +64,8 @@ export default function Login() {
   return (
     <>
       <div className="form-container">
-        <h2>Login</h2><br></br>
+        <h2>Login</h2>
+        <br></br>
         <form className="login-container" onSubmit={submitHandler}>
           {serverErr && <div className="server-err">{serverErr}</div>}
           <div>
@@ -73,6 +74,7 @@ export default function Login() {
             <input
               type="text"
               id="login-email"
+              placeholder="Email"
               name="email"
               value={loginForm.email}
               onChange={changeHandler}
@@ -89,6 +91,7 @@ export default function Login() {
               type="password"
               id="login-password"
               name="password"
+              placeholder="Password"
               value={loginForm.password}
               onChange={changeHandler}
             />

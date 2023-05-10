@@ -27,20 +27,19 @@ export const validateLogin = (email, password) => {
 };
 
 // server validation mock (NOT client-side) - login
+//will change a bit when we actually send req to server
 export const mockValidate = (email, password) => {
   let errorMessages = {
     message: "",
     isValid: true,
   };
 
-  if (email !== userMock.email && password !== userMock.password) {
+  if (email !== userMock.email || password !== userMock.password) {
     errorMessages.message = "Invalid login or password. Please try again.";
     errorMessages.isValid = false;
   }
 
   return errorMessages;
-  
-
 };
 
 export const validateSignup = () => {};

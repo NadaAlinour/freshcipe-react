@@ -23,7 +23,7 @@ export default function Contact() {
   return (
     <>
       <div className="form-container">
-        <h2>Contact Us</h2>
+        <h2>Contact Us</h2><br></br>
         <form className="contact-container" onSubmit={submitHandler}>
           <div>
             <label htmlFor="">Name: </label>
