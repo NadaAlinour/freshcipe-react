@@ -52,7 +52,7 @@ export default function Contact() {
           <div>
             <label htmlFor="">Message: </label>
             <br></br>
-            <textarea rows="4" id="contact-message" 
+            <textarea rows="6" id="contact-message" 
             name="message"
             value={contactForm.message}
             onChange={changeHandler}/>

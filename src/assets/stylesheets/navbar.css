@@ -3,6 +3,8 @@
     background-color: white;
     position: relative;
     box-shadow: 0px 0px 30px -10px #cecece;
+    border-bottom: #cececebb;
+    border-bottom-style: solid;
   }
 
 .container {

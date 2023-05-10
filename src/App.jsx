@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import NotFound from "./pages/PageNotFound";
 import AppRoutes from "./pages/router/AppRoutes";
 import "./App.css";

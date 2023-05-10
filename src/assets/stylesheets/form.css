@@ -26,6 +26,13 @@
   width: 50%;
 }
 
+.form-container textarea {
+  width: 50%;
+  border-style: solid;
+  border-color: #cecece;
+  border-radius: 5px;
+}
+
 .form-container label {
   color: #2f234f;
 }
@@ -69,6 +76,8 @@
 
 .server-err {
   padding: 15px;
+  text-align: center;
+  margin-left: 7px;
   width: 90%;
   font-weight: 400;
   color: black;
