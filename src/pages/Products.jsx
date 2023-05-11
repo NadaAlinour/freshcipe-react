@@ -1,11 +1,11 @@
 import CategoryCard from "../components/CategoryCard";
 import categoryData from "../data/categoryData"
+import "../assets/stylesheets/products.css"
 
 export default function Products() {
-  // use array.map in the future to render the products
   //this page is for showing the different categories
   const categoryCards = categoryData.map(card => {
-    return <li><CategoryCard title= {card.title}/></li>
+    return <li key={card.title}><CategoryCard title= {card.title}/></li>
   })
   return (
     <>
