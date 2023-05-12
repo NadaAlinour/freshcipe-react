@@ -9,7 +9,7 @@ function App() {
     <>
       <Navbar /> {/* might change navbar on some pages to just have the icon (like login) */ }
       <AppRoutes />
-      <Footer />
+      {/*<Footer />*/}
     </>
   );
 }

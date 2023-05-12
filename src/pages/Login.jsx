@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { validateLogin, mockValidate } from "../features/validateForm";
 import "../assets/stylesheets/form.css";
+import userData from "../data/userData";
 export default function Login() {
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -51,11 +52,17 @@ export default function Login() {
 
       if (mockMessage.isValid) {
         console.log("correct data, user is logged in");
-        //received user's id, name
-        //set authContext stuff
-        //const { id, email, name, password } = userMock;
+
+
+        // context stuff
+        // call login function that uses the auth context
+        // it sets context to user and adds to localstorage if persist login checked
+        
+
+
+
       } else {
-        console.log("Invalid login or password. Please try again."); //display this later
+        console.log("Invalid login or password. Please try again.");
         setServerErr(mockMessage.message);
       }
     } else console.log("field is empty/wrong email format etc..");
