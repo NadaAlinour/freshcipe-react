@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { validateLogin, mockValidate } from "../features/validateForm";
+import { useAuth } from "../hooks/useAuth";
 import "../assets/stylesheets/form.css";
 import userData from "../data/userData";
+import { AuthContext } from "../context/AuthContext";
 export default function Login() {
+  const { user, login, logout } = useAuth();
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -47,24 +50,9 @@ export default function Login() {
     });
 
     if (errorMessages.anyErr === false) {
-      //send request to server
-      const mockMessage = mockValidate(loginForm.email, loginForm.password);
-
-      if (mockMessage.isValid) {
-        console.log("correct data, user is logged in");
-
-
-        // context stuff
-        // call login function that uses the auth context
-        // it sets context to user and adds to localstorage if persist login checked
-        
-
-
-
-      } else {
-        console.log("Invalid login or password. Please try again.");
-        setServerErr(mockMessage.message);
-      }
+      //call login from useAuth here
+      const mockResult = login(loginForm.email, loginForm.password, loginForm.isChecked);
+      setServerErr(mockResult.message);
     } else console.log("field is empty/wrong email format etc..");
   };
 

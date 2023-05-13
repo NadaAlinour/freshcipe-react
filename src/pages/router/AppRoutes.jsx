@@ -6,7 +6,6 @@ import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
 import Cart from "../Cart";
-import PersonalDetails from "../Account/PersonalDetails";
 import PageNotFound from "../PageNotFound";
 
 
@@ -25,7 +24,6 @@ const AppRoutes = () => {
       <Route path="login/signup" element={<Signup />}></Route>
       <Route path="cart" element={<Cart />}></Route>
 
-      <Route path="account/personal-details" element={<PersonalDetails />}></Route>
 
 
 

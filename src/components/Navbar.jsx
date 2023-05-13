@@ -1,20 +1,29 @@
 import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
 import Searchbar from "./Searchbar";
 import Logo from "/src/assets/images/logoipsum.svg";
 import UserIcon from "/src/assets/images/user-icon.png";
 import CartIcon from "/src/assets/images/cart-logo.png";
 import "/src/assets/stylesheets/navbar.css";
+import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar() {
   //just temporary for testing enabling and disabling stuff based on login
   //realistically it's based on authContext isLoggedIn
   //protect routes later
   const loggedIn = false;
-
+  const { logout } = useAuth();
+  const { authUser, setAuthUser } = useContext(AuthContext);
   return (
     <>
       <nav className="navbar">
         <div className="container">
+          {authUser && (
+            <button type="button" onClick={logout}>
+              logout
+            </button>
+          )}
           <div className="logo">
             <Link to="/">
               <img src={Logo} alt="logo" title="Go to home page"></img>
