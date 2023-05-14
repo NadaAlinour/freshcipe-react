@@ -15,8 +15,6 @@ export const useAuth = () => {
       //save in localstorage
       //try useEffect later
       if (persist) localStorage.setItem("user", email);
-      // navigate to home page
-      //navigate('/');
       console.log("successful login, navigate to homepage");
     } else console.log("login failed");
     return mockResult;
