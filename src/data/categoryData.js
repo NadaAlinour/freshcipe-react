@@ -1,46 +1,56 @@
 export default [
   {
     key: 1,
-    title: "baked goods",
+    title: "Baked goods",
+    image: "/src/assets/images/category-images/bakedGoods.jpg",
   },
 
   {
     key: 2,
-    title: "fruits and vegetables",
+    title: "Fruits and vegetables",
+    image: "/src/assets/images/category-images/fruitsVeggies.jpg",
   },
 
   {
     key: 3,
-    title: "spices and condiments",
+    title: "Spices and condiments",
+    image: "/src/assets/images/category-images/spices.jpg",
   },
 
   {
     key: 4,
-    title: "oils",
+    title: "Oils",
+    image: "/src/assets/images/category-images/oils.jpg",
   },
 
   {
     key: 5,
-    title: "eggs and cheese",
+    title: "Dairy",
+    image: "/src/assets/images/category-images/dairy.jpg",
   },
 
   {
     key: 6,
-    title: "snacks and crackers",
+    title: "Snacks and crackers",
+    image: "/src/assets/images/category-images/crackers.jpg",
   },
 
   {
     key: 7,
-    title: "meat and poultry",
+    title: "Meat and poultry",
+    image: "/src/assets/images/category-images/meat.jpg",
   },
 
   {
     key: 8,
-    title: "grains and pasta",
+    title: "Grains and pasta",
+    image: "/src/assets/images/category-images/pasta.jpg",
   },
 
   {
     key: 9,
-    title: "chocolate and candy",
+    title: "Chocolate and candy",
+    image: "/src/assets/images/category-images/chocolate.jpg",
   },
+   
 ];

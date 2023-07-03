@@ -62,13 +62,13 @@ export default function Signup() {
   return (
     <>
       {/*<div className="sign-up-form">*/}
-      <div className="form-container">
+      <div className="signup-form-container">
         <h2>Create your account</h2>
         <br></br>
         <form onSubmit={submitHandler}>
           {serverError && <div className="server-err">{serverError}</div>}
 
-          <div className="group-input">
+          <div className="group-input1">
             <i className="user"></i>
             <p>First Name:</p>
             <input
@@ -82,8 +82,7 @@ export default function Signup() {
             <span style={{ color: "red", fontSize: "13px" }}>
               {error.firstNameErr}
             </span>
-          </div>
-          <div className="group-input">
+
             <i className="user"></i>
             <p>Last Name:</p>
             <input
@@ -97,8 +96,7 @@ export default function Signup() {
             <span style={{ color: "red", fontSize: "13px" }}>
               {error.lastNameErr}
             </span>
-          </div>
-          <div className="group-input">
+
             <i className="envelope"></i>
             <p>Email:</p>
             <input
@@ -113,7 +111,7 @@ export default function Signup() {
               {error.emailErr}
             </span>
           </div>
-          <div className="group-input">
+          <div className="group-input2">
             <i className="Lock"></i>
             <p>Password:</p>
             <input
@@ -127,8 +125,7 @@ export default function Signup() {
             <span style={{ color: "red", fontSize: "13px" }}>
               {error.passwordErr}
             </span>
-          </div>
-          <div className="group-input">
+
             <i className="Lock"></i>
             <p>Confirm Password:</p>
             <input
@@ -142,8 +139,7 @@ export default function Signup() {
             <span style={{ color: "red", fontSize: "13px" }}>
               {error.cpasswordErr}
             </span>
-          </div>
-          <div>
+
             <button type="submit">Sign Up</button>
           </div>
         </form>

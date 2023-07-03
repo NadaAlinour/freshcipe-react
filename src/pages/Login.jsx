@@ -36,6 +36,7 @@ export default function Login() {
   /* api calls will be functions imported from /services
     validation functions will be imported from features/validateForm.js
     handling user context change will be done via login function in /features */
+    /* might change allat lol */
   const submitHandler = (e) => {
     e.preventDefault();
     setServerErr("");
@@ -96,7 +97,7 @@ export default function Login() {
             </span>
           </div>
           <div className="label-checkbox-container">
-            <label htmlFor="persist-login-checkbox">Keep me logged in</label>
+            <label htmlFor="persist-login-checkbox"className="keep-me-loggedin">Keep me logged in</label>
             <input
               type="checkbox"
               id="persist-login-checkbox"
