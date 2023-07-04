@@ -1,4 +1,5 @@
-# gradProject
+# Freshcipe
+(graduation project)
 E-commerce web application using Reactjs, Nodejs and MySQL (This folder contains the front-end only).
 
 Preview of the pages so far:
