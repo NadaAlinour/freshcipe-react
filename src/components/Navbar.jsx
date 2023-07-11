@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import Searchbar from "./Searchbar";
-import Logo from "/src/assets/images/freshcipe-logo.png";
+//import Logo from "/src/assets/images/freshcipe-logo.png";
 import UserIcon from "/src/assets/images/user-icon.png";
 import CartIcon from "/src/assets/images/cart-logo.png";
 import "/src/assets/stylesheets/navbar.css";
@@ -26,7 +26,7 @@ export default function Navbar() {
           )}
           <div className="logo">
             <Link to="/">
-              <img src={Logo} alt="logo" title="Go to home page"></img>
+              {/*<img src={Logo} alt="logo" title="Go to home page"></img>*/}
             </Link>
 
           </div>

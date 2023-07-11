@@ -11,7 +11,7 @@ import PageNotFound from "../PageNotFound";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Protected from "./Protected";
-import LoginProtected from "./loginProtected";
+import LoginProtected from "./LoginProtected";
 import PersonalDetails from "../Account/PersonalDetails";
 import DeliveryAddresses from "../Account/DeliveryAddresses";
 import PaymentDetails from "../Account/PaymentDetails";
