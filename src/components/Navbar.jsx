@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import Searchbar from "./Searchbar";
 //import Logo from "/src/assets/images/freshcipe-logo.png";
-import UserIcon from "/src/assets/images/user-icon.png";
+import UserIcon from "/src/assets/images/user.png";
 import CartIcon from "/src/assets/images/cart-logo.png";
 import "/src/assets/stylesheets/navbar.css";
 import { AuthContext } from "../context/AuthContext";
@@ -52,7 +52,7 @@ export default function Navbar() {
                 {/* make dropdown menu (what's the difference) for more options */}
                 <div className="user-dropdown">
                   <Link to="/login">
-                    <img src={UserIcon}></img>
+                    <img className="user-icon" src={UserIcon}></img>
                   </Link>
                   <div className="user-dropdown-list">
                     <Link to="account/personal-details">My Account</Link>
