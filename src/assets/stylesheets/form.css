@@ -13,7 +13,7 @@
   margin-bottom: 100px;
 }
 
-.form-container > form {
+.form-container  form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -118,7 +118,7 @@
   margin-bottom: 100px;
 }
 
-.signup-form-container > form {
+.signup-form-container form {
   display: flex;
   flex-direction: row;
 }
@@ -130,21 +130,19 @@
   width: 50%;
   padding: 20px;
   padding-right: 0px;
+  margin-right: 20px;
+  align-items: center;
 }
-
-.group-input1 input {
-  width: 100%;
-}
-
 
 .group-input2 {
-  /*background-color: #2f234f;*/
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  padding: 20px;
-  padding-left: 0;
-  margin-right: 20px;
+    /*background-color: #2f234f;*/
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 20px;
+    padding-left: 0;
+    margin-right: 20px;
+    align-items: center;
 }
 
 .signup-form-container input {
@@ -153,7 +151,7 @@
   border: solid;
   border-color: rgb(207, 206, 206);
   padding: 10px;
-  width: 50%;
+  width: 70%;
 }
 
 .signup-form-container label {
@@ -171,7 +169,7 @@
   color: white;
   cursor: pointer;
   margin-top: 25px;
-  margin-left: 70px;
+  margin-left: 160px;
 }
 
 .signup-form-container button:hover {
