@@ -19,6 +19,7 @@ import MyOrders from "../Account/MyOrders";
 import Subscriptions from "../Account/Subscriptions";
 import Reviews from "../Account/Reviews";
 import Settings from "../Account/Settings";
+import Recipe from "../Recipe";
 
 const AppRoutes = () => {
   const { authUser } = useContext(AuthContext);
@@ -36,6 +37,7 @@ const AppRoutes = () => {
       <Route path="subscriptions" element={<Subscriptions />}></Route>
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
+      <Route path="recipe" element={<Recipe />}></Route>
 
       <Route
         path="login"

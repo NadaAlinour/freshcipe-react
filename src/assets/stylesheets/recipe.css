@@ -1,0 +1,143 @@
+/* page displaying a single recipe's information */
+
+.recipe-info-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    margin-top: 50px;
+}
+
+
+
+.recipe-info-container {
+    margin-top: 50px;
+    border: 1px solid black;
+    height: 450px;
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .recipe-info-container img {
+        height: 450px;
+        width: 365px;
+    }
+
+
+.recipe-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 50px 15px 20px 15px;
+    row-gap: 15px;
+}
+
+.recipe-info span a {
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.recipe-info span a:hover {
+    color: cornflowerblue;
+}
+
+
+.ingredients-steps-container {
+    display: flex;
+    gap: 20px;
+    border: 1px solid black;
+    margin-top: 50px;
+    min-height: 600px;
+    width: 65%;
+}
+
+
+.recipe-ingredients-container {
+    border: 1px solid black;
+    width: 30%;
+    padding: 20px 20px 0 20px;
+}
+
+
+
+.recipe-ingredients-container ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.recipe-ingredients-container li {
+    margin-bottom: 5px;
+}
+
+
+.ingredients-btn-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.recipe-ingredients-container button {
+    padding: 15px 20px 15px 20px;
+    margin-top: 20px;
+    border: 1px solid black;
+    background-color: white;
+    margin: auto;
+    font-weight: bold;
+   
+}
+
+.recipe-ingredients-container button:hover {
+    background-color: lightgray;
+    color: white;
+    cursor: pointer;
+}
+
+.recipe-steps-container {
+    border: 1px solid black;
+    width: 70%;
+    padding: 20px 20px 0 20px;
+}
+
+.recipe-steps-container ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.recipe-steps-container p {
+    margin-top: 20px;
+}
+
+.recipe-nutrition-container {
+    border: 1px solid black;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    min-height: 400px;
+    width: 65%;
+    display: flex;
+    gap: 30px;
+}
+
+.nutrition-recipe-image img {
+    height: 400px;
+}
+
+.nutrition-values-container {
+    padding: 20px 20px 0 20px;
+}
+
+.nutrition-values-container span {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    margin-top: 15px;
+}
+
+.nutrition-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
