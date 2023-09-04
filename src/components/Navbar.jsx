@@ -9,9 +9,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar() {
-    //just temporary for testing enabling and disabling stuff based on login
-    //realistically it's based on authContext isLoggedIn
-    //protect routes later
+    
     const loggedIn = false;
     const { logout } = useAuth();
     const { authUser, setAuthUser } = useContext(AuthContext);
@@ -25,13 +23,13 @@ export default function Navbar() {
                         </button>
                     )}
 
-                    <div className="logo">
+                   {/*} <div className="logo">
                         <h2>Freshcipe</h2>
                         <Link to="/">
                             <img src={Logo} alt="logo" title="Go to home page"></img>
                         </Link>
 
-                    </div>
+                    </div>*/}
                     <div className="searchbar-container-parent">
                         <Searchbar />
                     </div>

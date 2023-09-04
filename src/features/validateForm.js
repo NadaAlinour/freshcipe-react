@@ -1,29 +1,29 @@
 import UserMock from "../data/userData.js";
 
-// client-side form validations
-export const validateLogin = (email, password) => {
-  /* empty fields, invalid email format, i think this is good for now (or forever :D) */
-  let errorMessages = {
-    emailError: "",
-    passwordError: "",
-    anyErr: false,
-  };
-
+const validateEmailFormat = (email) => {
   var validEmailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  if (password == "")
-    errorMessages.passwordError = "Please enter your password.";
+  if (!email.match(validEmailRegex)) return false;
 
-  if (email != "") {
-    if (!email.match(validEmailRegex))
-      errorMessages.emailError = "Please enter a valid email format.";
-  } else errorMessages.emailError = "Please enter your email.";
+  return true;
+};
 
-  if (errorMessages.emailError || errorMessages.passwordError !== "")
-    errorMessages.anyErr = true;
+export const validateLogin = (email, password) => {
 
-  return errorMessages;
+  let errorFlags = {
+    emailError: false,
+    passwordError: false,
+    isNotValidEmail: false,
+  };
+
+  if (email === "") errorFlags.emailError = true;
+  if (password === "") errorFlags.passwordError = true;
+
+  const isValidEmailFormat = validateEmailFormat(email);
+  if (isValidEmailFormat === false) errorFlags.isNotValidEmail = true;
+
+  return errorFlags;
 };
 
 // server validation mock (NOT client-side) - login
@@ -70,7 +70,7 @@ export const validateSignup = (formData) => {
       errorMessages.cpasswordError = "Passwords do not match.";
   } else {
     errorMessages.passwordError = "Please enter a password.";
-    errorMessages.cpasswordError = "Passwords do not match."
+    errorMessages.cpasswordError = "Passwords do not match.";
   }
 
   if (
