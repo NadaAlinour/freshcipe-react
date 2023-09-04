@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { validateLogin, mockValidate } from "../features/validateForm";
 import { useAuth } from "../hooks/useAuth";
 import "../assets/stylesheets/form.css";
+import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import userData from "../data/userData";
 import { AuthContext } from "../context/AuthContext";
 export default function Login() {
@@ -10,7 +11,6 @@ export default function Login() {
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
-    isChecked: false,
   });
 
   // for fields red borders
@@ -20,16 +20,11 @@ export default function Login() {
   const [errMsg, setErrMsg] = useState("");
 
   const changeHandler = (e) => {
-    const { name, value, type, checked } = e.target;
-    type === "checkbox"
-      ? setLoginForm({
-          ...loginForm,
-          [name]: checked,
-        })
-      : setLoginForm({
-          ...loginForm,
-          [name]: value,
-        });
+    const { name, value } = e.target;
+    setLoginForm({
+      ...loginForm,
+      [name]: value,
+    });
   };
 
   const submitHandler = (e) => {
@@ -47,7 +42,7 @@ export default function Login() {
       password
     );
 
-    // console.log(emailError, passwordError, isNotValidEmail);
+     console.log(emailError, passwordError, isNotValidEmail);
 
     if (emailError) {
       setEmailErr(true);
@@ -64,7 +59,7 @@ export default function Login() {
       setErrMsg("Please fill in all the required fields.");
     }
 
-    if (emailErr || passwordErr) {
+    if (emailError || passwordError || isNotValidEmail) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
       // mock server validation
@@ -78,14 +73,8 @@ export default function Login() {
       }
 
       // actually login
-      login(email, password, isChecked);
+      login(email, password);
     }
-
-    /* if (errorsMessages.anyErr === false) {
-      //call login from useAuth here
-      const mockResult = login(loginForm.email, loginForm.password, loginForm.isChecked);
-      setErrMsg(mockResult.message);
-    } else console.log("field is empty/wrong email format etc..");*/
   };
 
   return (
@@ -104,7 +93,7 @@ export default function Login() {
               name="email"
               value={loginForm.email}
               onChange={changeHandler}
-              className={emailErr ? "err-field" : "login-input"}
+              className={emailErr ? "login-input err-field" : "login-input"}
             />
           </div>
           <div>
@@ -115,33 +104,21 @@ export default function Login() {
               placeholder="Password"
               value={loginForm.password}
               onChange={changeHandler}
-              className={passwordErr ? "err-field" : "login-input"}
+              className={passwordErr ? "login-input err-field" : "login-input"}
             />
           </div>
-          <div className="label-checkbox-container">
-            <label
-              htmlFor="persist-login-checkbox"
-              className="keep-me-loggedin"
-            >
-              Keep me logged in
-            </label>
-            <input
-              type="checkbox"
-              id="persist-login-checkbox"
-              name="isChecked"
-              checked={loginForm.isChecked}
-              onChange={changeHandler}
-            />
-          </div>
+
           <div>
             <Link>
               <span>Forgot password?</span>{" "}
               {/* dont forget to actually implement this again */}
             </Link>
           </div>
-          <div>
-            <button type="submit">Login</button>
-          </div>
+            <button type="submit" className="login-btn">
+              <p>Login</p>
+              <img src={LoginIcon}></img>
+            </button>
+            
           <div>
             Don't have an account? <Link to="Signup">Create one now.</Link>
           </div>

@@ -8,11 +8,11 @@ export const useAuth = () => {
   const { authUser, setAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const login = (email, password, persist) => {
+  const login = (email, password) => {
     setAuthUser(email);
     //save in localstorage
     //try useEffect later
-    if (persist) localStorage.setItem("user", email);
+    localStorage.setItem("user", email);
     console.log("successful login, navigate to homepage");
   };
 

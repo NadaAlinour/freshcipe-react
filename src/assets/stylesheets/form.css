@@ -27,20 +27,13 @@
   border-width: 1px;
   border: solid;
   border-color: rgb(207, 206, 206);
-  padding: 10px;
+  padding: 15px;
   width: 70%;
 }
 
 /* should just add this class instead of reusing all the styles */
 .err-field {
   border-color: rgb(239, 120, 120);
-
-  border-radius: 5px;
-  border-width: 1px;
-  border: solid;
-  border-color: rgb(239, 120, 120);
-  padding: 10px;
-  width: 70%;
 }
 
 
@@ -55,51 +48,33 @@
   color: #2f234f;
 }
 
-.form-container button {
+
+.login-btn {
+  margin: auto;
   width: 70%;
   background-color: #F16851;
   border: none;
   border-radius: 5px;
-  padding: 8px;
-  padding-left: 20px;
-  line-height: 1.5;
-  font-weight: 700;
-  color: white;
+  padding: 13px 15px 13px 15px;
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
-  text-align: left;
 }
 
-.form-container button:hover {
+.login-btn:hover {
   background-color: #ca5b47;
 }
 
-
-.label-checkbox-container {
-  display: flex;
-  gap: 30px;
-  width: 50%;
-  margin: auto;
+.login-btn p {
+  line-height: 1.5;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
 }
 
-.label-checkbox-container input {
-  width: 20px;
-  cursor: pointer;
-  opacity: 0.5;
+.login-btn img {
+  width: 25px;
 }
-
-.label-checkbox-container input:hover {
-  opacity: 100%;
-}
-
-.label-checkbox-container input:checked {
-  opacity: 100%;
-}
-
-.label-checkbox-container label {
-  margin-left: 20px;
-}
-
-
 
 .err-box {
   padding: 15px;
