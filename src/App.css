@@ -1,3 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+
+:root {
+  /* give semantic names based on the usage rather than the color for easier adjustments */
+  --primary500: #549ec9;
+  --primary600: #307197;
+  --accent500: #ee6c4d;
+  --accent600: #ca5b47;
+  /*--primary500: #3d5a80;
+  --primaryDark: #293241;
+  --blue500: #98c1d9;
+  --blue200: #e0fbfc; */
+}
+
+html {
+}
+
+.link-text {
+  color: var(--primary500);
+  text-decoration: none;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
+
 /*#root {
   max-width: 1280px;
   margin: 0 auto;
@@ -41,8 +69,8 @@
   color: #888;
 }
 
-*/
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@450');
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@450'); */
 
 * {
   margin: 0;

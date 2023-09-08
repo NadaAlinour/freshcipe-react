@@ -4,6 +4,7 @@ import { validateLogin, mockValidate } from "../features/validateForm";
 import { useAuth } from "../hooks/useAuth";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
+import "boxicons";
 import userData from "../data/userData";
 import { AuthContext } from "../context/AuthContext";
 export default function Login() {
@@ -35,14 +36,14 @@ export default function Login() {
     setEmailErr(false);
     setPasswordErr(false);
 
-    const { email, password, isChecked } = loginForm;
+    const { email, password } = loginForm;
     // client side validation
     const { emailError, passwordError, isNotValidEmail } = validateLogin(
       email,
       password
     );
 
-     console.log(emailError, passwordError, isNotValidEmail);
+    console.log(emailError, passwordError, isNotValidEmail);
 
     if (emailError) {
       setEmailErr(true);
@@ -79,51 +80,55 @@ export default function Login() {
 
   return (
     <>
-      <div className="form-container">
-        <div className="login-header-container">
-          <h3>Login</h3>
+      <form className="form-container" onSubmit={submitHandler}>
+        <div className="form-header-container">
+          <h1>Login</h1>
         </div>
-        <form className="login-container" onSubmit={submitHandler}>
-          {errMsg && <div className="err-box">{errMsg}</div>}
-          <div>
-            <input
-              type="text"
-              id="login-email"
-              placeholder="Email"
-              name="email"
-              value={loginForm.email}
-              onChange={changeHandler}
-              className={emailErr ? "login-input err-field" : "login-input"}
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              id="login-password"
-              name="password"
-              placeholder="Password"
-              value={loginForm.password}
-              onChange={changeHandler}
-              className={passwordErr ? "login-input err-field" : "login-input"}
-            />
-          </div>
+        {errMsg && <div className="err-box">{errMsg}</div>}
+        <div
+          className={emailErr ? "input-container err-field" : "input-container"}
+        >
+          <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            value={loginForm.email}
+            onChange={changeHandler}
+            className="form-input"
+          />
+        </div>
+        <div
+          className={
+            passwordErr ? "input-container err-field" : "input-container"
+          }
+        >
+          <box-icon name="lock-alt" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={loginForm.password}
+            onChange={changeHandler}
+            className="form-input"
+          />
+        </div>
 
-          <div>
-            <Link>
-              <span>Forgot password?</span>{" "}
-              {/* dont forget to actually implement this again */}
-            </Link>
-          </div>
-            <button type="submit" className="login-btn">
-              <p>Login</p>
-              <img src={LoginIcon}></img>
-            </button>
-            
-          <div>
-            Don't have an account? <Link to="Signup">Create one now.</Link>
-          </div>
-        </form>
-      </div>
+        <div className="forgot-password-container">
+          <Link className="link-text">Forgot your password?</Link>
+        </div>
+        <button type="submit" className="form-btn">
+          <p>Login</p>
+          <img src={LoginIcon}></img>
+        </button>
+
+        <div>
+          Don't have an account?{" "}
+          <Link to="Signup" className="link-text">
+            Create one now.
+          </Link>
+        </div>
+      </form>
     </>
   );
 }

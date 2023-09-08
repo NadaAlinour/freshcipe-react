@@ -10,7 +10,6 @@ const validateEmailFormat = (email) => {
 };
 
 export const validateLogin = (email, password) => {
-
   let errorFlags = {
     emailError: false,
     passwordError: false,
@@ -42,44 +41,27 @@ export const mockValidate = (email, password) => {
   return errorMessages;
 };
 
-export const validateSignup = (formData) => {
-  const { firstName, lastName, email, password, cpassword } = formData;
-  // no empty fields, valid email format, passwords match
-  var validEmailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  let errorMessages = {
-    firstnameError: "",
-    lastnameError: "",
-    emailError: "",
-    passwordError: "",
-    cpasswordError: "", //for both field is empty and passwords do not match
-    anyErr: false,
+export const validateSignup = (firstname, lastname, email, password, phone) => {
+  let errorFlags = {
+    firstNameError: false,
+    lastNameError: false,
+    emailError: false,
+    passwordError: false,
+    isNotValidEmail: false,
   };
 
-  if (firstName == "")
-    errorMessages.firstnameError = "Please enter your first name.";
-  if (lastName == "")
-    errorMessages.lastnameError = "Please enter your last name.";
-  if (email != "") {
-    if (!email.match(validEmailRegex))
-      errorMessages.emailError = "Please enter a valid email format.";
-  } else errorMessages.emailError = "Please enter your email.";
-  if (password !== "") {
-    if (password !== cpassword)
-      errorMessages.cpasswordError = "Passwords do not match.";
+  if (firstname === "") errorFlags.firstNameError = true;
+  if (lastname === "") errorFlags.lastNameError = true;
+  if (email === "") {
+    errorFlags.emailError = true;
   } else {
-    errorMessages.passwordError = "Please enter a password.";
-    errorMessages.cpasswordError = "Passwords do not match.";
+    const isValidEmailFormat = validateEmailFormat(email);
+    if (isValidEmailFormat === false) errorFlags.isNotValidEmail = true;
   }
 
-  if (
-    errorMessages.firstnameError ||
-    errorMessages.lastnameError ||
-    errorMessages.emailError ||
-    errorMessages.passwordError ||
-    errorMessages.cpasswordError !== ""
-  )
-    errorMessages.anyErr = true;
-  return errorMessages;
+  if (password === "") errorFlags.passwordError = true;
+  if (phone === "") errorFlags.phone = true;
+
+  return errorFlags;
 };

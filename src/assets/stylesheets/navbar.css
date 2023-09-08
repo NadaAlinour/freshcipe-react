@@ -1,148 +1,17 @@
-.navbar {
-    /*max-width: 1100px;*/
-    height: 100px;
-    background-color: white;
-    position: relative;
-    /*box-shadow: 0px 0px 30px -10px #cecece;*/
-    /*box-shadow: 0px 0px 10px 1px #bdbcbc;*/
-    /*border-bottom: #cececebb;*/
-    border-bottom-style: solid;
-    position: sticky;
-    top: 0;
-}
-
-.nav-container {
-  margin: 0 auto;
-  padding: 0 15px;
+.simple-navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  width: 85%;
+  gap: 655px;
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 
-
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo img {
-  width: 100px;
-}
-
-.user-icon {
-    width: 35px;
-}
-
-.nav-elements ul {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style-type: none;
-}
-
-.nav-cart-icon {
-  margin-top: 2px;
-}
-
-/* i dont get how this spaced the list items out */
-.nav-elements ul li:not(:last-child) {
-  margin-right: 60px;
-}
-
-.container button {
-  background-color: pink;
-}
-
-.nav-elements ul a {
-  /*font-size: 16px;
-  font-weight: 500;*/
-  color: #2f234f;
-  text-decoration: none;
-}
-
-.nav-elements ul a.active {
-  color: #574c4c;
-  font-weight: 500;
-  position: relative;
-}
-
-/* huh */
-.nav-elements ul a.active::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #574c4c;
-}
-
-/* searchbar */
-.searchbar-container-parent {
-    width: 50%;
-    text-align: right;
-}
-
-
-.searchbar-container {
+.back-link {
   display: flex;
   align-items: center;
-  width: 100%;
-  margin-left: 80px;
+  justify-content: center;
 }
 
-
-.search-icon-container {
-    background-color: grey;
-    padding: 0.6px;
-    border-style: solid;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-color: grey;
-    cursor: pointer;
-}
-
-.searchbar-container img {
-    width: 30px;
-    height: 30px;
-    margin-top: 5px;
-}
-
-.searchbar-container input {
-    border-width: 1px;
-    border-style: solid;
-    border-right-style: none;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-color: lightgrey;
-    padding: 12.5px;
-    width: 55%;
-}
-
-.searchbar-container input:focus {
-    outline: none;
-}
-
-/* dropdown menu */
-
-.user-dropdown-list {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.user-dropdown-list a:hover {
-  background-color: rgb(169, 168, 168);
-}
-
-.user-dropdown:hover .user-dropdown-list {
-  display: flex;
-  flex-direction: column;
+.back-link p {
+  margin-bottom: 3px;
+  font-size: 1.1rem;
 }

@@ -1,25 +1,27 @@
 import "../assets/stylesheets/form.css";
+import "boxicons";
 import { useState } from "react";
-import { validateLogin, validateSignup } from "../features/validateForm";
+import { useNavigate } from "react-router-dom";
+import { validateSignup } from "../features/validateForm";
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const [signupForm, setSignupForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     password: "",
-    cpassword: "",
   });
 
-  const [error, setError] = useState({
-    firstNameErr: "",
-    lastNameErr: "",
-    emailErr: "",
-    passwordErr: "",
-    cpasswordErr: "",
-  });
+  const [firstNameErr, setFirstNameErr] = useState(false);
+  const [lastNameErr, setLastNameErr] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [phoneErr, setPhoneErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
 
-  const [serverError, setServerErr] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   //console.log(signupForm)
 
@@ -33,117 +35,157 @@ export default function Signup() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setServerErr("");
+    setErrMsg("");
+    setFirstNameErr(false);
+    setLastNameErr(false);
+    setEmailErr(false);
+    setPhoneErr(false);
+    setPasswordErr(false);
+
+    // client-side form validation
+    const { firstName, lastName, email, phone, password } = signupForm;
+
     const {
-      firstnameError,
-      lastnameError,
+      firstNameError,
+      lastNameError,
       emailError,
+      phoneError,
       passwordError,
-      cpasswordError,
-      anyErr,
-    } = validateSignup(signupForm);
+      isNotValidEmail,
+    } = validateSignup(firstName, lastName, email, phone, password);
 
-    setError({
-      firstNameErr: firstnameError,
-      lastNameErr: lastnameError,
-      emailErr: emailError,
-      passwordErr: passwordError,
-      cpasswordErr: cpasswordError,
-    });
+    if (firstNameError) {
+      setFirstNameErr(true);
+      setErrMsg("Please fill in all the required fields.");
+    }
 
-    if (anyErr == false) {
+    if (lastNameError) {
+      setLastNameErr(true);
+      setErrMsg("Please fill in all the required fields.");
+    }
+
+    if (emailError) {
+      setEmailErr(true);
+      setErrMsg("Please fill in all the required fields.");
+    } else {
+      if (isNotValidEmail) {
+        setEmailErr(true);
+        setErrMsg("Please enter a valid email format.");
+      }
+    }
+
+    if (phoneError) {
+      setPhoneErr(true);
+      setErrMsg("Please fill in all the required fields.");
+    }
+
+    if (passwordError) {
+      setPasswordErr(true);
+      setErrMsg("Please fill in all the required fields.");
+    }
+
+    if (
+      firstNameError ||
+      lastNameError ||
+      emailError ||
+      phoneError ||
+      passwordError ||
+      isNotValidEmail
+    ) {
+      console.log("cannot proceed, client side validation errors exist");
+    } else {
+      // mock server validation
       console.log("sending request to server");
-      // success or server error
-      //assume failure for now
-      setServerErr("An account is already associated with this email.");
-    } else console.log("smthn invalid in the form");
+      // mock is checking for duplicate emails
+      const pastEmail = "email@gmail.com";
+      if (email === pastEmail) {
+        setErrMsg("Email already in use.");
+        return;
+      }
+
+      console.log("successful signup, navigate to login page i guess");
+      navigate('/login')
+    }
   };
 
   return (
     <>
-      {/*<div className="sign-up-form">*/}
-      <div className="signup-form-container">
-        <h2>Create your account</h2>
-        <br></br>
-        <form onSubmit={submitHandler}>
-          {serverError && <div className="server-err">{serverError}</div>}
+      <form className="form-container" onSubmit={submitHandler}>
+        <div className="form-header-container">
+          <h1>Signup</h1>
+        </div>
 
-          <div className="group-input1">
-            <i className="user"></i>
-            <p>First Name:</p>
+        {errMsg && <div className="err-box">{errMsg}</div>}
+
+        <div className="signup-name-fields-container">
+          <div className="input-container">
+            <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
             <input
               type="text"
-              placeholder="Your first name"
+              placeholder="First name"
               name="firstName"
               value={signupForm.firstName}
               onChange={changeHandler}
+              className="form-input"
             />
-            <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>
-              {error.firstNameErr}
-            </span>
+          </div>
 
-            <i className="user"></i>
-            <p>Last Name:</p>
+          <div className="input-container last-name-container">
             <input
               type="text"
-              placeholder="Your last name"
+              placeholder="Last name"
               name="lastName"
               value={signupForm.lastName}
               onChange={changeHandler}
+              className="form-input"
             />
-            <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>
-              {error.lastNameErr}
-            </span>
-
-            <i className="envelope"></i>
-            <p>Email:</p>
-            <input
-              type="Email"
-              placeholder="Your email"
-              name="email"
-              value={signupForm.email}
-              onChange={changeHandler}
-            />
-            <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>
-              {error.emailErr}
-            </span>
           </div>
-          <div className="group-input2">
-            <i className="Lock"></i>
-            <p>Password:</p>
-            <input
-              type="Password"
-              placeholder="Your password"
-              name="password"
-              value={signupForm.password}
-              onChange={changeHandler}
-            />
-            <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>
-              {error.passwordErr}
-            </span>
+        </div>
 
-            <i className="Lock"></i>
-            <p>Confirm Password:</p>
-            <input
-              type="Password"
-              placeholder="Re-enter password"
-              name="cpassword"
-              value={signupForm.cpassword}
-              onChange={changeHandler}
-            />
-            <br></br>
-            <span style={{ color: "red", fontSize: "13px" }}>
-              {error.cpasswordErr}
-            </span>
+        <div className="input-container">
+          <box-icon name="envelope" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
+            value={signupForm.emailName}
+            onChange={changeHandler}
+            placeholder="Email"
+            name="email"
+            className="form-input"
+          />
+        </div>
 
-            <button type="submit">Sign Up</button>
-          </div>
-        </form>
-      </div>
+        <div className="input-container">
+          <box-icon name="phone" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
+            placeholder="Phone"
+            name="phone"
+            value={signupForm.phone}
+            onChange={changeHandler}
+            className="form-input"
+          />
+        </div>
+
+        <div className="input-container">
+          <box-icon name="lock-alt" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="password"
+            name="password"
+            value={signupForm.password}
+            onChange={changeHandler}
+            placeholder="Password"
+            className="form-input"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="form-btn"
+          style={{ justifyContent: "center", marginTop: "15px" }}
+        >
+          <p>Signup</p>
+        </button>
+      </form>
     </>
   );
 }
