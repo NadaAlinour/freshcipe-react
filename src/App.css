@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+/*import url('https://fonts.googleapis.com/css?family=Poppins');*/
 
 
 :root {
@@ -13,8 +13,7 @@
   --blue200: #e0fbfc; */
 }
 
-html {
-}
+
 
 .link-text {
   color: var(--primary500);
@@ -72,13 +71,7 @@ html {
 
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@450'); */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif !important;
 
-}
 
 .personalDetails, .deliveryAddresses, .paymentDetails {
   display: flex;

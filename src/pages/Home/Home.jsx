@@ -5,9 +5,9 @@ export default function Home() {
   const {authUser, setAuthUser} = useContext(AuthContext);
   const {logout} = useAuth();
     return (
-      <>
+      <div className="test">
         <h1 className="placeholder-text">this is home, welcome, {authUser}</h1>
-      </>
+      </div>
     );
   }
   

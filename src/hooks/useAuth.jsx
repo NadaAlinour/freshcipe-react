@@ -19,9 +19,13 @@ export const useAuth = () => {
   const signup = () => {};
 
   const logout = () => {
-    setAuthUser(null);
-    localStorage.removeItem("user");
-    console.log("user is logged out");
+    if (authUser === null) {
+      console.log("user not logged in");
+    } else {
+      setAuthUser(null);
+      localStorage.removeItem("user");
+      console.log("user is logged out");
+    }
   };
 
   // return { user, login, signup, logout };

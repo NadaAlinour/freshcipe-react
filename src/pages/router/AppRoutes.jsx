@@ -56,15 +56,7 @@ const AppRoutes = () => {
           </LoginProtected>
         }
       ></Route>
-      <Route
-        path="login/signup"
-        element={
-          <LoginProtected isAuth={authUser}>
-            <Signup />
-          </LoginProtected>
-        }
-      ></Route>
-
+      
       <Route path="cart" element={<Cart />}></Route>
 
       <Route path="*" element={<PageNotFound />}></Route>

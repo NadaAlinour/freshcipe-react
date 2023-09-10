@@ -1,4 +1,3 @@
-import CategoryCard from "../components/CategoryCard";
 import categoryData from "../data/categoryData"
 import "../assets/stylesheets/products.css"
 
@@ -9,14 +8,7 @@ export default function Products() {
   })
   return (
     <>
-      <div className="product-category-container">
-          <ul>
-            {categoryCards}
-            <div className="filling-empty-space-childs" />
-            <div className="filling-empty-space-childs" />
-            <div className="filling-empty-space-childs" />
-          </ul>
-      </div>
+      <h1 className="placeholder-text">this is products</h1>
     </>
   );
 }
