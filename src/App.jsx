@@ -6,7 +6,7 @@ import AppRoutes from "./pages/router/AppRoutes";
 import { useContext } from "react";
 import { useState } from "react";
 import "./App.css";
-import "/src/assets/stylesheets/recipe.css"
+import "/src/assets/stylesheets/recipe.css";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
       <AuthContext.Provider value={{ authUser, setAuthUser }}>
         <Navbar />
         <AppRoutes />
+        <Footer />
       </AuthContext.Provider>
     </>
   );

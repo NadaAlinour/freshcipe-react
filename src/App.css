@@ -1,6 +1,5 @@
 /*import url('https://fonts.googleapis.com/css?family=Poppins');*/
 
-
 :root {
   /* give semantic names based on the usage rather than the color for easier adjustments */
   --primary500: #549ec9;
@@ -11,9 +10,49 @@
   --primaryDark: #293241;
   --blue500: #98c1d9;
   --blue200: #e0fbfc; */
+  --grey300: #f7f7f7;
+  --grey400: #dbdbdb;
+}
+
+/*.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}*/
+
+/*main {
+  flex-grow: 1;
+}*/
+
+/*#root {
+  background-color: pink;
+}*/
+
+/*html, body{
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  align-items: center;
 }
 
 
+.main-content {
+  flex: 1 0 auto;
+  background-color: aqua;
+}*/
+
+footer {
+  background-color: var(--grey400);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90px;
+  flex-shrink: 0;
+}
 
 .link-text {
   color: var(--primary500);
@@ -23,7 +62,6 @@
 .link-text:hover {
   text-decoration: underline;
 }
-
 
 /*#root {
   max-width: 1280px;
@@ -71,9 +109,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@450'); */
 
-
-
-.personalDetails, .deliveryAddresses, .paymentDetails {
+.personalDetails,
+.deliveryAddresses,
+.paymentDetails {
   display: flex;
   height: 90vh;
   align-items: center;

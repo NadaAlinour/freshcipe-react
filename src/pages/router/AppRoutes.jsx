@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "../Home/Home";
+import Home from "..//Home";
 import Products from "../Products";
-import Recipes from "../Recipes";
 import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
@@ -19,7 +18,9 @@ import MyOrders from "../Account/MyOrders";
 import Subscriptions from "../Account/Subscriptions";
 import Reviews from "../Account/Reviews";
 import Settings from "../Account/Settings";
-import Recipe from "../Recipe";
+
+import Recipes from "../Recipes";
+import RecipeDetails from "../RecipeDetails";
 
 const AppRoutes = () => {
   const { authUser } = useContext(AuthContext);
@@ -27,17 +28,18 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="products" element={<Products />}></Route>
-      <Route path="recipes" element={<Recipes />}></Route>
       <Route path="contact" element={<Contact />}></Route>
       <Route path="account/personal-details" element={<AccountNav />}></Route>
-      <Route path='personalDetails' exact element={<PersonalDetails />}></Route>
+      <Route path="personalDetails" exact element={<PersonalDetails />}></Route>
       <Route path="deliveryAddresses" element={<DeliveryAddresses />}></Route>
       <Route path="paymentDetails" element={<PaymentDetails />}></Route>
       <Route path="myOrders" element={<MyOrders />}></Route>
       <Route path="subscriptions" element={<Subscriptions />}></Route>
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
-      <Route path="recipe" element={<Recipe />}></Route>
+
+      <Route path="recipes" element={<Recipes />}></Route>
+      <Route path="recipe-details/:id" element={<RecipeDetails />}></Route>
 
       <Route
         path="login"
@@ -56,7 +58,7 @@ const AppRoutes = () => {
           </LoginProtected>
         }
       ></Route>
-      
+
       <Route path="cart" element={<Cart />}></Route>
 
       <Route path="*" element={<PageNotFound />}></Route>

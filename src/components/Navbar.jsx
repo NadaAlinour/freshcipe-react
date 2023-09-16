@@ -1,7 +1,8 @@
 import "boxicons";
 import "../assets/stylesheets/navbar.css";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 
 import Searchbar from "./Searchbar";
@@ -9,6 +10,10 @@ import NavbarDropdown from "./NavbarDropdown";
 
 export default function Navbar() {
   const [isHover, setIsHover] = useState(false);
+  const navigate = useNavigate();
+  const handleBackClick = () => {
+    navigate(-1);
+  };
 
   // navbar for login/signup screens
   let navbar = (
@@ -56,8 +61,6 @@ export default function Navbar() {
             <Link to="/login">
               <box-icon name="user" size="30px"></box-icon>
             </Link>
-
-
           </li>
           <li>
             <Link to="/cart">
@@ -66,7 +69,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-
     </div>
   );
 
@@ -76,7 +78,7 @@ export default function Navbar() {
   if (location.pathname === "/login" || location.pathname === "/signup") {
     navbar = (
       <div className="simple-navbar">
-        <Link className="back-link link-text">
+        <Link className="back-link link-text" onClick={handleBackClick}>
           <box-icon name="chevron-left" color="#549ec9" size="20px"></box-icon>
           <p>Back</p>
         </Link>
