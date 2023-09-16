@@ -14,6 +14,51 @@
   --grey400: #dbdbdb;
 }
 
+body {
+  line-height: 2;
+}
+
+.tag-container {
+  min-width: 100px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 200px;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  color: black;
+  transition: background-color .2s;
+  box-shadow: 8px 0 8px -6px rgba(0, 0, 0, 0.1),
+    -8px 0 8px -6px rgba(0, 0, 0, 0.1), 0 8px 8px -6px rgba(0, 0, 0, 0.1);
+}
+
+.tag-container:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.tag-container-selected {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  min-width: 100px;
+  border-radius: 200px;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+ 
+}
+
+.tag-container-plain {
+  min-width: 100px;
+  background-color: black;
+  border-radius: 200px;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  color: white;
+}
+
+
+
 /*.container {
   display: flex;
   flex-direction: column;
@@ -109,7 +154,7 @@ footer {
 
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@450'); */
 
-.personalDetails,
+/*.personalDetails,
 .deliveryAddresses,
 .paymentDetails {
   display: flex;
@@ -119,11 +164,10 @@ footer {
 }
 
 body {
-  line-height: 1.5;
+  line-height: 2;
   font-weight: 500;
-  /*background-color: #fcfcfc;*/
   background-color: white;
-}
+}*/
 
 .placeholder-text {
   text-align: center;

@@ -5,6 +5,16 @@
   /*height: 100vh;*/
 }
 
+.recipe-categories-list {
+    display: flex;
+    justify-content: left;
+    margin: 30px 50px 0px 50px;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+
 .recipes-list-container {
   width: 75%;
   position: relative;
@@ -12,7 +22,7 @@
   background-color: var(--grey300);
 }
 
-.recipes-list li {
+.recipes-list-container li {
   list-style: none;
   cursor: pointer;
 }
@@ -27,8 +37,9 @@
   gap: 35px;
   row-gap: 50px;
   margin: auto;
-  padding: 50px 0px 20px 50px;
+  padding: 30px 0px 20px 50px;
 }
+
 
 /* recipe card */
 .recipe-card-container {
@@ -44,16 +55,14 @@
   /* offset-x | offset-y | blur-radius | spread-radius | color */
   /*box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.1);*/
   box-shadow: 8px 0 8px -6px rgba(0, 0, 0, 0.1),
-              -8px 0 8px -6px rgba(0, 0, 0, 0.1),
-              0 8px 8px -6px rgba(0, 0, 0, 0.1);
+    -8px 0 8px -6px rgba(0, 0, 0, 0.1), 0 8px 8px -6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.5s;
 }
 
 .recipe-card-container:hover {
   /*box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.25);*/
   box-shadow: 8px 0 10px -6px rgba(0, 0, 0, 0.3),
-              -8px 0 10px -6px rgba(0, 0, 0, 0.3),
-              0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    -8px 0 10px -6px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
 }
 
 .recipe-card-container img {
@@ -69,7 +78,6 @@
   padding-left: 8px;
   justify-content: space-evenly;
   background-color: var(--grey300);
-
 }
 
 .recipe-card-summary span {
@@ -78,14 +86,14 @@
 }
 
 .recipe-card-summary img {
-    width: 20px;
-    margin: auto;
+  width: 20px;
+  margin: auto;
 }
 
 .recipe-card-summary p {
-    letter-spacing: 1px;
-    font-size: 13px;
-    margin: auto;
+  letter-spacing: 1px;
+  font-size: 13px;
+  margin: auto;
 }
 
 .recipe-card-title {
@@ -103,35 +111,50 @@
   text-align: center;
 }
 
-/* page displaying a single recipe's information */
+/* page displaying a recipe details */
 
 .recipe-info-parent {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--grey300);
 }
 
 .recipe-info-container {
   margin-top: 50px;
+  border-top-right-radius: 150px;
   overflow: hidden;
-  border: 1px solid black;
-  height: 420px;
-  width: 65%;
+  min-height: 400px;
+  width: 80%;
   display: flex;
   justify-content: space-between;
+  background-color: white;
 }
 
 .recipe-info-container img {
   height: 100%;
-  width: 375px;
+  width: auto;
 }
 
 .recipe-info {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 50px 15px 20px 15px;
+  justify-content: center;
+  margin: 20px 15px 20px 15px;
   row-gap: 15px;
+}
+
+.recipe-info ul {
+    list-style: none;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    row-gap: 8px;
+    width: 85%;
 }
 
 .recipe-info span a {
@@ -147,16 +170,18 @@
 .ingredients-steps-container {
   display: flex;
   gap: 20px;
-  border: 1px solid black;
   margin-top: 50px;
   min-height: 600px;
-  width: 65%;
+  width: 80%;
+  background-color: white;
 }
 
 .recipe-ingredients-container {
-  border: 1px solid black;
   width: 30%;
   padding: 20px 20px 0 20px;
+  background-color: var(--grey300);
+  margin: 30px;
+  border-radius: 20px;
 }
 
 .recipe-ingredients-container ul {
@@ -190,9 +215,10 @@
 }
 
 .recipe-steps-container {
-  border: 1px solid black;
   width: 70%;
   padding: 20px 20px 0 20px;
+  margin: 20px;
+
 }
 
 .recipe-steps-container ul {
@@ -207,30 +233,34 @@
 }
 
 .recipe-nutrition-container {
-  border: 1px solid black;
+  overflow: hidden;
+  border-bottom-left-radius: 150px;
+
   margin-top: 50px;
   margin-bottom: 50px;
-  min-height: 400px;
-  width: 65%;
+  height: 430px;
+  width: 80%;
   display: flex;
   gap: 30px;
+  background-color: white;
 }
 
 .nutrition-recipe-image img {
   height: 100%;
-  width: 400px;
+  width: auto;
 }
 
 .nutrition-values-container {
-  padding: 20px 20px 0 20px;
+    margin: auto;
 }
 
 .nutrition-values-container span {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   margin-top: 15px;
 }
+
 
 .nutrition-header {
   display: flex;

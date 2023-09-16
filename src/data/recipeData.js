@@ -1,4 +1,53 @@
 import Recipe from "../../models/recipe";
+import RecipeCategory from "../../models/recipe-category";
+
+export const RECIPE_CATEGORIES = [
+  new RecipeCategory(
+    "rc1",
+    "Vegetarian"
+  ),
+  new RecipeCategory(
+    "rc2",
+    "Vegan"
+  ),
+  new RecipeCategory(
+    "rc3",
+    "Dessert"
+  ),
+  new RecipeCategory(
+    "rc4",
+    "Quick and Easy"
+  ),
+  new RecipeCategory(
+    "rc5",
+    "Dinner"
+  ),
+  new RecipeCategory(
+    "rc6",
+    "Light and Fresh"
+  ),
+  new RecipeCategory(
+    "rc7",
+    "Summer"
+  ),
+  new RecipeCategory(
+    "rc8",
+    "Comfort"
+  ),
+  new RecipeCategory(
+    "rc9",
+    "Fancy"
+  ),
+  new RecipeCategory(
+    "rc10",
+    "Main Dish"
+  ),
+  new RecipeCategory(
+    "rc11",
+    "Special Occasion"
+  ),
+]
+
 
 export const RECIPES = [
   new Recipe(
@@ -6,7 +55,7 @@ export const RECIPES = [
     "Key Lime Pie",
     "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Key_Lime_Tart_%287818713626%29.jpg/640px-Key_Lime_Tart_%287818713626%29.jpg",
-    ["Vegetarian"],
+    ["rc1", "rc3"],
     60,
     [
       "1 1/2 cups graham cracker crumbs",
@@ -40,7 +89,7 @@ export const RECIPES = [
     "Spaghetti Aglio e Olio",
     "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Spaghetti_aglio_e_olio_KB.jpg/640px-Spaghetti_aglio_e_olio_KB.jpg",
-    ["Vegetarian"],
+    ["rc1", "rc5"],
     25,
     [
       "1 pound uncooked spaghetti",
@@ -73,7 +122,7 @@ export const RECIPES = [
     "Old-Fashioned Pancakes",
     "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://media.istockphoto.com/id/1399995419/photo/pancakes.webp?b=1&s=612x612&w=0&k=20&c=OdKImsQqQ89Rn9XI2IIDpaa6gW_exDEtZDl1OgfCmvI=",
-    ["Vegetarian"],
+    ["rc1", "rc4"],
     20,
     [
       "1 1/2 cups all-purpose flour",
@@ -104,7 +153,7 @@ export const RECIPES = [
     "Greek Salad",
     "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://media.istockphoto.com/id/174801988/photo/greek-salad.webp?b=1&s=612x612&w=0&k=20&c=97w20IAQ5m8JT_Umarj1Cct35YP2zuJ9f9g3mZ7oyLk=",
-    ["Vegetarian"],
+    ["rc1", "rc6"],
     50,
     [
       "1 hothouse cucumber, unpeeled, seeded, and sliced 1/4-inch thick",
@@ -137,12 +186,12 @@ export const RECIPES = [
     ]
   ),
 
-  new Recipe(
+ /* new Recipe(
     "r5",
     "Key Lime Pie",
     "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Key_Lime_Tart_%287818713626%29.jpg/640px-Key_Lime_Tart_%287818713626%29.jpg",
-    ["Vegetarian"],
+    ["rc1"],
     60,
     [
       "1 1/2 cups graham cracker crumbs",
@@ -176,7 +225,7 @@ export const RECIPES = [
     "Spaghetti Aglio e Olio",
     "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Spaghetti_aglio_e_olio_KB.jpg/640px-Spaghetti_aglio_e_olio_KB.jpg",
-    ["Vegetarian"],
+    ["rc1"],
     25,
     [
       "1 pound uncooked spaghetti",
@@ -209,7 +258,7 @@ export const RECIPES = [
     "Old-Fashioned Pancakes",
     "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://media.istockphoto.com/id/1399995419/photo/pancakes.webp?b=1&s=612x612&w=0&k=20&c=OdKImsQqQ89Rn9XI2IIDpaa6gW_exDEtZDl1OgfCmvI=",
-    ["Vegetarian"],
+    ["rc1"],
     20,
     [
       "1 1/2 cups all-purpose flour",
@@ -240,7 +289,7 @@ export const RECIPES = [
     "Greek Salad",
     "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://media.istockphoto.com/id/174801988/photo/greek-salad.webp?b=1&s=612x612&w=0&k=20&c=97w20IAQ5m8JT_Umarj1Cct35YP2zuJ9f9g3mZ7oyLk=",
-    ["Vegetarian"],
+    ["rc1"],
     50,
     [
       "1 hothouse cucumber, unpeeled, seeded, and sliced 1/4-inch thick",
@@ -278,7 +327,7 @@ export const RECIPES = [
     "Key Lime Pie",
     "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Key_Lime_Tart_%287818713626%29.jpg/640px-Key_Lime_Tart_%287818713626%29.jpg",
-    ["Vegetarian"],
+    ["rc1"],
     60,
     [
       "1 1/2 cups graham cracker crumbs",
@@ -312,7 +361,7 @@ export const RECIPES = [
     "Spaghetti Aglio e Olio",
     "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Spaghetti_aglio_e_olio_KB.jpg/640px-Spaghetti_aglio_e_olio_KB.jpg",
-    ["Vegetarian"],
+    ["rc1", "rc6"],
     25,
     [
       "1 pound uncooked spaghetti",
@@ -543,5 +592,5 @@ export const RECIPES = [
       { component: "Sugars", value: "4g" },
       { component: "Protein", value: "7g" },
     ]
-  ),
+  ),*/
 ];

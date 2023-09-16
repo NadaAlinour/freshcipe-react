@@ -1,15 +1,16 @@
-import { RECIPES } from "../data/recipeData";
-
-import Placeholder from "/src/assets/images/placeholder-recipe.jpg";
+import { RECIPES, RECIPE_CATEGORIES } from "../data/recipeData";
 import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
+
+import Tag from "../components/Tag";
+
 export default function RecipeDetails({ route }) {
   //const recipeId = "r1";
   const location = useLocation();
   const id = location.state.recipeId;
   const recipeDetails = RECIPES.find((recipe) => recipe.id === id);
-  console.log(recipeDetails);
-
+  const categories = recipeDetails.dietCategories.map(cat => RECIPE_CATEGORIES.find(item => item.id == cat))
+  
   let stepCount = 1;
 
   return (
@@ -23,10 +24,18 @@ export default function RecipeDetails({ route }) {
             <b>Time to prepare:</b> {recipeDetails.duration} minutes
           </p>
 
-          <p>
-            <b>Diet:</b> {recipeDetails.dietCategories}
-          </p>
-
+          <div>
+            <p>
+              <b>Tags:</b>
+            </p>
+            <ul>
+              {categories.map((category) => (
+                <li key={category.id}>
+                  <Tag isPlain={true}>{category.title}</Tag>
+                </li>
+              ))}
+            </ul>
+          </div>
           <span>
             <Link to="recipe-steps" smooth={true} duration={750}>
               Recipe
@@ -85,70 +94,13 @@ export default function RecipeDetails({ route }) {
           </div>
 
           {recipeDetails.nutritionalInfo.map((nutrition) => (
-            <span>
+            <span key={nutrition.component}>
               <p>
                 <b>{nutrition.component}</b>
               </p>
               <p>{nutrition.value}</p>
             </span>
           ))}
-
-          {/*<span>
-                <p>
-                  <b>{key}</b>
-                </p>
-                <p>{ingredient[key]}</p>
-              </span>
-            ));
-          })}
-           <span>
-            <p>
-              <b>Energy</b>
-            </p>
-            <p>425 kcal</p>
-          </span>
-
-          <span>
-            <p>
-              <b>Total Fat</b>
-            </p>
-            <p>15g</p>
-          </span>
-
-          <span>
-            <p>
-              <b>Saturated Fat</b>
-            </p>
-            <p>0g</p>
-          </span>
-
-          <span>
-            <p>
-              <b>Dietary Fiber</b>
-            </p>
-            <p>5g</p>
-          </span>
-
-          <span>
-            <p>
-              <b>Carbohydrates</b>
-            </p>
-            <p>65g</p>
-          </span>
-
-          <span>
-            <p>
-              <b>Sugars</b>
-            </p>
-            <p>12g</p>
-          </span>
-
-          <span>
-            <p>
-              <b>Protein</b>
-            </p>
-            <p>3g</p>
-            </span>*/}
         </div>
 
         <div className="recipe-tags"></div>
