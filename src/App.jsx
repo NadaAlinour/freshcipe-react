@@ -17,7 +17,7 @@ function App() {
       <AuthContext.Provider value={{ authUser, setAuthUser }}>
         <Navbar />
         <AppRoutes />
-        <Footer />
+       {/*} <Footer /> */}
       </AuthContext.Provider>
     </>
   );

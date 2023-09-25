@@ -1,3 +1,5 @@
+import 'boxicons';
+
 export default function Tag({ children, isPlain, selectedTag }) {
   let content = (
     <div className="tag-container-plain">
@@ -13,6 +15,7 @@ export default function Tag({ children, isPlain, selectedTag }) {
         }
       >
         <p>{children}</p>
+        {selectedTag === children && <box-icon name="x" color="white"></box-icon>}
       </div>
     );
   }

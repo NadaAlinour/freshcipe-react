@@ -59,6 +59,7 @@ const AppRoutes = () => {
         }
       ></Route>
 
+
       <Route path="cart" element={<Cart />}></Route>
 
       <Route path="*" element={<PageNotFound />}></Route>

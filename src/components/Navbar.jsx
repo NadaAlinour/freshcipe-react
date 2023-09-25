@@ -1,5 +1,6 @@
 import "boxicons";
 import "../assets/stylesheets/navbar.css";
+import Logo from "../assets/images/fresh-logo.png";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -23,21 +24,11 @@ export default function Navbar() {
           <li>
             <Link to="/" className="logo-header-link">
               <div className="logo-header-container">
-                <box-icon
-                  name="image-alt"
-                  size="70px"
-                  color="rgba(0, 0, 0, .45)"
-                ></box-icon>
-                <p>Freshcipe</p>
+                <img src={Logo}></img>
               </div>
             </Link>
           </li>
           <div className="nav-links-container">
-            <li>
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
             <li>
               <Link className="nav-link" to="/products">
                 Products
@@ -48,24 +39,50 @@ export default function Navbar() {
                 Recipes
               </Link>
             </li>
+            <li>
+              <Link className="nav-link" to="/contact">
+                Contact Us
+              </Link>
+            </li>
           </div>
           <li className="searchbar-li">
             <Searchbar />
           </li>
 
-          <li
-            className="dropdown-li"
-            onMouseOver={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-          >
-            <Link to="/login">
-              <box-icon name="user" size="30px"></box-icon>
+          <li>
+            <Link>
+              <box-icon
+                name="heart"
+                size="30px"
+                title="Favourited"
+                animation="tada-hover"
+              ></box-icon>
             </Link>
           </li>
+
           <li>
             <Link to="/cart">
-              <box-icon name="cart" size="30px" title="View cart"></box-icon>
+              <box-icon
+                name="cart"
+                size="30px"
+                title="View cart"
+                animation="tada-hover"
+              ></box-icon>
             </Link>
+          </li>
+
+          <li>
+            <div
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+            >
+              <Link to="/login">
+                <div className="dropdown-li">
+                  <box-icon name="user" size="30px"></box-icon>
+                </div>
+              </Link>
+              {isHover && <NavbarDropdown />}
+            </div>
           </li>
         </ul>
       </div>
@@ -82,12 +99,10 @@ export default function Navbar() {
           <box-icon name="chevron-left" color="#549ec9" size="20px"></box-icon>
           <p>Back</p>
         </Link>
-        <Link to="/">
-          <box-icon
-            name="image-alt"
-            size="70px"
-            color="rgba(0, 0, 0, .45)"
-          ></box-icon>
+        <Link to="/" className="logo-header-link">
+          <div className="logo-header-container">
+            <img src={Logo}></img>
+          </div>
         </Link>
       </div>
     );

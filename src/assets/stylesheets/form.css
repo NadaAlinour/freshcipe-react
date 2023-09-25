@@ -97,7 +97,7 @@
 
 .last-name-container {
   border-left-style: none;
-  width: 50%;
+  width: 60%;
 }
 
 /* should just add this class instead of reusing all the styles */
@@ -117,8 +117,13 @@
   color: #2f234f;
 }
 
-
-
+.form-container textarea {
+  width: 100%;
+  font-size: 1.1rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0px;
+  padding-left: 10px;
+}
 
 .err-box {
   padding: 15px;

@@ -11,57 +11,63 @@ export default function Contact() {
 
   console.log(contactForm);
 
-  const changeHandler = e => {
+  const changeHandler = (e) => {
     setContactForm({
       ...contactForm,
-      [e.target.name]: e.target.value
-    })
-  }
-  const submitHandler = e => {
+      [e.target.name]: e.target.value,
+    });
+  };
+  const submitHandler = (e) => {
     e.preventDefault();
-  }
+  };
   return (
     <>
-      <div className="form-container">
-        <h2>Contact Us</h2><br></br>
-        <form className="contact-container" onSubmit={submitHandler}>
-          <div>
-            <label htmlFor="">Name: </label>
-            <br></br>
-            <input type="text" id="contact-name"
-            name="name"
-            value={contactForm.name}
-            onChange={changeHandler} />
-          </div>
-          <div>
-            <label htmlFor="">E-mail: </label>
-            <br></br>
-            <input type="text" id="contact-email"
+      <form className="form-container" onSubmit={submitHandler}>
+        <div className="form-header-container">
+          <h1>Contact</h1>
+        </div>
+        <div className="input-container">
+          <box-icon name="envelope" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
+            placeholder="Email"
             name="email"
-            value={contactForm.email}
-            onChange={changeHandler} />
-          </div>
-          <div>
-            <label htmlFor="">Phone: </label>
-            <br></br>
-            <input type="tel" id="contact-phone"
+            className="form-input"
+          />
+        </div>
+        <div className="input-container">
+          <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            className="form-input"
+          />
+        </div>
+
+        <div className="input-container">
+          <box-icon name="phone" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
             name="phone"
-            value={contactForm.phone}
-            onChange={changeHandler} />
-          </div>
-          <div>
-            <label htmlFor="">Message: </label>
-            <br></br>
-            <textarea rows="6" id="contact-message" 
+            placeholder="Phone"
+            className="form-input"
+          />
+        </div>
+
+        <div>
+          <textarea
             name="message"
-            value={contactForm.message}
-            onChange={changeHandler}/>
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
+            placeholder="Message"
+            rows="4"
+            className="form-input"
+          ></textarea>
+        </div>
+        
+        <button type="submit" className="form-btn">
+          <p>Submit</p>
+        </button>
+      </form>
     </>
   );
 }

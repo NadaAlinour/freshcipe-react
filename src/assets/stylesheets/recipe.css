@@ -16,10 +16,8 @@
 
 
 .recipes-list-container {
-  width: 75%;
-  position: relative;
-  float: right;
-  background-color: var(--grey300);
+  width: 100%;
+  background-color: white;
 }
 
 .recipes-list-container li {
@@ -29,21 +27,21 @@
 
 .recipes-list {
   width: 100%;
-  margin: 30px 0px 30px 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   gap: 35px;
   row-gap: 50px;
   margin: auto;
-  padding: 30px 0px 20px 50px;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 
 /* recipe card */
 .recipe-card-container {
-  border-radius: 20px;
+  border-radius: 10px;
   width: 285px;
   height: 275px;
   overflow: hidden;
@@ -55,7 +53,7 @@
   /* offset-x | offset-y | blur-radius | spread-radius | color */
   /*box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.1);*/
   box-shadow: 8px 0 8px -6px rgba(0, 0, 0, 0.1),
-    -8px 0 8px -6px rgba(0, 0, 0, 0.1), 0 8px 8px -6px rgba(0, 0, 0, 0.1);
+    -8px 0 8px -6px rgba(0, 0, 0, 0.1), 0 8px 8px -6px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.5s;
 }
 
@@ -164,7 +162,7 @@
 }
 
 .recipe-info span a:hover {
-  color: cornflowerblue;
+  color: var(--primary500);
 }
 
 .ingredients-steps-container {
@@ -192,6 +190,14 @@
 .recipe-ingredients-container li {
   margin-bottom: 5px;
 }
+
+.ingredient-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+
 
 .ingredients-btn-container {
   text-align: center;

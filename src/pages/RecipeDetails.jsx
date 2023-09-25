@@ -9,8 +9,10 @@ export default function RecipeDetails({ route }) {
   const location = useLocation();
   const id = location.state.recipeId;
   const recipeDetails = RECIPES.find((recipe) => recipe.id === id);
-  const categories = recipeDetails.dietCategories.map(cat => RECIPE_CATEGORIES.find(item => item.id == cat))
-  
+  const categories = recipeDetails.dietCategories.map((cat) =>
+    RECIPE_CATEGORIES.find((item) => item.id == cat)
+  );
+
   let stepCount = 1;
 
   return (
@@ -57,7 +59,14 @@ export default function RecipeDetails({ route }) {
           <h1>Ingredients</h1>
           <ul>
             {recipeDetails.ingredients.map((ingredient) => (
-              <li key={ingredient}>{ingredient}</li>
+              <li key={ingredient}>
+                <div className="ingredient-checkbox-label">
+                  <div className="checkbox-container-ing">
+                    <input type="checkbox" />
+                  </div>
+                  <label>{ingredient}</label>
+                </div>
+              </li>
             ))}
           </ul>
 

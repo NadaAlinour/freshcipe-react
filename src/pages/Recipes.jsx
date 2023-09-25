@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Recipes() {
-  const [selectedTag, setSelectedTag] = useState(null);
-  const [selectedTagId, setSelectedTagId] = useState(null);
+  const [selectedTag, setSelectedTag] = useState('All');
+  const [selectedTagId, setSelectedTagId] = useState(0);
   const [requestedRecipes, setRequestedRecipes] = useState(RECIPES);
 
   // add deselect tag
@@ -21,12 +21,18 @@ export default function Recipes() {
   let displayedRecipes = RECIPES;
 
   useEffect(() => {
-    if (selectedTagId) {
+
+    if (selectedTag === 'All') {
+      setRequestedRecipes(RECIPES);
+    }
+
+
+    if (selectedTagId !== 0) {
       displayedRecipes = RECIPES.filter((recipeItem) => {
         return recipeItem.dietCategories.indexOf(selectedTagId) >= 0;
       });
 
-      setRequestedRecipes(displayedRecipes)
+      setRequestedRecipes(displayedRecipes);
     }
   }, [selectedTagId]);
 
@@ -47,9 +53,12 @@ export default function Recipes() {
 
   return (
     <div className="recipe-page-container">
-      <RecipeSidebar />
+      {/*<RecipeSidebar />*/}
       <div className="recipes-list-container">
         <ul className="recipe-categories-list">
+          <li onClick={handleTagClick.bind(this, 0, 'All')}>
+            <Tag selectedTag={selectedTag}>All</Tag>
+          </li>
           {RECIPE_CATEGORIES.map((category) => (
             <li
               key={category.id}
