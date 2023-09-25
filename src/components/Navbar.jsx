@@ -51,23 +51,13 @@ export default function Navbar() {
 
           <li>
             <Link>
-              <box-icon
-                name="heart"
-                size="30px"
-                title="Favourited"
-                animation="tada-hover"
-              ></box-icon>
+              <div className="heart-icon"></div>
             </Link>
           </li>
 
           <li>
             <Link to="/cart">
-              <box-icon
-                name="cart"
-                size="30px"
-                title="View cart"
-                animation="tada-hover"
-              ></box-icon>
+              <div className="cart-icon"></div>
             </Link>
           </li>
 
@@ -78,7 +68,13 @@ export default function Navbar() {
             >
               <Link to="/login">
                 <div className="dropdown-li">
-                  <box-icon name="user" size="30px"></box-icon>
+                  <div className="user-circle-container">
+                    <box-icon
+                      name="user-circle"
+                      type="solid"
+                      size="45px"
+                    ></box-icon>
+                  </div>
                 </div>
               </Link>
               {isHover && <NavbarDropdown />}

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { AuthContext } from "../context/AuthContext";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NavbarDropdown() {
   const navigate = useNavigate();
@@ -17,11 +17,18 @@ export default function NavbarDropdown() {
     <div className="navbar-dropdown-outer">
       <div className="navbar-dropdown">
         <ul>
-          <li>My Account</li>
+          <li
+            className={authUser ? "" : "item-disable"}
+            onClick={() => {
+              if (authUser) navigate("/account/personal-details");
+            }}
+          >
+            My Account
+          </li>
           <li>My Cart</li>
           <li>Favourites</li>
-          <li>My Orders</li>
-          <li>My Discounts</li>
+          <li className={authUser ? "" : "item-disable"}>My Orders</li>
+          <li className={authUser ? "" : "item-disable"}>My Discounts</li>
           <li>Settings</li>
           {option}
         </ul>

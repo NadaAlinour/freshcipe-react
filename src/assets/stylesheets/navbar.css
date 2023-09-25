@@ -171,5 +171,41 @@ input[type = 'search']::-webkit-search-cancel-button{
   cursor: pointer;
 }
 
+.item-disable {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.item-disable:hover {
+  cursor:auto !important;
+}
+
+
+
+.heart-icon {
+  width: 30px;
+  height: 30px;
+  background-image: url(../icons/heart-regular-24.png);
+  background-size: 30px 30px;
+}
+
+.heart-icon:hover {
+  background-image: url(../icons/heart-regular-24-blue.png);
+}
+
+.cart-icon {
+  width: 30px;
+  height: 30px;
+  background-image: url(../icons/cart-regular-24.png);
+  background-size: 30px 30px;
+}
+
+.cart-icon:hover {
+  background-image: url(../icons/cart-regular-24-blue.png);
+}
+
+.user-circle-container {
+  margin-top: 5px;
+}
+
 
 
