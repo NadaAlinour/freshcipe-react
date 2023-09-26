@@ -1,5 +1,5 @@
-import Placeholder from "../assets/images/category-images/fruitsVeggies.jpg";
-import Flame from "../assets/images/icons/flame-solid-24.png"
+import Flame from "../assets/images/icons/flame-solid-24.png";
+import Heart from "../assets/icons/heart-solid-24.png";
 import "boxicons";
 import { RECIPE_CATEGORIES } from "../data/recipeData";
 
@@ -11,8 +11,9 @@ export default function RecipeCard({
   nutritionalInfo,
   dietCategories,
 }) {
-  
-  const categories = dietCategories.map(cat => RECIPE_CATEGORIES.find(item => item.id == cat))
+  const categories = dietCategories.map((cat) =>
+    RECIPE_CATEGORIES.find((item) => item.id == cat)
+  );
   //console.log(categories)
   let content = (
     <div className="recipe-card-container">
@@ -30,7 +31,12 @@ export default function RecipeCard({
   if (!isSimple) {
     content = (
       <div className="recipe-card-container">
-        <img src={imageUrl}></img>
+        <div className="recipe-images-container">
+          <div className="recipe-heart-icon">
+            <box-icon name="heart" size="30px" color="grey"></box-icon>
+          </div>
+          <img src={imageUrl} className="recipe-card-container-img"></img>
+        </div>
         <div className="recipe-card-summary">
           <span>
             <box-icon name="timer" color="rgba(0, 0, 0, .5)"></box-icon>
@@ -40,7 +46,9 @@ export default function RecipeCard({
             <img src={Flame}></img>
             <p>{nutritionalInfo[0].value}</p>
           </span>
-          <p>{categories[0].title}</p>
+          <span>
+            <p>{categories[0].title}</p>
+          </span>
         </div>
         <div className="recipe-card-title">
           <h4>{title}</h4>

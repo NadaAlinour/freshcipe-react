@@ -100,9 +100,18 @@
   justify-content: center;
 }
 
+.first-name-container {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-right-width: 0.5px;
+}
+
 .last-name-container {
-  border-left-style: none;
-  width: 60%;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left-width: 0.5px;
+
+  width: 62%;
 }
 
 /* should just add this class instead of reusing all the styles */
@@ -114,8 +123,9 @@
 .form-container textarea {
   width: 50%;
   border-style: solid;
-  border-color: #cecece;
-  border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.3) !important;
+  opacity: 1;
+  border-radius: 5px !important;
 }
 
 .form-container label {

@@ -58,7 +58,7 @@ export default function Contact() {
         <div>
           <textarea
             name="message"
-            placeholder="Message"
+            placeholder="Message..."
             rows="4"
             className="form-input"
           ></textarea>

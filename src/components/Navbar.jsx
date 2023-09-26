@@ -41,7 +41,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link className="nav-link" to="/contact">
-                Contact Us
+                Contact
               </Link>
             </li>
           </div>
@@ -51,13 +51,13 @@ export default function Navbar() {
 
           <li>
             <Link>
-              <div className="heart-icon"></div>
+              <div className="heart-icon" title="Favourites"></div>
             </Link>
           </li>
 
           <li>
             <Link to="/cart">
-              <div className="cart-icon"></div>
+              <div className="cart-icon" title="View cart"></div>
             </Link>
           </li>
 
@@ -65,6 +65,7 @@ export default function Navbar() {
             <div
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
+              onClick={() => setIsHover(false)}
             >
               <Link to="/login">
                 <div className="dropdown-li">

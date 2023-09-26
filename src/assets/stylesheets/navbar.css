@@ -59,8 +59,14 @@
   justify-content: space-evenly;
 }
 
+.nav-link {
+  font-size: 1.1rem;
+  margin-right: 17px;
+}
+
 .nav-link:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
+  color: var(--primary500);
 }
 
 .searchbar-li {
@@ -137,6 +143,7 @@ input[type = 'search']::-webkit-search-cancel-button{
   top: 60px;
   width: 65px;
   direction: rtl;
+  z-index: 5;
 }
 
 

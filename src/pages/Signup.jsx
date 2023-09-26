@@ -118,7 +118,7 @@ export default function Signup() {
         {errMsg && <div className="err-box">{errMsg}</div>}
 
         <div className="signup-name-fields-container">
-          <div className="input-container">
+          <div className="input-container first-name-container">
             <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
             <input
               type="text"
