@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import "./App.css";
 import "/src/assets/stylesheets/recipe.css";
+import "/src/assets/stylesheets/product.css"
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
