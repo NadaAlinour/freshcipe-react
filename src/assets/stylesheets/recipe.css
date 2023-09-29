@@ -2,12 +2,16 @@
 
 .recipe-page-container {
   display: flex;
+  flex-direction: column;
+  background-color: var(--grey300);
+  flex-grow: 1;
   /*height: 100vh;*/
 }
 
 .recipe-categories-list {
   display: flex;
   justify-content: left;
+  list-style: none;
   margin: 30px 50px 0px 50px;
   flex-wrap: wrap;
   gap: 15px;
@@ -15,8 +19,10 @@
 }
 
 .recipes-list-container {
-  width: 100%;
-  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .recipes-list-container li {
@@ -25,16 +31,9 @@
 }
 
 .recipes-list {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 35px;
-  row-gap: 50px;
-  margin: auto;
-  margin-bottom: 50px;
-  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 300px 300px 300px 300px;
+  gap: 50px;
 }
 
 /* recipe card */

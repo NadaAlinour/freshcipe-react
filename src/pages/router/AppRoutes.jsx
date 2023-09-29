@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "..//Home";
-import Products from "../Products";
+import ProductCategories from "../ProductCategories";
 import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
@@ -21,13 +21,13 @@ import Settings from "../Account/Settings";
 
 import Recipes from "../Recipes";
 import RecipeDetails from "../RecipeDetails";
+import ProductCollection from "../ProductCollection";
 
 const AppRoutes = () => {
   const { authUser } = useContext(AuthContext);
   return (
     <Routes>
       <Route path="/" element={<Home />}></Route>
-      <Route path="products" element={<Products />}></Route>
       <Route path="contact" element={<Contact />}></Route>
       <Route path="account/personal-details" element={<AccountNav />}></Route>
       <Route path="personalDetails" exact element={<PersonalDetails />}></Route>
@@ -38,8 +38,12 @@ const AppRoutes = () => {
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
 
+      <Route path="products" element={<ProductCategories />}></Route>
+      <Route path="products/:productCategory" element={<ProductCollection />}></Route>
+
+
       <Route path="recipes" element={<Recipes />}></Route>
-      <Route path="recipe-details/:id" element={<RecipeDetails />}></Route>
+      <Route path="recipes/:title" element={<RecipeDetails />}></Route>
 
       <Route
         path="login"

@@ -79,7 +79,7 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className="form-page-container">
       <form className="form-container" onSubmit={submitHandler}>
         <div className="form-header-container">
           <h1>Login</h1>
@@ -129,6 +129,6 @@ export default function Login() {
           </Link>
         </div>
       </form>
-    </>
+    </div>
   );
 }

@@ -21,7 +21,7 @@ export default function Contact() {
     e.preventDefault();
   };
   return (
-    <>
+    <div className="form-page-container">
       <form className="form-container" onSubmit={submitHandler}>
         <div className="form-header-container">
           <h1>Contact</h1>
@@ -68,6 +68,6 @@ export default function Contact() {
           <p>Submit</p>
         </button>
       </form>
-    </>
+    </div>
   );
 }

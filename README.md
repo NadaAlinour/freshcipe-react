@@ -7,3 +7,5 @@ E-commerce web application using Reactjs.
 
 # Notes:
 - Phone field formatting
+- make api request before navigation and send as route params OR send id and make api request after navigating?
+- SUPERMARKETS page 

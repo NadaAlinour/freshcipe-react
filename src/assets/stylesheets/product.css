@@ -1,20 +1,21 @@
 .product-categories-page-container {
   display: flex;
-  margin-bottom: 50px;
+  background-color: var(--grey300);
+  flex-grow: 1;
+  padding-bottom: 50px;
 }
 
 .product-categories-list-container {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .product-categories-list {
-  display: flex;
-  justify-content: center;
-  margin: 30px 50px 0px 50px;
-  flex-wrap: wrap;
-  gap: 35px;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 300px 300px 300px 300px;
+  gap: 50px;
 }
 
 .product-categories-list li {
@@ -32,7 +33,6 @@
   flex-direction: column;
   align-items: center;
   background-color: white;
-
   outline: 0.5px solid rgba(0, 0, 0, 0.3);
   /*transition: outline 0.3s linear;*/
   transition: box-shadow 0.3s linear;
@@ -47,11 +47,98 @@
 
 .category-card-container img {
   width: 100%;
-  height: 65%;
+  height: 70%;
 }
 
 .category-card-container h3 {
   margin-top: 10px;
   letter-spacing: 1px;
   font-weight: lighter;
+}
+
+.product-collection-page {
+  display: flex;
+  background-color: var(--grey300);
+}
+
+.product-filter-container {
+  width: 25%;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  min-height: 100vh;
+  text-align: center;
+  background-color: white;
+}
+
+.product-filter-container h4 {
+  letter-spacing: 1px;
+  font-weight: lighter;
+}
+
+.product-list-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.product-list-container ul {
+  list-style: none;
+  align-self: flex-start;
+  display: grid;
+  grid-template-columns: 275px 275px 275px;
+  gap: 50px;
+}
+
+.product-card-container {
+  border-radius: 5px;
+  width: 275px;
+  height: 220px;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+
+  outline: 0.5px solid rgba(0, 0, 0, 0.3);
+  /*transition: outline 0.3s linear;*/
+  transition: box-shadow 0.3s linear;
+}
+
+.product-card-container:hover {
+  box-shadow: 8px 0 20px -6px rgba(0, 0, 0, 0.1),
+    -8px 0 20px -6px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.product-card-container img {
+  width: 80%;
+  height: 60%;
+}
+
+.product-card-container h4 {
+  letter-spacing: 1px;
+  font-weight: lighter;
+}
+
+.product-card-container span {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card-container span div {
+  border: 1px solid #549ec9;
+  height: 40px;
+  width: 40px;
+  border-radius: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card-container span div:hover {
+  opacity: 0.75;
 }

@@ -1,4 +1,3 @@
-import RecipeSidebar from "../components/RecipeSidebar";
 import RecipeCard from "../components/RecipeCard";
 import Tag from "../components/Tag";
 import { RECIPES, RECIPE_CATEGORIES } from "../data/recipeData";
@@ -7,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Recipes() {
-  const [selectedTag, setSelectedTag] = useState('All');
+  const [selectedTag, setSelectedTag] = useState("All");
   const [selectedTagId, setSelectedTagId] = useState(0);
   const [requestedRecipes, setRequestedRecipes] = useState(RECIPES);
 
@@ -21,11 +20,9 @@ export default function Recipes() {
   let displayedRecipes = RECIPES;
 
   useEffect(() => {
-
-    if (selectedTag === 'All') {
+    if (selectedTag === "All") {
       setRequestedRecipes(RECIPES);
     }
-
 
     if (selectedTagId !== 0) {
       displayedRecipes = RECIPES.filter((recipeItem) => {
@@ -46,40 +43,38 @@ export default function Recipes() {
 
   const navigate = useNavigate();
 
-  const handleRecipeClick = (id) => {
+  const handleRecipeClick = (id, title) => {
     //console.log("recipe with id " + id + " is clicked");
-    navigate("/recipe-details/" + id, { state: { recipeId: id } });
+    navigate("/recipes/" + title, { state: { recipeId: id } });
   };
 
   return (
     <div className="recipe-page-container">
       {/*<RecipeSidebar />*/}
-      <div className="recipes-list-container">
-        <ul className="recipe-categories-list">
-          <li onClick={handleTagClick.bind(this, 0, 'All')}>
-            <Tag selectedTag={selectedTag}>All</Tag>
+      <ul className="recipe-categories-list">
+        <li onClick={handleTagClick.bind(this, 0, "All")}>
+          <Tag selectedTag={selectedTag}>All</Tag>
+        </li>
+        {RECIPE_CATEGORIES.map((category) => (
+          <li
+            key={category.id}
+            onClick={handleTagClick.bind(this, category.id, category.title)}
+          >
+            <Tag selectedTag={selectedTag}>{category.title}</Tag>
           </li>
-          {RECIPE_CATEGORIES.map((category) => (
+        ))}
+      </ul>
+      <div className="recipes-list-container">
+        <ul className="recipes-list">
+          {requestedRecipes.map((recipe) => (
             <li
-              key={category.id}
-              onClick={handleTagClick.bind(this, category.id, category.title)}
+              key={recipe.id}
+              onClick={handleRecipeClick.bind(this, recipe.id, recipe.title)}
             >
-              <Tag selectedTag={selectedTag}>{category.title}</Tag>
+              <RecipeCard {...recipe} isSimple={false} />
             </li>
           ))}
         </ul>
-        <div>
-          <ul className="recipes-list">
-            {requestedRecipes.map((recipe) => (
-              <li
-                key={recipe.id}
-                onClick={handleRecipeClick.bind(this, recipe.id)}
-              >
-                <RecipeCard {...recipe} isSimple={false} />
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   );

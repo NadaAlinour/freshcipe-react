@@ -18,7 +18,6 @@ export default function Navbar() {
 
   // navbar for login/signup screens
   let navbar = (
-    <div>
       <div className="main-navbar">
         <ul>
           <li>
@@ -83,7 +82,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-    </div>
   );
 
   //navbar otherwise

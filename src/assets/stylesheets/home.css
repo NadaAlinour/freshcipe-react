@@ -1,0 +1,12 @@
+.home-page-container {
+    background-color: var(--grey300);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page-container h3 {
+    letter-spacing: 1px;
+    font-weight: lighter;
+}

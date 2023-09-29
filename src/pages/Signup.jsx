@@ -1,7 +1,7 @@
 import "../assets/stylesheets/form.css";
 import "boxicons";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { validateSignup } from "../features/validateForm";
 
 export default function Signup() {
@@ -109,7 +109,7 @@ export default function Signup() {
   };
 
   return (
-    <>
+    <div className="form-page-container">
       <form className="form-container" onSubmit={submitHandler}>
         <div className="form-header-container">
           <h1>Signup</h1>
@@ -185,7 +185,14 @@ export default function Signup() {
         >
           <p>Signup</p>
         </button>
+
+        <div>
+          Already have an account?{" "}
+          <Link to="/login" className="link-text">
+            Login now.
+          </Link>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
