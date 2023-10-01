@@ -17,6 +17,8 @@ export default function Recipes() {
     return mealsItem.categoryIds.indexOf(catId) >= 0;
   });*/
 
+  
+
   let displayedRecipes = RECIPES;
 
   useEffect(() => {
@@ -41,12 +43,6 @@ export default function Recipes() {
     setSelectedTagId(id);
   };
 
-  const navigate = useNavigate();
-
-  const handleRecipeClick = (id, title) => {
-    //console.log("recipe with id " + id + " is clicked");
-    navigate("/recipes/" + title, { state: { recipeId: id } });
-  };
 
   return (
     <div className="recipe-page-container">
@@ -56,10 +52,7 @@ export default function Recipes() {
           <Tag selectedTag={selectedTag}>All</Tag>
         </li>
         {RECIPE_CATEGORIES.map((category) => (
-          <li
-            key={category.id}
-            onClick={handleTagClick.bind(this, category.id, category.title)}
-          >
+          <li key={category.id} onClick={handleTagClick.bind(this, category.id, category.title)}>
             <Tag selectedTag={selectedTag}>{category.title}</Tag>
           </li>
         ))}
@@ -67,10 +60,7 @@ export default function Recipes() {
       <div className="recipes-list-container">
         <ul className="recipes-list">
           {requestedRecipes.map((recipe) => (
-            <li
-              key={recipe.id}
-              onClick={handleRecipeClick.bind(this, recipe.id, recipe.title)}
-            >
+            <li key={recipe.id}>
               <RecipeCard {...recipe} isSimple={false} />
             </li>
           ))}

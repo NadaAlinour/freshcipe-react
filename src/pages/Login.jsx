@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { validateLogin, mockValidate } from "../features/validateForm";
-import { useAuth } from "../hooks/useAuth";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
 import userData from "../data/userData";
-import { AuthContext } from "../context/AuthContext";
+
+
+import { useDispatch } from "react-redux";
+import { loginUser } from "../store/authSlice";
+
 export default function Login() {
-  const { user, login, logout } = useAuth();
+
+  const dispatch = useDispatch();
+
+
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -74,7 +80,8 @@ export default function Login() {
       }
 
       // actually login
-      login(email, password);
+      dispatch(loginUser({token: email}));
+      
     }
   };
 

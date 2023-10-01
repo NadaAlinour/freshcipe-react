@@ -27,7 +27,6 @@ nav {
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   height: 100%;
-
 }
 
 .main-navbar ul {
@@ -104,7 +103,6 @@ nav {
   padding: 15px;
   border-style: none;
   background-color: var(--grey300);
-
 }
 
 .searchbar input::placeholder {
@@ -127,7 +125,6 @@ nav {
   height: 30px;
   width: 35px;
   margin: auto;
-
 }
 
 .search-clear-icon-container:hover {
@@ -140,10 +137,9 @@ nav {
   font-size: 1rem;
 }
 
-input[type = 'search']::-webkit-search-cancel-button{
-	-webkit-appearance: none;	
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }
-
 
 .navbar-dropdown-outer {
   position: absolute;
@@ -153,8 +149,6 @@ input[type = 'search']::-webkit-search-cancel-button{
   direction: rtl;
   z-index: 5;
 }
-
-
 
 .navbar-dropdown ul {
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -168,7 +162,6 @@ input[type = 'search']::-webkit-search-cancel-button{
   background-color: white;
   border-radius: 5px;
 }
-
 
 .navbar-dropdown li {
   width: 100%;
@@ -191,10 +184,8 @@ input[type = 'search']::-webkit-search-cancel-button{
 }
 
 .item-disable:hover {
-  cursor:auto !important;
+  cursor: auto !important;
 }
-
-
 
 .heart-icon {
   width: 30px;
@@ -207,11 +198,23 @@ input[type = 'search']::-webkit-search-cancel-button{
   background-image: url(../icons/heart-regular-24-blue.png);
 }
 
+.theme-icon {
+  width: 29px;
+  height: 29px;
+  background-size: 29px 29px;
+  background-image: url(../icons/moon-regular-24.png);
+}
+
+.theme-icon:hover {
+  background-image: url(../icons/moon-regular-gold-24.png);
+  cursor: pointer;
+}
+
 .cart-icon {
-  width: 30px;
-  height: 30px;
+  width: 31px;
+  height: 31px;
   background-image: url(../icons/cart-regular-24.png);
-  background-size: 30px 30px;
+  background-size: 31px 31px;
 }
 
 .cart-icon:hover {
@@ -221,6 +224,3 @@ input[type = 'search']::-webkit-search-cancel-button{
 .user-circle-container {
   margin-top: 5px;
 }
-
-
-

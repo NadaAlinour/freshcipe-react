@@ -210,7 +210,7 @@ export const PRODUCTS = [
   new Product(
     "p3",
     "croissant",
-    "https://img.freepik.com/premium-psd/croissant-alpha-layer_253984-8523.jpg?w=2000",
+    "https://img.freepik.com/premium-photo/freshly-baked-croissants_878798-2786.jpg?w=2000",
     "croissant product description temp for now",
     "5.99",
     "200",
@@ -239,4 +239,14 @@ export const PRODUCTS = [
 
     "pc5"
   ),
+
+  new Product(
+    'p16',
+    'eggs',
+    'https://img.freepik.com/free-photo/three-fresh-organic-raw-eggs-isolated-white-surface_114579-43677.jpg?w=2000&t=st=1696009845~exp=1696010445~hmac=655ba45c3f9f8c96bdd3386579b845b92db98ebb7c0239c32ad019332ea5abae',
+    'egg descripsh',
+    '12.99',
+    '200',
+    'pc6'
+  )
 ];

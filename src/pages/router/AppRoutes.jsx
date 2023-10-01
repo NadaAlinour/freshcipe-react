@@ -7,8 +7,6 @@ import Signup from "../Signup";
 import Cart from "../Cart";
 import AccountNav from "../../components/AccountNav";
 import PageNotFound from "../PageNotFound";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import Protected from "./Protected";
 import LoginProtected from "./LoginProtected";
 import PersonalDetails from "../Account/PersonalDetails";
@@ -23,8 +21,11 @@ import Recipes from "../Recipes";
 import RecipeDetails from "../RecipeDetails";
 import ProductCollection from "../ProductCollection";
 
+import { useSelector } from "react-redux";
+
 const AppRoutes = () => {
-  const { authUser } = useContext(AuthContext);
+  const { userToken } = useSelector((state) => state.auth);
+
   return (
     <Routes>
       <Route path="/" element={<Home />}></Route>
@@ -39,8 +40,10 @@ const AppRoutes = () => {
       <Route path="settings" element={<Settings />}></Route>
 
       <Route path="products" element={<ProductCategories />}></Route>
-      <Route path="products/:productCategory" element={<ProductCollection />}></Route>
-
+      <Route
+        path="products/:productCategory"
+        element={<ProductCollection />}
+      ></Route>
 
       <Route path="recipes" element={<Recipes />}></Route>
       <Route path="recipes/:title" element={<RecipeDetails />}></Route>
@@ -48,7 +51,7 @@ const AppRoutes = () => {
       <Route
         path="login"
         element={
-          <LoginProtected isAuth={authUser}>
+          <LoginProtected isAuth={userToken}>
             <Login />
           </LoginProtected>
         }
@@ -57,12 +60,11 @@ const AppRoutes = () => {
       <Route
         path="signup"
         element={
-          <LoginProtected isAuth={authUser}>
+          <LoginProtected isAuth={userToken}>
             <Signup />
           </LoginProtected>
         }
       ></Route>
-
 
       <Route path="cart" element={<Cart />}></Route>
 

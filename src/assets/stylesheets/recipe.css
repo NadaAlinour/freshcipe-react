@@ -57,6 +57,7 @@
   /*outline: 1.5px solid rgba(0, 0, 0, 0.3);*/
   box-shadow: 8px 0 20px -6px rgba(0, 0, 0, 0.1),
     -8px 0 20px -6px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .recipe-images-container {

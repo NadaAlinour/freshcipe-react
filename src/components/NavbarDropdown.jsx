@@ -1,34 +1,38 @@
-import { useContext, useState } from "react";
-import { useAuth } from "../hooks/useAuth";
-import { AuthContext } from "../context/AuthContext";
-
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, logoutUser } from "../store/authSlice";
 
 export default function NavbarDropdown() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { authUser } = useContext(AuthContext);
-  const { logout } = useAuth();
+  const {userToken} = useSelector(state => state.auth);
+
+  const handleLogout = () => {
+    console.log('logging out')
+    dispatch(logoutUser());
+  }
+
 
   let option = <li onClick={() => navigate("/login")}>Login</li>;
 
-  if (authUser !== null) option = <li onClick={logout}>Logout</li>;
+  if (userToken !== "") option = <li onClick={handleLogout}>Logout</li>;
 
   return (
     <div className="navbar-dropdown-outer">
       <div className="navbar-dropdown">
         <ul>
           <li
-            className={authUser ? "" : "item-disable"}
+            className={userToken ? "" : "item-disable"}
             onClick={() => {
-              if (authUser) navigate("/account/personal-details");
+              if (userToken) navigate("/account/personal-details");
             }}
           >
             My Account
           </li>
           <li>My Cart</li>
-          <li>Favourites</li>
-          <li className={authUser ? "" : "item-disable"}>My Orders</li>
-          <li className={authUser ? "" : "item-disable"}>My Discounts</li>
+          <li>My Favourites</li>
+          <li className={userToken ? "" : "item-disable"}>My Orders</li>
+          <li className={userToken ? "" : "item-disable"}>My Discounts</li>
           <li>Settings</li>
           {option}
         </ul>

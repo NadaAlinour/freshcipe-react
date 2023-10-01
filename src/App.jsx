@@ -1,28 +1,28 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import NotFound from "./pages/PageNotFound";
-import Login from "./pages/Login";
 import AppRoutes from "./pages/router/AppRoutes";
-import { useContext } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "./store/authSlice";
 import "./App.css";
 import "/src/assets/stylesheets/home.css";
 import "/src/assets/stylesheets/recipe.css";
 import "/src/assets/stylesheets/product.css";
-import { AuthContext } from "./context/AuthContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-  const [authUser, setAuthUser] = useState(localStorage.getItem("user"));
+  const dispatch = useDispatch();
+  const savedToken = localStorage.getItem("token");
+  if (savedToken) dispatch(loginUser({ token: savedToken }));
 
   return (
     <>
-      <AuthContext.Provider value={{ authUser, setAuthUser }}>
-        <div className="content-container">
-          <Navbar />
-          <AppRoutes />
-          <Footer />
-        </div>
-      </AuthContext.Provider>
+      <div className="content-container">
+        <ScrollToTop />
+        <Navbar />
+        <AppRoutes />
+        <Footer />
+      </div>
     </>
   );
 }

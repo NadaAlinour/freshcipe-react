@@ -1,9 +1,10 @@
 import Flame from "../assets/images/icons/flame-solid-24.png";
-import Heart from "../assets/icons/heart-solid-24.png";
 import "boxicons";
 import { RECIPE_CATEGORIES } from "../data/recipeData";
+import { useNavigate } from "react-router-dom";
 
 export default function RecipeCard({
+  id,
   isSimple,
   imageUrl,
   title,
@@ -14,7 +15,13 @@ export default function RecipeCard({
   const categories = dietCategories.map((cat) =>
     RECIPE_CATEGORIES.find((item) => item.id == cat)
   );
-  //console.log(categories)
+
+  const navigate = useNavigate();
+
+  const handleRecipeClick = (id, title) => {
+    navigate("/recipes/" + title, { state: { recipeId: id } });
+  };
+
   let content = (
     <div className="recipe-card-container">
       <img src={imageUrl}></img>
@@ -30,11 +37,12 @@ export default function RecipeCard({
 
   if (!isSimple) {
     content = (
-      <div className="recipe-card-container">
+      <div
+        className="recipe-card-container"
+        onClick={handleRecipeClick.bind(this, id, title)}
+      >
         <div className="recipe-images-container">
-          <div className="recipe-heart-icon">
-            <box-icon name="heart" size="30px" color="grey"></box-icon>
-          </div>
+         
           <img src={imageUrl} className="recipe-card-container-img"></img>
         </div>
         <div className="recipe-card-summary">
