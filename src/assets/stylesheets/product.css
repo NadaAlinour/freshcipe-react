@@ -73,7 +73,7 @@
   border-right: 1px solid rgba(0, 0, 0, 0.3);
   min-height: 100vh;
   text-align: center;
-  background-color: white;
+  background-color: var(--grey300);
 }
 
 .product-filter-container h4 {
@@ -93,8 +93,10 @@
   list-style: none;
   align-self: flex-start;
   display: grid;
-  grid-template-columns: 275px 275px 275px;
-  gap: 50px;
+  grid-template-columns: 275px 275px 275px 275px;
+  column-gap: 15px;
+  row-gap: 35px;
+  margin: 0px 20px 0px 20px;
 }
 
 .product-card-container {

@@ -1,11 +1,9 @@
 import "boxicons";
 import "../assets/stylesheets/navbar.css";
-import Logo from "../assets/images/fresh-logo.png";
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
-
+import FreshcipeLogo from './FreshcipeLogo';
 import Searchbar from "./Searchbar";
 import NavbarDropdown from "./NavbarDropdown";
 
@@ -23,7 +21,7 @@ export default function Navbar() {
         <li>
           <Link to="/" className="logo-header-link">
             <div className="logo-header-container">
-              <img src={Logo}></img>
+              <FreshcipeLogo />
             </div>
           </Link>
         </li>
@@ -94,7 +92,7 @@ export default function Navbar() {
         </Link>
         <Link to="/" className="logo-header-link">
           <div className="logo-header-container">
-            <img src={Logo}></img>
+            <FreshcipeLogo />
           </div>
         </Link>
       </div>

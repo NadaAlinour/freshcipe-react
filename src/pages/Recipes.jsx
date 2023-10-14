@@ -4,6 +4,7 @@ import { RECIPES, RECIPE_CATEGORIES } from "../data/recipeData";
 
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function Recipes() {
   const [selectedTag, setSelectedTag] = useState("All");
@@ -45,6 +46,8 @@ export default function Recipes() {
 
 
   return (
+    <>
+    <Breadcrumbs />
     <div className="recipe-page-container">
       {/*<RecipeSidebar />*/}
       <ul className="recipe-categories-list">
@@ -67,5 +70,6 @@ export default function Recipes() {
         </ul>
       </div>
     </div>
+    </>
   );
 }

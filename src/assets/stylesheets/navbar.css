@@ -5,7 +5,7 @@ nav {
 
 .simple-navbar {
   display: flex;
-  gap: 585px;
+  gap: 610px;
   padding: 10px;
   padding-left: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
@@ -36,22 +36,6 @@ nav {
   list-style: none;
 }
 
-.logo-header-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.logo-header-container img {
-  width: 180px;
-}
-
-.logo-header-link {
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: black;
-}
 
 .nav-link {
   text-decoration: none;

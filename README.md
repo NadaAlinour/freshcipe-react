@@ -14,3 +14,4 @@ E-commerce web application using Reactjs.
 - ~~example: on recipes page, scrolled down, click recipe the "page" shows starting at the recipe details portion rather than from the start (navbar) (scroll to top basically)~~
 - change favicon
 - add the "add recipe to favourites" on the recipe details page
+- fix breadcrumb navigation (gotta send data along with the route)

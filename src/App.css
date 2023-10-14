@@ -25,6 +25,50 @@ body {
   flex-direction: column;
 }
 
+.logo-header-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.logo-header-link {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 25px;
+  color: black;
+}
+
+.current-path-navigation {
+  display: flex;
+  padding: 5px 20px 5px 20px;
+  background-color: var(--grey300);
+}
+
+.back-link-container {
+ display: flex;
+ align-items: center;
+ margin-right: 75px;
+}
+
+.current-path-navigation-link-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+  color: black;
+  margin-left: 10px;
+}
+
+.breadcrumb-link:hover {
+  color: var(--primary500);
+  text-decoration: underline;
+}
+
+
+
 .tag-container {
   min-width: 100px;
   background-color: white;
@@ -123,6 +167,7 @@ footer h2 {
 
 .link-text:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /*#root {

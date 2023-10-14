@@ -13,14 +13,14 @@ export default function Breadcrumbs() {
   const getPath = (index) => {
     /*console.log("hi it's path " + index)
     console.log("/"+pathArray[index-1]+"/"+pathArray[index])*/
-    let path = '';
-    for(var i = 0; i <= index; i++) {
-        path += `/${pathArray[i]}`;
+    let path = "";
+    for (var i = 0; i <= index; i++) {
+      path += `/${pathArray[i]}`;
     }
-    console.log(path)
-  
+    console.log(path);
+
     return path;
-  }
+  };
 
   return (
     <div className="current-path-navigation">
@@ -29,19 +29,20 @@ export default function Breadcrumbs() {
         <p onClick={() => navigate(-1)}>Back</p>
       </div>
       <div className="current-path-navigation-link-container">
-        <Link to="/">
+        <Link to="/" className="breadcrumb-link">
           <p>Home</p>
         </Link>
-        <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)"/>
-
+        <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)" />
       </div>
 
       {pathArray.map((item, index) => (
         <div key={index} className="current-path-navigation-link-container">
-          <Link to={getPath(index)}>
+          <Link to={getPath(index)} className="breadcrumb-link">
             <p>{item.charAt(0).toUpperCase() + item.slice(1)}</p>
           </Link>
-          {index !== pathArray.length - 1 && <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)"/>}
+          {index !== pathArray.length - 1 && (
+            <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)" />
+          )}
         </div>
       ))}
     </div>

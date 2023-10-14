@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
 
 import Tag from "../components/Tag";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function RecipeDetails({ route }) {
   //const recipeId = "r1";
@@ -16,6 +17,8 @@ export default function RecipeDetails({ route }) {
   let stepCount = 1;
 
   return (
+    <>
+    <Breadcrumbs />
     <div className="recipe-info-parent">
       {/* recipe info */}
       <div className="recipe-info-container">
@@ -115,5 +118,6 @@ export default function RecipeDetails({ route }) {
         <div className="recipe-tags"></div>
       </div>
     </div>
+    </>
   );
 }
