@@ -19,7 +19,6 @@ body {
 }
 
 .content-container {
-  background-color: #307197;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -41,7 +40,6 @@ body {
 .current-path-navigation {
   display: flex;
   padding: 5px 20px 5px 20px;
-  background-color: var(--grey300);
 }
 
 .back-link-container {
