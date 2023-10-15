@@ -2,20 +2,29 @@
 
 :root {
   /* give semantic names based on the usage rather than the color for easier adjustments */
-  --primary500: #549ec9;
+ /* --primary500: #5277A9;
   --primary600: #307197;
-  --accent500: #ee6c4d;
+  --accent500: #fba644;
   --accent600: #ca5b47;
-  /*--primary500: #3d5a80;
-  --primaryDark: #293241;
-  --blue500: #98c1d9;
-  --blue200: #e0fbfc; */
-  --grey300: #f9fafb;
-  --grey400: #dbdbdb;
+  --grey300: #f4ebe6;
+  --grey400: #dbdbdb;*/
+
+  --primary300: #fef7e5;
+  --primary400: #f7b757;
+  --primary500: #ed8453;
+  --primary600: #ce6332;
+  --accent500: #95aa70;
+  --backgroundLight: white;
+  --background: #f8f6f4;
+  --grey900: #2f2e2a;
+
+
+
 }
 
 body {
   line-height: 2;
+  background-color: var(--background);
 }
 
 .content-container {
@@ -28,6 +37,7 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  color: var(--grey900);
 }
 
 .logo-header-link {
@@ -35,11 +45,15 @@ body {
   font-weight: bold;
   font-size: 25px;
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.current-path-navigation {
+.breadcrumbs {
   display: flex;
-  padding: 5px 20px 5px 20px;
+  padding: 15px 20px 0px 30px;
+  background-color: var(--background);
 }
 
 .back-link-container {
@@ -48,7 +62,7 @@ body {
  margin-right: 75px;
 }
 
-.current-path-navigation-link-container {
+.breadcrumbs-link-container {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -62,7 +76,6 @@ body {
 
 .breadcrumb-link:hover {
   color: var(--primary500);
-  text-decoration: underline;
 }
 
 
@@ -87,7 +100,7 @@ body {
 }
 
 .tag-container-selected {
-  background-color: black;
+  background-color: var(--grey900);
   color: white;
   cursor: pointer;
   min-width: 100px;
@@ -112,45 +125,17 @@ body {
 
 
 
-/*.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}*/
 
-/*main {
-  flex-grow: 1;
-}*/
-
-/*#root {
-  background-color: pink;
-}*/
-
-/*html, body{
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  background-color: blue;
-  align-items: center;
-}
-
-
-.main-content {
-  flex: 1 0 auto;
-  background-color: aqua;
-}*/
 
 footer {
-  background-color:#ebebec;
+  background-color:var(--grey900);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90px;
+  min-height: 120px;
   margin-top: auto;
   letter-spacing: 1px;
+  color: white;
 }
 
 footer h2 {

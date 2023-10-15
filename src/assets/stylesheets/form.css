@@ -2,7 +2,6 @@
 
 
 .form-page-container {
-  background-color: var(--grey300);
   display: flex;
   justify-content: center;
   flex-grow: 1;
@@ -27,6 +26,7 @@
 .form-header-container {
   text-align: left;
   margin-bottom: 8px;
+  font-size: 30px;
 }
 
 .input-container {

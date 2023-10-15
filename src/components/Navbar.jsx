@@ -87,7 +87,7 @@ export default function Navbar() {
     navbar = (
       <div className="simple-navbar">
         <Link className="back-link link-text" onClick={handleBackClick}>
-          <box-icon name="chevron-left" color="#549ec9" size="20px"></box-icon>
+          <box-icon name="chevron-left" color="#ed8453" size="20px"></box-icon>
           <p>Back</p>
         </Link>
         <Link to="/" className="logo-header-link">

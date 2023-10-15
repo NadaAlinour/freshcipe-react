@@ -42,10 +42,24 @@ export default function RecipeCard({
         onClick={handleRecipeClick.bind(this, id, title)}
       >
         <div className="recipe-images-container">
-         
           <img src={imageUrl} className="recipe-card-container-img"></img>
         </div>
-        <div className="recipe-card-summary">
+
+          <div className="recipe-card-header"><h4>{title}</h4></div>
+          <div className="recipe-card-header-p"><p>{nutritionalInfo[0].value}</p></div>
+      
+          <div className="recipe-card-time-diet-container">
+            <div className="recipe-card-detail-container recipe-detail-left">
+              <p className="recipe-card-detail-label">Time</p>
+              <p className="recipe-card-detail-value">{duration} mins</p>
+            </div>
+
+            <div className="recipe-card-detail-container recipe-detail-right">
+              <p className="recipe-card-detail-label">Diet</p>
+              <p className="recipe-card-detail-value">{categories[0].title}</p>
+            </div>
+          </div>
+        {/*<div className="recipe-card-summary">
           <span>
             <box-icon name="timer" color="rgba(0, 0, 0, .5)"></box-icon>
             <p>{duration} mins</p>
@@ -57,10 +71,8 @@ export default function RecipeCard({
           <span>
             <p>{categories[0].title}</p>
           </span>
-        </div>
-        <div className="recipe-card-title">
-          <h4>{title}</h4>
-        </div>
+    </div>*/}
+      
       </div>
     );
   }

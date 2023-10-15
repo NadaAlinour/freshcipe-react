@@ -2,7 +2,7 @@
   display: flex;
   background-color: var(--grey300);
   flex-grow: 1;
-  padding-bottom: 50px;
+  padding-bottom: 120px;
 }
 
 .product-categories-list-container {
@@ -15,7 +15,9 @@
 .product-categories-list {
   display: grid;
   grid-template-columns: 300px 300px 300px 300px;
-  gap: 50px;
+  column-gap: 20px;
+  row-gap: 100px;
+  place-items: center;
 }
 
 .product-categories-list li {
@@ -24,18 +26,19 @@
 }
 
 .category-card-container {
-  border-radius: 5px;
-  width: 300px;
+  width: 250px;
   height: 250px;
+  border-radius: 10px;
   overflow: hidden;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-  outline: 0.5px solid rgba(0, 0, 0, 0.3);
   /*transition: outline 0.3s linear;*/
-  transition: box-shadow 0.3s linear;
+  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.1s linear;
+
 }
 
 .category-card-container div {
@@ -58,13 +61,14 @@
 
 .category-card-container:hover {
   /*outline: 1.5px solid rgba(0, 0, 0, 0.3);*/
-  box-shadow: 8px 0 20px -6px rgba(0, 0, 0, 0.1),
-    -8px 0 20px -6px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary400);
+
   cursor: pointer;
 }
 
 .product-collection-page {
   display: flex;
+  background-color: var(--grey300);
 }
 
 .product-filter-container {

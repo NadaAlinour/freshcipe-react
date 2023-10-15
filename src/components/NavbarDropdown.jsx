@@ -32,6 +32,7 @@ export default function NavbarDropdown() {
           <li>My Cart</li>
           <li>My Favourites</li>
           <li className={userToken ? "" : "item-disable"}>My Orders</li>
+          <li className={userToken ? "" : "item-disable"}>Delivery Addresses</li>
           <li className={userToken ? "" : "item-disable"}>My Discounts</li>
           <li>Settings</li>
           {option}

@@ -54,7 +54,7 @@ export const RECIPES = [
     "r1",
     "Key Lime Pie",
     "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/slices-homemade-new-york-cheesecake-top-view_114579-8867.jpg?w=2000&t=st=1695862391~exp=1695862991~hmac=26886183af96b7d95fecd0ef0320a197d9b609e9627e84bb280c2793311e8827",
+    "/src/assets/images/recipeImages/key-lime-pie.png",
     ["rc1", "rc3"],
     60,
     [
@@ -88,7 +88,7 @@ export const RECIPES = [
     "r2",
     "Spaghetti Aglio e Olio",
     "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/top-view-tasty-spaghetti-with-seasonings-white-dough-dish-pasta-meal_140725-123815.jpg?w=2000&t=st=1695862582~exp=1695863182~hmac=89dbc2d7272044d4db9c1316a70834a85f285015a9b942e262ce1ddb30e4478f",
+    "/src/assets/images/recipeImages/pasta.png",
     ["rc1", "rc5"],
     25,
     [
@@ -121,7 +121,7 @@ export const RECIPES = [
     "r3",
     "Old-Fashioned Pancakes",
     "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/high-angle-pancakes-arrangement_23-2148531571.jpg?w=2000&t=st=1695862677~exp=1695863277~hmac=f318f84aca225dd262a02d7723bfd7c5327c02e9c3ee8ddfdfa37fe1262bd247",
+    "/src/assets/images/recipeImages/pancakes.png",
     ["rc1", "rc4"],
     20,
     [
@@ -152,7 +152,8 @@ export const RECIPES = [
     "r4",
     "Greek Salad",
     "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/premium-photo/dietary-salad-with-tomatoes-feta-lettuce-spinach-pine-nuts-top-view-flat-lay_2829-4864.jpg?w=2000",
+    "/src/assets/images/recipeImages/greek-salad.png",
+
     ["rc1", "rc6"],
     50,
     [
@@ -190,7 +191,8 @@ export const RECIPES = [
     "r5",
     "Key Lime Pie",
     "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/slices-homemade-new-york-cheesecake-top-view_114579-8867.jpg?w=2000&t=st=1695862391~exp=1695862991~hmac=26886183af96b7d95fecd0ef0320a197d9b609e9627e84bb280c2793311e8827",
+    "/src/assets/images/recipeImages/key-lime-pie.png",
+    
     ["rc1", "rc3"],
     60,
     [
@@ -224,7 +226,8 @@ export const RECIPES = [
     "r6",
     "Spaghetti Aglio e Olio",
     "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/top-view-tasty-spaghetti-with-seasonings-white-dough-dish-pasta-meal_140725-123815.jpg?w=2000&t=st=1695862582~exp=1695863182~hmac=89dbc2d7272044d4db9c1316a70834a85f285015a9b942e262ce1ddb30e4478f",
+    "/src/assets/images/recipeImages/pasta.png",
+    
     ["rc1", "rc5"],
     25,
     [
@@ -257,7 +260,7 @@ export const RECIPES = [
     "r7",
     "Old-Fashioned Pancakes",
     "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/high-angle-pancakes-arrangement_23-2148531571.jpg?w=2000&t=st=1695862677~exp=1695863277~hmac=f318f84aca225dd262a02d7723bfd7c5327c02e9c3ee8ddfdfa37fe1262bd247",
+    "/src/assets/images/recipeImages/pancakes.png",
     ["rc1", "rc4"],
     20,
     [
@@ -288,7 +291,8 @@ export const RECIPES = [
     "r8",
     "Greek Salad",
     "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/premium-photo/dietary-salad-with-tomatoes-feta-lettuce-spinach-pine-nuts-top-view-flat-lay_2829-4864.jpg?w=2000",
+    "/src/assets/images/recipeImages/greek-salad.png",
+
     ["rc1", "rc6"],
     50,
     [
@@ -325,7 +329,8 @@ export const RECIPES = [
     "r9",
     "Key Lime Pie",
     "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/slices-homemade-new-york-cheesecake-top-view_114579-8867.jpg?w=2000&t=st=1695862391~exp=1695862991~hmac=26886183af96b7d95fecd0ef0320a197d9b609e9627e84bb280c2793311e8827",
+   "/src/assets/images/recipeImages/key-lime-pie.png",
+  
     ["rc1", "rc3"],
     60,
     [
@@ -359,7 +364,8 @@ export const RECIPES = [
     "r10",
     "Spaghetti Aglio e Olio",
     "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/top-view-tasty-spaghetti-with-seasonings-white-dough-dish-pasta-meal_140725-123815.jpg?w=2000&t=st=1695862582~exp=1695863182~hmac=89dbc2d7272044d4db9c1316a70834a85f285015a9b942e262ce1ddb30e4478f",
+    "/src/assets/images/recipeImages/pasta.png",
+    
     ["rc1", "rc5"],
     25,
     [
@@ -392,7 +398,7 @@ export const RECIPES = [
     "r11",
     "Old-Fashioned Pancakes",
     "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/free-photo/high-angle-pancakes-arrangement_23-2148531571.jpg?w=2000&t=st=1695862677~exp=1695863277~hmac=f318f84aca225dd262a02d7723bfd7c5327c02e9c3ee8ddfdfa37fe1262bd247",
+    "/src/assets/images/recipeImages/pancakes.png",
     ["rc1", "rc4"],
     20,
     [
@@ -423,7 +429,8 @@ export const RECIPES = [
     "r12",
     "Greek Salad",
     "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-    "https://img.freepik.com/premium-photo/dietary-salad-with-tomatoes-feta-lettuce-spinach-pine-nuts-top-view-flat-lay_2829-4864.jpg?w=2000",
+    "/src/assets/images/recipeImages/greek-salad.png",
+    
     ["rc1", "rc6"],
     50,
     [

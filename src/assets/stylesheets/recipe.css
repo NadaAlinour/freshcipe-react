@@ -3,7 +3,7 @@
 .recipe-page-container {
   display: flex;
   flex-direction: column;
-  background-color: var(--grey300);
+  background-color: var(--background);
   flex-grow: 1;
   /*height: 100vh;*/
 }
@@ -21,9 +21,10 @@
 .recipes-list-container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 60px;
+  margin-bottom: 120px;
 }
+
 
 .recipes-list-container li {
   list-style: none;
@@ -32,99 +33,109 @@
 
 .recipes-list {
   display: grid;
+  place-items: center;
   grid-template-columns: 300px 300px 300px 300px;
-  gap: 50px;
+  column-gap: 20px;
+  row-gap: 100px;
 }
 
 /* recipe card */
 .recipe-card-container {
-  border-radius: 5px;
-  width: 300px;
-  height: 250px;
-  overflow: hidden;
+  border-radius: 20px;
+  width: 250px;
+  height: 300px;
+  line-height: 25px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-
-  outline: 0.5px solid rgba(0, 0, 0, 0.3);
+  position: relative;
   /*transition: outline 0.3s linear;*/
-  transition: box-shadow 0.3s linear;
+  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.1s linear;
 }
 
 .recipe-card-container:hover {
   /*outline: 1.5px solid rgba(0, 0, 0, 0.3);*/
-  box-shadow: 8px 0 20px -6px rgba(0, 0, 0, 0.1),
-    -8px 0 20px -6px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+  
+  background-color: var(--primary400);
+
+  cursor: pointer;
 }
 
 .recipe-images-container {
-  position: relative;
-  width: 100%;
-  height: 65%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 190px;
+  background-color: #ededed;
+  border-radius: 100px;
 }
 
 .recipe-card-container-img {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  height: 150px;
+  border-radius: 100px;
+  box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.9);
 }
 
-.recipe-heart-icon {
-  width: 35px;
-  height: 35px;
+.recipe-card-header {
   position: absolute;
-  z-index: 1;
-  margin-left: 255px;
-  margin-top: 10px;
+  width: 75%;
+  height: 50px;
+  bottom: 120px;
 }
 
-.recipe-card-summary {
-  display: flex;
-  width: 100%;
-  padding: 5px;
-  padding-right: 15px;
-  justify-content: space-evenly;
-  background-color: var(--grey300);
-}
-
-.recipe-card-summary span {
-  display: flex;
-  gap: 1px;
-}
-
-.recipe-card-summary img {
-  width: 20px;
-  margin: auto;
-}
-
-.recipe-card-summary p {
+.recipe-card-header h4 {
   letter-spacing: 1px;
-  font-size: 13px;
-  margin: auto;
+  font-size: 19px;
 }
 
-.recipe-card-title {
-  width: 100%;
-  margin: auto;
+.recipe-card-header-p {
+  position: absolute;
+  width: 75%;
+  top: 187px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding-bottom: 5px;
+}
+
+.recipe-card-header-p p {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.recipe-card-time-diet-container {
+  position: absolute;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  top: 233px;
 }
 
-.recipe-card-title h4 {
-  letter-spacing: 1px;
-  font-weight: lighter;
+.recipe-card-detail-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 20px 0px 20px;
 }
 
-/* recipe filter (sidebar) */
-.recipe-sidebar-container {
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
-  width: 25%;
-  text-align: center;
+.recipe-detail-left {
+  text-align: left;
 }
+
+.recipe-detail-right {
+  text-align: right;
+}
+
+.recipe-card-detail-label {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+}
+
+.recipe-card-detail-value {
+  font-weight: bold;
+  font-size: 15px;
+}
+
 
 /* page displaying a recipe details */
 
@@ -132,28 +143,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--grey300);
+  margin-bottom: 100px;
 }
 
 .recipe-info-container {
   margin-top: 50px;
   border-top-right-radius: 150px;
   overflow: hidden;
-  max-height: 400px;
+  min-height: 450px;
   width: 80%;
   display: flex;
   justify-content: space-between;
-  background-color: white;
 }
 
 .recipe-image-container {
-  background-color: pink;
   width: 70%;
+  height: 425px;
+  display: flex;
+  justify-content: center;
 }
 
 .recipe-info-container img {
-  height: 100%;
-  width: 100%;
+  border-radius: 500px;
+  box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.9);
 }
 
 .recipe-info {
@@ -163,6 +175,10 @@
   justify-content: center;
   margin: 20px 15px 20px 15px;
   row-gap: 15px;
+  background-color: white;
+  border-top-left-radius: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+
 }
 
 .recipe-info ul {
@@ -194,12 +210,14 @@
   min-height: 600px;
   width: 80%;
   background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+
 }
 
 .recipe-ingredients-container {
   width: 30%;
   padding: 20px 20px 0 20px;
-  background-color: var(--grey300);
+  background-color: var(--background);
   margin: 30px;
   border-radius: 20px;
 }
@@ -221,21 +239,24 @@
 
 .ingredients-btn-container {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 50px;
 }
 
 .recipe-ingredients-container button {
   padding: 15px 20px 15px 20px;
   margin-top: 20px;
-  border: 1px solid black;
-  background-color: white;
+  background-color: var(--primary500);
   margin: auto;
   font-weight: bold;
+  width: 100%;
+  border: none;
+  color: white;
+  border-radius: 5px;
 }
 
 .recipe-ingredients-container button:hover {
-  background-color: lightgray;
+  background-color: var(--primary600);
   color: white;
   cursor: pointer;
 }
@@ -260,20 +281,32 @@
 .recipe-nutrition-container {
   overflow: hidden;
   border-bottom-left-radius: 150px;
-
+  background-color: white;
+  border-bottom-right-radius: 100px;
   margin-top: 50px;
   margin-bottom: 50px;
-  height: 430px;
+  min-height: 480px;
   width: 80%;
   display: flex;
   gap: 30px;
-  background-color: white;
+  
+}
+
+.nutrition-recipe-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  background-color: var(--background);
 }
 
 .nutrition-recipe-image img {
-  height: 100%;
+  height: 80%;
   width: auto;
+  border-radius: 500px;
+  box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.9);
 }
+
 
 .nutrition-values-container {
   margin: auto;

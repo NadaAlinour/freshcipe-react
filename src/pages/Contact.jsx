@@ -24,7 +24,7 @@ export default function Contact() {
     <div className="form-page-container">
       <form className="form-container" onSubmit={submitHandler}>
         <div className="form-header-container">
-          <h1>Contact</h1>
+          <p>Contact</p>
         </div>
         <div className="input-container">
           <box-icon name="envelope" color="rgba(0,0,0,.45)"></box-icon>

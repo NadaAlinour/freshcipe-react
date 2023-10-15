@@ -23,12 +23,12 @@ export default function Breadcrumbs() {
   };
 
   return (
-    <div className="current-path-navigation">
+    <div className="breadcrumbs">
       <div className="link-text back-link-container">
-        <box-icon name="chevron-left" color="#549ec9" />
+        <box-icon name="chevron-left" color="#ed8453" />
         <p onClick={() => navigate(-1)}>Back</p>
       </div>
-      <div className="current-path-navigation-link-container">
+      <div className="breadcrumbs-link-container">
         <Link to="/" className="breadcrumb-link">
           <p>Home</p>
         </Link>
@@ -36,7 +36,7 @@ export default function Breadcrumbs() {
       </div>
 
       {pathArray.map((item, index) => (
-        <div key={index} className="current-path-navigation-link-container">
+        <div key={index} className="breadcrumbs-link-container">
           <Link to={getPath(index)} className="breadcrumb-link">
             <p>{item.charAt(0).toUpperCase() + item.slice(1)}</p>
           </Link>

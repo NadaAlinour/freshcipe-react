@@ -112,7 +112,7 @@ export default function Signup() {
     <div className="form-page-container">
       <form className="form-container" onSubmit={submitHandler}>
         <div className="form-header-container">
-          <h1>Signup</h1>
+          <p>Signup</p>
         </div>
 
         {errMsg && <div className="err-box">{errMsg}</div>}

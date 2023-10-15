@@ -1,6 +1,8 @@
 nav {
-  background-color: white;
+  background-color: var(--backgroundLight);
   height: 85px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
 }
 
 .simple-navbar {
@@ -8,7 +10,6 @@ nav {
   gap: 610px;
   padding: 10px;
   padding-left: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   height: 100%;
 }
 
@@ -25,8 +26,8 @@ nav {
 
 .main-navbar {
   padding: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   height: 100%;
+  
 }
 
 .main-navbar ul {
@@ -71,7 +72,7 @@ nav {
   padding: 0px 10px 0px 10px;
   border-radius: 50px;
   overflow: hidden;
-  background-color: var(--grey300);
+  background-color: var(--background);
 }
 
 .searchbar:hover {
@@ -202,7 +203,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .cart-icon:hover {
-  background-image: url(../icons/cart-regular-24-blue.png);
+  background-image: url(../icons/cart-regular-orange.png);
 }
 
 .user-circle-container {
