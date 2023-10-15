@@ -19,7 +19,6 @@ body {
 }
 
 .content-container {
-  background-color: #307197;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
