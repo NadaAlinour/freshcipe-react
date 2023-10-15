@@ -65,16 +65,52 @@
 
 .product-collection-page {
   display: flex;
-  background-color: var(--grey300);
 }
 
 .product-filter-container {
-  width: 25%;
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  width: 21%;
   min-height: 100vh;
-  text-align: center;
-  background-color: var(--grey300);
 }
+
+.product-filter-contents {
+  text-align: left;
+  margin: 25px 20px 0px 25px;
+  line-height: 35px;
+}
+
+.filter-block-container {
+  margin-top: 12px;
+}
+
+.filter-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  margin-bottom: 12px;
+}
+
+.filter-header-chevron {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-header-chevron:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.product-filter-contents li {
+  display: flex;
+  gap: 10px;
+}
+
+
+
 
 .product-filter-container h4 {
   letter-spacing: 1px;
