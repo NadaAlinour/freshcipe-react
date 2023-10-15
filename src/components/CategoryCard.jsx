@@ -16,7 +16,7 @@ export default function CategoryCard({ id, imageUrl, title }) {
       onClick={handleClick.bind(this, id, title)}
     >
       <img src={imageUrl}></img>
-      <div>
+      <div className="category-card-header-container">
         <h3>{title}</h3>
       </div>
     </div>

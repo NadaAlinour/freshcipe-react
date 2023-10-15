@@ -1,8 +1,8 @@
 nav {
-  background-color: var(--backgroundLight);
+  background-color: var(--backgroundDark);
   height: 85px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
+  box-shadow: inset 0px -8px 4px -8px rgba(0, 0, 0, 0.1);
 }
 
 .simple-navbar {
@@ -27,6 +27,7 @@ nav {
 .main-navbar {
   padding: 10px;
   height: 100%;
+  
   
 }
 

@@ -15,8 +15,9 @@
   --primary600: #ce6332;
   --accent500: #95aa70;
   --backgroundLight: white;
-  --background: #f8f6f4;
-  --grey900: #2f2e2a;
+  --background: #f5f0eb;
+  --backgroundDark: #f3e4d4;
+  --grey900: #3c3b37;
 
 
 
@@ -25,6 +26,7 @@
 body {
   line-height: 2;
   background-color: var(--background);
+  color: var(--grey900);
 }
 
 .content-container {
@@ -116,11 +118,20 @@ body {
 
 .tag-container-plain {
   min-width: 100px;
-  background-color: black;
+  background-color: var(--accent500);
   border-radius: 200px;
   text-align: center;
   padding: 5px 20px 5px 20px;
   color: white;
+}
+
+.spin-image {
+  transition: transform .8s ease-in-out;
+}
+
+.spin-image:hover {
+  transform: rotate(360deg);
+  box-shadow: none;
 }
 
 

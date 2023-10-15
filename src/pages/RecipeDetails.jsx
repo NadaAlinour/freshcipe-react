@@ -32,9 +32,7 @@ export default function RecipeDetails({ route }) {
             </p>
 
             <div>
-              <p>
-                <b>Tags:</b>
-              </p>
+            
               <ul>
                 {categories.map((category) => (
                   <li key={category.id}>
@@ -101,7 +99,6 @@ export default function RecipeDetails({ route }) {
           <div className="nutrition-recipe-image">
             <img src={recipeDetails.imageUrl}></img>
           </div>
-
           <div className="nutrition-values-container">
             <div className="nutrition-header">
               <h1>Nutritional Values</h1>(Per portion)

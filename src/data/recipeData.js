@@ -53,7 +53,7 @@ export const RECIPES = [
   new Recipe(
     "r1",
     "Key Lime Pie",
-    "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "",
     "/src/assets/images/recipeImages/key-lime-pie.png",
     ["rc1", "rc3"],
     60,
