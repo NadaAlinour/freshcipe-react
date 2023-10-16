@@ -21,7 +21,7 @@
 .recipes-list-container {
   display: flex;
   justify-content: center;
-  margin-top: 60px;
+  margin-top: 90px;
   margin-bottom: 120px;
 }
 
@@ -63,7 +63,7 @@
   cursor: pointer;
 }
 
-.recipe-images-container {
+.recipe-card-image-container {
   position: absolute;
   display: flex;
   align-items: center;
@@ -151,18 +151,19 @@
 }
 
 .recipe-info-container {
-  margin-top: 50px;
+  margin-top: 25px;
   border-top-right-radius: 150px;
   overflow: hidden;
-  min-height: 450px;
+  min-height: 485px;
   width: 82%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .recipe-image-container {
   width: 70%;
-  height: 425px;
+  height: 430px;
   display: flex;
   justify-content: center;
 }
@@ -176,16 +177,17 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  text-align: center;
   justify-content: center;
+  text-align: center;
   margin: 20px 15px 20px 15px;
-  padding: 0px 35px 0px 35px;;
+  padding: 0px 50px 0px 50px;;
   width: 100%;
+  height: 450px;
   row-gap: 15px;
-  background-color: white;
   border-top-left-radius: 100px;
   background-color: var(--backgroundDark);
   box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.4);
+  font-size: 17px;
 
 }
 
@@ -241,6 +243,12 @@
   width: 85%;
 }
 
+.recipe-info span {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .recipe-info span a {
   margin-right: 10px;
   cursor: pointer;
@@ -259,6 +267,7 @@
   width: 80%;
   background-color: var(--backgroundDark);
   box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.4);
+  font-size: 17px;
 
 }
 
@@ -268,6 +277,7 @@
   background-color: var(--background);
   margin: 30px;
   border-radius: 20px;
+  
 }
 
 .recipe-ingredients-container ul {
@@ -277,6 +287,18 @@
 
 .recipe-ingredients-container li {
   margin-bottom: 5px;
+}
+
+.recipe-checkbox-container {
+  background-image: url(/src/assets/checkboxes/checkbox-regular-36.png);
+  background-size: 29px 29px;
+  width: 29px;
+  height: 29px;
+}
+
+.recipe-checkbox-container:hover {
+  cursor: pointer;
+  background-image: url(/src/assets/checkboxes/checkbox-checked-regular-36.png);
 }
 
 .ingredient-checkbox-label {
@@ -370,12 +392,17 @@
 .nutrition-values-container span {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   margin-top: 15px;
+  padding: 0px 25px 0px 25px;
 }
 
 .nutrition-header {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.nutrition-values-container p {
+  color: rgba(0, 0, 0, 0.6);
 }

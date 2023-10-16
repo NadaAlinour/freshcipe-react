@@ -52,7 +52,7 @@ export default function Navbar() {
         <li>
           <div className="theme-icon" onMouseEnter={() => setIsThemeHover(true)} onMouseLeave={() => setIsThemeHover(false)}>
             {!isThemeHover ? (
-              <box-icon name="moon" color="#3c3b37" size="27px"/>
+              <box-icon name="moon" color="#474643" size="27px"/>
             ) : (
               <box-icon name="moon" color="#ffd000" size="27px"/>
             )}
@@ -63,9 +63,9 @@ export default function Navbar() {
           <Link to="/cart">
             <div className="cart-icon" title="View cart" onMouseEnter={() => setIsCartHover(true)} onMouseLeave={() => setIsCartHover(false)}>
               {!isCartHover ? (
-                <box-icon name="cart" color="#3c3b37" size="29px"/>
+                <box-icon name="cart" color="#474643" size="30px"/>
               ) : (
-                <box-icon name="cart" color="#ed8453" size="29px"/>
+                <box-icon name="cart" color="#ed8453" size="30px"/>
               )}
             </div>
           </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
                     name="user-circle"
                     type="solid"
                     size="45px"
-                    color="#3c3b37"
+                    color="#474643"
                   ></box-icon>
                 </div>
               </div>

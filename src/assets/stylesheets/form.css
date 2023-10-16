@@ -7,7 +7,8 @@
   flex-grow: 1;
   background-image: linear-gradient(180deg, 
   rgba(255, 255, 255, 0.95), 
-  rgba(248, 223, 198, 0.95), rgba(249, 183, 111, 0.6))
+  rgba(248, 223, 198, 0.95), rgba(249, 183, 111, 0.7)) ,url(../images/backgrounds/contact-form-background.jpg);
+  background-size: cover;
 }
 
 .form-container {
@@ -163,19 +164,10 @@
 }
 
 #contact-form-page-el {
-  background-image: linear-gradient(180deg, 
-  rgba(255, 255, 255, 0.95), 
-  rgba(248, 223, 198, 0.95), rgba(249, 183, 111, 0.7)) ,url(../images/backgrounds/contact-form-background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
   display: flex;
   justify-content: center;
   gap: 250px;
   align-items: center;
-}
-
-#contact-form-el {
-  box-shadow: 12px 12px 4px -4px rgba(0, 0, 0, 0.3);
 }
 
 .contact-form-text-container {
@@ -198,3 +190,7 @@
 #contact-form-text-el p{
 }
 
+.contact-submit-btn {
+  display: flex;
+  justify-content: center;
+}

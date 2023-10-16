@@ -1,4 +1,5 @@
 /*import url('https://fonts.googleapis.com/css?family=Poppins');*/
+@import url('https://fonts.cdnfonts.com/css/allura');
 
 :root {
   /* give semantic names based on the usage rather than the color for easier adjustments */
@@ -17,7 +18,7 @@
   --red400: #fa635c;
   --backgroundLight: white;
   --background: #f5f0eb;
-  --backgroundDark: #f3e4d4;
+  --backgroundDark: #e7c7a872;
   --grey900: #3c3b37;
 
 
@@ -41,7 +42,30 @@ body {
   align-items: center;
   gap: 5px;
   color: var(--grey900);
+  height: 40px;
+
 }
+
+.logo-header-container h4 {
+  font-family: 'allura';
+  font-size: 40px;
+  letter-spacing: 1px;
+
+}
+
+.logo-white {
+  color: white;
+}
+
+.logo-white h4 {
+  font-weight: lighter;
+  font-size: 50px;
+  font-family: 'allura';
+  letter-spacing: 1px;
+
+}
+
+
 
 .logo-header-link {
   text-decoration: none;
@@ -56,7 +80,6 @@ body {
 .breadcrumbs {
   display: flex;
   padding: 15px 20px 0px 30px;
-  background-color: var(--background);
 }
 
 .back-link-container {
@@ -73,8 +96,8 @@ body {
 
 .breadcrumb-link {
   text-decoration: none;
-  color: black;
   margin-left: 10px;
+  color: var(--grey900);
 }
 
 .breadcrumb-link:hover {
@@ -84,22 +107,19 @@ body {
 
 
 .tag-container {
-  min-width: 100px;
+  min-width: 110px;
   background-color: white;
-  outline: 1px solid rgba(0, 0, 0, .2);
   border-radius: 200px;
   text-align: center;
   padding: 5px 20px 5px 20px;
-  color: black;
-  /*transition: background-color .2s;*/
-  /*box-shadow: 8px 0 8px -6px rgba(0, 0, 0, 0.1),
-    -8px 0 8px -6px rgba(0, 0, 0, 0.1), 0 8px 8px -6px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, .3);
+  transition: background-color .1s linear;
+ 
 }
 
 .tag-container:hover {
   cursor: pointer;
-  color: black;
-  outline: 1.5px solid rgba(0, 0, 0, .2);
+  background-color: var(--primary400);
 }
 
 .tag-container-selected {
@@ -114,6 +134,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 5px;
+  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, .3);
+
  
 }
 
@@ -126,33 +148,70 @@ body {
   color: white;
 }
 
-.spin-image {
-  transition: transform .8s ease-in-out;
-}
-
-.spin-image:hover {
-  transform: rotate(360deg);
-  box-shadow: none;
-}
-
-
-
 
 
 footer {
   background-color:var(--grey900);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 120px;
-  margin-top: auto;
-  letter-spacing: 1px;
+  min-height: 200px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-footer h2 {
-  font-weight: lighter;
+.footer-list-container h3{
+  letter-spacing: 1px;
+}
 
+.footer-list-container li {
+}
+
+footer ul {
+  list-style: none;
+}
+
+.footer-main-content-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer-logo-container {
+  line-height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo-container p {
+  font-size: 18px;
+}
+
+.footer-socials-container {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-socials-container img {
+  width: 30px;
+}
+
+.footer-socials-container img:hover {
+  cursor: pointer;
+  opacity: .75;
+}
+
+.footer-copyright-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-size: 15px;
 }
 
 .link-text {

@@ -41,7 +41,7 @@ export default function RecipeCard({
         className="recipe-card-container"
         onClick={handleRecipeClick.bind(this, id, title)}
       >
-        <div className="recipe-images-container">
+        <div className="recipe-card-image-container">
           <img src={imageUrl} className="recipe-card-container-img"></img>
         </div>
 

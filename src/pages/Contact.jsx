@@ -72,7 +72,7 @@ export default function Contact() {
           ></textarea>
         </div>
 
-        <button type="submit" className="form-btn">
+        <button type="submit" className="form-btn contact-submit-btn">
           <p>Submit</p>
         </button>
       </form>

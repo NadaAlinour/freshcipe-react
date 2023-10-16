@@ -79,7 +79,7 @@ export default function RecipeDetails({ route }) {
                 <li key={ingredient}>
                   <div className="ingredient-checkbox-label">
                     <div className="checkbox-container-ing">
-                      <input type="checkbox" />
+                      <div className="recipe-checkbox-container"></div>
                     </div>
                     <label>{ingredient}</label>
                   </div>
