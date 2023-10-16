@@ -18,7 +18,7 @@
   --red400: #fa635c;
   --backgroundLight: white;
   --background: #f5f0eb;
-  --backgroundDark: #e7c7a872;
+  --backgroundDark: #edd5bb;
   --grey900: #3c3b37;
 
 
@@ -172,9 +172,10 @@ footer ul {
 
 .footer-main-content-container {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   display: flex;
   justify-content: space-evenly;
+  padding-right: 70px
 }
 
 .footer-logo-container {

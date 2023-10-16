@@ -170,7 +170,7 @@
 
 .recipe-info-container img {
   border-radius: 500px;
-  box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 15px 15px -6px rgba(0, 0, 0, 0.6);
 }
 
 .recipe-info {
@@ -376,7 +376,8 @@
   height: 80%;
   width: auto;
   border-radius: 500px;
-  box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 15px 15px -6px rgba(0, 0, 0, 0.6);
+
 }
 
 
