@@ -29,7 +29,7 @@ export default function NavbarDropdown() {
           >
             My Account
           </li>
-          <li>My Cart</li>
+          <li onClick={() => navigate("/cart")}>My Cart</li>
           <li>My Favourites</li>
           <li className={userToken ? "" : "item-disable"}>My Orders</li>
           <li className={userToken ? "" : "item-disable"}>Delivery Addresses</li>

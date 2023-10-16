@@ -3,7 +3,7 @@ import "../assets/stylesheets/navbar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
-import FreshcipeLogo from './FreshcipeLogo';
+import FreshcipeLogo from "./FreshcipeLogo";
 import Searchbar from "./Searchbar";
 import NavbarDropdown from "./NavbarDropdown";
 
@@ -13,6 +13,9 @@ export default function Navbar() {
   const handleBackClick = () => {
     navigate(-1);
   };
+
+  const [isThemeHover, setIsThemeHover] = useState(false);
+  const [isCartHover, setIsCartHover] = useState(false);
 
   // navbar for login/signup screens
   let navbar = (
@@ -47,12 +50,24 @@ export default function Navbar() {
         </li>
 
         <li>
-          <div className="theme-icon"></div>
+          <div className="theme-icon" onMouseEnter={() => setIsThemeHover(true)} onMouseLeave={() => setIsThemeHover(false)}>
+            {!isThemeHover ? (
+              <box-icon name="moon" color="#3c3b37" size="27px"/>
+            ) : (
+              <box-icon name="moon" color="#ffd000" size="27px"/>
+            )}
+          </div>
         </li>
 
         <li>
           <Link to="/cart">
-            <div className="cart-icon" title="View cart"></div>
+            <div className="cart-icon" title="View cart" onMouseEnter={() => setIsCartHover(true)} onMouseLeave={() => setIsCartHover(false)}>
+              {!isCartHover ? (
+                <box-icon name="cart" color="#3c3b37" size="29px"/>
+              ) : (
+                <box-icon name="cart" color="#ed8453" size="29px"/>
+              )}
+            </div>
           </Link>
         </li>
 
@@ -69,6 +84,7 @@ export default function Navbar() {
                     name="user-circle"
                     type="solid"
                     size="45px"
+                    color="#3c3b37"
                   ></box-icon>
                 </div>
               </div>

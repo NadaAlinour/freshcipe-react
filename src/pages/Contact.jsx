@@ -21,8 +21,16 @@ export default function Contact() {
     e.preventDefault();
   };
   return (
-    <div className="form-page-container">
-      <form className="form-container" onSubmit={submitHandler}>
+    <div className="form-page-container" id="contact-form-page-el">
+      <div className="contact-form-text-container" id="contact-form-text-el">
+        <p className="contact-form-text-header">Anything on your mind?</p>
+        <p className="contact-form-text-content"> Contact us now and get a response from our team within 72 hours.</p>
+      </div>
+      <form
+        className="form-container"
+        onSubmit={submitHandler}
+        id="contact-form-el"
+      >
         <div className="form-header-container">
           <p>Contact</p>
         </div>
@@ -63,7 +71,7 @@ export default function Contact() {
             className="form-input"
           ></textarea>
         </div>
-        
+
         <button type="submit" className="form-btn">
           <p>Submit</p>
         </button>

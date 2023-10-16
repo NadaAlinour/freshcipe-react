@@ -174,10 +174,12 @@
 
 .recipe-info {
   display: flex;
+  position: relative;
   flex-direction: column;
   text-align: center;
   justify-content: center;
   margin: 20px 15px 20px 15px;
+  padding: 0px 35px 0px 35px;;
   width: 100%;
   row-gap: 15px;
   background-color: white;
@@ -185,6 +187,46 @@
   background-color: var(--backgroundDark);
   box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.4);
 
+}
+
+.add-recipe-to-favourites-container {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 100px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  background-color: var(--red400);
+  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: box-shadow .2s linear;
+}
+
+.add-recipe-to-favourites-container p {
+  font-size: 16.5px;
+  font-weight: bold;
+  color: white;
+}
+
+#recipe-add-el {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.recipe-info-heart-icon-container {
+  width: 27px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-recipe-to-favourites-container:hover {
+  cursor: pointer;
+  box-shadow: 0px 8px 5px -4px rgba(0, 0, 0, 0.3);
+  opacity: 0.85;
 }
 
 .recipe-info ul {

@@ -2,58 +2,24 @@ import Recipe from "../../models/recipe";
 import RecipeCategory from "../../models/recipe-category";
 
 export const RECIPE_CATEGORIES = [
-  new RecipeCategory(
-    "rc1",
-    "Vegetarian"
-  ),
-  new RecipeCategory(
-    "rc2",
-    "Vegan"
-  ),
-  new RecipeCategory(
-    "rc3",
-    "Dessert"
-  ),
-  new RecipeCategory(
-    "rc4",
-    "Quick and Easy"
-  ),
-  new RecipeCategory(
-    "rc5",
-    "Dinner"
-  ),
-  new RecipeCategory(
-    "rc6",
-    "Light and Fresh"
-  ),
-  new RecipeCategory(
-    "rc7",
-    "Summer"
-  ),
-  new RecipeCategory(
-    "rc8",
-    "Comfort"
-  ),
-  new RecipeCategory(
-    "rc9",
-    "Fancy"
-  ),
-  new RecipeCategory(
-    "rc10",
-    "Main Dish"
-  ),
-  new RecipeCategory(
-    "rc11",
-    "Special Occasion"
-  ),
-]
-
+  new RecipeCategory("rc1", "Vegetarian"),
+  new RecipeCategory("rc2", "Vegan"),
+  new RecipeCategory("rc3", "Dessert"),
+  new RecipeCategory("rc4", "Quick and Easy"),
+  new RecipeCategory("rc5", "Dinner"),
+  new RecipeCategory("rc6", "Light and Fresh"),
+  new RecipeCategory("rc7", "Summer"),
+  new RecipeCategory("rc8", "Comfort"),
+  new RecipeCategory("rc9", "Fancy"),
+  new RecipeCategory("rc10", "Main Dish"),
+  new RecipeCategory("rc11", "Special Occasion"),
+];
 
 export const RECIPES = [
   new Recipe(
     "r1",
     "Key Lime Pie",
-    "",
+    "There's nothing like a classic Key lime pie to satisfy your sweet tooth. This sweet, rich, creamy, and tangy Key lime pie recipe is easy to make on a whim with easy-to-find ingredients.",
     "/src/assets/images/recipeImages/key-lime-pie.png",
     ["rc1", "rc3"],
     60,
@@ -87,7 +53,7 @@ export const RECIPES = [
   new Recipe(
     "r2",
     "Spaghetti Aglio e Olio",
-    "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "No two aglio e olio recipes are alike, but this one is pretty true to the classic method. The key is slowly toasting the garlic slices to a perfect golden brown in the olive oil. If it's too light, you don't get the full flavor and if it's too dark it gets bitter. My advice? Do it perfectly.",
     "/src/assets/images/recipeImages/pasta.png",
     ["rc1", "rc5"],
     25,
@@ -120,7 +86,7 @@ export const RECIPES = [
   new Recipe(
     "r3",
     "Old-Fashioned Pancakes",
-    "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "Do you crave pancakes that are golden brown on the outside, light and fluffy on the inside, with a touch of crispness around the edges? Read on to see how to make your pancake dreams a breakfast reality in your very own kitchen.",
     "/src/assets/images/recipeImages/pancakes.png",
     ["rc1", "rc4"],
     20,
@@ -151,7 +117,7 @@ export const RECIPES = [
   new Recipe(
     "r4",
     "Greek Salad",
-    "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "This Greek salad recipe is incredibly good! It's nice and tangy and tastes even better in the summer when tomatoes and cucumbers are at their best.",
     "/src/assets/images/recipeImages/greek-salad.png",
 
     ["rc1", "rc6"],
@@ -190,9 +156,10 @@ export const RECIPES = [
   new Recipe(
     "r5",
     "Key Lime Pie",
-    "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "There's nothing like a classic Key lime pie to satisfy your sweet tooth. This sweet, rich, creamy, and tangy Key lime pie recipe is easy to make on a whim with easy-to-find ingredients.",
+
     "/src/assets/images/recipeImages/key-lime-pie.png",
-    
+
     ["rc1", "rc3"],
     60,
     [
@@ -225,9 +192,9 @@ export const RECIPES = [
   new Recipe(
     "r6",
     "Spaghetti Aglio e Olio",
-    "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "No two aglio e olio recipes are alike, but this one is pretty true to the classic method. The key is slowly toasting the garlic slices to a perfect golden brown in the olive oil. If it's too light, you don't get the full flavor and if it's too dark it gets bitter. My advice? Do it perfectly.",
     "/src/assets/images/recipeImages/pasta.png",
-    
+
     ["rc1", "rc5"],
     25,
     [
@@ -259,7 +226,7 @@ export const RECIPES = [
   new Recipe(
     "r7",
     "Old-Fashioned Pancakes",
-    "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "Do you crave pancakes that are golden brown on the outside, light and fluffy on the inside, with a touch of crispness around the edges? (Who doesn't?) Read on to see how to make your pancake dreams a breakfast reality in your very own kitchen, then stick around for a breakfast buffet of pancake recipes and serving ideas.",
     "/src/assets/images/recipeImages/pancakes.png",
     ["rc1", "rc4"],
     20,
@@ -290,7 +257,7 @@ export const RECIPES = [
   new Recipe(
     "r8",
     "Greek Salad",
-    "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "This Greek salad recipe is incredibly good! It's nice and tangy and tastes even better in the summer when tomatoes and cucumbers are at their best.",
     "/src/assets/images/recipeImages/greek-salad.png",
 
     ["rc1", "rc6"],
@@ -328,9 +295,10 @@ export const RECIPES = [
   new Recipe(
     "r9",
     "Key Lime Pie",
-    "Key Lime Pie description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
-   "/src/assets/images/recipeImages/key-lime-pie.png",
-  
+    "There's nothing like a classic Key lime pie to satisfy your sweet tooth. This sweet, rich, creamy, and tangy Key lime pie recipe is easy to make on a whim with easy-to-find ingredients.",
+
+    "/src/assets/images/recipeImages/key-lime-pie.png",
+
     ["rc1", "rc3"],
     60,
     [
@@ -363,9 +331,9 @@ export const RECIPES = [
   new Recipe(
     "r10",
     "Spaghetti Aglio e Olio",
-    "Spaghetti aglio e olio description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "No two aglio e olio recipes are alike, but this one is pretty true to the classic method. The key is slowly toasting the garlic slices to a perfect golden brown in the olive oil. If it's too light, you don't get the full flavor and if it's too dark it gets bitter. My advice? Do it perfectly.",
     "/src/assets/images/recipeImages/pasta.png",
-    
+
     ["rc1", "rc5"],
     25,
     [
@@ -397,7 +365,7 @@ export const RECIPES = [
   new Recipe(
     "r11",
     "Old-Fashioned Pancakes",
-    "old fashioned pancakes description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "Do you crave pancakes that are golden brown on the outside, light and fluffy on the inside, with a touch of crispness around the edges? (Who doesn't?) Read on to see how to make your pancake dreams a breakfast reality in your very own kitchen, then stick around for a breakfast buffet of pancake recipes and serving ideas.",
     "/src/assets/images/recipeImages/pancakes.png",
     ["rc1", "rc4"],
     20,
@@ -428,9 +396,9 @@ export const RECIPES = [
   new Recipe(
     "r12",
     "Greek Salad",
-    "greek salad description placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder",
+    "This Greek salad recipe is incredibly good! It's nice and tangy and tastes even better in the summer when tomatoes and cucumbers are at their best.",
     "/src/assets/images/recipeImages/greek-salad.png",
-    
+
     ["rc1", "rc6"],
     50,
     [
@@ -463,5 +431,4 @@ export const RECIPES = [
       { component: "Protein", value: "7g" },
     ]
   ),
-
 ];

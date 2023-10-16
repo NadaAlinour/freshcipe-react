@@ -2,7 +2,7 @@ nav {
   background-color: var(--backgroundDark);
   height: 85px;
   /*border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
-  box-shadow: inset 0px -8px 4px -8px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0px -8px 4px -8px rgba(0, 0, 0, 0.2);
 }
 
 .simple-navbar {
@@ -166,7 +166,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .item-disable {
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(0, 0, 0, 0.35) !important;
 }
 
 .item-disable:hover {
@@ -184,27 +184,40 @@ input[type="search"]::-webkit-search-cancel-button {
   background-image: url(../icons/heart-regular-24-blue.png);
 }
 
-.theme-icon {
+/*.theme-icon {
   width: 29px;
   height: 29px;
   background-size: 29px 29px;
   background-image: url(../icons/moon-regular-24.png);
+}*/
+
+.theme-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .theme-icon:hover {
-  background-image: url(../icons/moon-regular-gold-24.png);
   cursor: pointer;
 }
 
-.cart-icon {
+/*.cart-icon {
   width: 31px;
   height: 31px;
   background-image: url(../icons/cart-regular-24.png);
   background-size: 31px 31px;
+}*/
+
+
+.cart-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+
 .cart-icon:hover {
-  background-image: url(../icons/cart-regular-orange.png);
+  cursor: pointer;
 }
 
 .user-circle-container {

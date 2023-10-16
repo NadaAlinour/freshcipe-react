@@ -1,6 +1,8 @@
 import { RECIPES, RECIPE_CATEGORIES } from "../data/recipeData";
 import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import "boxicons";
 
 import Tag from "../components/Tag";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -18,6 +20,9 @@ export default function RecipeDetails({ route }) {
 
   let stepCount = 1;
 
+  const [isHeartHover, setIsHeartHover] = useState(false);
+  const [isFavourite, setIsFavourite] = useState(false); // how hmmm
+
   return (
     <>
       <Breadcrumbs />
@@ -25,14 +30,23 @@ export default function RecipeDetails({ route }) {
         {/* recipe info */}
         <div className="recipe-info-container">
           <div className="recipe-info">
+            <div
+              className="add-recipe-to-favourites-container"
+              onMouseEnter={() => setIsHeartHover(true)}
+              onMouseLeave={() => setIsHeartHover(false)}
+            >
+              <p>Save</p>
+
+              <div className="recipe-info-heart-icon-container">
+                <box-icon name="heart" color="white" size="25px" />
+              </div>
+
+            </div>
             <h1>{recipeDetails.title}</h1>
             <p>{recipeDetails.description}</p>
-            <p>
-              <b>Time to prepare:</b> {recipeDetails.duration} minutes
-            </p>
+            <p>{recipeDetails.duration} minutes to prepare</p>
 
             <div>
-            
               <ul>
                 {categories.map((category) => (
                   <li key={category.id}>
