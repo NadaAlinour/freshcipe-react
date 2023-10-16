@@ -2,56 +2,142 @@
     display: flex;
     border: 1px solid black;
     justify-content: space-between;
+    background-color: white; /* Add a background color to make it stand out */
+    padding: 20px; /* Add some padding for spacing */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
 }
 
 .suggested_products_container {
     display: flex;
-    border: 1px solid (0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3); /* Correct the border syntax */
     justify-content: space-between;
     margin-top: 50px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .cart_page {
     margin: 50px;
     background-color: var(--grey300);
+    padding: 20px; /* Add padding to the entire cart page */
+    border-radius: 10px;
 }
 
 .cart_items {
-    border: 1px solid (0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 300px;
-    width: 60%;
+    width: 40%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .bill {
-    border: 1px solid (0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 300px;
     width: 30%;
-    
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .suggested_products {
-    border: 1px solid (0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 200px;
     width: 60%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    display: flex; /* Use flexbox to align child elements horizontally */
+    flex-direction: column; /* Set the direction to column (vertical) initially */
 }
 
 .note {
-    border: 1px solid (0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 200px;
     width: 30%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.quantity {
-    display: flex;
-    border: 1px solid black;
-    justify-content: space-between;
-}
+/* Add this CSS for the "Clear Cart" and "Add More Items" buttons */
 
-.quantity_button {
-    margin-top: 250px;
-    margin-left: 25px;
-}
+/* Generic button styles */
+.cart_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Customize the button background color */
+    color: #fff; /* Customize the button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px; /* Add some space between buttons */
+    transition: background-color 0.3s; /* Add a smooth hover effect */
+  }
+  
+  .cart_button:hover {
+    background-color: #0056b3; /* Customize the button background color on hover */
+  }
+  
+  /* Styling for the "Clear Cart" button */
+  .clear_cart_button {
+    background-color: #ff3333; /* Customize the "Clear Cart" button background color */
+  }
+  
+  .clear_cart_button:hover {
+    background-color: #d91c1c; /* Customize the "Clear Cart" button background color on hover */
+  }
+  
 
 .suggested_images {
-    
+    display: flex; /* Use flexbox to align products horizontally */
+    flex-direction: row; /* Set the direction to row (horizontal) */
+    align-items: center; /* Align products vertically in the center */
+    gap: 20px; /* Add some space between products */
 }
+
+.item_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid (0, 0, 0, 0.3);
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .item_row img {
+    height: 70px;
+  }
+  
+  .item_row .quantity_controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .item_row .quantity_controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .item_row .price {
+    font-weight: bold;
+  }
+  
+  .item_row .remove_button {
+    background: #ff3333; /* Customize the button background color */
+    color: #fff; /* Customize the button text color */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
