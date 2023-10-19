@@ -1,7 +1,7 @@
 nav {
-  background-color: var(--backgroundDark);
+  background-color: var(--background);
   height: 85px;
-  /*border-bottom: 1px solid rgba(0, 0, 0, 0.3);*/
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .simple-navbar {
@@ -71,15 +71,21 @@ nav {
   padding: 0px 10px 0px 10px;
   border-radius: 50px;
   overflow: hidden;
-  background-color: var(--background);
+  background-color: white;
+  outline: none;
+
 }
 
 .searchbar:hover {
-  border: 1px solid rgba(0, 0, 0, 0.45);
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: rgba(0, 0, 0, 0.3);
 }
 
 .searchbar:focus-within {
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: rgba(0, 0, 0, 0.3);
 }
 
 .searchbar input {

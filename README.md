@@ -19,3 +19,4 @@ E-commerce web application using Reactjs.
 - add the "add recipe to favourites" on the recipe details page
 - fix breadcrumb navigation (gotta send data along with the route)
 - ~~change black icons to the darkest grey or any other grey that is not black~~
+- fix product card price (when the whole number is more than one digit)

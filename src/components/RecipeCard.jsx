@@ -1,4 +1,3 @@
-import Flame from "../assets/images/icons/flame-solid-24.png";
 import "boxicons";
 import { RECIPE_CATEGORIES } from "../data/recipeData";
 import { useNavigate } from "react-router-dom";
