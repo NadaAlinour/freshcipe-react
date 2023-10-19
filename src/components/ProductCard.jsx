@@ -1,11 +1,21 @@
 import "boxicons";
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   let priceSplit = price.split(".");
-  console.log(priceSplit);
+  //console.log(priceSplit);
 
   return (
     <div className="product-card-container">
-      {id === ("p1" || "p5" || "p8") && (
+      {id === "p1" && (
+        <div className="product-card-discount-tag">
+          <p>30% Off</p>
+        </div>
+      )}
+      {id === "p7" && (
+        <div className="product-card-discount-tag">
+          <p>30% Off</p>
+        </div>
+      )}{" "}
+      {id === "p9" && (
         <div className="product-card-discount-tag">
           <p>30% Off</p>
         </div>
@@ -21,7 +31,6 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
           <p className="product-card-quantity">{quantity}</p>
         </div>
       </div>
-
       <div className="product-card-title-add-container">
         <h3>{title}</h3>
         <div className="product-card-add-icon-container">

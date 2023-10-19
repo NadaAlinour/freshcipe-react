@@ -94,6 +94,15 @@ body {
   color: var(--primary500);
 }
 
+.breadcrumb-last-item1 {
+  opacity: .5;
+}
+
+.breadcrumb-last-item2 {
+  opacity: .5;
+  margin-left: 10px;
+}
+
 
 
 .tag-container {
@@ -213,6 +222,11 @@ footer ul {
 .link-text:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+
+.not-found-page-container {
+  min-height: 90vh;
 }
 
 /*#root {

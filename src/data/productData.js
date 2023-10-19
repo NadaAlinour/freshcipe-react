@@ -68,7 +68,7 @@ export const PRODUCTS = [
 
   new Product(
     "p6",
-    "cucumber",
+    "Cucumber",
     "/src/assets/images/products/cucumber.png",
     "apple number deux",
     "3.55",
@@ -79,7 +79,7 @@ export const PRODUCTS = [
 
   new Product(
     "p7",
-    "tomato",
+    "Tomato",
     "/src/assets/images/products/tomato-product.png",
     "apple number deux",
     "3.55",
@@ -101,7 +101,7 @@ export const PRODUCTS = [
 
   new Product(
     "p9",
-    "grapes",
+    "Grapes",
     "/src/assets/images/products/grapes.png",
     "apple number deux",
     "3.55",
@@ -135,7 +135,7 @@ export const PRODUCTS = [
 
   new Product(
     "p2",
-    "salmon",
+    "Salmon",
     "/src/assets/images/products/salmon.png",
     "salmon product description temp for now",
     "20.99",
@@ -146,7 +146,7 @@ export const PRODUCTS = [
 
   new Product(
     "p3",
-    "croissant",
+    "Croissant",
     "/src/assets/images/products/croissant.png",
     "croissant product description temp for now",
     "5.99",
@@ -157,7 +157,7 @@ export const PRODUCTS = [
 
   new Product(
     "p4",
-    "orange juice",
+    "Orange juice",
     "/src/assets/images/products/suntop-juice.png",
     "orange juice description sklfjalkfjs",
     "4.55",

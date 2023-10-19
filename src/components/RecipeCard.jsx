@@ -18,7 +18,7 @@ export default function RecipeCard({
   const navigate = useNavigate();
 
   const handleRecipeClick = (id, title) => {
-    navigate("/recipes/" + title, { state: { recipeId: id } });
+    navigate("/recipes/" + id + '/' + title, { state: { recipeId: id } });
   };
 
   let content = (
