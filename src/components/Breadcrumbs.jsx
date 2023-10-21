@@ -1,14 +1,20 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { PRODUCT_CATEGORIES, PRODUCTS } from "../data/productData";
-import { RECIPES } from "../data/recipeData";
 import "boxicons";
 
 export default function Breadcrumbs() {
   const navigate = useNavigate();
   const location = useLocation();
   const decodedUri = decodeURI(location.pathname);
-  const pathArray = decodedUri.substring(1).split("/");
-  console.log(pathArray);
+  let pathArray = decodedUri.substring(1).split("/");
+
+  const oldPathArray = [...pathArray];
+  const id = pathArray.splice(pathArray.length - 2)[0];
+  pathArray = [...pathArray, oldPathArray[oldPathArray.length - 1]];
+
+  let lastItem = "";
+
+  lastItem = pathArray.pop();
+  console.log(lastItem);
 
   const getPath = (index) => {
     /*console.log("hi it's path " + index)
@@ -35,16 +41,18 @@ export default function Breadcrumbs() {
         <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)" />
       </div>
 
-      {pathArray.map((item, index) => (
-        <div key={index} className="breadcrumbs-link-container">
-          <Link to={getPath(index)} className="breadcrumb-link">
-            <p>{item.charAt(0).toUpperCase() + item.slice(1)}</p>
-          </Link>
-          {index !== pathArray.length - 1 && (
-            <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)" />
-          )}
-        </div>
-      ))}
+      {pathArray.length > 0
+        ? pathArray.map((item, index) => (
+            <div key={index} className="breadcrumbs-link-container">
+              <Link to={getPath(index)} className="breadcrumb-link">
+                <p>{item.charAt(0).toUpperCase() + item.slice(1)}</p>
+              </Link>
+
+              <box-icon name="chevron-right" color="rgba(0, 0, 0, .65)" />
+              {lastItem && <p className="breadcrumb-last-item1">{lastItem}</p>}
+            </div>
+          ))
+        : lastItem && <p className="breadcrumb-last-item2">{lastItem.charAt(0).toUpperCase() + lastItem.slice(1)}</p>}
     </div>
   );
 }

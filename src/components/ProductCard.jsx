@@ -1,14 +1,42 @@
-import 'boxicons';
+import "boxicons";
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
+  let priceSplit = price.split(".");
+  //console.log(priceSplit);
+
   return (
     <div className="product-card-container">
-      <img src={imageUrl}></img>
-      <h4>{title.charAt(0).toUpperCase() + title.slice(1)}</h4>
-      <span>
-        <p>$ {price}</p>
-        <p>{quantity}g</p>
-        <div><box-icon name="plus" color="#549ec9"></box-icon></div>
-      </span>
+      {id === "p1" && (
+        <div className="product-card-discount-tag">
+          <p>30% Off</p>
+        </div>
+      )}
+      {id === "p7" && (
+        <div className="product-card-discount-tag">
+          <p>30% Off</p>
+        </div>
+      )}{" "}
+      {id === "p9" && (
+        <div className="product-card-discount-tag">
+          <p>30% Off</p>
+        </div>
+      )}
+      <div className="product-card-image-container">
+        <img src={imageUrl} />
+
+        <div className="product-card-price-quantity-container">
+          <div className="product-card-price-container">
+            <p className="product-card-price-whole">{priceSplit[0]}.</p>
+            <p className="product-card-price-fraction">{priceSplit[1]}</p>
+          </div>
+          <p className="product-card-quantity">{quantity}</p>
+        </div>
+      </div>
+      <div className="product-card-title-add-container">
+        <h3>{title}</h3>
+        <div className="product-card-add-icon-container">
+          <box-icon name="plus" color="white" />
+        </div>
+      </div>
     </div>
   );
 }

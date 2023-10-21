@@ -2,14 +2,6 @@
 @import url('https://fonts.cdnfonts.com/css/allura');
 
 :root {
-  /* give semantic names based on the usage rather than the color for easier adjustments */
- /* --primary500: #5277A9;
-  --primary600: #307197;
-  --accent500: #fba644;
-  --accent600: #ca5b47;
-  --grey300: #f4ebe6;
-  --grey400: #dbdbdb;*/
-
   --primary300: #fef7e5;
   --primary400: #f7b757;
   --primary500: #ed8453;
@@ -17,11 +9,9 @@
   --accent500: #879a66;
   --red400: #fa635c;
   --backgroundLight: white;
-  --background: #f5f0eb;
-  --backgroundDark: #e7c7a872;
+  --background: #f4e7da;
+  --backgroundDark: #edd5bb;
   --grey900: #3c3b37;
-
-
 
 }
 
@@ -104,6 +94,15 @@ body {
   color: var(--primary500);
 }
 
+.breadcrumb-last-item1 {
+  opacity: .5;
+}
+
+.breadcrumb-last-item2 {
+  opacity: .5;
+  margin-left: 10px;
+}
+
 
 
 .tag-container {
@@ -172,9 +171,10 @@ footer ul {
 
 .footer-main-content-container {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   display: flex;
   justify-content: space-evenly;
+  padding-right: 70px
 }
 
 .footer-logo-container {
@@ -222,6 +222,11 @@ footer ul {
 .link-text:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+
+.not-found-page-container {
+  min-height: 90vh;
 }
 
 /*#root {

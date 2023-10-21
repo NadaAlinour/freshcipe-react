@@ -7,7 +7,7 @@ export default function CategoryCard({ id, imageUrl, title }) {
     const productCollection = PRODUCTS.filter(
       (product) => product.productCategory === id
     );
-    navigate("/products/" + title, { state: { products: productCollection } });
+    navigate("/products/" + id + '/' + title, { state: { products: productCollection } });
   };
 
   return (

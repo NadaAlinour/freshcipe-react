@@ -2,7 +2,6 @@ import RecipeCard from "../components/RecipeCard";
 import Tag from "../components/Tag";
 import { RECIPES, RECIPE_CATEGORIES } from "../data/recipeData";
 
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Breadcrumbs from "../components/Breadcrumbs";
 
