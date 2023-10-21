@@ -132,6 +132,7 @@
 
 .product-card-container {
   overflow: hidden;
+  position: relative;
   width: 275px;
   height: 200px;
   background-color: white;
