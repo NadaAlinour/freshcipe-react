@@ -17,7 +17,9 @@ E-commerce web application using Reactjs.
 - ~~example: on recipes page, scrolled down, click recipe the "page" shows starting at the recipe details portion rather than from the start (navbar) (scroll to top basically)~~
 - ~~change favicon~~
 - add the "add recipe to favourites" on the recipe details page
-- ~~fix breadcrumb navigation (gotta send data along with the route)~~ now do for recipes
+- ~~fix breadcrumb navigation and extract id of product collection and recipe from url~~
 - ~~change black icons to the darkest grey or any other grey that is not black~~
 - fix product card price (when the whole number is more than one digit)
-
+- all products of a recipe should be available mostly
+- re-think flow, categories for each market etc etc
+- re-think suggested products/bestsellers/etc

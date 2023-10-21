@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
 import Breadcrumbs from "../components/Breadcrumbs";

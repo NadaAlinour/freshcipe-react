@@ -10,8 +10,20 @@ import Breadcrumbs from "../components/Breadcrumbs";
 export default function RecipeDetails({ route }) {
   //const recipeId = "r1";
   const location = useLocation();
-  const id = location.state.recipeId;
+  /*const id = location.state.recipeId;
   const recipeDetails = RECIPES.find((recipe) => recipe.id === id);
+  const categories = recipeDetails.dietCategories.map((cat) =>
+    RECIPE_CATEGORIES.find((item) => item.id == cat)
+  );*/
+
+  const currentPath = location.pathname;
+  console.log(currentPath);
+  // extract id from path hehehe
+  const pathArray = currentPath.split("/");
+  const idFromUrl = pathArray[pathArray.length - 2];
+  console.log(idFromUrl);
+
+  const recipeDetails = RECIPES.find((recipe) => recipe.id === idFromUrl);
   const categories = recipeDetails.dietCategories.map((cat) =>
     RECIPE_CATEGORIES.find((item) => item.id == cat)
   );
@@ -40,7 +52,6 @@ export default function RecipeDetails({ route }) {
               <div className="recipe-info-heart-icon-container">
                 <box-icon name="heart" color="white" size="25px" />
               </div>
-
             </div>
             <h1>{recipeDetails.title}</h1>
             <p>{recipeDetails.description}</p>

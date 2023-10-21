@@ -15,7 +15,6 @@
   margin: 30px 50px 0px 50px;
   flex-wrap: wrap;
   gap: 15px;
-  align-items: center;
 }
 
 .recipes-list-container {
@@ -152,6 +151,7 @@
 
 .recipe-info-container {
   margin-top: 25px;
+  margin-bottom: 30px;
   border-top-right-radius: 150px;
   overflow: hidden;
   min-height: 485px;
@@ -263,6 +263,7 @@
   display: flex;
   gap: 20px;
   margin-top: 50px;
+  margin-bottom: 50px;
   min-height: 600px;
   width: 80%;
   background-color: var(--backgroundDark);
@@ -382,7 +383,6 @@
 
 
 .nutrition-values-container {
-  background-color: pink;
   flex-grow: 1;
   background-color: var(--backgroundDark);
   box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.4);
