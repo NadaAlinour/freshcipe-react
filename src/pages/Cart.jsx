@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
@@ -34,61 +34,182 @@ export default function CartPage() {
     setCartItems(updatedCart);
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const calculateSubTotal = () => {
+    return cartItems.reduce((total, item) => {
+      return total + item.quantity * item.basePrice;
+    }, 0);
+  };
+
+  const calculateTotalAmount = () => {
+    const subTotal = calculateSubTotal();
+    // You can add other fees or discounts here if needed
+    const deliveryFees = 5.0; // Replace with your value
+    const serviceFee = 3.99; // Replace with your value
+    const productDiscount = 7.0; // Replace with your value
+    return subTotal + deliveryFees - serviceFee - productDiscount;
+  };
+
+  const subTotal = calculateSubTotal();
+  const totalAmount = calculateTotalAmount();
+
+  const updatePrice = (itemId, newQuantity) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === itemId) {
+        item.quantity = newQuantity;
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+  };
+
+    // Ref for the scrollable container
+    const scrollRef = useRef(null);
+
+    const scrollLeft = () => {
+      scrollRef.current.scrollLeft -= 200; // Adjust the scroll distance
+    };
+  
+    const scrollRight = () => {
+      scrollRef.current.scrollLeft += 200; // Adjust the scroll distance
+    };
+    
   return (
     <div className="cart_page">
       <div className="cart_products_container">
         <div className="cart_items">
           <h2>Cart Items</h2>
 
-          {cartItems.map((item) => (
-            <CartItem
-              key={item.id}
-              name={item.name}
-              image={item.image}
-              basePrice={item.basePrice}
-              quantity={item.quantity}
-              removeItem={() => removeFromCart(item.id)}
-            />
-          ))}
+          {cartItems.length === 0 ? (
+            <p>No Items in the Cart</p>
+          ) : (
+            cartItems.map((item) => (
+              <CartItem
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                image={item.image}
+                basePrice={item.basePrice}
+                quantity={item.quantity}
+                updatePrice={updatePrice}
+                removeItem={() => removeFromCart(item.id)}
+              />
+            ))
+          )}
 
           <div className="clearCart_button">
-          <button className="cart_button clear_cart_button" type="reset">Clear Cart</button>
-          <button className="cart_button" type="button">Add More Items</button>
+            <button
+              className="cart_button clear_cart_button"
+              type="button"
+              onClick={clearCart}
+            >
+              Clear Cart
+            </button>
+            <button className="cart_button" type="button">
+              Add More Items
+            </button>
           </div>
+
+          {(cartItems.length === 0 || totalAmount < 40.0) && (
+            <p className="no-items-message">Minimum Charge is EGP 40.00</p>
+          )}
         </div>
 
         <div className="bill">
-          <h2>Bill & ETA</h2>
+          <h2>Order Details</h2>
 
           <div className="bill_details">
-            <h4>ETA</h4>
-            <h4>SubTotal</h4>
-            <h4>Delivery Fees</h4>
-            <h4>Service Fee</h4>
-            <h4>Offer Discount</h4>
-            <h4>Total Amount</h4>
+            <div className="bill_item">
+              <span>ETA:</span>
+              <span>30 minutes</span>
+            </div>
+            
+            <div className="bill_item">
+              <span>SubTotal:</span>
+              <span>EGP {subTotal.toFixed(2)}</span>
+            </div>
+            
+            <div className="bill_item">
+              <span>Delivery Fees:</span>
+              <span>EGP 5.00</span> {/* You can change this value if needed */}
+            </div>
+            
+            <div className="bill_item">
+              <span>Service Fee:</span>
+              <span>EGP 3.99</span> {/* You can change this value if needed */}
+            </div>
+            
+            <div className="bill_item">
+              <span>Product Discount:</span>
+              <span>-EGP 7.00</span> {/* You can change this value if needed */}
+            </div>
+            
+            <div className="bill_item total">
+              <span>Total Amount:</span>
+              <span>EGP {totalAmount.toFixed(2)}</span>
+            </div>
           </div>
-
+          
           <div className="promo_code">
-            <textarea name="enter_promo" id="promo_text" cols="30" rows="2">Promo Code</textarea>
-            <button type="submit">Submit Promo Code</button>
+            <h3>Promo Code</h3>
+            <input
+              type="text"
+              name="promo_code"
+              id="promo_text"
+              placeholder="Enter Promo Code"
+            />
+            
+            <button type="submit" className="promo_submit_button">Apply</button>
           </div>
         </div>
       </div>
 
       <div className="suggested_products_container">
-        <div className="suggested_products">
+        <div className="suggested_products_title">
           <h2>Suggested Products</h2>
-          <div className="suggested_images">
-            <ProductCard id="p9" imageUrl="https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a" title="Grapes" price="3.55" quantity="200" />
-            <ProductCard id="p9" imageUrl="https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a" title="Grapes" price="3.55" quantity="200" />
-          </div>
+          <div className="suggested_products">
+          <button
+            className="scroll-button scroll-left-button"
+            onClick={scrollLeft}
+         >
+          &lt;
+          </button>
+          <div className="suggested_images" ref={scrollRef}>
+              <ProductCard className="product_card" id="p9" imageUrl=
+              "https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a"
+              title="Grapes" price="3.55" quantity="200" />
+              <ProductCard className="product_card" id="p10" imageUrl=
+              "https://img.freepik.com/free-photo/red-apple-with-green-leaf-white-background_1232-3290.jpg?2&w=2000&t=st=1695864963~exp=1695865563~hmac=bc3dcf4882ad5e8a9fc0e7116cc05ef8c6451ceb7ecc911dbca386bdf93fff77"
+              title="Apples" price="3.55" quantity="200" />
+              <ProductCard className="product_card" id="p11" imageUrl=
+              "https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg?w=2000&t=st=1695927637~exp=1695928237~hmac=7842355a2d062382efcd2c35101f80650572a7e15ca0d7dae9be2613096199b1"
+              title="Bananas" price="3.55" quantity="200" />
+              <ProductCard className="product_card" id="p12" imageUrl=
+              "https://img.freepik.com/free-photo/green-cucumber_144627-21625.jpg?w=2000&t=st=1695927673~exp=1695928273~hmac=113b5255409c2570934d4de88a10753e117ccf4a61e8557b22172efdb37b4e0e"
+              title="Cucumber" price="3.55" quantity="200" />
+              <ProductCard className="product_card" id="p14" imageUrl=
+              "https://img.freepik.com/free-photo/bell-pepper_1339-1594.jpg?w=2000&t=st=1695927825~exp=1695928425~hmac=2ba78653f1ad589d23a381803516f66fc188553782b9e78bcbcaa60940a103e5"
+              title="Bell Pepper" price="3.55" quantity="200" />
+              <ProductCard className="product_card" id="p2" imageUrl=
+              "https://img.freepik.com/free-photo/raw-salmon_144627-33848.jpg?w=2000&t=st=1695865095~exp=1695865695~hmac=f2ff4a7472bb3cccc83997c784b1bc0cd6f63ca8bdd0d2ae78d11b96fe11fdd8"
+              title="Salmon" price="20.99" quantity="200" />
+            </div>
+            <button
+              className="scroll-button scroll-right-button"
+              onClick={scrollRight}
+            >
+              &gt;
+            </button>
+         </div>
         </div>
 
         <div className="note">
           <h2>Special Request</h2>
-          <textarea name="enter_request" id="note_text" cols="30" rows="3">Add a Note..</textarea><br />
-          <button>Go To Checkout</button>
+          <textarea name="enter_request" id="note_text" cols="30" rows="3" placeholder="Add a Note..."></textarea>
+          <button className="checkout-button">Go To Checkout</button>
         </div>
       </div>
     </div>

@@ -2,34 +2,46 @@
     display: flex;
     border: 1px solid black;
     justify-content: space-between;
-    background-color: white; /* Add a background color to make it stand out */
-    padding: 20px; /* Add some padding for spacing */
-    border-radius: 10px; /* Add rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
-}
-
-.suggested_products_container {
-    display: flex;
-    border: 1px solid rgba(0, 0, 0, 0.3); /* Correct the border syntax */
-    justify-content: space-between;
-    margin-top: 50px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.suggested_products_container {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
+    margin-top: 50px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+.suggested_products_title {
+    width: 70%;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    min-height: 200px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
 .cart_page {
     margin: 50px;
     background-color: var(--grey300);
-    padding: 20px; /* Add padding to the entire cart page */
+    padding: 20px;
     border-radius: 10px;
 }
 
 .cart_items {
     border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 300px;
-    width: 40%;
+    width: 70%;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -37,107 +49,243 @@
 }
 
 .bill {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    min-height: 300px;
-    width: 30%;
-    background-color: white;
+    background: #f9f9f9;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 25%;
+}
+  
+.bill h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+  
+.bill_details {
+    display: flex;
+    flex-direction: column;
+}
+  
+.bill_item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+  
+.bill_item.total {
+    font-weight: bold;
+    color: #ED8453;
 }
 
+
+.promo_code {
+    margin-top: 20px;
+}
+  
+.promo_code h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+  
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+  
+.promo_submit_button {
+    display: block;
+    width: 100%;
+    background: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+  
+.promo_submit_button:hover {
+    background: #45a049;
+}
+  
 .suggested_products {
     border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 200px;
-    width: 60%;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    display: flex; /* Use flexbox to align child elements horizontally */
-    flex-direction: column; /* Set the direction to column (vertical) initially */
+    display: flex;
+    flex-direction: row; 
+    overflow-x: auto;
+    white-space: nowrap;
+    justify-content: flex-start;
 }
+
+.suggested_images  {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: flex-start;
+}
+
+.product_card {
+    max-height: 300px;
+    flex: 0 0 auto;
+    max-width: 200px;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+  
+.scroll-left-button {
+    left: 0;
+}
+  
+.scroll-right-button {
+    right: 0;
+}  
 
 .note {
+    display: flex;
+    flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 200px;
-    width: 30%;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
-
-/* Add this CSS for the "Clear Cart" and "Add More Items" buttons */
-
-/* Generic button styles */
-.cart_button {
-    display: inline-block;
+  
+.note h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+  
+textarea[name="enter_request"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    resize: none; /* Prevents resizing */
+    font-size: 1rem;
+    flex-grow: 1;
+}
+  
+.checkout-button {
+    display: block;
     padding: 10px 20px;
-    background-color: #007bff; /* Customize the button background color */
-    color: #fff; /* Customize the button text color */
+    background-color: #ED8453;
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-right: 10px; /* Add some space between buttons */
-    transition: background-color 0.3s; /* Add a smooth hover effect */
-  }
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    align-self: flex-end;
+}
   
-  .cart_button:hover {
-    background-color: #0056b3; /* Customize the button background color on hover */
-  }
-  
-  /* Styling for the "Clear Cart" button */
-  .clear_cart_button {
-    background-color: #ff3333; /* Customize the "Clear Cart" button background color */
-  }
-  
-  .clear_cart_button:hover {
-    background-color: #d91c1c; /* Customize the "Clear Cart" button background color on hover */
-  }
-  
+.checkout-button:hover {
+    background-color: #f15209;
+}  
 
-.suggested_images {
-    display: flex; /* Use flexbox to align products horizontally */
-    flex-direction: row; /* Set the direction to row (horizontal) */
-    align-items: center; /* Align products vertically in the center */
-    gap: 20px; /* Add some space between products */
+
+.cart_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ED8453;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+  
+.cart_button:hover {
+    background-color: #f15209;
+}
+  
+.clear_cart_button {
+    background-color: rgb(251, 104, 134);
+}
+  
+.clear_cart_button:hover {
+    background-color: rgb(235, 16, 59);
 }
 
 .item_row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid (0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     padding: 10px;
     margin: 10px 0;
-  }
+}
   
-  .item_row img {
+.item_row img {
     height: 70px;
-  }
+}
   
-  .item_row .quantity_controls {
+.item_row .product_info {
+    flex-grow: 1;
+    padding: 10px;
+}
+  
+.item_row .product_info h3 {
+    margin: 0;
+}
+  
+.item_row .quantity_controls {
     display: flex;
     align-items: center;
-  }
+    gap: 10px;
+}
   
-  .item_row .quantity_controls button {
+.item_row .quantity_controls button {
     background: none;
     border: none;
     cursor: pointer;
-  }
+}
+
+.item_row .quantity_controls button:hover {
+    background-color: var(--background);
+}
   
-  .item_row .price {
+.item_row .price {
     font-weight: bold;
-  }
+    margin-right: 20px;
+}
   
-  .item_row .remove_button {
-    background: #ff3333; /* Customize the button background color */
-    color: #fff; /* Customize the button text color */
+.item_row .remove_button {
+    background: none;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-  }
+}  
+
+.item_row .remove_button:hover {
+    background-color: var(--background);
+}
   
+.no-items-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ff0000;
+}  
