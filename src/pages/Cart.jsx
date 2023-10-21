@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
@@ -11,6 +11,7 @@ export default function CartPage() {
       image: 'src/assets/images/rice.png',
       basePrice: 10.99,
       quantity: 2,
+      discount: 0,
     },
     {
       id: 2,
@@ -18,6 +19,7 @@ export default function CartPage() {
       image: 'src/assets/images/cereal.png',
       basePrice: 10.99,
       quantity: 5,
+      discount: 15,
     },
     {
       id: 3,
@@ -25,8 +27,8 @@ export default function CartPage() {
       image: 'src/assets/images/tomatoes.jpg',
       basePrice: 10.99,
       quantity: 3,
+      discount: 30,
     }
-    // Add more items to the cart as needed
   ]);
 
   const removeFromCart = (itemId) => {
@@ -44,13 +46,20 @@ export default function CartPage() {
     }, 0);
   };
 
+  const calculateTaxFee = () => {
+    return cartItems.reduce((total, item) => {
+      return total + (item.basePrice * 0.14) * item.quantity;
+    }, 0);
+  };
+
+
   const calculateTotalAmount = () => {
     const subTotal = calculateSubTotal();
-    // You can add other fees or discounts here if needed
-    const deliveryFees = 5.0; // Replace with your value
-    const serviceFee = 3.99; // Replace with your value
-    const productDiscount = 7.0; // Replace with your value
-    return subTotal + deliveryFees - serviceFee - productDiscount;
+    const deliveryFees = 10.0; 
+    const productDiscount = 7.0;
+    const taxFee = calculateTaxFee();
+
+    return subTotal + deliveryFees + taxFee - productDiscount;
   };
 
   const subTotal = calculateSubTotal();
@@ -66,17 +75,6 @@ export default function CartPage() {
     setCartItems(updatedCart);
   };
 
-    // Ref for the scrollable container
-    const scrollRef = useRef(null);
-
-    const scrollLeft = () => {
-      scrollRef.current.scrollLeft -= 200; // Adjust the scroll distance
-    };
-  
-    const scrollRight = () => {
-      scrollRef.current.scrollLeft += 200; // Adjust the scroll distance
-    };
-    
   return (
     <div className="cart_page">
       <div className="cart_products_container">
@@ -134,17 +132,17 @@ export default function CartPage() {
             
             <div className="bill_item">
               <span>Delivery Fees:</span>
-              <span>EGP 5.00</span> {/* You can change this value if needed */}
+              <span>EGP 10.00</span>
             </div>
             
             <div className="bill_item">
-              <span>Service Fee:</span>
-              <span>EGP 3.99</span> {/* You can change this value if needed */}
+              <span>Tax Fees:</span>
+              <span>EGP {calculateTaxFee().toFixed(2)}</span>
             </div>
             
             <div className="bill_item">
               <span>Product Discount:</span>
-              <span>-EGP 7.00</span> {/* You can change this value if needed */}
+              <span>-EGP 7.00</span>
             </div>
             
             <div className="bill_item total">
@@ -171,13 +169,8 @@ export default function CartPage() {
         <div className="suggested_products_title">
           <h2>Suggested Products</h2>
           <div className="suggested_products">
-          <button
-            className="scroll-button scroll-left-button"
-            onClick={scrollLeft}
-         >
-          &lt;
-          </button>
-          <div className="suggested_images" ref={scrollRef}>
+          
+          <div className="suggested_images">
               <ProductCard className="product_card" id="p9" imageUrl=
               "https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a"
               title="Grapes" price="3.55" quantity="200" />
@@ -197,20 +190,18 @@ export default function CartPage() {
               "https://img.freepik.com/free-photo/raw-salmon_144627-33848.jpg?w=2000&t=st=1695865095~exp=1695865695~hmac=f2ff4a7472bb3cccc83997c784b1bc0cd6f63ca8bdd0d2ae78d11b96fe11fdd8"
               title="Salmon" price="20.99" quantity="200" />
             </div>
-            <button
-              className="scroll-button scroll-right-button"
-              onClick={scrollRight}
-            >
-              &gt;
-            </button>
+            
          </div>
         </div>
 
         <div className="note">
           <h2>Special Request</h2>
           <textarea name="enter_request" id="note_text" cols="30" rows="3" placeholder="Add a Note..."></textarea>
-          <button className="checkout-button">Go To Checkout</button>
         </div>
+      </div>
+
+      <div className="checkout_button_div">
+      <button className="checkout-button">Go To Checkout</button>
       </div>
     </div>
   );

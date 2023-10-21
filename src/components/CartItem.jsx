@@ -2,19 +2,18 @@ import React from 'react';
 import "../assets/stylesheets/cart.css";
 
 function CartItem({ id, name, image, basePrice, quantity, updatePrice, removeItem }) {
-  const totalPrice = quantity * basePrice; // Calculate the total price
+  const totalPrice = quantity * basePrice;
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      updatePrice(id, quantity - 1); // Update the total price
+      updatePrice(id, quantity - 1);
     } else {
-      // If the quantity is 1, remove the item
       removeItem(id);
     }
   };
 
   const increaseQuantity = () => {
-    updatePrice(id, quantity + 1); // Update the total price
+    updatePrice(id, quantity + 1);
   };
 
   return (
