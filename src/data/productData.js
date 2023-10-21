@@ -107,7 +107,6 @@ export const PRODUCTS = [
     "apple number deux",
     "3.55",
     "200",
-
     "pc1"
   ),
 

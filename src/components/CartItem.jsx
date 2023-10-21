@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
-import "../assets/stylesheets/cart.css"
+import React from 'react';
+import "../assets/stylesheets/cart.css";
 
-function CartItem({ name, image, basePrice, removeItem }) {
-  const [quantity, setQuantity] = useState(1);
+function CartItem({ id, name, image, basePrice, quantity, updatePrice, removeItem }) {
+  const totalPrice = quantity * basePrice; // Calculate the total price
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      updatePrice(id, quantity - 1); // Update the total price
+    } else {
+      // If the quantity is 1, remove the item
+      removeItem(id);
     }
   };
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    updatePrice(id, quantity + 1); // Update the total price
   };
-
-  const totalPrice = quantity * basePrice; // Calculate the total price
 
   return (
     <div className="item_row">
       <img src={image} alt={name} height={70} />
-      <div>
-        {name}
+      <div className="product_info">
+        <h3>{name}</h3>
+        <p>EGP {basePrice.toFixed(2)}</p>
         <div className="quantity_controls">
           <button onClick={decreaseQuantity}>
             <box-icon name='minus'></box-icon>
@@ -31,9 +33,9 @@ function CartItem({ name, image, basePrice, removeItem }) {
           </button>
         </div>
       </div>
-      <div className="price">EGP{totalPrice.toFixed(2)}</div>
-      <button className="remove_button" onClick={removeItem}>
-        Remove
+      <div className="price">EGP {totalPrice.toFixed(2)}</div>
+      <button className="remove_button" onClick={() => removeItem(id)}>
+        <box-icon name='trash' ></box-icon>
       </button>
     </div>
   );
