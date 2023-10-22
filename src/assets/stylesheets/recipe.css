@@ -21,7 +21,7 @@
   display: flex;
   justify-content: center;
   margin-top: 90px;
-  margin-bottom: 120px;
+  margin-bottom: 50px;
 }
 
 
@@ -139,6 +139,12 @@
   font-size: 15px;
 }
 
+.recipe-pagination-container {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: right;
+  padding: 0px 130px 0px 130px;
+}
 
 /* page displaying a recipe details */
 

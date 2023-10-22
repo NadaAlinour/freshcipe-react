@@ -67,6 +67,8 @@ body {
   justify-content: center;
 }
 
+
+
 .breadcrumbs {
   display: flex;
   padding: 15px 20px 0px 30px;
@@ -147,6 +149,33 @@ body {
   color: white;
 }
 
+.pagination-container {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  padding: 20px;
+  align-items: center;
+}
+
+.pagination-container p {
+  font-size: 17px;
+}
+
+.pagination-container button {
+  padding: 15px 20px 15px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary500);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 20px;
+}
+
+.pagination-container button:hover {
+  cursor: pointer;
+  background-color: var(--primary600);
+}
 
 
 footer {

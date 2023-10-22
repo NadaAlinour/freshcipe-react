@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
 import Breadcrumbs from "../components/Breadcrumbs";
-
+import Pagination from "../components/Pagination";
 import { PRODUCTS } from "../data/productData";
 
 export default function ProductCollection() {
@@ -28,14 +28,19 @@ export default function ProductCollection() {
         <div className="product-filter-container">
           <ProductFilter />
         </div>
-        <div className="product-list-container">
-          <ul>
-            {products.map((product) => (
-              <li key={product.id}>
-                <ProductCard {...product} />
-              </li>
-            ))}
-          </ul>
+        <div>
+          <div className="product-list-container">
+            <ul>
+              {products.map((product) => (
+                <li key={product.id}>
+                  <ProductCard {...product} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="product-pagination-container">
+            <Pagination currentNum="8" totalNum="65"/>
+          </div>
         </div>
       </div>
     </>

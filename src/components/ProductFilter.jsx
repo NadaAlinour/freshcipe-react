@@ -86,7 +86,7 @@ export default function ProductFilter() {
           <h3>Price</h3>
         </div>
 
-        <p>this is slider</p>
+        <p>slider</p>
       </div>
     </div>
   );
