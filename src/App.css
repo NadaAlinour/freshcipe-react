@@ -7,6 +7,7 @@
   --primary500: #ed8453;
   --primary600: #ce6332;
   --accent500: #879a66;
+  --accent600: #758558;
   --red400: #fa635c;
   --backgroundLight: white;
   --background: #f4e7da;
@@ -19,6 +20,9 @@ body {
   line-height: 2;
   background-color: var(--background);
   color: var(--grey900);
+  /*background-image: linear-gradient(180deg, 
+  rgba(255, 255, 255, 0.95), 
+  rgba(248, 223, 198, 0.95), rgba(249, 183, 111, 0.7))*/
 }
 
 .content-container {

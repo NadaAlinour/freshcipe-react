@@ -32,8 +32,9 @@ export default function RecipeDetails({ route }) {
 
   let stepCount = 1;
 
-  const [isHeartHover, setIsHeartHover] = useState(false);
-  const [isFavourite, setIsFavourite] = useState(false); // how hmmm
+  const handlePrint = () => {
+    console.log("print was clicked");
+  };
 
   return (
     <>
@@ -42,17 +43,6 @@ export default function RecipeDetails({ route }) {
         {/* recipe info */}
         <div className="recipe-info-container">
           <div className="recipe-info">
-            <div
-              className="add-recipe-to-favourites-container"
-              onMouseEnter={() => setIsHeartHover(true)}
-              onMouseLeave={() => setIsHeartHover(false)}
-            >
-              <p>Save</p>
-
-              <div className="recipe-info-heart-icon-container">
-                <box-icon name="heart" color="white" size="25px" />
-              </div>
-            </div>
             <h1>{recipeDetails.title}</h1>
             <p>{recipeDetails.description}</p>
             <p>{recipeDetails.duration} minutes to prepare</p>
@@ -82,16 +72,37 @@ export default function RecipeDetails({ route }) {
         </div>
 
         <div className="ingredients-steps-container">
+          <div className="recipe-buttons-container">
+            <div className="print-recipe-button-container">
+              <p>Print</p>
+
+              <div
+                className="recipe-info-printer-icon-container"
+                onClick={handlePrint}
+              >
+                <box-icon name="printer" color="#758558" size="20px" />
+              </div>
+            </div>
+
+            <div className="add-recipe-button-container">
+              <p>Save</p>
+
+              <div className="recipe-info-heart-icon-container">
+                <box-icon name="heart" color="white" size="25px" />
+              </div>
+            </div>
+          </div>
+
           {/* recipe ingredients */}
           <div id="recipe-steps" className="recipe-ingredients-container">
             <h1>Ingredients</h1>
             <ul>
               {recipeDetails.ingredients.map((ingredient) => (
                 <li key={ingredient}>
-                  <div className="ingredient-checkbox-label">
-                    <div className="checkbox-container-ing">
-                      <div className="recipe-checkbox-container"></div>
-                    </div>
+                  <div className="ingredient-checkbox-container">
+                    <box-icon name="checkbox" size="26" color="#3c3b37" />
+                  </div>
+                  <div className="ingredient-label-container">
                     <label>{ingredient}</label>
                   </div>
                 </li>
@@ -109,10 +120,12 @@ export default function RecipeDetails({ route }) {
             <ul>
               {recipeDetails.steps.map((step) => (
                 <li key={step}>
-                  <p>
+                  <div className="recipe-steps-counter-container">
                     <b>{stepCount++} </b>
-                    {step}
-                  </p>
+                  </div>
+                  <div className="recipe-steps-p" id="recipe-steps-p-el">
+                    <p>{step}</p>
+                  </div>
                 </li>
               ))}
             </ul>

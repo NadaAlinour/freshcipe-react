@@ -16,7 +16,7 @@ E-commerce web application using Reactjs.
 - ~~move click handlers inside card components instead of component where the list is rendered~~
 - ~~example: on recipes page, scrolled down, click recipe the "page" shows starting at the recipe details portion rather than from the start (navbar) (scroll to top basically)~~
 - ~~change favicon~~
-- add the "add recipe to favourites" on the recipe details page
+- ~~add the "add recipe to favourites" on the recipe details page~~
 - ~~fix breadcrumb navigation and extract id of product collection and recipe from url~~
 - ~~change black icons to the darkest grey or any other grey that is not black~~
 - fix product card price (when the whole number is more than one digit)
