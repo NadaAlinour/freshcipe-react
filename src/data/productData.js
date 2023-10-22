@@ -72,7 +72,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/cucumber.png",
     "apple number deux",
     "3.55",
-    "200",
+    "200g",
 
     "pc1"
   ),
@@ -83,7 +83,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/tomato-product.png",
     "apple number deux",
     "3.55",
-    "200",
+    "200g",
 
     "pc1"
   ),
@@ -94,7 +94,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/bell-pepper-red.png",
     "apple number deux",
     "3.55",
-    "200",
+    "200g",
 
     "pc1"
   ),
@@ -105,7 +105,8 @@ export const PRODUCTS = [
     "/src/assets/images/products/grapes.png",
     "apple number deux",
     "3.55",
-    "200",
+    "200g",
+
     "pc1"
   ),
 
@@ -115,7 +116,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/apple-golden.png",
     "apple product description temp for now",
     "3.55",
-    "200",
+    "200g",
     "pc1"
   ),
 
@@ -126,7 +127,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/bell-pepper-yellow.png",
     "apple number deux",
     "3.55",
-    "200",
+    "215g",
 
     "pc1"
   ),
@@ -138,7 +139,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/salmon.png",
     "salmon product description temp for now",
     "20.99",
-    "200",
+    "250g",
 
     "pc2"
   ),
@@ -149,7 +150,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/croissant.png",
     "croissant product description temp for now",
     "5.99",
-    "200",
+    "200g",
 
     "pc3"
   ),
@@ -160,7 +161,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/suntop-juice.png",
     "orange juice description sklfjalkfjs",
     "4.55",
-    "200",
+    "0.4L",
 
     "pc4"
   ),
@@ -171,7 +172,7 @@ export const PRODUCTS = [
     "/src/assets/images/products/chips.png",
     "chips description sklfjalkfjs",
     "2.99",
-    "200",
+    "200g",
 
     "pc5"
   ),
@@ -182,7 +183,7 @@ export const PRODUCTS = [
     '/src/assets/images/products/egg-carton.png',
     'egg descripsh',
     '12.99',
-    '6 per carton',
+    '1/2 dozen',
     'pc6'
   )
 ];
