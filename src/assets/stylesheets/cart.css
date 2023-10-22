@@ -87,7 +87,7 @@
     margin-bottom: 10px;
 }
   
-input[type="text"] {
+.promo_code input[type="text"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -136,30 +136,9 @@ input[type="text"] {
     max-height: 300px;
     flex: 0 0 auto;
     max-width: 200px;
-}
-
-.scroll-button {
-    position: absolute;
-    top: 50%;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
-    transform: translateY(-50%);
-    z-index: 1;
-}
-  
-.scroll-left-button {
-    left: 0;
-}
-  
-.scroll-right-button {
-    right: 0;
-}  
+} 
 
 .note {
-    display: flex;
     flex-direction: column;
     border: 1px solid rgba(0, 0, 0, 0.3);
     min-height: 200px;
@@ -168,6 +147,10 @@ input[type="text"] {
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     position: relative;
+    margin-bottom: 200px;
+    margin-left: 50px;
+
+    width: 120%;
 }
   
 .note h2 {
@@ -176,16 +159,22 @@ input[type="text"] {
 }
   
 textarea[name="enter_request"] {
-    width: 100%;
+    width: 80%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
-    resize: none; /* Prevents resizing */
+    resize: none;
     font-size: 1rem;
     flex-grow: 1;
+    margin-bottom: 10px;
+    margin-left: 30px;
 }
-  
+
+.checkout_button_div {
+    margin-left: 1200px;
+}
+
 .checkout-button {
     display: block;
     padding: 10px 20px;
@@ -195,7 +184,7 @@ textarea[name="enter_request"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 20px;
     transition: background-color 0.3s;
     align-self: flex-end;
 }
