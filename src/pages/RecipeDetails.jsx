@@ -34,6 +34,7 @@ export default function RecipeDetails({ route }) {
 
   const handlePrint = () => {
     console.log("print was clicked");
+    window.print();
   };
 
   return (
@@ -43,15 +44,23 @@ export default function RecipeDetails({ route }) {
         {/* recipe info */}
         <div className="recipe-info-container">
           <div className="recipe-info">
-            <h1>{recipeDetails.title}</h1>
-            <p>{recipeDetails.description}</p>
-            <p>{recipeDetails.duration} minutes to prepare</p>
+            <p className="recipe-info-title">{recipeDetails.title}</p>
+            <p className="recipe-info-description">
+              {recipeDetails.description}
+            </p>
+            <div className="recipe-info-time-container">
+              <box-icon name="timer" />
+              <p>{recipeDetails.duration} minutes to prepare</p>
+            </div>
 
             <div>
               <ul>
-                {categories.map((category) => (
+                {categories.map((category, index) => (
                   <li key={category.id}>
-                    <Tag isPlain={true}>{category.title}</Tag>
+                    <div className="recipe-info-category-item-container">
+                      <p>{category.title}</p>
+                      {index < categories.length - 1 && <p>,</p>}
+                    </div>
                   </li>
                 ))}
               </ul>

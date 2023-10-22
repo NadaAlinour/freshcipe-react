@@ -23,3 +23,5 @@ E-commerce web application using Reactjs.
 - all products of a recipe should be available mostly
 - re-think flow, categories for each market etc etc
 - re-think suggested products/bestsellers/etc
+- change ingredient checkbox on hover
+- style print layout
