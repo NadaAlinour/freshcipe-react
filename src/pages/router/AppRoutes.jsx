@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "..//Home";
 import ProductCategories from "../ProductCategories";
+import ProductDescription from "../ProductDetails";
 import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
@@ -22,6 +23,7 @@ import RecipeDetails from "../RecipeDetails";
 import ProductCollection from "../ProductCollection";
 
 import { useSelector } from "react-redux";
+import ProductDetails from "../ProductDetails";
 
 const AppRoutes = () => {
   const { userToken } = useSelector((state) => state.auth);
@@ -44,6 +46,9 @@ const AppRoutes = () => {
         path="products/:productId/:productCategory"
         element={<ProductCollection />}
       ></Route>
+
+      <Route path="product-details" element={<ProductDetails/>}/>
+      <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>
 
       <Route path="recipes" element={<Recipes />}></Route>
       <Route path="recipes/:recipeId/:title" element={<RecipeDetails />}></Route>
