@@ -153,7 +153,7 @@ export const RECIPES = [
     ]
   ),
 
-  new Recipe(
+  /*new Recipe(
     "r5",
     "Key Lime Pie",
     "There's nothing like a classic Key lime pie to satisfy your sweet tooth. This sweet, rich, creamy, and tangy Key lime pie recipe is easy to make on a whim with easy-to-find ingredients.",
@@ -291,8 +291,8 @@ export const RECIPES = [
       { component: "Sugars", value: "4g" },
       { component: "Protein", value: "7g" },
     ]
-  ),
-  new Recipe(
+  ),*/
+  /*new Recipe(
     "r9",
     "Key Lime Pie",
     "There's nothing like a classic Key lime pie to satisfy your sweet tooth. This sweet, rich, creamy, and tangy Key lime pie recipe is easy to make on a whim with easy-to-find ingredients.",
@@ -430,5 +430,5 @@ export const RECIPES = [
       { component: "Sugars", value: "4g" },
       { component: "Protein", value: "7g" },
     ]
-  ),
+  ),*/
 ];

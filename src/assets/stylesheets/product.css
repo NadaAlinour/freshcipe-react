@@ -56,7 +56,6 @@
 
 .category-card-container:hover {
   box-shadow: 0px 8px 10px -4px rgba(0, 0, 0, 0.5);
-
   cursor: pointer;
 }
 
@@ -238,6 +237,11 @@
   font-weight: bold;
   color: white;
   font-size: 15px;
+}
+
+.product-pagination-container {
+  display: flex;
+  justify-content: right;
 }
 
 .product-info-parent {

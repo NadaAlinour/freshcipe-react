@@ -46,12 +46,16 @@ const AppRoutes = () => {
         path="products/:productId/:productCategory"
         element={<ProductCollection />}
       ></Route>
+     
+
 
       <Route path="product-details" element={<ProductDetails/>}/>
       <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>
 
       <Route path="recipes" element={<Recipes />}></Route>
       <Route path="recipes/:recipeId/:title" element={<RecipeDetails />}></Route>
+
+
 
       <Route
         path="login"
