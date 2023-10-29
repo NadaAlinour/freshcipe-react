@@ -246,24 +246,28 @@
 
 .product-info-parent {
   display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .product-info-container{
   margin-top: 25px;
   margin-bottom: 30px;
+  padding: 60px;
   border-top-right-radius: 150px;
   overflow: hidden;
   min-height: 485px;
-  width: 82%;
-  display: contents;
-  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .product-info-img-container{
   position: relative;
-  width: 30%;
-  height: 350px;
+  width: 50%;
+  height: 400px;
   margin: 20px 15px 20px 15px;
   padding:50px;
   background-color: white;
@@ -281,9 +285,9 @@
   justify-content: center;
   text-align: center;
   margin: 20px 15px 20px 15px;
-  /*padding: 30px;*/
-  width: 40%;
-  height: 350px;
+  padding: 50px;
+  width: 50%;
+  height: 400px;
   row-gap: 15px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -303,8 +307,10 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-right: 10px;
+  margin: 50px;
   transition: background-color 0.3s;
+  width: fit-content;
+  justify-content: center;
 }
 
 /* vendor card stuff */

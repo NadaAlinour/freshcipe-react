@@ -72,6 +72,9 @@ export default function ProductDetails({ route }) {
                 {product?.attributes?.description || ""}
               </p>
             )}
+            <button className="product-info-add-to-cart-button">
+              Add To Cart 
+            </button>
           </div>
         </div>
       </div>
