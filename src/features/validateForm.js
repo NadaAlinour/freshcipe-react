@@ -9,18 +9,16 @@ const validateEmailFormat = (email) => {
   return true;
 };
 
-export const validateLogin = (email, password) => {
+export const validateLogin = (identifier, password) => {
   let errorFlags = {
-    emailError: false,
+    identifierError: false,
     passwordError: false,
-    isNotValidEmail: false,
   };
 
-  if (email === "") errorFlags.emailError = true;
+  if (identifier === "") errorFlags.identifierError = true;
   if (password === "") errorFlags.passwordError = true;
 
-  const isValidEmailFormat = validateEmailFormat(email);
-  if (isValidEmailFormat === false) errorFlags.isNotValidEmail = true;
+  
 
   return errorFlags;
 };
@@ -42,17 +40,15 @@ export const mockValidate = (email, password) => {
 };
 
 
-export const validateSignup = (firstname, lastname, email, password, phone) => {
+export const validateSignup = (username, email, password, phone) => {
   let errorFlags = {
-    firstNameError: false,
-    lastNameError: false,
+    usernameError: false,
     emailError: false,
     passwordError: false,
     isNotValidEmail: false,
   };
 
-  if (firstname === "") errorFlags.firstNameError = true;
-  if (lastname === "") errorFlags.lastNameError = true;
+  if (username === "") errorFlags.lastNameError = true;
   if (email === "") {
     errorFlags.emailError = true;
   } else {

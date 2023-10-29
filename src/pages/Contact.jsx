@@ -1,12 +1,13 @@
 import "../assets/stylesheets/form.css";
 import { useState } from "react";
+import { contact } from "../utils/http";
 
 export default function Contact() {
   const [contactForm, setContactForm] = useState({
-    name: "",
     email: "",
-    phone: "", //change to number i guess? phone format idk
+    name: "",
     message: "",
+    mobile: "", //change to number i guess? mobile format idk
   });
 
   console.log(contactForm);
@@ -17,14 +18,24 @@ export default function Contact() {
       [e.target.name]: e.target.value,
     });
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+
+    try {
+    const response = await contact(contactForm);
+    console.log(response);
+    } catch (error) {
+      console.log(error.response.data.error.message)
+    }
   };
   return (
     <div className="form-page-container" id="contact-form-page-el">
       <div className="contact-form-text-container" id="contact-form-text-el">
         <p className="contact-form-text-header">Anything on your mind?</p>
-        <p className="contact-form-text-content"> Contact us now and get a response from our team within 72 hours.</p>
+        <p className="contact-form-text-content">
+          {" "}
+          Contact us now and get a response from our team within 72 hours.
+        </p>
       </div>
       <form
         className="form-container"
@@ -41,6 +52,8 @@ export default function Contact() {
             placeholder="Email"
             name="email"
             className="form-input"
+            value={contactForm.email}
+            onChange={changeHandler}
           />
         </div>
         <div className="input-container">
@@ -50,16 +63,20 @@ export default function Contact() {
             name="name"
             placeholder="Name"
             className="form-input"
+            value={contactForm.name}
+            onChange={changeHandler}
           />
         </div>
 
         <div className="input-container">
-          <box-icon name="phone" color="rgba(0,0,0,.45)"></box-icon>
+          <box-icon name="mobile" color="rgba(0,0,0,.45)"></box-icon>
           <input
             type="text"
-            name="phone"
-            placeholder="Phone"
+            name="mobile"
+            placeholder="mobile"
             className="form-input"
+            value={contactForm.mobile}
+            onChange={changeHandler}
           />
         </div>
 
@@ -69,6 +86,8 @@ export default function Contact() {
             placeholder="Message..."
             rows="4"
             className="form-input"
+            value={contactForm.message}
+            onChange={changeHandler}
           ></textarea>
         </div>
 

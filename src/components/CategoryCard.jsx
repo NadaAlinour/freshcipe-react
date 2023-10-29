@@ -1,13 +1,12 @@
 import { PRODUCTS } from "../data/productData";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function CategoryCard({ id, imageUrl, title }) {
+export default function CategoryCard({ id, imageUrl, title, prevPath }) {
   const navigate = useNavigate();
+
   const handleClick = (id, title) => {
-    const productCollection = PRODUCTS.filter(
-      (product) => product.productCategory === id
-    );
-    navigate("/products/" + id + '/' + title, { state: { products: productCollection } });
+    console.log("market card clicked");
+    navigate(id + '/' + title, { state: { categoryId: id } });
   };
 
   return (

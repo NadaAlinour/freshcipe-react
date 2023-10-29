@@ -1,10 +1,16 @@
 import "boxicons";
+import { useNavigate } from "react-router-dom";
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
-  let priceSplit = price.split(".");
+  const stringPrice = price.toString();
+  let priceSplit = stringPrice.split(".");
   //console.log(priceSplit);
+  const navigate = useNavigate();
+  const handleClick = (id, title) => {
+    navigate(id + '/' + title);
+  };
 
   return (
-    <div className="product-card-container">
+    <div className="product-card-container" onClick={handleClick.bind(this, id, title)}>
       {id === "p1" && (
         <div className="product-card-discount-tag">
           <p>30% Off</p>

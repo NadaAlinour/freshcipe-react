@@ -8,7 +8,6 @@ import Signup from "../Signup";
 import Cart from "../Cart";
 import AccountNav from "../../components/AccountNav";
 import PageNotFound from "../PageNotFound";
-import Protected from "./Protected";
 import LoginProtected from "./LoginProtected";
 import PersonalDetails from "../Account/PersonalDetails";
 import DeliveryAddresses from "../Account/DeliveryAddresses";
@@ -41,21 +40,27 @@ const AppRoutes = () => {
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
 
-      <Route path="products" element={<ProductCategories />}></Route>
+      <Route path=":vendorId/:vendor" element={<ProductCategories />}></Route>
       <Route
-        path="products/:productId/:productCategory"
+        path=":vendorId/:vendor/:categoryId/:category"
         element={<ProductCollection />}
       ></Route>
-     
 
+      <Route path="products" element={<ProductCollection />}/>
 
-      <Route path="product-details" element={<ProductDetails/>}/>
-      <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>
+      {/*<Route path="product-details" element={<ProductDetails/>}/>
+      <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>*/}
+
+      <Route
+        path=":vendorId/:vendor/:categoryId/:category/:productId/:product"
+        element={<ProductDetails />}
+      />
 
       <Route path="recipes" element={<Recipes />}></Route>
-      <Route path="recipes/:recipeId/:title" element={<RecipeDetails />}></Route>
-
-
+      <Route
+        path="recipes/:recipeId/:title"
+        element={<RecipeDetails />}
+      ></Route>
 
       <Route
         path="login"

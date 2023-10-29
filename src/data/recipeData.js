@@ -97,11 +97,11 @@ export const RECIPES = [
       "1/4 teaspoon salt, or more to taste",
       "1 1/4 cups milk",
       "3 tablespoons butter, melted",
-      "1 egg",
+      "1 egg"
     ],
     [
       "Sift flour, baking powder, sugar, and salt together in a large bowl. Make a well in the center and add milk, melted butter, and egg; mix until smooth.",
-      "Heat a lightly oiled griddle or pan over medium-high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake; cook until bubbles form and the edges are dry, about 2 to 3 minutes. Flip and cook until browned on the other side. Repeat with remaining batter.",
+      "Heat a lightly oiled griddle or pan over medium-high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake; cook until bubbles form and the edges are dry, about 2 to 3 minutes. Flip and cook until browned on the other side. Repeat with remaining batter."
     ],
     [
       { component: "Energy", value: "158 kcal" },
@@ -110,7 +110,7 @@ export const RECIPES = [
       { component: "Dietary Fiber", value: "1g" },
       { component: "Carbohydrates", value: "22g" },
       { component: "Sugars", value: "4g" },
-      { component: "Protein", value: "5g" },
+      { component: "Protein", value: "5g" }
     ]
   ),
 
@@ -136,11 +136,11 @@ export const RECIPES = [
       "1/4 cup white vinegar",
       "1 teaspoon kosher salt",
       "1/2 teaspoon freshly ground black pepper",
-      "1/2 cup good olive oil",
+      "1/2 cup good olive oil"
     ],
     [
       "Place the cucumber, peppers, tomatoes and red onion in a large bowl.",
-      "For the vinaigrette, whisk together the garlic, oregano, mustard, vinegar, salt and pepper in a small bowl. Still whisking, slowly add the olive oil to make an emulsion. Pour the vinaigrette over the vegetables. Add the feta and olives and toss lightly. Set aside for 30 minutes to allow the flavors to blend. Serve at room temperature.",
+      "For the vinaigrette, whisk together the garlic, oregano, mustard, vinegar, salt and pepper in a small bowl. Still whisking, slowly add the olive oil to make an emulsion. Pour the vinaigrette over the vegetables. Add the feta and olives and toss lightly. Set aside for 30 minutes to allow the flavors to blend. Serve at room temperature."
     ],
     [
       { component: "Energy", value: "313 kcal" },
@@ -149,7 +149,7 @@ export const RECIPES = [
       { component: "Dietary Fiber", value: "2g" },
       { component: "Carbohydrates", value: "11g" },
       { component: "Sugars", value: "4g" },
-      { component: "Protein", value: "7g" },
+      { component: "Protein", value: "7g" }
     ]
   ),
 

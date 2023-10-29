@@ -12,7 +12,6 @@ E-commerce web application using Reactjs.
 - Phone field formatting
 - make api request before navigation and send as route params OR send id and make api request after navigating?
 - SUPERMARKETS page
-- loading skeleton
 - ~~move click handlers inside card components instead of component where the list is rendered~~
 - ~~example: on recipes page, scrolled down, click recipe the "page" shows starting at the recipe details portion rather than from the start (navbar) (scroll to top basically)~~
 - ~~change favicon~~
@@ -21,7 +20,11 @@ E-commerce web application using Reactjs.
 - ~~change black icons to the darkest grey or any other grey that is not black~~
 - fix product card price (when the whole number is more than one digit)
 - all products of a recipe should be available mostly
-- re-think flow, categories for each market etc etc
+- ~~re-think flow, categories for each market etc etc~~
 - re-think suggested products/bestsellers/etc
 - change ingredient checkbox on hover
 - style print layout
+- ~~handle loading~~ the skeleton thingy
+- recipe data sent back is text so i need to do something to be able to match a product when i select an ingredient
+OKAY ACTUALLY i think i can manually add the product id as part of recipeData for each ingredient
+- fix breadcrumbs

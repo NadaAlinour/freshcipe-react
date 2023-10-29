@@ -302,54 +302,19 @@
   border-radius: 20px;
 }
 
-/*.product-card-container {
-  border-radius: 5px;
-  width: 275px;
-  height: 220px;
-  overflow: hidden;
-  text-align: center;
+/* vendor card stuff */
+.market-card-image-container {
+  width: 375px;
+  height: 225px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background-color: white;
-
-  outline: 0.5px solid rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.3s linear;
-}
-
-.product-card-container:hover {
-  box-shadow: 8px 0 20px -6px rgba(0, 0, 0, 0.1),
-    -8px 0 20px -6px rgba(0, 0, 0, 0.1), 0 8px 20px -6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.product-card-container img {
-  width: 80%;
-  height: 60%;
-}
-
-.product-card-container h4 {
-  letter-spacing: 1px;
-  font-weight: lighter;
-}
-
-.product-card-container span {
-  display: flex;
-  gap: 20px;
   justify-content: center;
-  align-items: center;
 }
 
-.product-card-container span div {
-  border: 1px solid #549ec9;
-  height: 40px;
-  width: 40px;
-  border-radius: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.market-card-image-container img {
+  width: 100%;
+  height: auto;
 }
 
-.product-card-container span div:hover {
-  opacity: 0.75;
-}*/
+
+

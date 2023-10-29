@@ -4,19 +4,19 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { validateSignup } from "../features/validateForm";
 
+import { signup } from "../utils/http";
+
 export default function Signup() {
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState({
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     phone: "",
     password: "",
   });
 
-  const [firstNameErr, setFirstNameErr] = useState(false);
-  const [lastNameErr, setLastNameErr] = useState(false);
+  const [usernameErr, setUsernameErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [phoneErr, setPhoneErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
@@ -33,34 +33,27 @@ export default function Signup() {
     });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setErrMsg("");
-    setFirstNameErr(false);
-    setLastNameErr(false);
+    setUsernameErr(false);
     setEmailErr(false);
     setPhoneErr(false);
     setPasswordErr(false);
 
     // client-side form validation
-    const { firstName, lastName, email, phone, password } = signupForm;
+    const { username, email, phone, password } = signupForm;
 
     const {
-      firstNameError,
-      lastNameError,
+      usernameError,
       emailError,
       phoneError,
       passwordError,
       isNotValidEmail,
-    } = validateSignup(firstName, lastName, email, phone, password);
+    } = validateSignup(username, email, phone, password);
 
-    if (firstNameError) {
-      setFirstNameErr(true);
-      setErrMsg("Please fill in all the required fields.");
-    }
-
-    if (lastNameError) {
-      setLastNameErr(true);
+    if (usernameError) {
+      setUsernameErr(true);
       setErrMsg("Please fill in all the required fields.");
     }
 
@@ -85,8 +78,7 @@ export default function Signup() {
     }
 
     if (
-      firstNameError ||
-      lastNameError ||
+      usernameError ||
       emailError ||
       phoneError ||
       passwordError ||
@@ -94,18 +86,18 @@ export default function Signup() {
     ) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
-      // mock server validation
-      console.log("sending request to server");
-      // mock is checking for duplicate emails
-      const pastEmail = "email@gmail.com";
-      if (email === pastEmail) {
-        setErrMsg("Email already in use.");
+      try {
+        const response = await signup(signupForm);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.error.message);
+        setErrMsg(error.response.data.error.message);
         return;
       }
-
-      console.log("successful signup, navigate to login page i guess");
-      navigate('/login')
     }
+
+    console.log("successful signup, navigate to login page");
+    navigate("/login");
   };
 
   return (
@@ -117,29 +109,16 @@ export default function Signup() {
 
         {errMsg && <div className="err-box">{errMsg}</div>}
 
-        <div className="signup-name-fields-container">
-          <div className="input-container first-name-container">
-            <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
-            <input
-              type="text"
-              placeholder="First name"
-              name="firstName"
-              value={signupForm.firstName}
-              onChange={changeHandler}
-              className="form-input"
-            />
-          </div>
-
-          <div className="input-container last-name-container">
-            <input
-              type="text"
-              placeholder="Last name"
-              name="lastName"
-              value={signupForm.lastName}
-              onChange={changeHandler}
-              className="form-input"
-            />
-          </div>
+        <div className="input-container">
+          <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            value={signupForm.username}
+            onChange={changeHandler}
+            className="form-input"
+          />
         </div>
 
         <div className="input-container">

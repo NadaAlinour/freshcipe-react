@@ -5,23 +5,21 @@ import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
 import userData from "../data/userData";
-
+import { login } from "../utils/http";
 
 import { useDispatch } from "react-redux";
 import { loginUser } from "../store/authSlice";
 
 export default function Login() {
-
   const dispatch = useDispatch();
 
-
   const [loginForm, setLoginForm] = useState({
-    email: "",
+    identifier: "",
     password: "",
   });
 
   // for fields red borders
-  const [emailErr, setEmailErr] = useState(false);
+  const [identifierErr, setIdentifierErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
@@ -34,31 +32,26 @@ export default function Login() {
     });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     console.log("submit clicked");
     setErrMsg("");
-    setEmailErr(false);
+    setIdentifierErr(false);
     setPasswordErr(false);
 
-    const { email, password } = loginForm;
+    const { identifier, password } = loginForm;
     // client side validation
-    const { emailError, passwordError, isNotValidEmail } = validateLogin(
-      email,
+    const { identifierError, passwordError } = validateLogin(
+      identifier,
       password
     );
 
-    console.log(emailError, passwordError, isNotValidEmail);
+    console.log(identifierError, passwordError);
 
-    if (emailError) {
-      setEmailErr(true);
+    if (identifierError) {
+      setIdentifierErr(true);
       setErrMsg("Please fill in all the required fields.");
-    } else {
-      if (isNotValidEmail) {
-        setEmailErr(true);
-        setErrMsg("Please enter a valid email format");
-      }
     }
 
     if (passwordError) {
@@ -66,22 +59,29 @@ export default function Login() {
       setErrMsg("Please fill in all the required fields.");
     }
 
-    if (emailError || passwordError || isNotValidEmail) {
+    if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
       // mock server validation
-      const mockEmail = "user@gmail.com";
+      /*const mockEmail = "user@gmail.com";
       const mockPassword = "userpass";
 
       if (email !== mockEmail || password !== mockPassword) {
         console.log("Email or password is incorrect.");
         setErrMsg("Email or password is incorrect.");
         return;
+      }*/
+
+      try {
+        const response = await login(loginForm);
+        console.log(response);
+        dispatch(loginUser({ token: response.jwt }));
+      } catch (error) {
+        console.log(error);
+        setErrMsg(error.response.data.error.message);
+        return;
       }
 
-      // actually login
-      dispatch(loginUser({token: email}));
-      
     }
   };
 
@@ -93,13 +93,15 @@ export default function Login() {
         </div>
         {errMsg && <div className="err-box">{errMsg}</div>}
         <div
-          className={emailErr ? "input-container err-field" : "input-container"}
+          className={
+            identifierErr ? "input-container err-field" : "input-container"
+          }
         >
           <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
           <input
             type="text"
-            placeholder="Email"
-            name="email"
+            placeholder="Email or username"
+            name="identifier"
             value={loginForm.email}
             onChange={changeHandler}
             className="form-input"
