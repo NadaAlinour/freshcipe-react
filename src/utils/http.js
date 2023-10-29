@@ -69,6 +69,14 @@ export async function fetchAllProducts() {
   return response.data;
 }
 
+// get product in productDetails page
+export async function fetchProduct(productId) {
+  const response = await axios.get(
+    "http://localhost:1337/api/products?populate[0]=image&filters[id][$eq]=" + productId
+  );
+  return response.data;
+}
+
 // get recipe tags
 export async function fetchRecipeTags() {
   const response = await axios.get("http://localhost:1337/api/recipe-tags");
