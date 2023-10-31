@@ -76,40 +76,6 @@
     font-weight: bold;
     color: #ED8453;
 }
-
-
-.promo_code {
-    margin-top: 20px;
-}
-  
-.promo_code h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-  
-.promo_code input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-}
-  
-.promo_submit_button {
-    display: block;
-    width: 100%;
-    background: #4caf50;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-  
-.promo_submit_button:hover {
-    background: #45a049;
-}
   
 .suggested_products {
     border: 1px solid rgba(0, 0, 0, 0.3);

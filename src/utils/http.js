@@ -98,3 +98,35 @@ export async function fetchRecipe(recipeId) {
   );
   return response.data;
 }
+
+// Create Cart
+export async function createCart() {
+  const response = await axios.post(
+    "http://localhost:1337/api/carts" +carts
+    );
+  return response.data;
+}
+
+// Get Cart with Items
+export async function getCartWithItems(userId) {
+  const response = await axios.get(
+   "http://localhost:1337/api/carts?populate[0]=cart_items&populate[1]=cart_items.product&filters[user][id][$eq]=22" + userId
+  );
+  return response.data;
+}
+
+// Delete Cart Item
+export async function deleteCartItem(cartItemId) {
+  const response = await axios.delete(
+    "http://localhost:1337/api/cart-items/2" +cartItemId
+    );
+  return response.data;
+}
+
+// Add Items to Cart
+export async function addItemsToCart(cartItemData) {
+  const response = await axios.post(
+    "http://localhost:1337/api/cart-items" +cartItemData
+    );
+  return response.data;
+}

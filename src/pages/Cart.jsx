@@ -1,36 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
+import axios from 'axios';
+import { createCart, getCartWithItems, deleteCartItem, addItemsToCart} from "../utils/http";
 
-export default function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Jasmine Rice 1KG',
-      image: 'src/assets/images/rice.png',
-      basePrice: 10.99,
-      quantity: 2,
-      discount: 0,
-    },
-    {
-      id: 2,
-      name: 'Nesquik Cereal 750gm',
-      image: 'src/assets/images/cereal.png',
-      basePrice: 10.99,
-      quantity: 5,
-      discount: 15,
-    },
-    {
-      id: 3,
-      name: 'Tomatoes 1KG',
-      image: 'src/assets/images/tomatoes.jpg',
-      basePrice: 10.99,
-      quantity: 3,
-      discount: 30,
-    }
-  ]);
+export default function CartPage({ userId, tagId }) {
 
+  const [cartItems, setCartItems] = useState([]); //Initializing an empty array to store items in the shopping cart.
+  const [products, setProducts] = useState([]); //Initializing an empty array to store product data.
+
+  const createNewCart = () => {
+    createCart()
+      .then((data) => {
+        console.log('Cart created successfully:', data);
+      })
+      .catch((error) => {
+        console.error('Error creating cart:', error);
+      });
+  };
+
+  const fetchCartWithItems = () => {
+    getCartWithItems(userId)
+      .then((data) => {
+        setCartItems(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching cart with items:', error);
+      });
+  };
+
+  const removeCartItem = (cartItemId) => {
+    deleteCartItem(cartItemId)
+      .then((data) => {
+        // Handle the response if needed
+      })
+      .catch((error) => {
+        console.error('Error deleting cart item:', error);
+      });
+  };
+
+  const addItemsToTheCart = (cartItemData) => {
+    addItemsToCart(cartItemData)
+      .then((data) => {
+        // Handle the response if needed
+      })
+      .catch((error) => {
+        console.error('Error adding items to cart:', error);
+      });
+  };
+  
   const removeFromCart = (itemId) => {
     const updatedCart = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedCart);
@@ -84,18 +103,22 @@ export default function CartPage() {
           {cartItems.length === 0 ? (
             <p>No Items in the Cart</p>
           ) : (
-            cartItems.map((item) => (
-              <CartItem
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                image={item.image}
-                basePrice={item.basePrice}
-                quantity={item.quantity}
-                updatePrice={updatePrice}
-                removeItem={() => removeFromCart(item.id)}
-              />
-            ))
+            products.map ((product) => {
+              const cartItem = cartItems.find((item) => item.id === product.id);
+              if (!cartItem) return null;
+              return (
+                <CartItem
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  image={product.image}
+                  basePrice={product.basePrice}
+                  quantity={cartItem.quantity}
+                  updatePrice={(newQuantity) => updatePrice(product.id, newQuantity)}
+                  removeItem={() => removeFromCart(product.id)}
+                />
+              );
+            })
           )}
 
           <div className="clearCart_button">
@@ -149,18 +172,6 @@ export default function CartPage() {
               <span>Total Amount:</span>
               <span>EGP {totalAmount.toFixed(2)}</span>
             </div>
-          </div>
-          
-          <div className="promo_code">
-            <h3>Promo Code</h3>
-            <input
-              type="text"
-              name="promo_code"
-              id="promo_text"
-              placeholder="Enter Promo Code"
-            />
-            
-            <button type="submit" className="promo_submit_button">Apply</button>
           </div>
         </div>
       </div>
