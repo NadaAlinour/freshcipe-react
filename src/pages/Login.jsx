@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { validateLogin, mockValidate } from "../features/validateForm";
+import { validateLogin } from "../features/validateForm";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
-import userData from "../data/userData";
 import { login } from "../utils/http";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const { userToken, userId } = useSelector((state) => state.auth);
+
 
   const [loginForm, setLoginForm] = useState({
     identifier: "",
@@ -72,15 +73,22 @@ export default function Login() {
         return;
       }*/
 
+      
       try {
         const response = await login(loginForm);
         console.log(response);
-        dispatch(loginUser({ token: response.jwt }));
+        dispatch(loginUser({ token: response.jwt, id: response.user.id }));
+        // send request to check if cart already exists
+
+        // if it doesn't, send request to create cart
+
       } catch (error) {
         console.log(error);
         setErrMsg(error.response.data.error.message);
         return;
       }
+
+      console.log('user id is: ', userId)
 
     }
   };

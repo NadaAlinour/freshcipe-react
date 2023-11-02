@@ -5,11 +5,18 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import Pagination from "../components/Pagination";
 import { fetchVendorCatsProducts, fetchAllProducts } from "../utils/http";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function ProductCollection() {
   const location = useLocation();
   //const products = location.state.products;
   //console.log(products);
+
+
+  const { userToken, userId } = useSelector((state) => state.auth);
+  console.log('user token is: ', userToken)
+  console.log('user id is: ', userId)
+
 
   const currentPath = location.pathname;
   //console.log(currentPath);

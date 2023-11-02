@@ -1,4 +1,3 @@
-import { RECIPES, RECIPE_CATEGORIES } from "../data/recipeData";
 import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
