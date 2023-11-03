@@ -1,5 +1,6 @@
 import "boxicons";
 import { useNavigate } from "react-router-dom";
+import { addItemsToCart } from "../utils/http";
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const stringPrice = price.toString();
   let priceSplit = stringPrice.split(".");
@@ -39,7 +40,7 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
       </div>
       <div className="product-card-title-add-container">
         <h3>{title}</h3>
-        <div className="product-card-add-icon-container">
+        <div className="product-card-add-icon-container" onClick={addItemsToCart}>
           <box-icon name="plus" color="white" />
         </div>
       </div>

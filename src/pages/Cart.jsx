@@ -2,28 +2,29 @@ import React, { useState, useEffect } from 'react';
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
-import axios from 'axios';
-import { createCart, getCartWithItems, deleteCartItem, addItemsToCart} from "../utils/http";
+import { getCartWithItems, deleteCartItem } from "../utils/http";
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function CartPage({ userId, tagId }) {
+export default function CartPage() {
+
+  const { userToken, userId, cartId } = useSelector (state => state.auth);
+  console.log(userId, cartId);
+
+  const dispatch = useDispatch();
 
   const [cartItems, setCartItems] = useState([]); //Initializing an empty array to store items in the shopping cart.
-  const [products, setProducts] = useState([]); //Initializing an empty array to store product data.
+  
+  useEffect(() => { // Fetch cart with items when the component is mounted
+    fetchCartWithItems();
+  }, [userId]);
 
-  const createNewCart = () => {
-    createCart()
-      .then((data) => {
-        console.log('Cart created successfully:', data);
-      })
-      .catch((error) => {
-        console.error('Error creating cart:', error);
-      });
-  };
+  console.log(userId);
 
   const fetchCartWithItems = () => {
-    getCartWithItems(userId)
+    getCartWithItems(userId, userToken)
       .then((data) => {
-        setCartItems(data);
+        //setCartItems(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching cart with items:', error);
@@ -33,26 +34,13 @@ export default function CartPage({ userId, tagId }) {
   const removeCartItem = (cartItemId) => {
     deleteCartItem(cartItemId)
       .then((data) => {
-        // Handle the response if needed
+        const updatedCart = cartItems.filter((item) => item.id !== cartItemId);
+        setCartItems(updatedCart);
+        fetchCartWithItems(data);
       })
       .catch((error) => {
         console.error('Error deleting cart item:', error);
       });
-  };
-
-  const addItemsToTheCart = (cartItemData) => {
-    addItemsToCart(cartItemData)
-      .then((data) => {
-        // Handle the response if needed
-      })
-      .catch((error) => {
-        console.error('Error adding items to cart:', error);
-      });
-  };
-  
-  const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(updatedCart);
   };
 
   const clearCart = () => {
@@ -114,8 +102,8 @@ export default function CartPage({ userId, tagId }) {
                   image={product.image}
                   basePrice={product.basePrice}
                   quantity={cartItem.quantity}
-                  updatePrice={(newQuantity) => updatePrice(product.id, newQuantity)}
-                  removeItem={() => removeFromCart(product.id)}
+                  updatePrice={(newQuantity) => updatePrice(item.id, newQuantity)}
+                  removeItem={() => removeCartItem(cartItem.Id)}
                 />
               );
             })

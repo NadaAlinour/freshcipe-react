@@ -5,13 +5,14 @@ import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
 import userData from "../data/userData";
-import { login } from "../utils/http";
+import { login, getCartWithItems, createCart } from "../utils/http";
 
-import { useDispatch } from "react-redux";
-import { loginUser } from "../store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, setCartId } from "../store/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const { userToken,  userId} = useSelector((state) => state.auth);
 
   const [loginForm, setLoginForm] = useState({
     identifier: "",
@@ -75,13 +76,32 @@ export default function Login() {
       try {
         const response = await login(loginForm);
         console.log(response);
-        dispatch(loginUser({ token: response.jwt }));
+        dispatch(loginUser({ token: response.jwt, id:response.user.id }));
       } catch (error) {
         console.log(error);
         setErrMsg(error.response.data.error.message);
         return;
       }
 
+      console.log(userId);
+
+      try {
+        const response = await getCartWithItems(userId, userToken);
+        console.log(response);
+       /* if (response.data.length == 0) {
+          try {
+            const response = await createCart(userId, userToken);
+            console.log(response);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        else {
+          dispatch(setCartId({id: response.data[0].id }));
+        }*/
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

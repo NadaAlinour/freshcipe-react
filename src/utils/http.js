@@ -108,33 +108,43 @@ export async function fetchRecipe(recipeId) {
 }
 
 // Create Cart
-export async function createCart() {
+export async function createCart(userId, token) {
+  const data = {
+    data: { user: userId }
+  }
   const response = await axios.post(
-    "http://localhost:1337/api/carts" +carts
+    `${BASE_URL}/carts`, data,
+    {method: "POST", 
+    headers:{Authorization: `Bearer ${token}`}}
     );
   return response.data;
 }
 
 // Get Cart with Items
-export async function getCartWithItems(userId) {
+export async function getCartWithItems(userId, token) {
   const response = await axios.get(
-   "http://localhost:1337/api/carts?populate[0]=cart_items&populate[1]=cart_items.product&filters[user][id][$eq]=22" + userId
+    `${BASE_URL}/carts?populate[0]=cart_items&populate[1]=cart_items.product&filters[user][id][$eq]=${userId}`,
+    {method: "GET", 
+    headers:{Authorization: `Bearer ${token}`}}
   );
   return response.data;
 }
 
 // Delete Cart Item
-export async function deleteCartItem(cartItemId) {
+export async function deleteCartItem(cartItemId, token) {
   const response = await axios.delete(
-    "http://localhost:1337/api/cart-items/2" +cartItemId
-    );
+    `${BASE_URL}/cart-items/${cartItemId}`,
+    {method: "DELETE",
+    headers:{Authorization: `Bearer ${token}`}}
+  );
   return response.data;
 }
 
 // Add Items to Cart
-export async function addItemsToCart(cartItemData) {
-  const response = await axios.post(
-    "http://localhost:1337/api/cart-items" +cartItemData
-    );
+export async function addItemsToCart(cartItemData, token) {
+  const response = await axios.post(`${BASE_URL}/cart-items`, cartItemData,
+  {method: "POST",
+  headers:{Authorization: `Bearer ${token}`}}
+);
   return response.data;
 }
