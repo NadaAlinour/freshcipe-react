@@ -21,7 +21,7 @@ export default function ProductCollection() {
 
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [maxPageSize, setMaxPageSize] = useState(12);
+  const [maxPageSize, setMaxPageSize] = useState(5);
   const [pageSize, setpageSize] = useState();
   const [totalProducts, setTotalProducts] = useState();
   const [pageCount, setPageCount] = useState();
@@ -34,19 +34,24 @@ export default function ProductCollection() {
     }
   };
 
-
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const data = await fetchVendorCatsProducts(idFromUrl);
-        setProducts(data.data);
+        const data = await fetchVendorCatsProducts(idFromUrl, page, maxPageSize);
+        setProducts((prevProducts) => [...prevProducts, ...data.data]);
         setTotalProducts(data.meta.pagination.total);
+        setPageCount(data.meta.pagination.pageCount);
+        setpageSize(data.data.length);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
+    if (idFromUrl) getProducts();
+  }, [])
 
+
+  useEffect(() => {
     const getAllProducts = async () => {
       try {
         const data = await fetchAllProducts(page, maxPageSize);
@@ -65,8 +70,7 @@ export default function ProductCollection() {
       }
     };
 
-    if (idFromUrl) getProducts();
-    else getAllProducts();
+    if(!idFromUrl) getAllProducts();
     //console.log(products);
   }, [page]);
 

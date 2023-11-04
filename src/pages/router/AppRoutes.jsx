@@ -23,6 +23,8 @@ import ProductCollection from "../ProductCollection";
 
 import { useSelector } from "react-redux";
 import ProductDetails from "../ProductDetails";
+import ResetPassword from "../ResetPassword";
+import ResetPasswordAfter from "../ResetPasswordAfter";
 
 const AppRoutes = () => {
   const { userToken } = useSelector((state) => state.auth);
@@ -39,6 +41,8 @@ const AppRoutes = () => {
       <Route path="subscriptions" element={<Subscriptions />}></Route>
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
+      <Route path="login/reset-password-link" element={<ResetPassword />}></Route>
+      <Route path="reset-password" element={<ResetPasswordAfter />}></Route>
 
       <Route path="favourites" element={<Favourites />}/>
 

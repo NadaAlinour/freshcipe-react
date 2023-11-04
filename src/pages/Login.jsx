@@ -63,17 +63,6 @@ export default function Login() {
     if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
-      // mock server validation
-      /*const mockEmail = "user@gmail.com";
-      const mockPassword = "userpass";
-
-      if (email !== mockEmail || password !== mockPassword) {
-        console.log("Email or password is incorrect.");
-        setErrMsg("Email or password is incorrect.");
-        return;
-      }*/
-
-      
       try {
         const response = await login(loginForm);
         console.log(response);
@@ -128,7 +117,7 @@ export default function Login() {
         </div>
 
         <div className="forgot-password-container">
-          <Link className="link-text">Forgot your password?</Link>
+          <Link className="link-text" to="reset-password-link">Forgot your password?</Link>
         </div>
         <button type="submit" className="form-btn">
           <p>Login</p>

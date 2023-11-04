@@ -17,7 +17,7 @@ export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
   const [page, setPage] = useState(1);
-  const [maxPageSize, setMaxPageSize] = useState(2);
+  const [maxPageSize, setMaxPageSize] = useState(4);
   const [pageSize, setpageSize] = useState();
   const [totalRecipes, setTotalRecipes] = useState();
   const [pageCount, setPageCount] = useState();

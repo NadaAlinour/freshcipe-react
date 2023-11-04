@@ -191,3 +191,79 @@
   display: flex;
   justify-content: center;
 }
+
+
+.reset-password-page-container {
+  min-height: 100vh;
+}
+
+.reset-password-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.solid-button {
+  padding: 15px 20px 15px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary500);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  width: 150px;
+}
+
+.solid-button:hover {
+  cursor: pointer;
+  opacity: 0.75;
+
+}
+
+
+.border-button {
+  padding: 15px 20px 15px 20px;
+  border: 1px solid var(--primary500);
+  border-radius: 5px;
+  background-color: white;
+  color: var(--primary500);
+  font-weight: bold;
+  font-size: 18px;
+  width: 150px;
+
+}
+
+.border-button:hover {
+  cursor: pointer;
+  opacity: 0.75;
+
+}
+
+.reset-password-page {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.reset-password-form {
+  width: 40%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.reset-password-after-form {
+  width: 40%;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+} 
+
+.reset-password-after-form button {
+  width: 175px;
+}
+
+.reset-password-text {
+  font-size: 17px;
+  margin-top: 10px;
+}
+

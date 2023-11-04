@@ -28,3 +28,4 @@ E-commerce web application using Reactjs.
 - recipe data sent back is text so i need to do something to be able to match a product when i select an ingredient
 OKAY ACTUALLY i think i can manually add the product id as part of recipeData for each ingredient
 - fix breadcrumbs
+- pagination for products and recipes but those that depend on id etc

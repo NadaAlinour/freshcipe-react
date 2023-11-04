@@ -52,7 +52,7 @@ export default function RecipeDetails({ route }) {
             )}
             {!isLoading && (
               <p className="recipe-info-description">
-                {recipe.attributes ? recipe.attributes.description : ""}
+                {recipe.attributes ? recipe.attributes.recipeData.description : ""}
               </p>
             )}
             <div className="recipe-info-time-container">

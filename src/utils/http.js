@@ -35,6 +35,29 @@ export async function contact(formData) {
   return response.data;
 }
 
+// send password reset link
+export async function sendPasswordResetLink(formData) {
+  const data = {
+    email: formData,
+  };
+  const response = await axios.post(
+    "http://localhost:1337/api/auth/forgot-password",
+    data
+  );
+  return response.data;
+}
+
+// reset password
+/*{
+    "code": "", // code contained in the reset link of step 3.
+    "password": "NEW PASS",
+    "passwordConfirmation": "NEW PASS"
+}*/
+export async function resetPassword(formData) {
+  const response = await axios.post("http://localhost:1337/api/auth/reset-password", formData);
+  return response.data;
+}
+
 // get vendors
 export async function fetchVendors() {
   const response = await axios.get(
@@ -53,9 +76,9 @@ export async function fetchVendorCats(vendorId) {
 }
 
 // get products by category by vendor
-export async function fetchVendorCatsProducts(categoryId) {
+export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
   const response = await axios.get(
-    "http://localhost:1337/api/products?populate[0]=image&filters[tags][id][$eq]=" +
+    `http://localhost:1337/api/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
       categoryId
   );
   return response.data;
