@@ -5,6 +5,7 @@ import Contact from "../Contact";
 import Login from "../Login";
 import Signup from "../Signup";
 import Cart from "../Cart";
+import Favourites from "../Favourites";
 import AccountNav from "../../components/AccountNav";
 import PageNotFound from "../PageNotFound";
 import LoginProtected from "./LoginProtected";
@@ -38,6 +39,8 @@ const AppRoutes = () => {
       <Route path="subscriptions" element={<Subscriptions />}></Route>
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
+
+      <Route path="favourites" element={<Favourites />}/>
 
       <Route path=":vendorId/:vendor" element={<ProductCategories />}></Route>
       <Route

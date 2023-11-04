@@ -3,14 +3,24 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import Tag from "../components/Tag";
 import Pagination from "../components/Pagination";
 import { RECIPE_CATEGORIES } from "../data/recipeData";
-import { fetchRecipes, fetchRecipeTags, fetchRecipesByTag } from "../utils/http";
+import {
+  fetchRecipes,
+  fetchRecipeTags,
+  fetchRecipesByTag,
+} from "../utils/http";
 
 import { useState, useEffect } from "react";
 
 export default function Recipes() {
   const [selectedTag, setSelectedTag] = useState("All");
   const [selectedTagId, setSelectedTagId] = useState(0);
-  const [recipes, setRecipes] = useState();
+  const [recipes, setRecipes] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const [maxPageSize, setMaxPageSize] = useState(2);
+  const [pageSize, setpageSize] = useState();
+  const [totalRecipes, setTotalRecipes] = useState();
+  const [pageCount, setPageCount] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,14 +31,25 @@ export default function Recipes() {
     return mealsItem.categoryIds.indexOf(catId) >= 0;
   });*/
 
+  const updatePage = () => {
+    if (page < pageCount) {
+      let pageNum = page + 1;
+      setPage(pageNum);
+    }
+  };
 
   useEffect(() => {
     const getAllRecipes = async () => {
       try {
-        const data = await fetchRecipes();
-        setRecipes(data.data);
+        const data = await fetchRecipes(page, maxPageSize);
         setIsLoading(false);
-        console.log(recipes)
+
+        setRecipes((prevRecipes) => [...prevRecipes, ...data.data]);
+
+        setTotalRecipes(data.meta.pagination.total);
+        setPageCount(data.meta.pagination.pageCount);
+        setpageSize(data.data.length);
+        console.log(recipes);
       } catch (error) {
         console.log(error);
       }
@@ -38,20 +59,20 @@ export default function Recipes() {
       getAllRecipes();
     }
 
-  /*  if (selectedTagId !== 0) {
+    /*  if (selectedTagId !== 0) {
       displayedRecipes = RECIPES.filter((recipeItem) => {
         return recipeItem.dietCategories.indexOf(selectedTagId) >= 0;
       });
 
       setRecipes(displayedRecipes);
     }*/
-  }, [isLoading]);
+  }, [page]);
 
   // console.log(displayedRecipes);
 
   const handleTagClick = (id, title) => {
     //console.log("tag with id " + id + " clicked");
-   /* setSelectedTag(title);
+    /* setSelectedTag(title);
     setSelectedTagId(id); */
   };
 
@@ -74,19 +95,26 @@ export default function Recipes() {
         </ul>
         <div className="recipes-list-container">
           <ul className="recipes-list">
-            {!isLoading && recipes.map((recipe) => (
-              <li key={recipe.id}>
-                <RecipeCard  id={recipe.id}
-                title={recipe.attributes.title}
-                duration={recipe.attributes.timeToPrepareInMinutes}
-                imageUrl={recipe.attributes.image.data.attributes.url}
-                recipeData={recipe.attributes.recipeData}/>
-              </li>
-            ))}
+            {!isLoading &&
+              recipes.map((recipe) => (
+                <li key={recipe.id}>
+                  <RecipeCard
+                    id={recipe.id}
+                    title={recipe.attributes.title}
+                    duration={recipe.attributes.timeToPrepareInMinutes}
+                    imageUrl={recipe.attributes.image.data.attributes.url}
+                    recipeData={recipe.attributes.recipeData}
+                  />
+                </li>
+              ))}
           </ul>
         </div>
         <div className="recipe-pagination-container">
-          <Pagination currentNum="4" totalNum="50" />
+          <Pagination
+            newPage={updatePage}
+            currentNum={pageSize}
+            totalNum={totalRecipes}
+          />
         </div>
       </div>
     </>

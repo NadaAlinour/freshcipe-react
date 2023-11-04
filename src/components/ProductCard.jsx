@@ -1,5 +1,6 @@
 import "boxicons";
 import { useNavigate } from "react-router-dom";
+import { addItemsToCart } from "../utils/http";
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const stringPrice = price.toString();
   let priceSplit = stringPrice.split(".");
@@ -10,8 +11,8 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   };
 
   return (
-    <div className="product-card-container" onClick={handleClick.bind(this, id, title)}>
-      {id === "p1" && (
+    <div className="product-card-container">
+      {/*id === "p1" && (
         <div className="product-card-discount-tag">
           <p>30% Off</p>
         </div>
@@ -25,8 +26,8 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
         <div className="product-card-discount-tag">
           <p>30% Off</p>
         </div>
-      )}
-      <div className="product-card-image-container">
+      )*/}
+      <div className="product-card-image-container" onClick={handleClick.bind(this, id, title)}>
         <img src={imageUrl} />
 
         <div className="product-card-price-quantity-container">
@@ -38,8 +39,8 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
         </div>
       </div>
       <div className="product-card-title-add-container">
-        <h3>{title}</h3>
-        <div className="product-card-add-icon-container">
+        <h3 onClick={handleClick.bind(this, id, title)}>{title}</h3>
+        <div className="product-card-add-icon-container" onClick={() => console.log('add is clicked')}>
           <box-icon name="plus" color="white" />
         </div>
       </div>

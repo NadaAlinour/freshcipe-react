@@ -9,30 +9,38 @@ import { useSelector } from "react-redux";
 
 export default function ProductCollection() {
   const location = useLocation();
-  //const products = location.state.products;
-  //console.log(products);
-
+ 
 
   const { userToken, userId } = useSelector((state) => state.auth);
-  console.log('user token is: ', userToken)
-  console.log('user id is: ', userId)
-
+  //console.log('user token is: ', userToken)
+  //console.log('user id is: ', userId)
 
   const currentPath = location.pathname;
-  //console.log(currentPath);
-  // extract id from path hehehe
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
-  console.log(idFromUrl);
 
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [maxPageSize, setMaxPageSize] = useState(12);
+  const [pageSize, setpageSize] = useState();
+  const [totalProducts, setTotalProducts] = useState();
+  const [pageCount, setPageCount] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  const updatePage = () => {
+    if (page < pageCount) {
+      let pageNum = page + 1;
+      setPage(pageNum);
+    }
+  };
+
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const data = await fetchVendorCatsProducts(idFromUrl);
         setProducts(data.data);
+        setTotalProducts(data.meta.pagination.total);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -41,8 +49,16 @@ export default function ProductCollection() {
 
     const getAllProducts = async () => {
       try {
-        const data = await fetchAllProducts();
-        setProducts(data.data);
+        const data = await fetchAllProducts(page, maxPageSize);
+        console.log(data.data);
+
+        //console.log(data.data);
+       
+        setProducts((prevProducts) => [...prevProducts, ...data.data]);
+        
+        setTotalProducts(data.meta.pagination.total);
+        setPageCount(data.meta.pagination.pageCount);
+        setpageSize(data.data.length);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -51,8 +67,10 @@ export default function ProductCollection() {
 
     if (idFromUrl) getProducts();
     else getAllProducts();
-    console.log(products);
-  }, [isLoading, idFromUrl]);
+    //console.log(products);
+  }, [page]);
+
+ 
 
   return (
     <>
@@ -72,14 +90,22 @@ export default function ProductCollection() {
                       title={product.attributes.title}
                       price={product.attributes.price}
                       quantity={product.attributes.weight}
-                      imageUrl={product.attributes.image.data ? product.attributes.image.data.attributes.url : null}
+                      imageUrl={
+                        product.attributes.image.data
+                          ? product.attributes.image.data.attributes.url
+                          : null
+                      }
                     />
                   </li>
                 ))}
             </ul>
           </div>
           <div className="product-pagination-container">
-            <Pagination currentNum="8" totalNum="65" />
+            <Pagination
+              newPage={updatePage}
+              currentNum={pageSize}
+              totalNum={totalProducts}
+            />
           </div>
         </div>
       </div>

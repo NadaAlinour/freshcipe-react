@@ -62,10 +62,19 @@ export async function fetchVendorCatsProducts(categoryId) {
 }
 
 // get all products
-export async function fetchAllProducts() {
+export async function fetchAllProducts(page, pageSize) {
   const response = await axios.get(
-    "http://localhost:1337/api/products?populate[0]=image"
-  ); //check
+    `http://localhost:1337/api/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+  );
+  return response.data;
+}
+
+// get product in productDetails page
+export async function fetchProduct(productId) {
+  const response = await axios.get(
+    "http://localhost:1337/api/products?populate[0]=image&filters[id][$eq]=" +
+      productId
+  );
   return response.data;
 }
 
@@ -76,9 +85,9 @@ export async function fetchRecipeTags() {
 }
 
 // get recipes
-export async function fetchRecipes() {
+export async function fetchRecipes(page, pageSize) {
   const response = await axios.get(
-    "http://localhost:1337/api/recipes?populate[0]=image"
+    `http://localhost:1337/api/recipes?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   );
   return response.data;
 }
@@ -94,7 +103,73 @@ export async function fetchRecipesByTag(tagId) {
 // get recipe by id
 export async function fetchRecipe(recipeId) {
   const response = await axios.get(
-    "http://localhost:1337/api/recipes?populate[0]=image&filters[id][$eq]=" + recipeId
+    "http://localhost:1337/api/recipes?populate[0]=image&filters[id][$eq]=" +
+      recipeId
   );
+  return response.data;
+}
+
+// get favourites by id
+export async function fetchFavourites(favouritesId) {
+  const response = await axios.get(
+    "http://localhost:1337/api/favourites?populate[0]=recipes&filters[id][$eq]=" +
+      favouritesId
+  );
+  return response.data;
+}
+
+// update favourite
+export async function updateFavourites(data) {
+  /* {
+    "data": {
+      "recipes": 16
+      }
+   
+  }*/
+  const response = await axios.put(
+    "http://localhost:1337/api/favourites" + favouriteId,
+    data
+  );
+  return response.data;
+}
+
+// delete from favourite
+
+// Create Cart
+export async function createCart(userId, token) {
+  const data = {
+    data: { user: userId },
+  };
+  const response = await axios.post(`${BASE_URL}/carts`, data, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+// Get Cart with Items
+export async function getCartWithItems(userId, token) {
+  const response = await axios.get(
+    `${BASE_URL}/carts?populate[0]=cart_items&populate[1]=cart_items.product&filters[user][id][$eq]=${userId}`,
+    { method: "GET", headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+}
+
+// Delete Cart Item
+export async function deleteCartItem(cartItemId, token) {
+  const response = await axios.delete(`${BASE_URL}/cart-items/${cartItemId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+// Add Items to Cart
+export async function addItemsToCart(cartItemData, token) {
+  const response = await axios.post(`${BASE_URL}/cart-items`, cartItemData, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return response.data;
 }

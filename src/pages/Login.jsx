@@ -4,15 +4,15 @@ import { validateLogin } from "../features/validateForm";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
-import { login } from "../utils/http";
+import userData from "../data/userData";
+import { login, getCartWithItems, createCart } from "../utils/http";
 
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../store/authSlice";
+import { loginUser, setCartId } from "../store/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const { userToken, userId } = useSelector((state) => state.auth);
-
+  const { userToken,  userId} = useSelector((state) => state.auth);
 
   const [loginForm, setLoginForm] = useState({
     identifier: "",
@@ -77,11 +77,7 @@ export default function Login() {
       try {
         const response = await login(loginForm);
         console.log(response);
-        dispatch(loginUser({ token: response.jwt, id: response.user.id }));
-        // send request to check if cart already exists
-
-        // if it doesn't, send request to create cart
-
+        dispatch(loginUser({ token: response.jwt, id:response.user.id }));
       } catch (error) {
         console.log(error);
         setErrMsg(error.response.data.error.message);

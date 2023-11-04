@@ -131,12 +131,17 @@ export default function RecipeDetails({ route }) {
               <ul>
                 {recipe.attributes &&
                   recipe.attributes.recipeData.ingredients.map((ingredient) => (
-                    <li key={ingredient}>
-                      <div className="ingredient-checkbox-container">
+                    <li key={ingredient.productId}>
+                      <div
+                        className="ingredient-checkbox-container"
+                        onClick={() =>
+                          console.log("product id is: ", ingredient.productId)
+                        }
+                      >
                         <box-icon name="checkbox" size="26" color="#3c3b37" />
                       </div>
                       <div className="ingredient-label-container">
-                        <label>{ingredient}</label>
+                        <label>{ingredient.ingredient}</label>
                       </div>
                     </li>
                   ))}
