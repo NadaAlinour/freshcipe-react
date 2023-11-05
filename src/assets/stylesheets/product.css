@@ -133,7 +133,7 @@
   overflow: hidden;
   position: relative;
   width: 275px;
-  height: 200px;
+  height: 235px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.3);
@@ -329,10 +329,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 }
 
 .market-card-image-container img {
-  width: 100%;
+  max-width: 55%;
   height: auto;
 }
 

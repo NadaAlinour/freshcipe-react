@@ -4,19 +4,21 @@ import { fetchVendors } from "../utils/http";
 
 export default function Home() {
   const [vendors, setVendors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getVendors = async () => {
       try {
         const data = await fetchVendors();
         setVendors(data);
+        setIsLoading(false);
         console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
     getVendors();
-  }, []);
+  }, [isLoading]);
 
   return (
     <div className="home-page-container">
@@ -25,13 +27,16 @@ export default function Home() {
       </div>
       <div className="market-card-list-container">
         <ul>
-          {vendors.map((vendor) => {
+        {!isLoading &&
+          vendors.map((vendor) => {
             return (
               <li key={vendor.id}>
                 <MarketCard
                   id={vendor.id}
                   title={vendor.username}
-                  image={vendor.image.formats.small.url}
+                  image={vendor.image ?
+                   vendor.image.url : ""
+                   }
                 />
               </li>
             );

@@ -18,7 +18,7 @@ export default function Recipes() {
 
   const [page, setPage] = useState(1);
   const [maxPageSize, setMaxPageSize] = useState(4);
-  const [pageSize, setpageSize] = useState();
+  const [pageSize, setpageSize] = useState(0);
   const [totalRecipes, setTotalRecipes] = useState();
   const [pageCount, setPageCount] = useState();
 
@@ -48,7 +48,7 @@ export default function Recipes() {
 
         setTotalRecipes(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
-        setpageSize(data.data.length);
+        setpageSize((prevPageSize) => prevPageSize + data.data.length);
         console.log(recipes);
       } catch (error) {
         console.log(error);
