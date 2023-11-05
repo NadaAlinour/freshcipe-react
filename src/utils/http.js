@@ -22,6 +22,8 @@ export async function login(userData) {
 
 // get user info
 export async function fetchUserInfo(user, token) {
+  console.log(user);
+  console.log(token);
   const response = await axios.get(
     "http://localhost:1337/api/users/me?populate[0]=cart",
     user,
@@ -190,7 +192,7 @@ export async function createCart(userId, token) {
 // Get Cart with Items
 export async function getCartWithItems(userId, token) {
   const response = await axios.get(
-    `${BASE_URL}/carts?populate[0]=cart_items&populate[1]=cart_items.product&filters[user][id][$eq]=${userId}`,
+    `${BASE_URL}/carts?populate[0]=cart_items&populate[1]=cart_items.product&populate[2]=cart_items.product.image&filters[user][id][$eq]=${userId}`,
     { method: "GET", headers: { Authorization: `Bearer ${token}` } }
   );
   return response.data;
@@ -206,7 +208,14 @@ export async function deleteCartItem(cartItemId, token) {
 }
 
 // Add Items to Cart
-export async function addItemsToCart(cartItemData, token) {
+/*{
+    "data": {
+        "product": 12,
+        "quantity": 2,
+        "cart": 1
+    }
+}*/
+export async function addItemToCart(cartItemData, token) {
   const response = await axios.post(`${BASE_URL}/cart-items`, cartItemData, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },

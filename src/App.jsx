@@ -9,12 +9,16 @@ import "/src/assets/stylesheets/home.css";
 import "/src/assets/stylesheets/recipe.css";
 import "/src/assets/stylesheets/product.css";
 import ScrollToTop from "./components/ScrollToTop";
-import Breadcrumbs from "./components/Breadcrumbs";
 
 function App() {
   const dispatch = useDispatch();
   const savedToken = localStorage.getItem("token");
-  if (savedToken) dispatch(loginUser({ token: savedToken }));
+  const savedUserId = localStorage.getItem("userId");
+  const savedCartId = localStorage.getItem("cartId");
+  if (savedToken)
+    dispatch(
+      loginUser({ token: savedToken, id: savedUserId, cartId: savedCartId })
+    );
 
   return (
     <>

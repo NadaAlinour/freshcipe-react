@@ -4,15 +4,13 @@ import { validateLogin } from "../features/validateForm";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
-import userData from "../data/userData";
 import { login, getCartWithItems, createCart } from "../utils/http";
 
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, setCartId } from "../store/authSlice";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../store/authSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const { userToken,  userId} = useSelector((state) => state.auth);
 
   const [loginForm, setLoginForm] = useState({
     identifier: "",
@@ -60,21 +58,49 @@ export default function Login() {
       setErrMsg("Please fill in all the required fields.");
     }
 
+    let cartId = "";
+
     if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
       try {
         const response = await login(loginForm);
-        console.log(response);
-        dispatch(loginUser({ token: response.jwt, id:response.user.id }));
+        //console.log(response);
+
+        // check if cart exists
+        const response2 = await getCartWithItems(
+          response.user.id,
+          response.jwt
+        );
+
+        console.log(response2);
+        cartId = response2.data.id;
+
+        if (response2.data.length === 0) {
+          // create cart
+          const response3 = await createCart(response.user.id, response.jwt);
+          cartId = response3.data.id;
+        } else {
+          // get cart id
+          console.log("cart id: ", response2.data[0].id);
+          cartId = response2.data[0].id;
+        }
+
+        dispatch(
+          loginUser({
+            token: response.jwt,
+            id: response.user.id,
+            cartId: cartId,
+          })
+        );
       } catch (error) {
         console.log(error);
         setErrMsg(error.response.data.error.message);
         return;
       }
 
-      console.log('user id is: ', userId)
-
+      // console.log('user id is: ', userId)
+      // console.log('user token is: ', userToken)
     }
   };
 
@@ -117,7 +143,9 @@ export default function Login() {
         </div>
 
         <div className="forgot-password-container">
-          <Link className="link-text" to="reset-password-link">Forgot your password?</Link>
+          <Link className="link-text" to="reset-password-link">
+            Forgot your password?
+          </Link>
         </div>
         <button type="submit" className="form-btn">
           <p>Login</p>

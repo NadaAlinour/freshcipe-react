@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
 import { getCartWithItems, deleteCartItem } from "../utils/http";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
 
 export default function CartPage() {
-
-  const { userToken, userId, cartId } = useSelector (state => state.auth);
-  console.log(userId, cartId);
-
-  const dispatch = useDispatch();
+  const { userToken, userId} = useSelector((state) => state.auth);
+  let cartTemp = localStorage.getItem('cartId');
+  // console.log(userToken, userId, cartTemp);
 
   const [cartItems, setCartItems] = useState([]); //Initializing an empty array to store items in the shopping cart.
-  
-  useEffect(() => { // Fetch cart with items when the component is mounted
+  const [isLoading, setIsLoading] = useState(true);
+
+  /*useEffect(() => { // Fetch cart with items when the component is mounted
     fetchCartWithItems();
   }, [userId]);
 
@@ -29,7 +28,22 @@ export default function CartPage() {
       .catch((error) => {
         console.error('Error fetching cart with items:', error);
       });
-  };
+  };*/
+
+  useEffect(() => {
+    const fetchCartWithItems = async () => {
+      try {
+        const response = await getCartWithItems(userId, userToken);
+        console.log('cart items: ', response.data[0].attributes.cart_items.data);
+        setCartItems(response.data[0].attributes.cart_items.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCartWithItems();
+    // console.log("cart items state: ", cartItems)
+  }, []);
 
   const removeCartItem = (cartItemId) => {
     deleteCartItem(cartItemId)
@@ -39,7 +53,7 @@ export default function CartPage() {
         fetchCartWithItems(data);
       })
       .catch((error) => {
-        console.error('Error deleting cart item:', error);
+        console.error("Error deleting cart item:", error);
       });
   };
 
@@ -48,21 +62,20 @@ export default function CartPage() {
   };
 
   const calculateSubTotal = () => {
-    return cartItems.reduce((total, item) => {
+    /*return cartItems.reduce((total, item) => {
       return total + item.quantity * item.basePrice;
-    }, 0);
+    }, 0);*/
   };
 
   const calculateTaxFee = () => {
-    return cartItems.reduce((total, item) => {
-      return total + (item.basePrice * 0.14) * item.quantity;
-    }, 0);
+   /* return cartItems.reduce((total, item) => {
+      return total + item.basePrice * 0.14 * item.quantity;
+    }, 0);*/
   };
-
 
   const calculateTotalAmount = () => {
     const subTotal = calculateSubTotal();
-    const deliveryFees = 10.0; 
+    const deliveryFees = 10.0;
     const productDiscount = 7.0;
     const taxFee = calculateTaxFee();
 
@@ -84,30 +97,29 @@ export default function CartPage() {
 
   return (
     <div className="cart_page">
-      <div className="cart_products_container">
+     <div className="cart_products_container">
         <div className="cart_items">
           <h2>Cart Items</h2>
 
-          {cartItems.length === 0 ? (
-            <p>No Items in the Cart</p>
-          ) : (
-            products.map ((product) => {
-              const cartItem = cartItems.find((item) => item.id === product.id);
-              if (!cartItem) return null;
+          {!isLoading && 
+            cartItems.map((item) => {
+             /* const cartItem = cartItems.find((item) => item.id === product.id);*/
               return (
                 <CartItem
-                  key={product.id}
-                  id={product.id}
-                  name={product.name}
-                  image={product.image}
-                  basePrice={product.basePrice}
-                  quantity={cartItem.quantity}
-                  updatePrice={(newQuantity) => updatePrice(item.id, newQuantity)}
-                  removeItem={() => removeCartItem(cartItem.Id)}
+                  key={item.id}
+                  id={item.id}
+                  name={item.attributes.product.data.attributes.title}
+                  image={item.attributes.product.data.attributes.image.data.attributes.url}
+                  basePrice={item.attributes.product.data.attributes.price}
+                  quantity={item.attributes.quantity}
+                  updatePrice={(newQuantity) =>
+                    updatePrice(item.id, newQuantity)
+                  }
+                  removeItem={() => removeCartItem(item.Id)}
                 />
               );
             })
-          )}
+          }
 
           <div className="clearCart_button">
             <button
@@ -127,7 +139,7 @@ export default function CartPage() {
           )}
         </div>
 
-        <div className="bill">
+       {/*} <div className="bill">
           <h2>Order Details</h2>
 
           <div className="bill_details">
@@ -135,73 +147,107 @@ export default function CartPage() {
               <span>ETA:</span>
               <span>30 minutes</span>
             </div>
-            
+
             <div className="bill_item">
               <span>SubTotal:</span>
               <span>EGP {subTotal.toFixed(2)}</span>
             </div>
-            
+
             <div className="bill_item">
               <span>Delivery Fees:</span>
               <span>EGP 10.00</span>
             </div>
-            
+
             <div className="bill_item">
               <span>Tax Fees:</span>
               <span>EGP {calculateTaxFee().toFixed(2)}</span>
             </div>
-            
+
             <div className="bill_item">
               <span>Product Discount:</span>
               <span>-EGP 7.00</span>
             </div>
-            
+
             <div className="bill_item total">
               <span>Total Amount:</span>
               <span>EGP {totalAmount.toFixed(2)}</span>
             </div>
           </div>
-        </div>
-      </div>
+          </div>*/}
+          </div>
 
       <div className="suggested_products_container">
         <div className="suggested_products_title">
           <h2>Suggested Products</h2>
           <div className="suggested_products">
-          
-          <div className="suggested_images">
-              <ProductCard className="product_card" id="p9" imageUrl=
-              "https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a"
-              title="Grapes" price="3.55" quantity="200" />
-              <ProductCard className="product_card" id="p10" imageUrl=
-              "https://img.freepik.com/free-photo/red-apple-with-green-leaf-white-background_1232-3290.jpg?2&w=2000&t=st=1695864963~exp=1695865563~hmac=bc3dcf4882ad5e8a9fc0e7116cc05ef8c6451ceb7ecc911dbca386bdf93fff77"
-              title="Apples" price="3.55" quantity="200" />
-              <ProductCard className="product_card" id="p11" imageUrl=
-              "https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg?w=2000&t=st=1695927637~exp=1695928237~hmac=7842355a2d062382efcd2c35101f80650572a7e15ca0d7dae9be2613096199b1"
-              title="Bananas" price="3.55" quantity="200" />
-              <ProductCard className="product_card" id="p12" imageUrl=
-              "https://img.freepik.com/free-photo/green-cucumber_144627-21625.jpg?w=2000&t=st=1695927673~exp=1695928273~hmac=113b5255409c2570934d4de88a10753e117ccf4a61e8557b22172efdb37b4e0e"
-              title="Cucumber" price="3.55" quantity="200" />
-              <ProductCard className="product_card" id="p14" imageUrl=
-              "https://img.freepik.com/free-photo/bell-pepper_1339-1594.jpg?w=2000&t=st=1695927825~exp=1695928425~hmac=2ba78653f1ad589d23a381803516f66fc188553782b9e78bcbcaa60940a103e5"
-              title="Bell Pepper" price="3.55" quantity="200" />
-              <ProductCard className="product_card" id="p2" imageUrl=
-              "https://img.freepik.com/free-photo/raw-salmon_144627-33848.jpg?w=2000&t=st=1695865095~exp=1695865695~hmac=f2ff4a7472bb3cccc83997c784b1bc0cd6f63ca8bdd0d2ae78d11b96fe11fdd8"
-              title="Salmon" price="20.99" quantity="200" />
+            <div className="suggested_images">
+              <ProductCard
+                className="product_card"
+                id="p9"
+                imageUrl="https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a"
+                title="Grapes"
+                price="3.55"
+                quantity="200"
+              />
+              <ProductCard
+                className="product_card"
+                id="p10"
+                imageUrl="https://img.freepik.com/free-photo/red-apple-with-green-leaf-white-background_1232-3290.jpg?2&w=2000&t=st=1695864963~exp=1695865563~hmac=bc3dcf4882ad5e8a9fc0e7116cc05ef8c6451ceb7ecc911dbca386bdf93fff77"
+                title="Apples"
+                price="3.55"
+                quantity="200"
+              />
+              <ProductCard
+                className="product_card"
+                id="p11"
+                imageUrl="https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg?w=2000&t=st=1695927637~exp=1695928237~hmac=7842355a2d062382efcd2c35101f80650572a7e15ca0d7dae9be2613096199b1"
+                title="Bananas"
+                price="3.55"
+                quantity="200"
+              />
+              <ProductCard
+                className="product_card"
+                id="p12"
+                imageUrl="https://img.freepik.com/free-photo/green-cucumber_144627-21625.jpg?w=2000&t=st=1695927673~exp=1695928273~hmac=113b5255409c2570934d4de88a10753e117ccf4a61e8557b22172efdb37b4e0e"
+                title="Cucumber"
+                price="3.55"
+                quantity="200"
+              />
+              <ProductCard
+                className="product_card"
+                id="p14"
+                imageUrl="https://img.freepik.com/free-photo/bell-pepper_1339-1594.jpg?w=2000&t=st=1695927825~exp=1695928425~hmac=2ba78653f1ad589d23a381803516f66fc188553782b9e78bcbcaa60940a103e5"
+                title="Bell Pepper"
+                price="3.55"
+                quantity="200"
+              />
+              <ProductCard
+                className="product_card"
+                id="p2"
+                imageUrl="https://img.freepik.com/free-photo/raw-salmon_144627-33848.jpg?w=2000&t=st=1695865095~exp=1695865695~hmac=f2ff4a7472bb3cccc83997c784b1bc0cd6f63ca8bdd0d2ae78d11b96fe11fdd8"
+                title="Salmon"
+                price="20.99"
+                quantity="200"
+              />
             </div>
-            
-         </div>
+          </div>
         </div>
 
         <div className="note">
           <h2>Special Request</h2>
-          <textarea name="enter_request" id="note_text" cols="30" rows="3" placeholder="Add a Note..."></textarea>
+          <textarea
+            name="enter_request"
+            id="note_text"
+            cols="30"
+            rows="3"
+            placeholder="Add a Note..."
+          ></textarea>
         </div>
       </div>
 
       <div className="checkout_button_div">
-      <button className="checkout-button">Go To Checkout</button>
-      </div>
+        <button className="checkout-button">Go To Checkout</button>
+          </div>
     </div>
   );
 }
