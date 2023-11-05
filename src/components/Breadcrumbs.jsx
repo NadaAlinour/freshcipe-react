@@ -7,15 +7,19 @@ export default function Breadcrumbs() {
   const decodedUri = decodeURI(location.pathname);
   //console.log("decodedUri: ", decodedUri)
   let pathArray = decodedUri.substring(1).split("/");
- // console.log("pathArray: ", pathArray)
+  //console.log("pathArray: ", pathArray)
   const oldPathArray = [...pathArray];
   const id = pathArray.splice(pathArray.length - 2)[0];
   pathArray = [...pathArray, oldPathArray[oldPathArray.length - 1]];
   //console.log("pathArray again: ", pathArray)
+
+  
+
   let lastItem = "";
 
   lastItem = pathArray.pop();
   //console.log(lastItem);
+
 
   const getPath = (index) => {
     /*console.log("hi it's path " + index)
@@ -31,7 +35,7 @@ export default function Breadcrumbs() {
 
   return (
     <div className="breadcrumbs">
-     {/*} <div className="link-text back-link-container">
+      <div className="link-text back-link-container">
         <box-icon name="chevron-left" color="#ed8453" />
         <p onClick={() => navigate(-1)}>Back</p>
       </div>
@@ -53,7 +57,7 @@ export default function Breadcrumbs() {
               {lastItem && <p className="breadcrumb-last-item1">{lastItem}</p>}
             </div>
           ))
-        : lastItem && <p className="breadcrumb-last-item2">{lastItem.charAt(0).toUpperCase() + lastItem.slice(1)}</p>}*/}
+        : lastItem && <p className="breadcrumb-last-item2">{lastItem.charAt(0).toUpperCase() + lastItem.slice(1)}</p>}
     </div>
   );
 }

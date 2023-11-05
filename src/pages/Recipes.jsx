@@ -2,7 +2,6 @@ import RecipeCard from "../components/RecipeCard";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Tag from "../components/Tag";
 import Pagination from "../components/Pagination";
-import { RECIPE_CATEGORIES } from "../data/recipeData";
 import {
   fetchRecipes,
   fetchRecipeTags,
@@ -15,6 +14,7 @@ export default function Recipes() {
   const [selectedTag, setSelectedTag] = useState("All");
   const [selectedTagId, setSelectedTagId] = useState(0);
   const [recipes, setRecipes] = useState([]);
+  const [recipeTags, setRecipeTags] = useState([]);
 
   const [page, setPage] = useState(1);
   const [maxPageSize, setMaxPageSize] = useState(4);
@@ -22,6 +22,7 @@ export default function Recipes() {
   const [totalRecipes, setTotalRecipes] = useState();
   const [pageCount, setPageCount] = useState();
 
+  const [isTagsLoading, setIsTagsLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
   // add deselect tag
@@ -37,6 +38,20 @@ export default function Recipes() {
       setPage(pageNum);
     }
   };
+
+  useEffect(() => {
+    const getRecipeTags = async () => {
+      try {
+        const data = await fetchRecipeTags();
+        setRecipeTags(data.data);
+        setIsTagsLoading(false);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRecipeTags();
+  }, []);
 
   useEffect(() => {
     const getAllRecipes = async () => {
@@ -58,22 +73,28 @@ export default function Recipes() {
     if (selectedTag === "All") {
       getAllRecipes();
     }
-
-    /*  if (selectedTagId !== 0) {
-      displayedRecipes = RECIPES.filter((recipeItem) => {
-        return recipeItem.dietCategories.indexOf(selectedTagId) >= 0;
-      });
-
-      setRecipes(displayedRecipes);
-    }*/
   }, [page]);
 
-  // console.log(displayedRecipes);
+  const handleTagClick = async (id, title) => {
+    console.log("tag with id " + id + " clicked");
+    setSelectedTag(title);
+    setSelectedTagId(id);
+    setIsLoading(true);
+    try {
+      const data = await fetchRecipesByTag(id);
+      console.log(data.data);
+      //setRecipes((prevRecipes) => [...prevRecipes, ...data.data]);
+      setRecipes(data.data)
+      setTotalRecipes(data.meta.pagination.total);
+      setPageCount(data.meta.pagination.pageCount);
+      //setpageSize((prevPageSize) => prevPageSize + data.data.length);
+      setpageSize(data.data.length);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
 
-  const handleTagClick = (id, title) => {
-    //console.log("tag with id " + id + " clicked");
-    /* setSelectedTag(title);
-    setSelectedTagId(id); */
+    console.log("new recipes", recipes);
   };
 
   return (
@@ -84,14 +105,19 @@ export default function Recipes() {
           <li onClick={handleTagClick.bind(this, 0, "All")}>
             <Tag selectedTag={selectedTag}>All</Tag>
           </li>
-          {RECIPE_CATEGORIES.map((category) => (
-            <li
-              key={category.id}
-              onClick={handleTagClick.bind(this, category.id, category.title)}
-            >
-              <Tag selectedTag={selectedTag}>{category.title}</Tag>
-            </li>
-          ))}
+          {!isTagsLoading &&
+            recipeTags.map((tag) => (
+              <li
+                key={tag.id}
+                onClick={handleTagClick.bind(
+                  this,
+                  tag.id,
+                  tag.attributes.title
+                )}
+              >
+                <Tag selectedTag={selectedTag}>{tag.attributes.title}</Tag>
+              </li>
+            ))}
         </ul>
         <div className="recipes-list-container">
           <ul className="recipes-list">
@@ -102,7 +128,11 @@ export default function Recipes() {
                     id={recipe.id}
                     title={recipe.attributes.title}
                     duration={recipe.attributes.timeToPrepareInMinutes}
-                    imageUrl={recipe.attributes.image.data.attributes.url}
+                    imageUrl={
+                      recipe.attributes.image
+                        ? recipe.attributes.image.data.attributes.url
+                        : ""
+                    }
                     recipeData={recipe.attributes.recipeData}
                   />
                 </li>

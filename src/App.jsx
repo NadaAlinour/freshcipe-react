@@ -9,6 +9,7 @@ import "/src/assets/stylesheets/home.css";
 import "/src/assets/stylesheets/recipe.css";
 import "/src/assets/stylesheets/product.css";
 import ScrollToTop from "./components/ScrollToTop";
+import Breadcrumbs from "./components/Breadcrumbs";
 
 function App() {
   const dispatch = useDispatch();

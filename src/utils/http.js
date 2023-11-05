@@ -20,6 +20,19 @@ export async function login(userData) {
   return response.data;
 }
 
+// get user info
+export async function fetchUserInfo(user, token) {
+  const response = await axios.get(
+    "http://localhost:1337/api/users/me?populate[0]=cart",
+    user,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
 // contact
 export async function contact(formData) {
   const data = {
@@ -54,7 +67,10 @@ export async function sendPasswordResetLink(formData) {
     "passwordConfirmation": "NEW PASS"
 }*/
 export async function resetPassword(formData) {
-  const response = await axios.post("http://localhost:1337/api/auth/reset-password", formData);
+  const response = await axios.post(
+    "http://localhost:1337/api/auth/reset-password",
+    formData
+  );
   return response.data;
 }
 
@@ -118,7 +134,8 @@ export async function fetchRecipes(page, pageSize) {
 // get recipes by recipe tag
 export async function fetchRecipesByTag(tagId) {
   const response = await axios.get(
-    "http://localhost:1337/api/recipes?filters[recipe_tags][id][$eq]=" + tagId
+    "http://localhost:1337/api/recipes?populate[0]=image&filters[recipe_tags][id][$eq]=" +
+      tagId
   );
   return response.data;
 }
