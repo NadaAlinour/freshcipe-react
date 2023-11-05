@@ -4,6 +4,7 @@ const BASE_URL = "http://localhost:1337/api";
 
 // signup
 export async function signup(userData) {
+  console.log(userData)
   const response = await axios.post(
     "http://localhost:1337/api/auth/local/register",
     userData

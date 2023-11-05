@@ -86,18 +86,18 @@ export default function Signup() {
     ) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
+      console.log("helelelelel");
       try {
         const response = await signup(signupForm);
         console.log(response);
+        console.log("successful signup, navigate to login page");
+        navigate("/login");
       } catch (error) {
         console.log(error.response.data.error.message);
         setErrMsg(error.response.data.error.message);
         return;
       }
     }
-
-    console.log("successful signup, navigate to login page");
-    navigate("/login");
   };
 
   return (
@@ -109,7 +109,11 @@ export default function Signup() {
 
         {errMsg && <div className="err-box">{errMsg}</div>}
 
-        <div className="input-container">
+        <div
+          className={
+            usernameErr ? "input-container err-field" : "input-container"
+          }
+        >
           <box-icon name="user" color="rgba(0,0,0,.45)"></box-icon>
           <input
             type="text"
@@ -121,7 +125,9 @@ export default function Signup() {
           />
         </div>
 
-        <div className="input-container">
+        <div
+          className={emailErr ? "input-container err-field" : "input-container"}
+        >
           <box-icon name="envelope" color="rgba(0,0,0,.45)"></box-icon>
           <input
             type="text"
@@ -133,7 +139,9 @@ export default function Signup() {
           />
         </div>
 
-        <div className="input-container">
+        <div
+          className={phoneErr ? "input-container err-field" : "input-container"}
+        >
           <box-icon name="phone" color="rgba(0,0,0,.45)"></box-icon>
           <input
             type="text"
@@ -145,7 +153,11 @@ export default function Signup() {
           />
         </div>
 
-        <div className="input-container">
+        <div
+          className={
+            passwordErr ? "input-container err-field" : "input-container"
+          }
+        >
           <box-icon name="lock-alt" color="rgba(0,0,0,.45)"></box-icon>
           <input
             type="password"

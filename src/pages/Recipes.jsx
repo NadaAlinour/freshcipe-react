@@ -73,7 +73,7 @@ export default function Recipes() {
     if (selectedTag === "All") {
       getAllRecipes();
     }
-  }, [page]);
+  }, [page, selectedTag]);
 
   const handleTagClick = async (id, title) => {
     console.log("tag with id " + id + " clicked");

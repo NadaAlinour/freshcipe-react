@@ -45,10 +45,11 @@ export const validateSignup = (username, email, password, phone) => {
     usernameError: false,
     emailError: false,
     passwordError: false,
+    phoneError: false,
     isNotValidEmail: false,
   };
 
-  if (username === "") errorFlags.lastNameError = true;
+  if (username === "") errorFlags.usernameError = true;
   if (email === "") {
     errorFlags.emailError = true;
   } else {
@@ -57,7 +58,7 @@ export const validateSignup = (username, email, password, phone) => {
   }
 
   if (password === "") errorFlags.passwordError = true;
-  if (phone === "") errorFlags.phone = true;
+  if (phone === "") errorFlags.phoneError = true;
 
   return errorFlags;
 };
