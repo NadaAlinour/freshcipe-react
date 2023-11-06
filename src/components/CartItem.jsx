@@ -2,6 +2,9 @@ import React from 'react';
 import "../assets/stylesheets/cart.css";
 
 function CartItem({ id, name, image, basePrice, quantity, updatePrice, removeItem }) {
+
+  // temporarily
+  const cartTemp = localStorage.getItem("cartId");
   const totalPrice = quantity * basePrice;
 
   const decreaseQuantity = () => {
