@@ -4,7 +4,7 @@
 E-commerce web application using Reactjs.
 
 
-# Temporary Preview
+## Temporary Preview
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/335d2034-79dd-4b43-8e82-81a200b2ec15)
 
