@@ -1,20 +1,65 @@
 import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchRecipe } from "../utils/http";
+import { useSelector } from "react-redux";
+import { fetchRecipe, addItemToCart } from "../utils/http";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function RecipeDetails({ route }) {
   const location = useLocation();
+  const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
+  // temporarily
+  const cartTemp = localStorage.getItem("cartId");
 
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
+
+  const handleIngredientClick = (productId) => {
+    console.log(productId)
+    if (selectedIngredients.includes(productId)) {
+      // remove ingredients cuz unclicked
+      setSelectedIngredients((prevSelectedIngredients) =>
+        prevSelectedIngredients.filter((ingredient) => ingredient !== productId)
+      );
+    } else {
+      // add ingredient
+      setSelectedIngredients((prevSelectedIngredients) => [
+        ...prevSelectedIngredients,
+        productId,
+      ]);
+    }
+
+    // console.log(selectedIngredients);
+  };
+
+  const addToCart = async () => {
+    let data = "";
+
+    selectedIngredients.forEach(async selectedIngredient => {
+
+      data = {
+        data: {
+          product: selectedIngredient,
+          quantity: 1,
+          cart: cartTemp,
+        },
+      };
+
+      try {
+        const response = await addItemToCart(data, userToken);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    })
+  };
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -52,7 +97,9 @@ export default function RecipeDetails({ route }) {
             )}
             {!isLoading && (
               <p className="recipe-info-description">
-                {recipe.attributes ? recipe.attributes.recipeData.description : ""}
+                {recipe.attributes
+                  ? recipe.attributes.recipeData.description
+                  : ""}
               </p>
             )}
             <div className="recipe-info-time-container">
@@ -134,9 +181,10 @@ export default function RecipeDetails({ route }) {
                     <li key={ingredient.productId}>
                       <div
                         className="ingredient-checkbox-container"
-                        onClick={() =>
-                          console.log("product id is: ", ingredient.productId)
-                        }
+                        onClick={handleIngredientClick.bind(
+                          this,
+                          ingredient.productId
+                        )}
                       >
                         <box-icon name="checkbox" size="26" color="#3c3b37" />
                       </div>
@@ -149,7 +197,7 @@ export default function RecipeDetails({ route }) {
             )}
 
             <div className="ingredients-btn-container">
-              <button>Add to Cart</button>
+              <button onClick={addToCart}>Add to Cart</button>
             </div>
           </div>
 

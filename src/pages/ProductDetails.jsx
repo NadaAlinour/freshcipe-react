@@ -1,17 +1,18 @@
-import { PRODUCTS, PRODUCT_CATEGORIES } from "../data/productData";
-import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
-import { fetchProduct } from "../utils/http";
+import { fetchProduct, addItemToCart } from "../utils/http";
 import "boxicons";
 
-import Tag from "../components/Tag";
 import Breadcrumbs from "../components/Breadcrumbs";
-import Product from "../../models/product";
 
 export default function ProductDetails({ route }) {
   const location = useLocation();
+  const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
+
+  // temporarily
+  const cartTemp = localStorage.getItem("cartId");
 
   const[product, setProduct] = useState();
   const[isLoading, setIsLoading] = useState(true); 
@@ -21,6 +22,23 @@ export default function ProductDetails({ route }) {
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
   console.log(idFromUrl);
+
+  const addToCart = async (productId, quantity) => {
+    const data = {
+      data: {
+        product: productId,
+        quantity: quantity,
+        cart: cartTemp,
+      },
+    };
+    console.log(data);
+    try {
+      const response = await addItemToCart(data, userToken);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -72,7 +90,7 @@ export default function ProductDetails({ route }) {
                 {product?.attributes?.description || ""}
               </p>
             )}
-            <button className="product-info-add-to-cart-button">
+            <button className="product-info-add-to-cart-button" onClick={addToCart.bind(this, idFromUrl, 1)}>
               Add To Cart 
             </button>
           </div>
