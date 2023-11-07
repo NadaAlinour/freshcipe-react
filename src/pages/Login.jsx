@@ -4,7 +4,13 @@ import { validateLogin } from "../features/validateForm";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
 import "boxicons";
-import { login, getCartWithItems, createCart } from "../utils/http";
+import {
+  login,
+  getCartWithItems,
+  createCart,
+  createFavourites,
+  fetchFavourites,
+} from "../utils/http";
 
 import { useDispatch } from "react-redux";
 import { loginUser } from "../store/authSlice";
@@ -85,6 +91,17 @@ export default function Login() {
           console.log("cart id: ", response2.data[0].id);
           cartId = response2.data[0].id;
         }
+
+        const response4 = await fetchFavourites(response.user.id, response.jwt);
+        console.log(response4);
+        if (response4.data.length === 0) {
+          // create favourites
+          const response5 = await createFavourites(
+            response.user.id,
+            response.jwt
+          );
+          console.log(response5);
+        } else console.log('user already has favourites');
 
         dispatch(
           loginUser({

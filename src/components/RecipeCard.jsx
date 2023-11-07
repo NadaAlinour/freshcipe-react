@@ -1,5 +1,4 @@
 import "boxicons";
-import { RECIPE_CATEGORIES } from "../data/recipeData";
 import { useNavigate } from "react-router-dom";
 
 export default function RecipeCard({ id, imageUrl, title, duration, recipeData }) {
@@ -16,8 +15,6 @@ export default function RecipeCard({ id, imageUrl, title, duration, recipeData }
   };
 
   
-
- 
   return (
     <div
       className="recipe-card-container"

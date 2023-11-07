@@ -1,15 +1,18 @@
 import { Link } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { fetchRecipe, addItemToCart } from "../utils/http";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchRecipe, addItemToCart, updateFavourites } from "../utils/http";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
+import { addFavourites } from "../store/favouritesSlice";
 
 export default function RecipeDetails({ route }) {
+  const dispatch = useDispatch();
   const location = useLocation();
   const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
+  const { favourites } = useSelector((state) => state.favourites);
   // temporarily
   const cartTemp = localStorage.getItem("cartId");
 
@@ -22,7 +25,7 @@ export default function RecipeDetails({ route }) {
   const idFromUrl = pathArray[pathArray.length - 2];
 
   const handleIngredientClick = (productId) => {
-    console.log(productId)
+    console.log(productId);
     if (selectedIngredients.includes(productId)) {
       // remove ingredients cuz unclicked
       setSelectedIngredients((prevSelectedIngredients) =>
@@ -42,8 +45,7 @@ export default function RecipeDetails({ route }) {
   const addToCart = async () => {
     let data = "";
 
-    selectedIngredients.forEach(async selectedIngredient => {
-
+    selectedIngredients.forEach(async (selectedIngredient) => {
       data = {
         data: {
           product: selectedIngredient,
@@ -58,7 +60,18 @@ export default function RecipeDetails({ route }) {
       } catch (error) {
         console.log(error);
       }
-    })
+    });
+  };
+
+  const handleSaveRecipe = async () => {
+    //useDispatch(addFavourites({ newFavourites: idFromUrl }));
+    console.log("save me");
+   /* try {
+      const data = await updateFavourites(userId, userToken, favourites);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }*/
   };
 
   useEffect(() => {
@@ -162,7 +175,10 @@ export default function RecipeDetails({ route }) {
               </div>
             </div>
 
-            <div className="add-recipe-button-container">
+            <div
+              className="add-recipe-button-container"
+              onClick={handleSaveRecipe}
+            >
               <p>Save</p>
 
               <div className="recipe-info-heart-icon-container">
@@ -186,7 +202,15 @@ export default function RecipeDetails({ route }) {
                           ingredient.productId
                         )}
                       >
-                        <box-icon name="checkbox" size="26" color="#3c3b37" />
+                        <box-icon
+                          name={
+                            selectedIngredients.includes(ingredient.productId)
+                              ? "checkbox-checked"
+                              : "checkbox"
+                          }
+                          size="28px"
+                          color="#3c3b37"
+                        />
                       </div>
                       <div className="ingredient-label-container">
                         <label>{ingredient.ingredient}</label>

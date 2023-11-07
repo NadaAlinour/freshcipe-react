@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:1337/api";
 
 // signup
 export async function signup(userData) {
-  console.log(userData)
+  console.log(userData);
   const response = await axios.post(
     "http://localhost:1337/api/auth/local/register",
     userData
@@ -153,7 +153,7 @@ export async function fetchRecipe(recipeId) {
 }
 
 // get favourites by id
-export async function fetchFavourites(favouritesId) {
+/*export async function fetchFavourites(favouritesId) {
   const response = await axios.get(
     "http://localhost:1337/api/favourites?populate[0]=recipes&filters[id][$eq]=" +
       favouritesId
@@ -168,14 +168,14 @@ export async function updateFavourites(data) {
       "recipes": 16
       }
    
-  }*/
+  }
   const response = await axios.put(
     "http://localhost:1337/api/favourites" + favouriteId,
     data
   );
   return response.data;
 }
-
+*/
 // delete from favourite
 
 // Create Cart
@@ -223,3 +223,50 @@ export async function addItemToCart(cartItemData, token) {
   });
   return response.data;
 }
+
+// create favourite
+export async function createFavourites(userId, token) {
+  const data = {
+    data: {
+      user: userId,
+    },
+  };
+  const response = await axios.post(`${BASE_URL}/favourites`, data, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+// get user's favourite items
+export async function fetchFavourites(userId, token) {
+  const response = await axios.get(
+    `${BASE_URL}/favourites?populate[0]=recipes&populate[1]=recipes.image&filters[user][id][$eq]=${userId}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
+// update user's favourite items
+// items is an array of favourite items stored in global state
+export async function updateFavourites(userId, token, items) {
+  const data = {
+    data: {
+      recipes: items,
+    },
+  };
+  const response = await axios.put(
+    `${BASE_URL}/favourites?populate[0]=recipes&filters[user][id][$eq]=${userId}`,
+    {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
+// delete favourite
+// do i need this or do i use update

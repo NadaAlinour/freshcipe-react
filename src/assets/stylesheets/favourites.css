@@ -1,3 +1,11 @@
 .favourites-page-container {
   min-height: 100vh;
 }
+
+.favourites-list {
+  margin: 75px 35px 50px 35px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

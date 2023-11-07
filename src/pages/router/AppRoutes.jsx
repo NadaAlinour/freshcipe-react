@@ -9,6 +9,7 @@ import Favourites from "../Favourites";
 import AccountNav from "../../components/AccountNav";
 import PageNotFound from "../PageNotFound";
 import LoginProtected from "./LoginProtected";
+import Protected from "./Protected";
 import PersonalDetails from "../Account/PersonalDetails";
 import DeliveryAddresses from "../Account/DeliveryAddresses";
 import PaymentDetails from "../Account/PaymentDetails";
@@ -41,10 +42,11 @@ const AppRoutes = () => {
       <Route path="subscriptions" element={<Subscriptions />}></Route>
       <Route path="reviews" element={<Reviews />}></Route>
       <Route path="settings" element={<Settings />}></Route>
-      <Route path="login/reset-password-link" element={<ResetPassword />}></Route>
+      <Route
+        path="login/reset-password-link"
+        element={<ResetPassword />}
+      ></Route>
       <Route path="reset-password" element={<ResetPasswordAfter />}></Route>
-
-      <Route path="favourites" element={<Favourites />}/>
 
       <Route path=":vendorId/:vendor" element={<ProductCategories />}></Route>
       <Route
@@ -52,7 +54,7 @@ const AppRoutes = () => {
         element={<ProductCollection />}
       ></Route>
 
-      <Route path="products" element={<ProductCollection />}/>
+      <Route path="products" element={<ProductCollection />} />
 
       {/*<Route path="product-details" element={<ProductDetails/>}/>
       <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>*/}
@@ -62,7 +64,7 @@ const AppRoutes = () => {
         element={<ProductDetails />}
       />
 
-      <Route path="products/:productId/:product" element={<ProductDetails />}/>
+      <Route path="products/:productId/:product" element={<ProductDetails />} />
 
       <Route path="recipes" element={<Recipes />}></Route>
       <Route
@@ -85,6 +87,15 @@ const AppRoutes = () => {
           <LoginProtected isAuth={userToken}>
             <Signup />
           </LoginProtected>
+        }
+      ></Route>
+
+      <Route
+        path="/favourites"
+        element={
+          <Protected isAuth={userToken}>
+            <Favourites />
+          </Protected>
         }
       ></Route>
 

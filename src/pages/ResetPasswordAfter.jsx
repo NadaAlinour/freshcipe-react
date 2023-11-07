@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { resetPassword } from "../utils/http";
 
 export default function ResetPasswordAfter() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
 
   // get code from url
   const url = window.location.href;
@@ -22,6 +24,7 @@ export default function ResetPasswordAfter() {
     try {
       const data = await resetPassword(formData);
       console.log(data);
+      navigate('/login');
     } catch (error) {
       console.log(error);
     }
