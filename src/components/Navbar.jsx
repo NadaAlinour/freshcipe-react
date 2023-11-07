@@ -29,7 +29,7 @@ export default function Navbar() {
           </Link>
         </li>
         <div className="nav-links-container">
-          <li>
+          <li onClick={() => window.location.reload()}>
             <Link className="nav-link" to="/products">
               Products
             </Link>
@@ -50,22 +50,31 @@ export default function Navbar() {
         </li>
 
         <li>
-          <div className="theme-icon" onMouseEnter={() => setIsThemeHover(true)} onMouseLeave={() => setIsThemeHover(false)}>
+          <div
+            className="theme-icon"
+            onMouseEnter={() => setIsThemeHover(true)}
+            onMouseLeave={() => setIsThemeHover(false)}
+          >
             {!isThemeHover ? (
-              <box-icon name="moon" color="#474643" size="27px"/>
+              <box-icon name="moon" color="#474643" size="27px" />
             ) : (
-              <box-icon name="moon" color="#ffd000" size="27px"/>
+              <box-icon name="moon" color="#ffd000" size="27px" />
             )}
           </div>
         </li>
 
         <li>
           <Link to="/cart">
-            <div className="cart-icon" title="View cart" onMouseEnter={() => setIsCartHover(true)} onMouseLeave={() => setIsCartHover(false)}>
+            <div
+              className="cart-icon"
+              title="View cart"
+              onMouseEnter={() => setIsCartHover(true)}
+              onMouseLeave={() => setIsCartHover(false)}
+            >
               {!isCartHover ? (
-                <box-icon name="cart" color="#474643" size="30px"/>
+                <box-icon name="cart" color="#474643" size="30px" />
               ) : (
-                <box-icon name="cart" color="#ed8453" size="30px"/>
+                <box-icon name="cart" color="#ed8453" size="30px" />
               )}
             </div>
           </Link>

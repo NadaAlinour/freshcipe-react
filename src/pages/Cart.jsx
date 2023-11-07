@@ -6,6 +6,12 @@ import { getCartWithItems, deleteCartItem } from "../utils/http";
 import { useSelector } from "react-redux";
 
 export default function CartPage() {
+
+  // check whether user is logged in or now
+  // if logged in, get user stuff
+  // else, get localStorage stuff (not added yet)
+
+
   const { userToken, userId} = useSelector((state) => state.auth);
   let cartTemp = localStorage.getItem('cartId');
   // console.log(userToken, userId, cartTemp);

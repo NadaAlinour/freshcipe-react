@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 export default function ProductCollection() {
   const location = useLocation();
- 
 
   const { userToken, userId } = useSelector((state) => state.auth);
   //console.log('user token is: ', userToken)
@@ -34,22 +33,25 @@ export default function ProductCollection() {
     }
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     const getProducts = async () => {
       try {
-        const data = await fetchVendorCatsProducts(idFromUrl, page, maxPageSize);
+        const data = await fetchVendorCatsProducts(
+          idFromUrl,
+          page,
+          maxPageSize
+        );
         setProducts((prevProducts) => [...prevProducts, ...data.data]);
         setTotalProducts(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
-        setpageSize(data.data.length);
+        setpageSize((prevPageSize) => prevPageSize + data.data.length);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
     if (idFromUrl) getProducts();
-  }, [])*/
-
+  }, [page, currentPath]);
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -58,12 +60,12 @@ export default function ProductCollection() {
         console.log(data.data);
 
         //console.log(data.data);
-       
+
         setProducts((prevProducts) => [...prevProducts, ...data.data]);
-        
+
         setTotalProducts(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
-        setpageSize((prevPageSize) => prevPageSize + data.data.length)
+        setpageSize((prevPageSize) => prevPageSize + data.data.length);
 
         setIsLoading(false);
       } catch (error) {
@@ -71,11 +73,9 @@ export default function ProductCollection() {
       }
     };
 
-    if(!idFromUrl) getAllProducts();
+    if (!idFromUrl) getAllProducts();
     //console.log(products);
-  }, [page]);
-
- 
+  }, [page, currentPath]);
 
   return (
     <>
