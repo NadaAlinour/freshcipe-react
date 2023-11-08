@@ -14,7 +14,7 @@ export default function Favourites() {
               id={favourite.id}
               imageUrl={favourite.attributes.image.data.attributes.url}
               title={favourite.attributes.title}
-              duration={favourite.attributes.duration}
+              duration={favourite.attributes.timeToPrepareInMinutes}
               recipeData={favourite.attributes.recipeData}
             />
           </li>

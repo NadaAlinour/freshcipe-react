@@ -68,11 +68,10 @@ export default function RecipeDetails({ route }) {
 
   const handleSaveRecipe = async () => {
     let newData = favourites;
-    console.log("new Data first: ", newData);
+    // console.log("new Data first: ", newData);
     // check if selected recipe already exists in favourites
     let exists = false;
     newData.forEach((item) => {
-      console.log("hi", item);
       if (item.id == idFromUrl) {
         console.log("recipe already in favourites");
         exists = true;
@@ -87,21 +86,27 @@ export default function RecipeDetails({ route }) {
         console.log("data dot data: ", data.data[0]);
 
         newData = [...newData, data.data[0]];
-        dispatch(addFavourites({ newFavourites: newData }));
 
-        console.log("newdata", newData);
+        //console.log("newdata", newData);
       } catch (error) {
         console.log(error);
       }
-
-      try {
-        console.log("fave states new: ", favourites);
-        const data = await updateFavourites(favouritesId, userToken, newData);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
+    } else {
+      // remove from favourites
+      newData = newData.filter((item) => item.id != idFromUrl);
     }
+
+    dispatch(addFavourites({ newFavourites: newData }));
+
+    try {
+      console.log("fave states new: ", favourites);
+      const data = await updateFavourites(favouritesId, userToken, newData);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // console.log("newData: ", newData);
   };
 
   useEffect(() => {
@@ -212,7 +217,16 @@ export default function RecipeDetails({ route }) {
               <p>Save</p>
 
               <div className="recipe-info-heart-icon-container">
-                <box-icon name="heart" color="white" size="25px" />
+                {favourites.some((favourite) => favourite['id'] == idFromUrl) ? (
+                  <box-icon
+                    name="heart"
+                    type="solid"
+                    color="#fa635c"
+                    size="25px"
+                  />
+                ) : (
+                  <box-icon name="heart" color="white" size="25px" />
+                )}
               </div>
             </div>
           </div>

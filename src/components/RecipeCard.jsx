@@ -6,6 +6,8 @@ export default function RecipeCard({ id, imageUrl, title, duration, recipeData }
     RECIPE_CATEGORIES.find((item) => item.id == cat)
   );*/
 
+  // yo i didn't fix categories yet lol
+  // get tags and use the first one
   const categories = ["vegan"];
 
   const navigate = useNavigate();

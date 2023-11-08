@@ -5,13 +5,12 @@ import { loginUser, logoutUser } from "../store/authSlice";
 export default function NavbarDropdown() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {userToken} = useSelector(state => state.auth);
+  const { userToken } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    console.log('logging out')
+    console.log("logging out");
     dispatch(logoutUser());
-  }
-
+  };
 
   let option = <li onClick={() => navigate("/login")}>Login</li>;
 
@@ -30,9 +29,19 @@ export default function NavbarDropdown() {
             My Account
           </li>
           <li onClick={() => navigate("/cart")}>My Cart</li>
-          <li className={userToken ? "" : "item-disable"} onClick={() => userToken && navigate("/favourites")}>My Favourites</li>
+          <li
+            className={userToken ? "" : "item-disable"}
+            onClick={() => {
+              userToken && navigate("/favourites");
+              //window.location.reload();
+            }}
+          >
+            My Favourites
+          </li>
           <li className={userToken ? "" : "item-disable"}>My Orders</li>
-          <li className={userToken ? "" : "item-disable"}>Delivery Addresses</li>
+          <li className={userToken ? "" : "item-disable"}>
+            Delivery Addresses
+          </li>
           <li className={userToken ? "" : "item-disable"}>My Discounts</li>
           <li>Settings</li>
           {option}

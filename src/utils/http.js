@@ -251,6 +251,7 @@ export async function fetchFavourites(userId, token) {
 }
 
 // update user's favourite items
+// update includes deleting something from the favourites array
 // items is an array of favourite items stored in global state
 export async function updateFavourites(favouritesId, token, items) {
   console.log('items: ', items);
@@ -270,5 +271,3 @@ export async function updateFavourites(favouritesId, token, items) {
   return response.data;
 }
 
-// delete favourite
-// do i need this or do i use update
