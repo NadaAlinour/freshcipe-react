@@ -11,7 +11,9 @@ import { addFavourites } from "../store/favouritesSlice";
 export default function RecipeDetails({ route }) {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
+  const { userToken, userId, cartId, favouritesId } = useSelector(
+    (state) => state.auth
+  ); // cart id not saved in state for some reason
   const { favourites } = useSelector((state) => state.favourites);
   // temporarily
   const cartTemp = localStorage.getItem("cartId");
@@ -23,6 +25,7 @@ export default function RecipeDetails({ route }) {
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
+  //console.log(typeof idFromUrl)
 
   const handleIngredientClick = (productId) => {
     console.log(productId);
@@ -64,14 +67,41 @@ export default function RecipeDetails({ route }) {
   };
 
   const handleSaveRecipe = async () => {
-    //useDispatch(addFavourites({ newFavourites: idFromUrl }));
-    console.log("save me");
-   /* try {
-      const data = await updateFavourites(userId, userToken, favourites);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }*/
+    let newData = favourites;
+    console.log("new Data first: ", newData);
+    // check if selected recipe already exists in favourites
+    let exists = false;
+    newData.forEach((item) => {
+      console.log("hi", item);
+      if (item.id == idFromUrl) {
+        console.log("recipe already in favourites");
+        exists = true;
+      }
+    });
+
+    console.log("exists: ", exists);
+
+    if (!exists) {
+      try {
+        const data = await fetchRecipe(idFromUrl);
+        console.log("data dot data: ", data.data[0]);
+
+        newData = [...newData, data.data[0]];
+        dispatch(addFavourites({ newFavourites: newData }));
+
+        console.log("newdata", newData);
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        console.log("fave states new: ", favourites);
+        const data = await updateFavourites(favouritesId, userToken, newData);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   useEffect(() => {

@@ -65,6 +65,7 @@ export default function Login() {
     }
 
     let cartId = "";
+    let favouritesId = "";
 
     if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
@@ -100,14 +101,18 @@ export default function Login() {
             response.user.id,
             response.jwt
           );
+          favouritesId = response5.data[0].id;
           console.log(response5);
-        } else console.log('user already has favourites');
-
+        } else {
+          console.log("user already has favourites");
+          favouritesId = response4.data[0].id;
+        }
         dispatch(
           loginUser({
             token: response.jwt,
-            id: response.user.id,
+            userId: response.user.id,
             cartId: cartId,
+            favouritesId: favouritesId,
           })
         );
       } catch (error) {

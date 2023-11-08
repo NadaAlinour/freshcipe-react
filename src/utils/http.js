@@ -252,14 +252,16 @@ export async function fetchFavourites(userId, token) {
 
 // update user's favourite items
 // items is an array of favourite items stored in global state
-export async function updateFavourites(userId, token, items) {
+export async function updateFavourites(favouritesId, token, items) {
+  console.log('items: ', items);
   const data = {
     data: {
       recipes: items,
     },
   };
+  console.log('data: ', data)
   const response = await axios.put(
-    `${BASE_URL}/favourites?populate[0]=recipes&filters[user][id][$eq]=${userId}`,
+    `${BASE_URL}/favourites/${favouritesId}`, data,
     {
       method: "PUT",
       headers: { Authorization: `Bearer ${token}` },
