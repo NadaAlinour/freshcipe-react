@@ -13,7 +13,7 @@ export default function RecipeDetails({ route }) {
   const location = useLocation();
   const { userToken, userId, cartId, favouritesId } = useSelector(
     (state) => state.auth
-  ); // cart id not saved in state for some reason
+  ); // cart id not saved in state for some reason // fixed btw
   const { favourites } = useSelector((state) => state.favourites);
   // temporarily
   const cartTemp = localStorage.getItem("cartId");
@@ -21,6 +21,7 @@ export default function RecipeDetails({ route }) {
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [isFavourite, setIsFavourite] = useState(false);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
@@ -106,7 +107,6 @@ export default function RecipeDetails({ route }) {
       console.log(error);
     }
 
-    // console.log("newData: ", newData);
   };
 
   useEffect(() => {
@@ -217,14 +217,15 @@ export default function RecipeDetails({ route }) {
               <p>Save</p>
 
               <div className="recipe-info-heart-icon-container">
-                {favourites.some((favourite) => favourite['id'] == idFromUrl) ? (
+                {favourites.some((favourite) => favourite['id'] == idFromUrl) && (
                   <box-icon
                     name="heart"
                     type="solid"
                     color="#fa635c"
                     size="25px"
                   />
-                ) : (
+                ) }
+                {!favourites.some((favourite) => favourite['id'] == idFromUrl) &&  (
                   <box-icon name="heart" color="white" size="25px" />
                 )}
               </div>

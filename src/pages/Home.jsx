@@ -22,9 +22,6 @@ export default function Home() {
 
   return (
     <div className="home-page-container">
-      <div className="home-page-promo-container">
-        <h2>Promos</h2>
-      </div>
       <div className="market-card-list-container">
         <ul>
         {!isLoading &&
@@ -44,9 +41,7 @@ export default function Home() {
         </ul>
       </div>
 
-      <div className="home-page-products-container">some products here</div>
 
-      <div className="home-page-recipes-container">some recipes here</div>
     </div>
   );
 }

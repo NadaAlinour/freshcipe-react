@@ -36,6 +36,7 @@
   row-gap: 100px;
 }
 
+
 /* recipe card */
 .recipe-card-container {
   border-radius: 20px;
@@ -53,12 +54,33 @@
   transition: background-color 0.1s linear;
 }
 
-.recipe-card-container:hover {
-  /*outline: 1.5px solid rgba(0, 0, 0, 0.3);*/
+.recipe-card-container-alt {
+  position: relative;
+  border-radius: 20px;
+  width: 600px;
+  height: 220px;
+  line-height: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: var(--backgroundDark);
+  position: relative;
+  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.1s linear;
+}
 
+.recipe-card-container-alt:hover {
+  cursor: pointer;
+  box-shadow: 0px 8px 15px -6px rgba(0, 0, 0, 0.5);
+}
+
+
+.recipe-card-container:hover {
   background-color: var(--primary400);
   cursor: pointer;
 }
+
 
 .recipe-card-image-container {
   position: absolute;
@@ -70,13 +92,30 @@
   border-radius: 100px;
 }
 
+.recipe-card-image-container-alt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ededed;
+  border-radius: 100px;
+}
+
+
 .recipe-card-container-img {
   height: 150px;
   border-radius: 100px;
   box-shadow: 0px 5px 10px -4px rgba(0, 0, 0, 0.9);
 }
 
-.recipe-card-container-img:hover {
+.recipe-card-details-alt {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  row-gap: 5px;
+  padding-left: 20px;
 }
 
 .recipe-card-header {
@@ -84,6 +123,17 @@
   width: 75%;
   height: 50px;
   bottom: 120px;
+}
+
+.recipe-card-header-alt h4{
+  font-size: 23px;
+  letter-spacing: 1px;
+  margin-bottom: 17px;
+}
+
+.recipe-card-label-alt {
+  letter-spacing: 0.5px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .recipe-card-header h4 {
@@ -99,6 +149,11 @@
   padding-bottom: 5px;
 }
 
+.recipe-card-header-p-alt {
+  display: flex;
+  gap: 10px;
+}
+
 .recipe-card-header-p p {
   color: rgba(0, 0, 0, 0.45);
 }
@@ -111,10 +166,24 @@
   top: 233px;
 }
 
+.recipe-card-diet-alt {
+  display: flex;
+  gap: 10px;
+}
+
+.recipe-card-duration-alt {
+  display: flex;
+  gap: 10px;
+
+}
+
 .recipe-card-detail-container {
   display: flex;
   flex-direction: column;
   padding: 0px 20px 0px 20px;
+}
+
+.recipe-card-detail-container-alt {
 }
 
 .recipe-detail-left {

@@ -1,11 +1,51 @@
 .favourites-page-container {
   min-height: 100vh;
+  padding-bottom: 100px;
 }
 
+.favourites-header {
+  padding-left: 55px;
+  margin-top: 25px;
+}
+
+.favourites-header p {
+  margin-bottom: 20px;
+  font-size: 30px;
+  letter-spacing: .5px;
+}
+
+
+
 .favourites-list {
-  margin: 75px 35px 50px 35px;
+  margin: 45px 35px 50px 55px;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 85px;
+}
+
+.favourites-list li {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.recipe-card-alt-trash-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-image: url(../icons/trash-solid-240.png);
+  background-size: 45px 45px;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  transition: background-color .1s linear;
+}
+
+.recipe-card-alt-trash-container:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, .1);
+
 }
