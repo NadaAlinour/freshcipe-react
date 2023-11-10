@@ -22,10 +22,12 @@ import Recipes from "../Recipes";
 import RecipeDetails from "../RecipeDetails";
 import ProductCollection from "../ProductCollection";
 
-import { useSelector } from "react-redux";
 import ProductDetails from "../ProductDetails";
 import ResetPassword from "../ResetPassword";
 import ResetPasswordAfter from "../ResetPasswordAfter";
+
+import { useSelector } from "react-redux";
+
 
 const AppRoutes = () => {
   const { userToken } = useSelector((state) => state.auth);
@@ -66,6 +68,12 @@ const AppRoutes = () => {
 
       <Route path="products/:productId/:product" element={<ProductDetails />} />
 
+      <Route
+        path="products/search"
+        element={<ProductCollection />}
+        queryParam="text"
+      />
+
       <Route path="recipes" element={<Recipes />}></Route>
       <Route
         path="recipes/:recipeId/:title"
@@ -91,7 +99,7 @@ const AppRoutes = () => {
       ></Route>
 
       <Route
-        path="/favourites"
+        path="favourites"
         element={
           <Protected isAuth={userToken}>
             <Favourites />

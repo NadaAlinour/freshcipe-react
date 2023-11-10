@@ -41,7 +41,6 @@ export default function Footer() {
               <li>
                 <Link to='/contact'>Contact us</Link>
               </li>
-              <li>service two</li>
             </ul>
           </div>
 

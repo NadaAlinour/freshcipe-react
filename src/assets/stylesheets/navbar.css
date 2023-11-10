@@ -108,6 +108,10 @@ nav {
   align-items: center;
 }
 
+.search-icon-container:hover {
+  cursor: pointer;
+}
+
 .search-clear-icon-container {
   display: flex;
   align-items: center;

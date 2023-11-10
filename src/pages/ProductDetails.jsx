@@ -61,7 +61,7 @@ export default function ProductDetails({ route }) {
 
   return (
     <>
-      <Breadcrumbs />
+      {/*<Breadcrumbs />*/}
       <div className="product-info-parent">
         <div className="product-info-container">
           <div className="product-info-img-container">

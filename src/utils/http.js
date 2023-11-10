@@ -254,15 +254,16 @@ export async function fetchFavourites(userId, token) {
 // update includes deleting something from the favourites array
 // items is an array of favourite items stored in global state
 export async function updateFavourites(favouritesId, token, items) {
-  console.log('items: ', items);
+  console.log("items: ", items);
   const data = {
     data: {
       recipes: items,
     },
   };
-  console.log('data: ', data)
+  console.log("data: ", data);
   const response = await axios.put(
-    `${BASE_URL}/favourites/${favouritesId}`, data,
+    `${BASE_URL}/favourites/${favouritesId}`,
+    data,
     {
       method: "PUT",
       headers: { Authorization: `Bearer ${token}` },
@@ -271,6 +272,22 @@ export async function updateFavourites(favouritesId, token, items) {
   return response.data;
 }
 
+// get user info
+export async function fetchUser(token, userId) {
+  const response = await axios.get(
+    `${BASE_URL}/users?populate[0]=image&filters[id]=${userId}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
 // search
-
-
+export async function searchProducts(searchText, page, pageSize) {
+  const response = await axios.get(
+    `${BASE_URL}/products?populate[0]=image&&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[title][$containsi]=${searchText}`
+  );
+  return response.data;
+}

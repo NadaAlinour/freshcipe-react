@@ -1,9 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Pagination from "../components/Pagination";
-import { fetchVendorCatsProducts, fetchAllProducts } from "../utils/http";
+import { fetchVendorCatsProducts, fetchAllProducts, searchProducts } from "../utils/http";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -14,8 +14,22 @@ export default function ProductCollection() {
   //console.log('user token is: ', userToken)
   //console.log('user id is: ', userId)
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
+  // check if search query
+  console.log(pathArray);
+
+  const isQuery = pathArray.includes("search");
+  console.log(isQuery);
+
+  let searchText = "";
+  if (isQuery) {
+    searchText = searchParams.get('query');
+    console.log(searchText)
+  }
+
   const idFromUrl = pathArray[pathArray.length - 2];
 
   const [products, setProducts] = useState([]);
@@ -34,6 +48,26 @@ export default function ProductCollection() {
   };
 
   useEffect(() => {
+    const getSearchedProducts = async () => {
+      try {
+        const data = await searchProducts(searchText, page, maxPageSize);
+        console.log('response ', data);
+        /*setProducts((prevProducts) => [...prevProducts, ...data.data]);*/
+        setProducts(data.data);
+        setTotalProducts(data.meta.pagination.total);
+        setPageCount(data.meta.pagination.pageCount);
+        setpageSize((prevPageSize) => prevPageSize + data.data.length);
+        setIsLoading(false);
+
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (isQuery) getSearchedProducts();
+  }, [page, searchText]);
+
+  useEffect(() => {
     const getProducts = async () => {
       try {
         const data = await fetchVendorCatsProducts(
@@ -50,8 +84,8 @@ export default function ProductCollection() {
         console.log(error);
       }
     };
-    if (idFromUrl) getProducts();
-  }, [page, currentPath]);
+    if (idFromUrl && !isQuery) getProducts();
+  }, [page]);
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -73,9 +107,9 @@ export default function ProductCollection() {
       }
     };
 
-    if (!idFromUrl) getAllProducts();
+    if (!idFromUrl && !isQuery) getAllProducts();
     //console.log(products);
-  }, [page, currentPath]);
+  }, [page]);
 
   return (
     <>
