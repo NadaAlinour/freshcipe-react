@@ -2,22 +2,18 @@ import { useState, useEffect } from "react";
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
-import { getCartWithItems, deleteCartItem } from "../utils/http";
+import { deleteCartItem } from "../utils/http";
 import { useSelector } from "react-redux";
 
 export default function CartPage() {
-
   // check whether user is logged in or now
   // if logged in, get user stuff
   // else, get localStorage stuff (not added yet)
 
+  const { userToken, userId, cartId } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
 
-  const { userToken, userId} = useSelector((state) => state.auth);
-  let cartTemp = localStorage.getItem('cartId');
-  // console.log(userToken, userId, cartTemp);
-
-  const [cartItems, setCartItems] = useState([]); //Initializing an empty array to store items in the shopping cart.
-  const [isLoading, setIsLoading] = useState(true);
+  console.log(cartItems)
 
   /*useEffect(() => { // Fetch cart with items when the component is mounted
     fetchCartWithItems();
@@ -36,7 +32,7 @@ export default function CartPage() {
       });
   };*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchCartWithItems = async () => {
       try {
         const response = await getCartWithItems(userId, userToken);
@@ -49,10 +45,10 @@ export default function CartPage() {
     };
     fetchCartWithItems();
     // console.log("cart items state: ", cartItems)
-  }, []);
+  }, []);*/
 
   const removeCartItem = (cartItemId) => {
-    deleteCartItem(cartItemId)
+    /*deleteCartItem(cartItemId)
       .then((data) => {
         const updatedCart = cartItems.filter((item) => item.id !== cartItemId);
         setCartItems(updatedCart);
@@ -60,11 +56,11 @@ export default function CartPage() {
       })
       .catch((error) => {
         console.error("Error deleting cart item:", error);
-      });
+      });*/
   };
 
   const clearCart = () => {
-    setCartItems([]);
+    //setCartItems([]);
   };
 
   const calculateSubTotal = () => {
@@ -74,58 +70,56 @@ export default function CartPage() {
   };
 
   const calculateTaxFee = () => {
-   /* return cartItems.reduce((total, item) => {
+    /* return cartItems.reduce((total, item) => {
       return total + item.basePrice * 0.14 * item.quantity;
     }, 0);*/
   };
 
   const calculateTotalAmount = () => {
-    const subTotal = calculateSubTotal();
+    /* const subTotal = calculateSubTotal();
     const deliveryFees = 10.0;
     const productDiscount = 7.0;
     const taxFee = calculateTaxFee();
 
-    return subTotal + deliveryFees + taxFee - productDiscount;
+    return subTotal + deliveryFees + taxFee - productDiscount;*/
   };
 
   const subTotal = calculateSubTotal();
   const totalAmount = calculateTotalAmount();
 
   const updatePrice = (itemId, newQuantity) => {
-    const updatedCart = cartItems.map((item) => {
+    /*const updatedCart = cartItems.map((item) => {
       if (item.id === itemId) {
         item.quantity = newQuantity;
       }
       return item;
     });
-    setCartItems(updatedCart);
+    setCartItems(updatedCart);*/
   };
 
   return (
     <div className="cart_page">
-     <div className="cart_products_container">
+      <div className="cart_products_container">
         <div className="cart_items">
           <h2>Cart Items</h2>
 
-          {!isLoading && 
-            cartItems.map((item) => {
-             /* const cartItem = cartItems.find((item) => item.id === product.id);*/
-              return (
-                <CartItem
-                  key={item.id}
-                  id={item.id}
-                  name={item.attributes.product.data.attributes.title}
-                  image={item.attributes.product.data.attributes.image.data.attributes.url}
-                  basePrice={item.attributes.product.data.attributes.price}
-                  quantity={item.attributes.quantity}
-                  updatePrice={(newQuantity) =>
-                    updatePrice(item.id, newQuantity)
-                  }
-                  removeItem={() => removeCartItem(item.Id)}
-                />
-              );
-            })
-          }
+          {cartItems.map((item) => {
+            return (
+              <CartItem
+                key={item.id}
+                id={item.id}
+                name={item.attributes.product.data.attributes.title}
+                image={
+                  item.attributes.product.data.attributes.image.data.attributes
+                    .url
+                }
+                basePrice={item.attributes.product.data.attributes.price}
+                quantity={item.attributes.quantity}
+                updatePrice={(newQuantity) => updatePrice(item.id, newQuantity)}
+                removeItem={() => removeCartItem(item.Id)}
+              />
+            );
+          })}
 
           <div className="clearCart_button">
             <button
@@ -145,7 +139,7 @@ export default function CartPage() {
           )}
         </div>
 
-       {/*} <div className="bill">
+        {/*} <div className="bill">
           <h2>Order Details</h2>
 
           <div className="bill_details">
@@ -180,7 +174,7 @@ export default function CartPage() {
             </div>
           </div>
           </div>*/}
-          </div>
+      </div>
 
       <div className="suggested_products_container">
         <div className="suggested_products_title">
@@ -253,7 +247,7 @@ export default function CartPage() {
 
       <div className="checkout_button_div">
         <button className="checkout-button">Go To Checkout</button>
-          </div>
+      </div>
     </div>
   );
 }

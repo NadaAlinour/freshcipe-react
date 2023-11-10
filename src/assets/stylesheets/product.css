@@ -106,6 +106,7 @@
   gap: 10px;
 }
 
+
 .product-filter-container h4 {
   letter-spacing: 1px;
   font-weight: lighter;
@@ -128,6 +129,28 @@
   row-gap: 60px;
   margin: 0px 20px 0px 20px;
 }
+
+.product-filter-checkbox-p-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-filter-checkbox-p-container p {
+  font-size: 17px;
+}
+
+
+.product-filter-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-filter-checkbox-container:hover {
+  cursor: pointer;
+}
+
 
 .product-card-container {
   overflow: hidden;

@@ -1,6 +1,7 @@
 import "boxicons";
 import "../assets/stylesheets/navbar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useSelector} from 'react-redux';
 
 import { useState } from "react";
 import FreshcipeLogo from "./FreshcipeLogo";
@@ -16,6 +17,9 @@ export default function Navbar() {
 
   const [isThemeHover, setIsThemeHover] = useState(false);
   const [isCartHover, setIsCartHover] = useState(false);
+
+  const { cartItems } = useSelector((state) => state.cart);
+
 
   // navbar for login/signup screens
   let navbar = (
@@ -65,6 +69,7 @@ export default function Navbar() {
 
         <li>
           <Link to="/cart">
+            <div className="navbar-cart-count">{cartItems.length}</div>
             <div
               className="cart-icon"
               title="View cart"

@@ -4,7 +4,8 @@ import AppRoutes from "./pages/router/AppRoutes";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./store/authSlice";
 import { setFavourites } from "./store/favouritesSlice";
-import { fetchFavourites } from "./utils/http";
+import { setCart } from "./store/cartSlice";
+import { fetchFavourites, getCartWithItems } from "./utils/http";
 import "./App.css";
 import "/src/assets/stylesheets/home.css";
 import "/src/assets/stylesheets/recipe.css";
@@ -28,6 +29,19 @@ function App() {
       })
     );
   }
+
+  useEffect(() => {
+    const fetchCartWithItems = async () => {
+      try {
+        const data = await getCartWithItems(savedUserId, savedToken);
+        console.log(data.data[0].attributes.cart_items.data)
+        dispatch(setCart({ cart: data.data[0].attributes.cart_items.data }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (savedToken) fetchCartWithItems();
+  }, []);
 
   useEffect(() => {
     const getFavourites = async () => {

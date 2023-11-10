@@ -1,9 +1,32 @@
 import "boxicons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchVendors, fetchVendorCats } from "../utils/http";
 
 export default function ProductFilter() {
   const [isStoreHidden, setIsStoreHidden] = useState(false);
   const [isCategoryHidden, setIsCategoryHidden] = useState(false);
+
+  const [vendors, setVendors] = useState();
+  const [categories, setCategories] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleFilterClick = async () => {
+    // add query i guess
+  }
+
+  useEffect(() => {
+    const getVendors = async () => {
+      try {
+        const data = await fetchVendors();
+        console.log(data);
+        setVendors(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getVendors();
+  }, []);
 
   return (
     <div className="product-filter-contents">
@@ -24,18 +47,20 @@ export default function ProductFilter() {
           </div>
         </div>
         <ul className={isStoreHidden ? "hidden" : ""}>
-          <li>
-            <input type="checkbox" />
-            <p>market 1</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>market 2</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>market 3</p>
-          </li>
+          {!isLoading &&
+            vendors.map((vendor) => (
+              <div
+                key={vendor.id}
+                className="product-filter-checkbox-p-container"
+              >
+                <div className="product-filter-checkbox-container" onClick={handleFilterClick}>
+                  <box-icon name="checkbox" size="28px" color="#3c3b37" />
+                </div>
+                <li>
+                  <p>{vendor.username}</p>
+                </li>
+              </div>
+            ))}
         </ul>
       </div>
 

@@ -1,30 +1,39 @@
 import "boxicons";
 import { useNavigate } from "react-router-dom";
 import { addItemToCart } from "../utils/http";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
+
+
 
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
-  const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
-
-  // temporarily
-  const cartTemp = localStorage.getItem("cartId");
-  console.log(userToken, userId, cartTemp);
+  const { userToken, userId, cartId } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
 
   const addToCart = async (productId, quantity) => {
-    const data = {
+    
+    // check if product already exists in cart
+    
+
+
+
+    /*const data = {
       data: {
         product: productId,
         quantity: quantity,
-        cart: cartTemp,
+        cart: cartId,
       },
     };
     console.log(data);
     try {
       const response = await addItemToCart(data, userToken);
       console.log(response);
+
+      
     } catch (error) {
       console.log(error);
-    }
+    }*/
   };
 
   const stringPrice = price.toString();
