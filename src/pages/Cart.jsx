@@ -13,7 +13,7 @@ export default function CartPage() {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
 
-  console.log(cartItems)
+  console.log(cartItems);
 
   /*useEffect(() => { // Fetch cart with items when the component is mounted
     fetchCartWithItems();
@@ -102,26 +102,29 @@ export default function CartPage() {
       <div className="cart_products_container">
         <div className="cart_items">
           <h2>Cart Items</h2>
-
-          {cartItems.map((item) => {
-            return (
-              <CartItem
-                key={item.id}
-                id={item.id}
-                name={item.attributes.product.data.attributes.title}
-                image={
-                  item.attributes.product.data.attributes.image.data.attributes
-                    .url
-                }
-                basePrice={item.attributes.product.data.attributes.price}
-                quantity={item.attributes.quantity}
-                updatePrice={(newQuantity) => updatePrice(item.id, newQuantity)}
-                removeItem={() => removeCartItem(item.Id)}
-              />
-            );
-          })}
-
-          <div className="clearCart_button">
+          <ul className="cart-products-list">
+            {cartItems.map((item) => {
+              return (
+                <li key={item.id}>
+                  <CartItem
+                    id={item.id}
+                    name={item.attributes.product.data.attributes.title}
+                    image={
+                      item.attributes.product.data.attributes.image.data
+                        .attributes.url
+                    }
+                    basePrice={item.attributes.product.data.attributes.price}
+                    quantity={item.attributes.quantity}
+                    updatePrice={(newQuantity) =>
+                      updatePrice(item.id, newQuantity)
+                    }
+                    removeItem={() => removeCartItem(item.Id)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+          <div className="clear-cart-button">
             <button
               className="cart_button clear_cart_button"
               type="button"
@@ -129,9 +132,9 @@ export default function CartPage() {
             >
               Clear Cart
             </button>
-            <button className="cart_button" type="button">
+            {/*<button className="cart_button" type="button">
               Add More Items
-            </button>
+            </button>*/}
           </div>
 
           {(cartItems.length === 0 || totalAmount < 40.0) && (
@@ -139,46 +142,63 @@ export default function CartPage() {
           )}
         </div>
 
-        {/*} <div className="bill">
+        <div className="bill">
           <h2>Order Details</h2>
 
           <div className="bill_details">
             <div className="bill_item">
-              <span>ETA:</span>
+              <span>ETA</span>
               <span>30 minutes</span>
             </div>
 
             <div className="bill_item">
-              <span>SubTotal:</span>
-              <span>EGP {subTotal.toFixed(2)}</span>
+              <span>SubTotal</span>
+              <span>EGP {/*subTotal.toFixed(2)*/}</span>
             </div>
 
             <div className="bill_item">
-              <span>Delivery Fees:</span>
+              <span>Delivery Fees</span>
               <span>EGP 10.00</span>
             </div>
 
             <div className="bill_item">
-              <span>Tax Fees:</span>
-              <span>EGP {calculateTaxFee().toFixed(2)}</span>
+              <span>Tax Fees</span>
+              <span>EGP {/*calculateTaxFee().toFixed(2)*/}</span>
             </div>
 
             <div className="bill_item">
-              <span>Product Discount:</span>
+              <span>Product Discount</span>
               <span>-EGP 7.00</span>
             </div>
 
             <div className="bill_item total">
-              <span>Total Amount:</span>
-              <span>EGP {totalAmount.toFixed(2)}</span>
+              <span>Total Amount</span>
+              <span>EGP {/*totalAmount.toFixed(2)*/}</span>
             </div>
           </div>
-          </div>*/}
+
+          <div className="note">
+            <h2>Special Request</h2>
+            <div className="special-request-note-container">
+              <textarea
+                name="enter_request"
+                id="note_text"
+                cols="30"
+                rows="3"
+                placeholder="Add a Note..."
+              ></textarea>
+            </div>
+          </div>
+
+          <div className="checkout_button_div">
+            <button className="checkout-button">Go To Checkout</button>
+          </div>
+        </div>
       </div>
 
-      <div className="suggested_products_container">
+     {/* <div className="suggested_products_container">
         <div className="suggested_products_title">
-          <h2>Suggested Products</h2>
+          <h2>Discover more products</h2>
           <div className="suggested_products">
             <div className="suggested_images">
               <ProductCard
@@ -231,23 +251,8 @@ export default function CartPage() {
               />
             </div>
           </div>
-        </div>
-
-        <div className="note">
-          <h2>Special Request</h2>
-          <textarea
-            name="enter_request"
-            id="note_text"
-            cols="30"
-            rows="3"
-            placeholder="Add a Note..."
-          ></textarea>
-        </div>
-      </div>
-
-      <div className="checkout_button_div">
-        <button className="checkout-button">Go To Checkout</button>
-      </div>
+          </div>
+          </div>*/}
     </div>
   );
 }

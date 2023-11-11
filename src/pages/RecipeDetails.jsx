@@ -6,6 +6,7 @@ import { fetchRecipe, addItemToCart, updateFavourites } from "../utils/http";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
+import Modal from "../components/Modal";
 import { addFavourites } from "../store/favouritesSlice";
 
 export default function RecipeDetails({ route }) {
@@ -22,6 +23,7 @@ export default function RecipeDetails({ route }) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [isFavourite, setIsFavourite] = useState(false);
+  const [isModalShowing, setIsModalShowing] = useState(false);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
@@ -68,45 +70,49 @@ export default function RecipeDetails({ route }) {
   };
 
   const handleSaveRecipe = async () => {
-    let newData = favourites;
-    // console.log("new Data first: ", newData);
-    // check if selected recipe already exists in favourites
-    let exists = false;
-    newData.forEach((item) => {
-      if (item.id == idFromUrl) {
-        console.log("recipe already in favourites");
-        exists = true;
+    // check if user is logged in
+    if (!userToken) {
+      console.log("user has to be logged in to save recipes");
+    } else {
+      let newData = favourites;
+      // console.log("new Data first: ", newData);
+      // check if selected recipe already exists in favourites
+      let exists = false;
+      newData.forEach((item) => {
+        if (item.id == idFromUrl) {
+          console.log("recipe already in favourites");
+          exists = true;
+        }
+      });
+
+      console.log("exists: ", exists);
+
+      if (!exists) {
+        try {
+          const data = await fetchRecipe(idFromUrl);
+          console.log("data dot data: ", data.data[0]);
+
+          newData = [...newData, data.data[0]];
+
+          //console.log("newdata", newData);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        // remove from favourites
+        newData = newData.filter((item) => item.id != idFromUrl);
       }
-    });
 
-    console.log("exists: ", exists);
+      dispatch(addFavourites({ newFavourites: newData }));
 
-    if (!exists) {
       try {
-        const data = await fetchRecipe(idFromUrl);
-        console.log("data dot data: ", data.data[0]);
-
-        newData = [...newData, data.data[0]];
-
-        //console.log("newdata", newData);
+        console.log("fave states new: ", favourites);
+        const data = await updateFavourites(favouritesId, userToken, newData);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
-    } else {
-      // remove from favourites
-      newData = newData.filter((item) => item.id != idFromUrl);
     }
-
-    dispatch(addFavourites({ newFavourites: newData }));
-
-    try {
-      console.log("fave states new: ", favourites);
-      const data = await updateFavourites(favouritesId, userToken, newData);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-
   };
 
   useEffect(() => {
@@ -217,17 +223,19 @@ export default function RecipeDetails({ route }) {
               <p>Save</p>
 
               <div className="recipe-info-heart-icon-container">
-                {favourites.some((favourite) => favourite['id'] == idFromUrl) && (
+                {favourites.some(
+                  (favourite) => favourite["id"] == idFromUrl
+                ) && (
                   <box-icon
                     name="heart"
                     type="solid"
                     color="#fa635c"
                     size="25px"
                   />
-                ) }
-                {!favourites.some((favourite) => favourite['id'] == idFromUrl) &&  (
-                  <box-icon name="heart" color="white" size="25px" />
                 )}
+                {!favourites.some(
+                  (favourite) => favourite["id"] == idFromUrl
+                ) && <box-icon name="heart" color="white" size="25px" />}
               </div>
             </div>
           </div>

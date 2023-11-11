@@ -10,6 +10,7 @@ export default function NavbarDropdown() {
   const handleLogout = () => {
     console.log("logging out");
     dispatch(logoutUser());
+    //window.location.reload();
   };
 
   let option = <li onClick={() => navigate("/login")}>Login</li>;

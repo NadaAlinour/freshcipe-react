@@ -36,9 +36,9 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice, removeIte
         </div>
       </div>
       <div className="price">EGP {totalPrice.toFixed(2)}</div>
-      <button className="remove_button" onClick={() => removeItem(id)}>
-        <box-icon name='trash' ></box-icon>
-      </button>
+      <div className="remove-button" onClick={() => removeItem(id)}>
+        <box-icon name='trash' color="rgba(0, 0, 0, .8)" size="28px"></box-icon>
+      </div>
     </div>
   );
 }

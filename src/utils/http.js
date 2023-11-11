@@ -217,7 +217,7 @@ export async function deleteCartItem(cartItemId, token) {
     }
 }*/
 export async function addItemToCart(cartItemData, token) {
-  const response = await axios.post(`${BASE_URL}/cart-items`, cartItemData, {
+  const response = await axios.post(`${BASE_URL}/cart-items?populate[0]=product`, cartItemData, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
   });

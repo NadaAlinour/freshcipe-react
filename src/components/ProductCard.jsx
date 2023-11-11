@@ -2,9 +2,7 @@ import "boxicons";
 import { useNavigate } from "react-router-dom";
 import { addItemToCart } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../store/cartSlice";
-
-
+import { updateCart } from "../store/cartSlice";
 
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
@@ -12,28 +10,35 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const { cartItems } = useSelector((state) => state.cart);
 
   const addToCart = async (productId, quantity) => {
-    
     // check if product already exists in cart
-    
+    /*const items = cartItems.filter(
+      (item) => item.attributes.product.data.id == productId
+    );
+    if(items.length > 0) {
+      console.log('this item already exists in cart, just increase quantity');
 
+    } else {
+      console.log('this item does not exist in cart, add item')
+    }*/
 
-
-    /*const data = {
+    const data = {
       data: {
         product: productId,
         quantity: quantity,
         cart: cartId,
       },
     };
-    console.log(data);
+   // console.log(data);
     try {
       const response = await addItemToCart(data, userToken);
-      console.log(response);
-
-      
+      console.log(response.data.attributes.product.data);
+      dispatch(
+        updateCart({ cart: response.data.attributes.product.data })
+      );
     } catch (error) {
       console.log(error);
-    }*/
+    }
+    console.log(cartItems)
   };
 
   const stringPrice = price.toString();
