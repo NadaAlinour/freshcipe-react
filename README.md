@@ -34,6 +34,9 @@ E-commerce web application using Reactjs.
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/03cdbf49-c296-47b0-9c21-610e4b43cef4)
 
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/d7ffbb28-837d-448a-8a9b-7602eceeebe9)
+
+
 
 
 
