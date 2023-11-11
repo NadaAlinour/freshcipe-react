@@ -69,7 +69,7 @@ export default function Navbar() {
 
         <li>
           <Link to="/cart">
-            <div className="navbar-cart-count">{cartItems.length}</div>
+            {cartItems.length > 0 && <div className="navbar-cart-count">{cartItems.length}</div>}
             <div
               className="cart-icon"
               title="View cart"

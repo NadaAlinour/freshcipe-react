@@ -5,7 +5,7 @@
 
 .favourites-header {
   padding-left: 55px;
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 .favourites-header p {
@@ -14,28 +14,30 @@
   letter-spacing: .5px;
 }
 
-
-
 .favourites-list {
-  margin: 45px 35px 50px 55px;
+  margin: 30px 35px 50px 55px;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 85px;
+  gap: 30px;
 }
 
 .favourites-list li {
   display: flex;
   align-items: center;
   gap: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  width: 53%;
 }
 
 .recipe-card-alt-trash-container {
-  width: 100px;
-  height: 100px;
+  width: 65px;
+  height: 65px;
+  margin-top: 100px;
+  margin-left: 25px;
   border-radius: 50px;
   background-image: url(../icons/trash-solid-240.png);
-  background-size: 45px 45px;
+  background-size: 35px 35px;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
