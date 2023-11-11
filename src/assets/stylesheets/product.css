@@ -155,16 +155,11 @@
 .product-card-container {
   overflow: hidden;
   position: relative;
-  width: 275px;
+  width: 270px;
   height: 235px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.2s linear;
 }
 
 .product-card-container:hover {
-  box-shadow: 0px 8px 10px -4px rgba(0, 0, 0, 0.5);
 }
 
 .product-card-image-container {
@@ -194,6 +189,7 @@
 
 .product-card-title-add-container h3 {
   font-weight: lighter;
+  line-height: 20px;
 }
 
 .product-card-title-add-container h3:hover {
@@ -220,7 +216,7 @@
   min-width: 45px;
   max-width: 80px;
   left: 215px;
-  bottom: 0px;
+  bottom: 10px;
   line-height: 25px;
   display: flex;
   flex-direction: column;
@@ -239,6 +235,8 @@
   font-size: 25px;
   position: absolute;
   bottom: 0px;
+  right: 0%;
+  transform: translateX(-40%);
 }
 
 .product-card-price-fraction {
@@ -246,13 +244,14 @@
   position: absolute;
   font-size: 14px;
   bottom: 7px;
-  left: 17px;
+  left: 20px;
 }
 
 .product-card-quantity {
   color: rgba(0, 0, 0, 0.5);
   font-size: 14px;
   line-height: 15px;
+  margin-top: 5px;
 }
 
 .product-card-discount-tag {

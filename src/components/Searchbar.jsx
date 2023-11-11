@@ -29,6 +29,13 @@ export default function Searchbar() {
     navigate(`products/search?query=${searchText}`);
   };
 
+  /*const handleEnter = (event) => {
+    event.preventDefault();
+    if (event.key == "Enter") {
+      handleSearch();
+    }
+  };*/
+
   // console.log(searchText);
   return (
     <div className="searchbar">
