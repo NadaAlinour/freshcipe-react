@@ -240,7 +240,7 @@ export async function deleteCartItem(cartId, itemId, token) {
   return response.data;
 }
 
-export async function deleteAllCartItems(cartId, token) {
+/*export async function deleteAllCartItems(cartId, token) {
   const response = await axios.delete(
     `${BASE_URL}/cart-items/${cartId}`,
     {
@@ -249,7 +249,7 @@ export async function deleteAllCartItems(cartId, token) {
     }
   );
   return response.data;
-}
+}*/
 
 // create favourite
 export async function createFavourites(userId, token) {

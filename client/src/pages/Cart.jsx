@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
-import { deleteCartItem, deleteAllCartItems } from "../utils/http";
+import { deleteCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
-import { setCart } from "../store/cartSlice.js";
+import { removeFromCart, setCart } from "../store/cartSlice.js";
 
 export default function CartPage() {
   // check whether user is logged in or now
@@ -18,14 +18,27 @@ export default function CartPage() {
 
   const clearCart = async () => {
     //setCartItems([]);
+    console.log(cartItems)
     console.log("clearing cart");
-    try {
-      const response = await deleteAllCartItems(cartId, userToken);
-      console.log(response.data);
-      dispatch(setCart({ cart: [] }));
-    } catch (error) {
-      console.log(error);
-    }
+
+    cartItems.forEach(async item => {
+      try {
+        const response = await deleteCartItem(cartId, item.id, userToken);
+        console.log(response);
+        dispatch(removeFromCart({id: item.id}));
+      } catch(error) {
+        console.log(error);
+      }
+    })
+   /* while (cartItems) {
+      try {
+        const response = await deleteCartItem(cartId, userToken);
+        console.log(response.data);
+        dispatch(setCart({ cart: [] }));
+      } catch (error) {
+        console.log(error);
+      }
+    }*/
   };
 
   const calculateSubTotal = () => {
@@ -99,21 +112,21 @@ export default function CartPage() {
                 );
               })}
           </ul>
-          <div className="clear-cart-button">
-            <button
-              className="cart_button clear_cart_button"
-              type="button"
-              onClick={clearCart}
-            >
-              Clear Cart
-            </button>
-            {/*<button className="cart_button" type="button">
+          {cartItems.length > 0 ? (
+            <div className="clear-cart-button">
+              <button
+                className="cart_button clear_cart_button"
+                type="button"
+                onClick={clearCart}
+              >
+                Clear Cart
+              </button>
+              {/*<button className="cart_button" type="button">
               Add More Items
             </button>*/}
-          </div>
-
-          {(cartItems.length === 0 || totalAmount < 40.0) && (
-            <p className="no-items-message">Minimum Charge is EGP 40.00</p>
+            </div>
+          ) : (
+            <div className="empty-cart-placeholder">hi</div>
           )}
         </div>
 
@@ -168,6 +181,9 @@ export default function CartPage() {
           <div className="checkout_button_div">
             <button className="checkout-button">Go To Checkout</button>
           </div>
+          {(cartItems.length === 0 || totalAmount < 40.0) && (
+            <p className="no-items-message">Minimum Charge is EGP 40.00</p>
+          )}
         </div>
       </div>
 

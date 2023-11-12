@@ -10,17 +10,6 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const { cartItems } = useSelector((state) => state.cart);
 
   const addToCart = async (productId, quantity) => {
-    // check if product already exists in cart
-    /*const items = cartItems.filter(
-      (item) => item.attributes.product.data.id == productId
-    );
-    if(items.length > 0) {
-      console.log('this item already exists in cart, just increase quantity');
-
-    } else {
-      console.log('this item does not exist in cart, add item')
-    }*/
-
     const data = {
       data: {
         product: productId,
@@ -28,18 +17,22 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
         cart: cartId,
       },
     };
-   // console.log(data);
-    try {
-      const response = await addItemToCart(data, userToken);
-      console.log('test: ', response.data)
-      console.log(response.data);
-      dispatch(
-        updateCart({ cart: response.data })
-      );
-    } catch (error) {
-      console.log(error);
+    // console.log(data);
+
+    if (userToken) {
+      try {
+        const response = await addItemToCart(data, userToken);
+        console.log("test: ", response.data);
+        console.log(response.data);
+        dispatch(updateCart({ cart: response.data }));
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(cartItems);
+    } else {
+     console.log('local cart but idk yet')
+      
     }
-    console.log(cartItems)
   };
 
   const stringPrice = price.toString();

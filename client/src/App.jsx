@@ -4,7 +4,7 @@ import AppRoutes from "./pages/router/AppRoutes";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./store/authSlice";
 import { setFavourites } from "./store/favouritesSlice";
-import { setCart } from "./store/cartSlice";
+import { setCart, setLocalCart } from "./store/cartSlice";
 import { fetchFavourites, getCartWithItems } from "./utils/http";
 import "./App.css";
 import "/src/assets/stylesheets/home.css";
@@ -40,7 +40,15 @@ function App() {
         console.log(error);
       }
     };
+
+    /*const setLocalCartItems = () => {
+      const localCart = localStorage.getItem('localCart');
+      dispatch(setLocalCart({localCart: localCart}));
+      console.log('local cart has been set in state')
+    }*/
+
     if (savedToken) fetchCartWithItems();
+    //else setLocalCartItems();
   }, []);
 
   useEffect(() => {

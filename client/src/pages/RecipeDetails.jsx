@@ -6,7 +6,7 @@ import { fetchRecipe, addItemToCart, updateFavourites } from "../utils/http";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
-import Modal from "../components/Modal";
+import Overlay from "../components/Overlay";
 import { addFavourites } from "../store/favouritesSlice";
 
 export default function RecipeDetails({ route }) {
@@ -29,6 +29,10 @@ export default function RecipeDetails({ route }) {
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
   //console.log(typeof idFromUrl)
+
+  const handleOverlayClose = () => {
+    setIsModalShowing(!isModalShowing);
+  }
 
   const handleIngredientClick = (productId) => {
     console.log(productId);
@@ -73,6 +77,7 @@ export default function RecipeDetails({ route }) {
     // check if user is logged in
     if (!userToken) {
       console.log("user has to be logged in to save recipes");
+      handleOverlayClose();
     } else {
       let newData = favourites;
       // console.log("new Data first: ", newData);
@@ -140,6 +145,7 @@ export default function RecipeDetails({ route }) {
   return (
     <>
       <Breadcrumbs />
+      {!isModalShowing && <Overlay onClose={handleOverlayClose}>this is modal</Overlay>}
       <div className="recipe-info-parent">
         {/* recipe info */}
         <div className="recipe-info-container">
