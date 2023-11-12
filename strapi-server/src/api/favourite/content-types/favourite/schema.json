@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "favourites",
+  "info": {
+    "singularName": "favourite",
+    "pluralName": "favourites",
+    "displayName": "Favourite",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "favourite"
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recipe.recipe",
+      "mappedBy": "favourite"
+    }
+  }
+}
