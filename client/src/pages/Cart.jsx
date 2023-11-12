@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
 import { deleteCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, setCart } from "../store/cartSlice.js";
+import EmptyCartImage from "../assets/images/empty-cart.png";
 
 export default function CartPage() {
   // check whether user is logged in or now
@@ -18,19 +20,19 @@ export default function CartPage() {
 
   const clearCart = async () => {
     //setCartItems([]);
-    console.log(cartItems)
+    console.log(cartItems);
     console.log("clearing cart");
 
-    cartItems.forEach(async item => {
+    cartItems.forEach(async (item) => {
       try {
         const response = await deleteCartItem(cartId, item.id, userToken);
         console.log(response);
-        dispatch(removeFromCart({id: item.id}));
-      } catch(error) {
+        dispatch(removeFromCart({ id: item.id }));
+      } catch (error) {
         console.log(error);
       }
-    })
-   /* while (cartItems) {
+    });
+    /* while (cartItems) {
       try {
         const response = await deleteCartItem(cartId, userToken);
         console.log(response.data);
@@ -126,7 +128,11 @@ export default function CartPage() {
             </button>*/}
             </div>
           ) : (
-            <div className="empty-cart-placeholder">hi</div>
+            <div className="empty-cart-placeholder">
+              <img src={EmptyCartImage}></img>
+              <p className="empty-cart-text">Your cart is currently empty.</p>
+              <p>Click here to <Link to='/products' className="link-text">start shopping.</Link></p>
+            </div>
           )}
         </div>
 
