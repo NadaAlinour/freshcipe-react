@@ -31,9 +31,10 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
    // console.log(data);
     try {
       const response = await addItemToCart(data, userToken);
-      console.log(response.data.attributes.product.data);
+      console.log('test: ', response.data)
+      console.log(response.data);
       dispatch(
-        updateCart({ cart: response.data.attributes.product.data })
+        updateCart({ cart: response.data })
       );
     } catch (error) {
       console.log(error);

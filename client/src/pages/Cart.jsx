@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import "../assets/stylesheets/cart.css";
 import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
-import { deleteCartItem } from "../utils/http";
-import { useSelector } from "react-redux";
+import { deleteCartItem, deleteAllCartItems } from "../utils/http";
+import { useSelector, useDispatch } from "react-redux";
+import { setCart } from "../store/cartSlice.js";
 
 export default function CartPage() {
   // check whether user is logged in or now
@@ -13,54 +14,18 @@ export default function CartPage() {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
 
-  console.log(cartItems);
+  const dispatch = useDispatch();
 
-  /*useEffect(() => { // Fetch cart with items when the component is mounted
-    fetchCartWithItems();
-  }, [userId]);
-
-  console.log(userId);
-
-  const fetchCartWithItems = () => {
-    getCartWithItems(userId, userToken)
-      .then((data) => {
-        //setCartItems(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching cart with items:', error);
-      });
-  };*/
-
-  /*useEffect(() => {
-    const fetchCartWithItems = async () => {
-      try {
-        const response = await getCartWithItems(userId, userToken);
-        console.log('cart items: ', response.data[0].attributes.cart_items.data);
-        setCartItems(response.data[0].attributes.cart_items.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchCartWithItems();
-    // console.log("cart items state: ", cartItems)
-  }, []);*/
-
-  const removeCartItem = (cartItemId) => {
-    /*deleteCartItem(cartItemId)
-      .then((data) => {
-        const updatedCart = cartItems.filter((item) => item.id !== cartItemId);
-        setCartItems(updatedCart);
-        fetchCartWithItems(data);
-      })
-      .catch((error) => {
-        console.error("Error deleting cart item:", error);
-      });*/
-  };
-
-  const clearCart = () => {
+  const clearCart = async () => {
     //setCartItems([]);
+    console.log("clearing cart");
+    try {
+      const response = await deleteAllCartItems(cartId, userToken);
+      console.log(response.data);
+      dispatch(setCart({ cart: [] }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const calculateSubTotal = () => {
@@ -103,26 +68,36 @@ export default function CartPage() {
         <div className="cart_items">
           <h2>Cart Items</h2>
           <ul className="cart-products-list">
-            {cartItems.length > 0 && cartItems.map((item) => {
-              return (
-                <li key={item.id}>
-                  <CartItem
-                    id={item.id}
-                    name={item.attributes.product.data.attributes.title}
-                    image={
-                      item.attributes.product.data.attributes.image.data
-                        .attributes.url
-                    }
-                    basePrice={item.attributes.product.data.attributes.price}
-                    quantity={item.attributes.quantity}
-                    updatePrice={(newQuantity) =>
-                      updatePrice(item.id, newQuantity)
-                    }
-                    removeItem={() => removeCartItem(item.Id)}
-                  />
-                </li>
-              );
-            })}
+            {cartItems.length > 0 &&
+              cartItems.map((item) => {
+                return (
+                  <li key={item.id}>
+                    <CartItem
+                      id={item.id}
+                      name={
+                        item.attributes.product
+                          ? item.attributes.product.data.attributes.title
+                          : item.attributes.title
+                      }
+                      image={
+                        item.attributes.product
+                          ? item.attributes.product.data.attributes.image.data
+                              .attributes.url
+                          : item.attributes
+                      }
+                      basePrice={
+                        item.attributes.product
+                          ? item.attributes.product.data.attributes.price
+                          : item.attributes.price
+                      }
+                      quantity={item.attributes.quantity}
+                      updatePrice={(newQuantity) =>
+                        updatePrice(item.id, newQuantity)
+                      }
+                    />
+                  </li>
+                );
+              })}
           </ul>
           <div className="clear-cart-button">
             <button
@@ -196,7 +171,7 @@ export default function CartPage() {
         </div>
       </div>
 
-     {/* <div className="suggested_products_container">
+      {/* <div className="suggested_products_container">
         <div className="suggested_products_title">
           <h2>Discover more products</h2>
           <div className="suggested_products">

@@ -3,6 +3,14 @@
 (graduation project)
 E-commerce web application using Reactjs.
 
+To run the client:
+- npm install
+- npm run dev
+
+To run the server:
+- npm install
+- npm run develop
+
 
 ## Temporary Preview
 

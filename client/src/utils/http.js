@@ -200,13 +200,13 @@ export async function getCartWithItems(userId, token) {
 }
 
 // Delete Cart Item
-export async function deleteCartItem(cartItemId, token) {
+/*export async function deleteCartItem(cartItemId, token) {
   const response = await axios.delete(`${BASE_URL}/cart-items/${cartItemId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
-}
+}*/
 
 // Add Items to Cart
 /*{
@@ -217,10 +217,37 @@ export async function deleteCartItem(cartItemId, token) {
     }
 }*/
 export async function addItemToCart(cartItemData, token) {
-  const response = await axios.post(`${BASE_URL}/cart-items?populate[0]=product`, cartItemData, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.post(
+    `${BASE_URL}/cart-items?populate[0]=product&populate[1]=product.image`,
+    cartItemData,
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
+// delete item from cart
+export async function deleteCartItem(cartId, itemId, token) {
+  const response = await axios.delete(
+    `${BASE_URL}/cart-items/${itemId}?cart=${cartId}`,
+    {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
+export async function deleteAllCartItems(cartId, token) {
+  const response = await axios.delete(
+    `${BASE_URL}/cart-items/${cartId}`,
+    {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
   return response.data;
 }
 
