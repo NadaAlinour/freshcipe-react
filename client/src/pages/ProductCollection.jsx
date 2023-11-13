@@ -34,7 +34,7 @@ export default function ProductCollection() {
 
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [maxPageSize, setMaxPageSize] = useState(5);
+  const [maxPageSize, setMaxPageSize] = useState(8);
   const [pageSize, setpageSize] = useState(0);
   const [totalProducts, setTotalProducts] = useState();
   const [pageCount, setPageCount] = useState();

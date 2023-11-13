@@ -1,5 +1,5 @@
 /*import url('https://fonts.googleapis.com/css?family=Poppins');*/
-@import url('https://fonts.cdnfonts.com/css/allura');
+@import url("https://fonts.cdnfonts.com/css/allura");
 
 :root {
   --primary300: #fef7e5;
@@ -13,7 +13,6 @@
   --background: #f4e7da;
   --backgroundDark: #edd5bb;
   --grey900: #3c3b37;
-
 }
 
 body {
@@ -37,14 +36,12 @@ body {
   gap: 5px;
   color: var(--grey900);
   height: 40px;
-
 }
 
 .logo-header-container h4 {
-  font-family: 'allura';
+  font-family: "allura";
   font-size: 40px;
   letter-spacing: 1px;
-
 }
 
 .logo-white {
@@ -54,12 +51,9 @@ body {
 .logo-white h4 {
   font-weight: lighter;
   font-size: 50px;
-  font-family: 'allura';
+  font-family: "allura";
   letter-spacing: 1px;
-
 }
-
-
 
 .logo-header-link {
   text-decoration: none;
@@ -71,17 +65,15 @@ body {
   justify-content: center;
 }
 
-
-
 .breadcrumbs {
   display: flex;
   padding: 15px 20px 0px 30px;
 }
 
 .back-link-container {
- display: flex;
- align-items: center;
- margin-right: 75px;
+  display: flex;
+  align-items: center;
+  margin-right: 75px;
 }
 
 .breadcrumbs-link-container {
@@ -101,15 +93,13 @@ body {
 }
 
 .breadcrumb-last-item1 {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .breadcrumb-last-item2 {
-  opacity: .5;
+  opacity: 0.5;
   margin-left: 10px;
 }
-
-
 
 .tag-container {
   min-width: 110px;
@@ -117,9 +107,8 @@ body {
   border-radius: 200px;
   text-align: center;
   padding: 5px 20px 5px 20px;
-  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, .3);
-  transition: background-color .1s linear;
- 
+  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.1s linear;
 }
 
 .tag-container:hover {
@@ -139,9 +128,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, .3);
-
- 
+  box-shadow: 0px 8px 4px -6px rgba(0, 0, 0, 0.3);
 }
 
 .tag-container-plain {
@@ -181,26 +168,99 @@ body {
   background-color: var(--primary600);
 }
 
+.solid-button {
+  padding: 15px 20px 15px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary500);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  width: 150px;
+}
+
+.solid-button:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.border-button {
+  padding: 15px 20px 15px 20px;
+  border: 1px solid var(--primary500);
+  border-radius: 5px;
+  background-color: white;
+  color: var(--primary500);
+  font-weight: bold;
+  font-size: 18px;
+  width: 150px;
+}
+
+.border-button:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+
 .overlay-container {
-  position: absolute;
+  display: block;
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
   z-index: 5;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .overlay-content {
-  height: 200px;
+  position: relative;
+  height: 285px;
   width: 500px;
   background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 25px;
+  padding: 0 30px 0 30px;
+}
+
+.overlay-exit {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-exit:hover {
+  opacity: .75;
+  cursor: pointer;
+}
+
+.overlay-title {
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+  font-size: 25px;
+}
+
+.overlay-description {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.overlay-buttons-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 
 footer {
-  background-color:var(--grey900);
+  background-color: var(--grey900);
   min-height: 200px;
   color: white;
   display: flex;
@@ -217,7 +277,7 @@ footer a:hover {
   color: var(--primary500);
 }
 
-.footer-list-container h3{
+.footer-list-container h3 {
   letter-spacing: 1px;
 }
 
@@ -233,7 +293,7 @@ footer ul {
   margin-bottom: 60px;
   display: flex;
   justify-content: space-evenly;
-  padding-right: 70px
+  padding-right: 70px;
 }
 
 .footer-logo-container {
@@ -262,7 +322,7 @@ footer ul {
 
 .footer-socials-container img:hover {
   cursor: pointer;
-  opacity: .75;
+  opacity: 0.75;
 }
 
 .footer-copyright-container {
@@ -283,14 +343,9 @@ footer ul {
   cursor: pointer;
 }
 
-
 .not-found-page-container {
   min-height: 90vh;
 }
-
-
-
-
 
 .placeholder-text {
   text-align: center;

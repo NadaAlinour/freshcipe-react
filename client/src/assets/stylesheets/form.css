@@ -203,41 +203,7 @@
   justify-content: space-between;
 }
 
-.solid-button {
-  padding: 15px 20px 15px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--primary500);
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  width: 150px;
-}
 
-.solid-button:hover {
-  cursor: pointer;
-  opacity: 0.75;
-
-}
-
-
-.border-button {
-  padding: 15px 20px 15px 20px;
-  border: 1px solid var(--primary500);
-  border-radius: 5px;
-  background-color: white;
-  color: var(--primary500);
-  font-weight: bold;
-  font-size: 18px;
-  width: 150px;
-
-}
-
-.border-button:hover {
-  cursor: pointer;
-  opacity: 0.75;
-
-}
 
 .reset-password-page {
   padding-top: 50px;

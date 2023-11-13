@@ -7,7 +7,7 @@ import { deleteCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, setCart } from "../store/cartSlice.js";
 import EmptyCartImage from "../assets/images/empty-cart.png";
-
+import TestCart from "../assets/images/test-cart.png"
 export default function CartPage() {
   // check whether user is logged in or now
   // if logged in, get user stuff
@@ -81,7 +81,7 @@ export default function CartPage() {
     <div className="cart_page">
       <div className="cart_products_container">
         <div className="cart_items">
-          <h2>Cart Items</h2>
+          <h2>Your Cart</h2>
           <ul className="cart-products-list">
             {cartItems.length > 0 &&
               cartItems.map((item) => {
@@ -129,9 +129,9 @@ export default function CartPage() {
             </div>
           ) : (
             <div className="empty-cart-placeholder">
-              <img src={EmptyCartImage}></img>
+              <img src={TestCart} style={{width:"330px", marginBottom:"15px"}}></img>
               <p className="empty-cart-text">Your cart is currently empty.</p>
-              <p>Click here to <Link to='/products' className="link-text">start shopping.</Link></p>
+              <p className="empty-cart-text-2">Click here to <Link to='/products' className="link-text">start shopping.</Link></p>
             </div>
           )}
         </div>

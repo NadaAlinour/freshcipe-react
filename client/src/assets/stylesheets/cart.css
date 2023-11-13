@@ -66,6 +66,8 @@
   flex-direction: column;
   gap: 5px;
   border: 1px solid rgba(0, 0, 0, 0.15);
+  /* border: 1px solid white;*/
+
   min-height: 250px;
   padding: 20px;
   border-radius: 5px;
@@ -294,13 +296,14 @@ textarea[name="enter_request"] {
 }
 
 .empty-cart-placeholder {
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  /*border: 1px solid rgba(0, 0, 0, 0.15);*/
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  margin-top: 25px;
 }
 
 .empty-cart-placeholder img {
@@ -310,5 +313,9 @@ textarea[name="enter_request"] {
 .empty-cart-text {
   font-weight: bold;
   font-size: 20px;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
+}
+
+.empty-cart-text-2 {
+  font-size: 17px;
 }

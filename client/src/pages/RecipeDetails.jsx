@@ -25,14 +25,46 @@ export default function RecipeDetails({ route }) {
   const [isFavourite, setIsFavourite] = useState(false);
   const [isModalShowing, setIsModalShowing] = useState(false);
 
+  const [scrollPosi, setScrollPosi] = useState(0);
+
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
   //console.log(typeof idFromUrl)
 
-  const handleOverlayClose = () => {
+  useEffect(() => {
+    const handleOverlayStyle = () => {
+      if (isModalShowing) {
+        document.body.style.overflow = 'hidden'; 
+      } else {
+        document.body.style.overflow = ''; 
+      }
+    };
+
+    // Call the function when the component mounts or when isOverlayActive changes
+    handleOverlayStyle();
+
+    // Cleanup function to remove the style when the component is unmounted
+    return () => {
+      document.body.style.overflow = ''; // Remove the style to enable scrolling
+    };
+  }, [isModalShowing]); // Run the effect when isOverlayActive changes
+
+  const handleOverlay = () => {
     setIsModalShowing(!isModalShowing);
-  }
+  };
+
+  /*useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosi(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);*/
 
   const handleIngredientClick = (productId) => {
     console.log(productId);
@@ -76,46 +108,50 @@ export default function RecipeDetails({ route }) {
   const handleSaveRecipe = async () => {
     // check if user is logged in
     if (!userToken) {
-      console.log("user has to be logged in to save recipes");
-      handleOverlayClose();
-    } else {
-      let newData = favourites;
-      // console.log("new Data first: ", newData);
-      // check if selected recipe already exists in favourites
-      let exists = false;
-      newData.forEach((item) => {
-        if (item.id == idFromUrl) {
-          console.log("recipe already in favourites");
-          exists = true;
-        }
-      });
-
-      console.log("exists: ", exists);
-
-      if (!exists) {
-        try {
-          const data = await fetchRecipe(idFromUrl);
-          console.log("data dot data: ", data.data[0]);
-
-          newData = [...newData, data.data[0]];
-
-          //console.log("newdata", newData);
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        // remove from favourites
-        newData = newData.filter((item) => item.id != idFromUrl);
+      console.log("user needs to be logged in");
+      handleOverlay();
+      return;
+    }
+    let newData = favourites;
+    // console.log("new Data first: ", newData);
+    // check if selected recipe already exists in favourites
+    let exists = false;
+    newData.forEach((item) => {
+      if (item.id == idFromUrl) {
+        console.log("recipe already in favourites");
+        exists = true;
       }
+    });
 
-      dispatch(addFavourites({ newFavourites: newData }));
+    console.log("exists: ", exists);
 
+    if (!exists) {
       try {
-        console.log("fave states new: ", favourites);
-        const data = await updateFavourites(favouritesId, userToken, newData);
-        console.log(data);
+        const data = await fetchRecipe(idFromUrl);
+        console.log("data dot data: ", data.data[0]);
+
+        newData = [...newData, data.data[0]];
+
+        //console.log("newdata", newData);
       } catch (error) {
-        console.log(error);
+        console.log(error.response);
+      }
+    } else {
+      // remove from favourites
+      newData = newData.filter((item) => item.id != idFromUrl);
+    }
+
+    dispatch(addFavourites({ newFavourites: newData }));
+
+    try {
+      console.log("fave states new: ", favourites);
+      const data = await updateFavourites(favouritesId, userToken, newData);
+      console.log(data);
+    } catch (error) {
+      console.log(error.response.status);
+      if (error.response.status == 405) {
+        console.log("user not logged in although its not a 403 error idk");
+        handleOverlay();
       }
     }
   };
@@ -145,7 +181,13 @@ export default function RecipeDetails({ route }) {
   return (
     <>
       <Breadcrumbs />
-      {!isModalShowing && <Overlay onClose={handleOverlayClose}>this is modal</Overlay>}
+      {isModalShowing && (
+        <Overlay
+          onClose={handleOverlay}
+          title="Save your favourite recipes"
+          description="Always have access to your favourite recipes by logging in to your account."
+        />
+      )}
       <div className="recipe-info-parent">
         {/* recipe info */}
         <div className="recipe-info-container">
