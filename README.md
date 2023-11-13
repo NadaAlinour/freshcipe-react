@@ -30,6 +30,10 @@ To run the server:
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/239eb11d-1e82-42b3-9efa-a1d7f943c992)
 
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/b0132f42-a5dc-4a90-bb5c-4a71a1da172e)
+
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/e9d43f1c-e81a-413d-928c-67960dac29e6)
+
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/9d6473c7-5d90-4348-b94c-e229007af1c3)
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/ecfabf72-b3a8-4d1f-8c25-e72cbd02bb58)
@@ -38,9 +42,13 @@ To run the server:
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/e6625a8c-dda5-4e0f-962e-170b8ff44f1d)
 
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/c92ece70-6e6b-4a70-8c5d-7d694bd98932)
+
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/9f57b550-7afe-45f9-be69-409dd6658602)
 
-![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/03cdbf49-c296-47b0-9c21-610e4b43cef4)
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/a6fa12f0-e3a3-4b03-b619-9cafbcf9a7b0)
+
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/b766c21e-cbdd-411c-bc50-94fc79165a20)
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/d7ffbb28-837d-448a-8a9b-7602eceeebe9)
 
