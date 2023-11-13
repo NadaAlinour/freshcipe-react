@@ -22,10 +22,7 @@ export default function RecipeDetails({ route }) {
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [isFavourite, setIsFavourite] = useState(false);
   const [isModalShowing, setIsModalShowing] = useState(false);
-
-  const [scrollPosi, setScrollPosi] = useState(0);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
@@ -54,17 +51,7 @@ export default function RecipeDetails({ route }) {
     setIsModalShowing(!isModalShowing);
   };
 
-  /*useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosi(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);*/
+  
 
   const handleIngredientClick = (productId) => {
     console.log(productId);

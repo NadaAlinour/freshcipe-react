@@ -1,5 +1,6 @@
 import "boxicons";
 import { Link, useNavigate } from "react-router-dom";
+import HeartAdd from "../assets/images/heartadd.png";
 export default function Overlay({ onClose, title, description}) {
 
   const navigate = useNavigate();
@@ -10,10 +11,11 @@ export default function Overlay({ onClose, title, description}) {
           <box-icon name="x" color="#3c3b37"></box-icon>
         </div>
         <h3 className="overlay-title">{title}</h3>
+        <img src={HeartAdd}></img>
         <p className="overlay-description">{description}</p>
         <div className="overlay-buttons-container">
           <button className="solid-button" onClick={() => navigate('/signup')}>Signup</button>
-          <Link to="/login" className="link-text">Have an account? Login.</Link>
+          <Link to="/login" className="link-text" style={{fontSize:"18px"}}>Have an account? Login.</Link>
         </div>
       </div>
     </div>

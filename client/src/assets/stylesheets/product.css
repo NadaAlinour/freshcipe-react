@@ -278,14 +278,13 @@
 .product-info-parent {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  line-height: 30px;
 }
 
 .product-info-container{
-  margin-top: 25px;
-  margin-bottom: 30px;
-  padding: 60px;
-  border-top-right-radius: 150px;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  padding: 0 60px 0px 0px;
   overflow: hidden;
   min-height: 485px;
   width: 100%;
@@ -295,26 +294,76 @@
   align-items: center;
 }
 
+.product-info-quantity {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.product-info-title-quantity {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  line-height: 35px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.product-info-title-quantity h1 {
+  margin-bottom: 10px;
+  letter-spacing: .5px;
+  font-size: 34px;
+}
+
 .product-info-img-container{
   position: relative;
-  width: 50%;
+  width: 15%;
   height: 400px;
   margin: 20px 15px 20px 15px;
   padding:50px;
-  background-color: white;
+  /*background-color: white;*/
   border-radius: 20px;
-  box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.3);
+  /*box-shadow: 0px 8px 6px -6px rgba(0, 0, 0, 0.3);*/
   transition: box-shadow 0.2s linear;
   display: flex;
   justify-content: center;
 }
 
+.product-info-price-container {
+  position: relative;
+  height: 65px;
+  min-width: 65px;
+  top: -15px;
+}
+
+
+.product-info-price-whole {
+  font-weight: bold;
+  font-size: 30px;
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  transform: translateX(-55%);
+}
+
+.product-info-price-fraction {
+  font-weight: bold;
+  position: absolute;
+  font-size: 17px;
+  bottom: 18px;
+  left: 25px;
+  transform: translateY(20%);
+}
+
+.product-info-price-button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding-left: 10px;
+}
+
+
 .product-info{
   display: flex;
-  position: relative;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   margin: 20px 15px 20px 15px;
   padding: 50px;
   width: 50%;
@@ -324,8 +373,8 @@
   border-top-right-radius: 30px;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  background-color: var(--backgroundDark);
-  box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.4);
+  /*background-color: var(--backgroundDark);*/
+  /*box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.4);*/
   font-size: 17px;
 }
 
@@ -344,6 +393,13 @@
   justify-content: center;
 }
 
+.product-info-button-container button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110%;
+  gap: 5px;  
+}
 /* vendor card stuff */
 .market-card-image-container {
   width: 375px;

@@ -213,8 +213,8 @@ body {
 
 .overlay-content {
   position: relative;
-  height: 285px;
-  width: 500px;
+  height: 335px;
+  width: 525px;
   background-color: white;
   border-radius: 15px;
   display: flex;
@@ -223,6 +223,12 @@ body {
   justify-content: center;
   line-height: 25px;
   padding: 0 30px 0 30px;
+}
+
+.overlay-content img {
+  width: 100px;
+  margin-bottom: 20px;
+  opacity: .65;
 }
 
 .overlay-exit {
