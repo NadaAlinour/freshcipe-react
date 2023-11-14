@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRecipe, addItemToCart, updateFavourites } from "../utils/http";
+import HeartAdd from "../assets/images/heartadd.png";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -173,6 +174,7 @@ export default function RecipeDetails({ route }) {
           onClose={handleOverlay}
           title="Save your favourite recipes"
           description="Always have access to your favourite recipes by logging in to your account."
+          icon={HeartAdd}
         />
       )}
       <div className="recipe-info-parent">

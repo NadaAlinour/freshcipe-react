@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Overlay from "../components/Overlay";
 import { fetchProduct, addItemToCart } from "../utils/http";
+import CartAdd from "../assets/images/addcart.png";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -97,7 +98,8 @@ export default function ProductDetails({ route }) {
         <Overlay
           onClose={handleOverlay}
           title="Add this product to cart"
-          description="Add this product to your cart and access it anywhere."
+          description="Add this product to your cart and access it anywhere by logging in now."
+          icon={CartAdd}
         />
       )}
       <div className="product-info-parent">
