@@ -111,6 +111,7 @@ export default function Login() {
           loginUser({
             token: response.jwt,
             userId: response.user.id,
+            username: response.user.username,
             cartId: cartId,
             favouritesId: favouritesId,
           })

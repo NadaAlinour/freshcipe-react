@@ -1,12 +1,13 @@
 import "boxicons";
 import "../assets/stylesheets/navbar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FreshcipeLogo from "./FreshcipeLogo";
 import Searchbar from "./Searchbar";
 import NavbarDropdown from "./NavbarDropdown";
+import ProfileImage from "./ProfileImage";
 
 export default function Navbar() {
   const [isHover, setIsHover] = useState(false);
@@ -19,7 +20,9 @@ export default function Navbar() {
   const [isCartHover, setIsCartHover] = useState(false);
 
   const { cartItems } = useSelector((state) => state.cart);
+  const { username } = useSelector((state) => state.auth);
 
+ 
 
   // navbar for login/signup screens
   let navbar = (
@@ -69,7 +72,9 @@ export default function Navbar() {
 
         <li>
           <Link to="/cart">
-            {cartItems.length > 0 && <div className="navbar-cart-count">{cartItems.length}</div>}
+            {cartItems.length > 0 && (
+              <div className="navbar-cart-count">{cartItems.length}</div>
+            )}
             <div
               className="cart-icon"
               title="View cart"
@@ -91,16 +96,22 @@ export default function Navbar() {
             onMouseLeave={() => setIsHover(false)}
             onClick={() => setIsHover(false)}
           >
-            <Link to="/login">
+            <Link to="/login" className="profile-image-link">
               <div className="dropdown-li">
-                <div className="user-circle-container">
-                  <box-icon
-                    name="user-circle"
-                    type="solid"
-                    size="45px"
-                    color="#474643"
-                  ></box-icon>
-                </div>
+                {!username ? (
+                  <div className="user-circle-container">
+                    <box-icon
+                      name="user-circle"
+                      type="solid"
+                      size="49px"
+                      color="#474643"
+                    ></box-icon>
+                  </div>
+                ) : (
+                  <ProfileImage>
+                    {username.slice("")[0].toUpperCase()}
+                  </ProfileImage>
+                )}
               </div>
             </Link>
             {isHover && <NavbarDropdown />}
