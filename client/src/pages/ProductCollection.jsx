@@ -113,7 +113,7 @@ export default function ProductCollection() {
 
   return (
     <>
-      {/*<Breadcrumbs />*/}
+      <Breadcrumbs />
       <div className="product-collection-page">
         <div className="product-filter-container">
           <ProductFilter />

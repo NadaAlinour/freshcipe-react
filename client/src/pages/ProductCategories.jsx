@@ -1,24 +1,15 @@
 import CategoryCard from "../components/CategoryCard";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { fetchVendorCats } from "../utils/http";
+import { fetchVendor } from "../utils/http";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function ProductCategories() {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  //console.log(currentPath);
-  // extract id from path hehehe
-  const pathArray = currentPath.split("/");
-  //console.log(pathArray)
-  const idFromUrl = pathArray[pathArray.length - 2];
-  //console.log(idFromUrl);
-
   const [cats, setCats] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getVendorCats = async () => {
+    /*const getVendorCats = async () => {
       try {
         const data = await fetchVendorCats(idFromUrl);
         setCats(data.data);
@@ -26,9 +17,19 @@ export default function ProductCategories() {
       } catch (error) {
         console.log(error);
       }
+    };*/
+    const getVendorWithCats = async () => {
+      try {
+        const data = await fetchVendor();
+        console.log('vendor: ', data[0].tags);
+        setCats(data[0].tags);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-    getVendorCats();
+    getVendorWithCats();
     console.log(cats);
   }, []);
 
@@ -43,10 +44,8 @@ export default function ProductCategories() {
                 <li key={cat.id}>
                   <CategoryCard
                     id={cat.id}
-                    title={cat.attributes.title}
-                    imageUrl={
-                      cat.attributes.image.data.attributes.url
-                    }
+                    title={cat.title}
+                    imageUrl={cat.image.url}
                   />
                 </li>
               ))}

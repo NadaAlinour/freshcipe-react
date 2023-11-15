@@ -28,7 +28,6 @@ import ResetPasswordAfter from "../ResetPasswordAfter";
 
 import { useSelector } from "react-redux";
 
-
 const AppRoutes = () => {
   const { userToken } = useSelector((state) => state.auth);
 
@@ -50,23 +49,28 @@ const AppRoutes = () => {
       ></Route>
       <Route path="reset-password" element={<ResetPasswordAfter />}></Route>
 
-      <Route path=":vendorId/:vendor" element={<ProductCategories />}></Route>
-      <Route
+      {/*<Route path=":vendorId/:vendor" element={<ProductCategories />}></Route>*/}
+      {/*<Route
         path=":vendorId/:vendor/:categoryId/:category"
         element={<ProductCollection />}
-      ></Route>
+      ></Route>*/}
 
-      <Route path="products" element={<ProductCollection />} />
+      <Route path="products" element={<ProductCategories />} />
 
       {/*<Route path="product-details" element={<ProductDetails/>}/>
       <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>*/}
 
-      <Route
+      {/*<Route
         path=":vendorId/:vendor/:categoryId/:category/:productId/:product"
         element={<ProductDetails />}
+    />*/}
+
+      <Route
+        path="products/:categoryId/:category"
+        element={<ProductCollection />}
       />
 
-      <Route path="products/:productId/:product" element={<ProductDetails />} />
+      <Route path="products/:categoryId/:category/:productId/:product" element={<ProductDetails />} />
 
       <Route
         path="products/search"

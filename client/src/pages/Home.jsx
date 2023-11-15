@@ -1,12 +1,11 @@
 import MarketCard from "../components/MarketCard";
 import { useEffect, useState } from "react";
-import { fetchVendors } from "../utils/http";
 
 export default function Home() {
-  const [vendors, setVendors] = useState([]);
+  /*const [vendors, setVendors] = useState([]);*/
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getVendors = async () => {
       try {
         const data = await fetchVendors();
@@ -18,11 +17,11 @@ export default function Home() {
       }
     };
     getVendors();
-  }, [isLoading]);
+  }, [isLoading]);*/
 
   return (
     <div className="home-page-container">
-      <div className="market-card-list-container">
+      {/*<div className="market-card-list-container">
         <ul>
         {!isLoading &&
           vendors.map((vendor) => {
@@ -39,7 +38,8 @@ export default function Home() {
             );
           })}
         </ul>
-      </div>
+        </div>*/}
+        <h1>home</h1>
 
 
     </div>

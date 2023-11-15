@@ -16,13 +16,11 @@ export default function Navbar() {
     navigate(-1);
   };
 
-  const [isThemeHover, setIsThemeHover] = useState(false);
+  const [isFaveHover, setIsFaveHover] = useState(false);
   const [isCartHover, setIsCartHover] = useState(false);
 
   const { cartItems } = useSelector((state) => state.cart);
   const { username } = useSelector((state) => state.auth);
-
- 
 
   // navbar for login/signup screens
   let navbar = (
@@ -36,7 +34,7 @@ export default function Navbar() {
           </Link>
         </li>
         <div className="nav-links-container">
-          <li onClick={() => window.location.reload()}>
+          <li>
             <Link className="nav-link" to="/products">
               Products
             </Link>
@@ -57,17 +55,19 @@ export default function Navbar() {
         </li>
 
         <li>
-          <div
-            className="theme-icon"
-            onMouseEnter={() => setIsThemeHover(true)}
-            onMouseLeave={() => setIsThemeHover(false)}
-          >
-            {!isThemeHover ? (
-              <box-icon name="moon" color="#474643" size="27px" />
-            ) : (
-              <box-icon name="moon" color="#ffd000" size="27px" />
-            )}
-          </div>
+          <Link to="/favourites">
+            <div
+              className="heart-icon"
+              onMouseEnter={() => setIsFaveHover(true)}
+              onMouseLeave={() => setIsFaveHover(false)}
+            >
+              {!isFaveHover ? (
+                <box-icon name="heart" color="#474643" size="30px" />
+              ) : (
+                <box-icon name="heart" color="#fa635c" size="30px" />
+              )}
+            </div>
+          </Link>
         </li>
 
         <li>

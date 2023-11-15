@@ -78,21 +78,21 @@ export async function resetPassword(formData) {
 }
 
 // get vendors
-export async function fetchVendors() {
+export async function fetchVendor() {
   const response = await axios.get(
-    "http://localhost:1337/api/users?populate[0]=role&populate[1]=image&filters[role][name][$containsi]=vendor"
+    "http://localhost:1337/api/users?populate[0]=role&populate[1]=image&populate[2]=tags&populate[3]=tags.image&populate[4]=tags.products&filters[role][name][$containsi]=vendor"
   );
   return response.data;
 }
 
 // get categories by vendor
-export async function fetchVendorCats(vendorId) {
+/*export async function fetchVendorCats(vendorId) {
   const response = await axios.get(
     "http://localhost:1337/api/tags?populate[0]=image&filters[vendor][id][$eq]=" +
       vendorId
   );
   return response.data;
-}
+}*/
 
 // get products by category by vendor
 export async function fetchVendorCatsProducts(categoryId, page, pageSize) {

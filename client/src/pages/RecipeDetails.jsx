@@ -299,7 +299,7 @@ export default function RecipeDetails({ route }) {
                               : "checkbox"
                           }
                           size="28px"
-                          color="#3c3b37"
+                          color="#474643"
                         />
                       </div>
                       <div className="ingredient-label-container">

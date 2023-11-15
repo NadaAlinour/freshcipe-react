@@ -9,7 +9,7 @@
   --accent500: #879a66;
   --accent600: #758558;
   --red400: #fa635c;
-  --backgroundLight: white;
+  --backgroundLight: #FAF6F1;
   --background: #f4e7da;
   --backgroundDark: #edd5bb;
   --grey900: #3c3b37;
@@ -103,7 +103,7 @@ body {
 
 .tag-container {
   min-width: 110px;
-  background-color: white;
+  background-color: var(--backgroundLight);
   border-radius: 200px;
   text-align: center;
   padding: 5px 20px 5px 20px;

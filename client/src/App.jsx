@@ -17,6 +17,7 @@ function App() {
   const dispatch = useDispatch();
   const savedToken = localStorage.getItem("token");
   const savedUserId = localStorage.getItem("userId");
+  const savedUsername = localStorage.getItem("username");
   const savedCartId = localStorage.getItem("cartId");
   const savedFavouritesId = localStorage.getItem("favouritesId");
   if (savedToken) {
@@ -24,6 +25,7 @@ function App() {
       loginUser({
         token: savedToken,
         userId: savedUserId,
+        username: savedUsername,
         cartId: savedCartId,
         favouritesId: savedFavouritesId,
       })
@@ -34,7 +36,7 @@ function App() {
     const fetchCartWithItems = async () => {
       try {
         const data = await getCartWithItems(savedUserId, savedToken);
-        console.log(data.data[0].attributes.cart_items.data)
+        //console.log(data.data[0].attributes.cart_items.data)
         dispatch(setCart({ cart: data.data[0].attributes.cart_items.data }));
       } catch (error) {
         console.log(error);

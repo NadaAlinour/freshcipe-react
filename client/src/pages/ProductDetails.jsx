@@ -93,7 +93,7 @@ export default function ProductDetails({ route }) {
 
   return (
     <>
-      <Breadcrumbs />
+      {/*<Breadcrumbs />*/}
       {isModalShowing && (
         <Overlay
           onClose={handleOverlay}

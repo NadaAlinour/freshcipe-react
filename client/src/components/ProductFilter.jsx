@@ -1,20 +1,43 @@
 import "boxicons";
 import { useState, useEffect } from "react";
-import { fetchVendors, fetchVendorCats } from "../utils/http";
+import { useLocation } from "react-router-dom";
+import { fetchVendor } from "../utils/http";
+//import { fetchVendors, fetchVendorCats } from "../utils/http";
 
 export default function ProductFilter() {
+  const location = useLocation();
+  const pathArray =location.pathname.split('/');
+  const idFromUrl = pathArray[pathArray.length - 2];
   const [isStoreHidden, setIsStoreHidden] = useState(false);
   const [isCategoryHidden, setIsCategoryHidden] = useState(false);
 
   const [vendors, setVendors] = useState();
   const [categories, setCategories] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTags, setSelectedTags] = useState();
+
+  useEffect(() => {
+    
+  }, [idFromUrl]);
 
   const handleFilterClick = async () => {
     // add query i guess
-  }
+  };
 
   useEffect(() => {
+    const getCats = async () => {
+      try {
+        const data = await fetchVendor();
+        setCategories(data[0].tags);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCats();
+  }, []);
+
+  /*useEffect(() => {
     const getVendors = async () => {
       try {
         const data = await fetchVendors();
@@ -26,14 +49,14 @@ export default function ProductFilter() {
       }
     };
     getVendors();
-  }, []);
+  }, []);*/
 
   return (
     <div className="product-filter-contents">
       <h2>Filter by</h2>
 
       <div className="filter-block-container">
-        <div className="filter-block-header">
+        {/*   <div className="filter-block-header">
           <h3>Store</h3>
           <div
             className="filter-header-chevron"
@@ -61,7 +84,7 @@ export default function ProductFilter() {
                 </li>
               </div>
             ))}
-        </ul>
+        </ul>*/}
       </div>
 
       <div className="filter-block-container">
@@ -79,30 +102,17 @@ export default function ProductFilter() {
           </div>
         </div>
         <ul className={isCategoryHidden ? "hidden" : ""}>
-          <li>
-            <input type="checkbox" />
-            <p>Fruits and vegetables (25)</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>Meat, chicken, and fish (15)</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>Baked goods and pastries (12)</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>Drinks, coffee and tea (5)</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>Snacks (21)</p>
-          </li>
-          <li>
-            <input type="checkbox" />
-            <p>Spices, oil and sauces (18)</p>
-          </li>
+          {!isLoading &&
+            categories.map((cat) => {
+              return (
+                <li key={cat.id}>
+                  <input type="checkbox" />
+                  <p>
+                    {cat.title} - {cat.products.length}
+                  </p>
+                </li>
+              );
+            })}
         </ul>
       </div>
 
