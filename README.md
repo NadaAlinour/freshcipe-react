@@ -26,9 +26,9 @@ To run the server:
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/85fdf16a-92d9-4a6d-b998-31ec83263950)
 
-![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/41c79c83-7435-4be6-a146-b4e0cdb5145f)
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/d5a70fcc-31d5-4311-b5c9-11b48a04425e)
 
-![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/239eb11d-1e82-42b3-9efa-a1d7f943c992)
+![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/b9db16f6-6b99-4697-9083-d4bc27c3f9da)
 
 ![image](https://github.com/NadaAlinour/freshcipe-react/assets/48387157/926210e2-2c26-4779-8864-930871e1439a)
 
