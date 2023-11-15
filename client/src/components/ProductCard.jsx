@@ -30,8 +30,7 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
       }
       console.log(cartItems);
     } else {
-     console.log('local cart but idk yet')
-      
+      console.log("local cart but idk yet");
     }
   };
 
@@ -68,8 +67,11 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
 
         <div className="product-card-price-quantity-container">
           <div className="product-card-price-container">
-            <p className="product-card-price-whole">{priceSplit[0]}.</p>
-            <p className="product-card-price-fraction">{priceSplit[1]}</p>
+            <p className="product-card-price-whole">{priceSplit[0]}</p>
+            <div className="product-card-fraction-currency-container">
+              <p className="product-card-price-fraction">.{priceSplit[1]}</p>
+              <p className="currency-text">EGP</p>
+            </div>
           </div>
           <p className="product-card-quantity">{quantity}</p>
         </div>

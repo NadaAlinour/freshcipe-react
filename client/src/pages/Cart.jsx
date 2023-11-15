@@ -187,9 +187,9 @@ export default function CartPage() {
           <div className="checkout_button_div">
             <button className="checkout-button">Go To Checkout</button>
           </div>
-          {(cartItems.length === 0 || totalAmount < 40.0) && (
+          {/*(cartItems.length === 0 || totalAmount < 40.0) && (
             <p className="no-items-message">Minimum Charge is EGP 40.00</p>
-          )}
+          )*/}
         </div>
       </div>
 

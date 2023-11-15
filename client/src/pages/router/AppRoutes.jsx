@@ -55,6 +55,16 @@ const AppRoutes = () => {
         element={<ProductCollection />}
       ></Route>*/}
 
+      <Route
+        path="products/:categoryId/:category/:productId/:product"
+        element={<ProductDetails />}
+      />
+
+      <Route
+        path="/products/:categoryId/:category"
+        element={<ProductCollection />}
+      />
+
       <Route path="products" element={<ProductCategories />} />
 
       {/*<Route path="product-details" element={<ProductDetails/>}/>
@@ -64,13 +74,6 @@ const AppRoutes = () => {
         path=":vendorId/:vendor/:categoryId/:category/:productId/:product"
         element={<ProductDetails />}
     />*/}
-
-      <Route
-        path="products/:categoryId/:category"
-        element={<ProductCollection />}
-      />
-
-      <Route path="products/:categoryId/:category/:productId/:product" element={<ProductDetails />} />
 
       <Route
         path="products/search"

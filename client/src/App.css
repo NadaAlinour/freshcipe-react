@@ -156,7 +156,7 @@ body {
   padding: 15px 20px 15px 20px;
   border: none;
   border-radius: 5px;
-  background-color: var(--primary500);
+  background-color: var(--accent500);
   color: white;
   font-weight: bold;
   font-size: 18px;
@@ -165,7 +165,7 @@ body {
 
 .pagination-container button:hover {
   cursor: pointer;
-  background-color: var(--primary600);
+  background-color: var(--accent600);
 }
 
 .solid-button {
@@ -226,9 +226,8 @@ body {
 }
 
 .overlay-content img {
-  width: 100px;
+  width: 115px;
   margin-bottom: 20px;
-  opacity: .65;
 }
 
 .overlay-exit {

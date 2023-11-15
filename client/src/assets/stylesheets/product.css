@@ -69,6 +69,8 @@
 .product-filter-container {
   width: 21%;
   min-height: 100vh;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
 .product-filter-contents {
@@ -87,6 +89,11 @@
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+.filter-cats-list li:hover {
+  cursor: pointer;
 }
 
 .filter-header-chevron {
@@ -159,8 +166,8 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  width: 260px;
-  height: 275px;
+  width: 275px;
+  height: 285px;
   /*background-color: var(--backgroundDark);*/
   background-color: var(--backgroundLight);
 
@@ -179,7 +186,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 200px;
+  height: 215px;
 }
 
 .product-card-image-container:hover {
@@ -188,7 +195,7 @@
 
 
 .product-card-image-container img {
-  width: 55%;
+  width: 70%;
   height: auto;
 }
 
@@ -215,7 +222,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--accent500);
+  background-color: var(--primary500);
   border-radius: 100px;
   padding: 5px;
 }
@@ -229,7 +236,7 @@
   position: absolute;
   min-width: 45px;
   max-width: 80px;
-  left: 200px;
+  left: 205px;
   bottom: 10px;
   line-height: 25px;
   display: flex;
@@ -238,25 +245,32 @@
 }
 
 .product-card-price-container {
-  position: relative;
+  /*position: relative;
   height: 35px;
   min-width: 35px;
-  left: 5px;
+  left: 5px;*/
+  display: flex;
+  align-items: center;
+  gap: 1.5px;
 }
 
 .product-card-price-whole {
   font-weight: bold;
-  font-size: 25px;
-  position: absolute;
-  bottom: 0px;
+  font-size: 22px;
+  /*bottom: 0px;
   right: 0%;
-  transform: translateX(-40%);
+  transform: translateX(-30%);*/
+}
+
+.product-card-fraction-currency-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 10px;
 }
 
 .product-card-price-fraction {
   font-weight: bold;
-  position: absolute;
-  font-size: 14px;
+  font-size: 12px;
   bottom: 7px;
   left: 20px;
 }
@@ -353,7 +367,7 @@
   position: absolute;
   bottom: 0px;
   left: 10px;
-  transform: translateX(-55%);
+  transform: translateX(-65%);
 }
 
 .product-info-price-fraction {
@@ -362,7 +376,15 @@
   font-size: 17px;
   bottom: 18px;
   left: 25px;
-  transform: translateY(20%);
+  transform: translateY(10%);
+}
+
+
+
+.currency-text {
+  font-weight: lighter;
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .product-info-price-button {

@@ -85,7 +85,7 @@ export default function ProductCollection() {
       }
     };
     if (idFromUrl && !isQuery) getProducts();
-  }, [page]);
+  }, [page, idFromUrl]);
 
   useEffect(() => {
     const getAllProducts = async () => {

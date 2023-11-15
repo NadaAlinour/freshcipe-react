@@ -1,8 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Overlay from "../components/Overlay";
 import { fetchProduct, addItemToCart } from "../utils/http";
+import { updateCart } from "../store/cartSlice";
 import CartAdd from "../assets/images/addcart.png";
 import "boxicons";
 
@@ -10,6 +11,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function ProductDetails({ route }) {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
 
   // temporarily
@@ -62,9 +64,11 @@ export default function ProductDetails({ route }) {
     console.log(data);
     try {
       const response = await addItemToCart(data, userToken);
+      dispatch(updateCart({ cart: response.data }));
+
       console.log(response);
     } catch (error) {
-      console.log(error.response.status);
+      console.log(error.response);
       if (error.response.status == 403) {
         handleOverlay();
         return;
@@ -132,6 +136,7 @@ export default function ProductDetails({ route }) {
 
               <div className="product-info-price-button">
                 {!isLoading && (
+                  
                   <div className="product-info-price-container">
                     <p className="product-info-price-whole">
                       {product.attributes.price.toString().split(".")[0]}.

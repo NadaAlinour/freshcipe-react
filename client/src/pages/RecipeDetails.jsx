@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRecipe, addItemToCart, updateFavourites } from "../utils/http";
 import HeartAdd from "../assets/images/heartadd.png";
+import AddCart from "../assets/images/addcart.png"
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
 import Overlay from "../components/Overlay";
 import { addFavourites } from "../store/favouritesSlice";
+import { updateCart } from "../store/cartSlice";
 
 export default function RecipeDetails({ route }) {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ export default function RecipeDetails({ route }) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [isModalShowing, setIsModalShowing] = useState(false);
+  const [isIngredientsModalShowing, setIsIngredientsModalShowing] = useState(false);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
@@ -32,7 +35,7 @@ export default function RecipeDetails({ route }) {
 
   useEffect(() => {
     const handleOverlayStyle = () => {
-      if (isModalShowing) {
+      if (isModalShowing || isIngredientsModalShowing) {
         document.body.style.overflow = 'hidden'; 
       } else {
         document.body.style.overflow = ''; 
@@ -46,11 +49,15 @@ export default function RecipeDetails({ route }) {
     return () => {
       document.body.style.overflow = ''; // Remove the style to enable scrolling
     };
-  }, [isModalShowing]); // Run the effect when isOverlayActive changes
+  }, [isModalShowing, isIngredientsModalShowing]); // Run the effect when isOverlayActive changes
 
   const handleOverlay = () => {
     setIsModalShowing(!isModalShowing);
   };
+
+  const handleIngOverlay = () => {
+    setIsIngredientsModalShowing(!isIngredientsModalShowing);
+  }
 
   
 
@@ -86,6 +93,8 @@ export default function RecipeDetails({ route }) {
 
       try {
         const response = await addItemToCart(data, userToken);
+        dispatch(updateCart({ cart: response.data }));
+        setIsIngredientsModalShowing(true);
         console.log(response);
       } catch (error) {
         console.log(error);
@@ -157,7 +166,7 @@ export default function RecipeDetails({ route }) {
 
     getRecipe();
     console.log(recipe);
-  }, [isLoading]);
+  }, [isLoading, userToken]);
 
   let stepCount = 1;
 
@@ -169,6 +178,14 @@ export default function RecipeDetails({ route }) {
   return (
     <>
       <Breadcrumbs />
+      {isIngredientsModalShowing && (
+        <Overlay 
+        onClose={handleIngOverlay}
+        title="Products added to cart"
+        description="Products have been successfully added to your cart!"
+        success={true}
+        icon={AddCart}/>
+      )}
       {isModalShowing && (
         <Overlay
           onClose={handleOverlay}

@@ -1,12 +1,13 @@
 import "boxicons";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchVendor } from "../utils/http";
 //import { fetchVendors, fetchVendorCats } from "../utils/http";
 
 export default function ProductFilter() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const pathArray =location.pathname.split('/');
+  const pathArray = location.pathname.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
   const [isStoreHidden, setIsStoreHidden] = useState(false);
   const [isCategoryHidden, setIsCategoryHidden] = useState(false);
@@ -16,9 +17,7 @@ export default function ProductFilter() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTags, setSelectedTags] = useState();
 
-  useEffect(() => {
-    
-  }, [idFromUrl]);
+  useEffect(() => {}, [idFromUrl]);
 
   const handleFilterClick = async () => {
     // add query i guess
@@ -53,8 +52,6 @@ export default function ProductFilter() {
 
   return (
     <div className="product-filter-contents">
-      <h2>Filter by</h2>
-
       <div className="filter-block-container">
         {/*   <div className="filter-block-header">
           <h3>Store</h3>
@@ -101,12 +98,19 @@ export default function ProductFilter() {
             )}
           </div>
         </div>
-        <ul className={isCategoryHidden ? "hidden" : ""}>
+        <ul className={isCategoryHidden ? "hidden" : "filter-cats-list"}>
           {!isLoading &&
             categories.map((cat) => {
               return (
-                <li key={cat.id}>
-                  <input type="checkbox" />
+                <li
+                  key={cat.id}
+                  onClick={() =>
+                    navigate("/products" + "/" + cat.id + "/" + cat.title, {
+                      state: { categoryId: cat.id },
+                      replace: true,
+                    })
+                  }
+                >
                   <p>
                     {cat.title} - {cat.products.length}
                   </p>
