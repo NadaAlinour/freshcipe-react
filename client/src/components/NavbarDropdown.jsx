@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, logoutUser } from "../store/authSlice";
+import { clearCart } from "../store/cartSlice";
 import { clearFavourites } from "../store/favouritesSlice";
 
 export default function NavbarDropdown() {
@@ -11,6 +12,7 @@ export default function NavbarDropdown() {
   const handleLogout = () => {
     console.log("logging out");
     dispatch(clearFavourites());
+    dispatch(clearCart());
     dispatch(logoutUser());
     //window.location.reload();
   };

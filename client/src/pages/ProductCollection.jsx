@@ -15,6 +15,8 @@ export default function ProductCollection() {
   //console.log('user id is: ', userId)
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isSearch, setIsSearch] = useState(false);
+
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
@@ -25,10 +27,14 @@ export default function ProductCollection() {
   console.log(isQuery);
 
   let searchText = "";
-  if (isQuery) {
-    searchText = searchParams.get('query');
-    console.log(searchText)
-  }
+  useEffect(() => {
+    if (isQuery) {
+      searchText = searchParams.get('query');
+      console.log(searchText)
+      setIsSearch(true);
+    }
+  }, [isQuery]);
+  
 
   const idFromUrl = pathArray[pathArray.length - 2];
 
@@ -39,6 +45,7 @@ export default function ProductCollection() {
   const [totalProducts, setTotalProducts] = useState();
   const [pageCount, setPageCount] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
 
   const updatePage = () => {
     if (page < pageCount) {
@@ -113,7 +120,7 @@ export default function ProductCollection() {
 
   return (
     <>
-      <Breadcrumbs />
+      {!isSearch && <Breadcrumbs />}
       <div className="product-collection-page">
         <div className="product-filter-container">
           <ProductFilter />

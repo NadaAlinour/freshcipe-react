@@ -135,7 +135,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .navbar-dropdown-outer {
   position: absolute;
   right: 60px;
-  top: 67px;
+  top: 60px;
   width: 65px;
   direction: rtl;
   z-index: 5;
