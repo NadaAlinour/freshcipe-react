@@ -85,6 +85,14 @@ export async function fetchVendor() {
   return response.data;
 }
 
+// get cats subcats
+export async function fetchSubCats(catId) {
+  const response = await axios.get(
+    "http://localhost:1337/api/sub-tags?filters[tag][id][$eq]=" + catId
+  );
+  return response.data;
+}
+
 // get categories by vendor
 /*export async function fetchVendorCats(vendorId) {
   const response = await axios.get(

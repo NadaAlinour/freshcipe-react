@@ -53,6 +53,9 @@ export default function Recipes() {
     getRecipeTags();
   }, []);
 
+
+  // separate get recipes and load more recipes
+
   useEffect(() => {
     const getAllRecipes = async () => {
       try {
@@ -73,7 +76,7 @@ export default function Recipes() {
     if (selectedTag === "All") {
       getAllRecipes();
     }
-  }, [page, selectedTag]);
+  }, [page]);
 
   const handleTagClick = async (id, title) => {
     console.log("tag with id " + id + " clicked");

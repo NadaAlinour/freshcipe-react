@@ -54,12 +54,12 @@ export default function ProductCollection() {
     }
   };
 
-  useEffect(() => {
+ /* useEffect(() => {
     const getSearchedProducts = async () => {
       try {
         const data = await searchProducts(searchText, page, maxPageSize);
         console.log('response ', data);
-        /*setProducts((prevProducts) => [...prevProducts, ...data.data]);*/
+        setProducts((prevProducts) => [...prevProducts, ...data.data]);
         setProducts(data.data);
         setTotalProducts(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
@@ -72,7 +72,7 @@ export default function ProductCollection() {
       }
     };
     if (isQuery) getSearchedProducts();
-  }, [page, searchText]);
+  }, [page, searchText]);*/
 
   useEffect(() => {
     const getProducts = async () => {
@@ -92,31 +92,11 @@ export default function ProductCollection() {
       }
     };
     if (idFromUrl && !isQuery) getProducts();
-  }, [page, idFromUrl]);
+  }, [page, location.pathname]);
 
-  useEffect(() => {
-    const getAllProducts = async () => {
-      try {
-        const data = await fetchAllProducts(page, maxPageSize);
-        console.log(data.data);
 
-        //console.log(data.data);
+  // separate get products and load more products
 
-        setProducts((prevProducts) => [...prevProducts, ...data.data]);
-
-        setTotalProducts(data.meta.pagination.total);
-        setPageCount(data.meta.pagination.pageCount);
-        setpageSize((prevPageSize) => prevPageSize + data.data.length);
-
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (!idFromUrl && !isQuery) getAllProducts();
-    //console.log(products);
-  }, [page]);
 
   return (
     <>
