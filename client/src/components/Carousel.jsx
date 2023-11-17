@@ -6,12 +6,16 @@ export default function Carousel({ items, cardType }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
-    setCurrentIndex(currentIndex === 0 ? (items.length/4) - 1 : currentIndex - 1);
+    setCurrentIndex(
+      currentIndex === 0 ? items.length / 4 - 1 : currentIndex - 1
+    );
     console.log(currentIndex);
   };
 
   const nextSlide = () => {
-    setCurrentIndex(currentIndex === (items.length/4) - 1 ? 0 : currentIndex + 1);
+    setCurrentIndex(
+      currentIndex === items.length / 4 - 1 ? 0 : currentIndex + 1
+    );
     console.log(currentIndex);
   };
 
@@ -19,8 +23,12 @@ export default function Carousel({ items, cardType }) {
 
   return (
     <div className="carousel-parent">
-      <button onClick={prevSlide} className="carousel-button">
-        <box-icon name="chevron-left" color="rgba(0, 0, 0, .5)" size="40px"></box-icon>
+      <button onClick={prevSlide} className="small-carousel-button-left">
+        <box-icon name="chevron-left" color="#FAF6F1" size="40px"></box-icon>
+      </button>
+
+      <button onClick={nextSlide} className="small-carousel-button-right">
+        <box-icon name="chevron-right" color="#FAF6F1" size="40px"></box-icon>
       </button>
       <div className="carousel-container">
         <div
@@ -30,15 +38,19 @@ export default function Carousel({ items, cardType }) {
           {items.map((item, index) => (
             <div className="carousel-item" key={index}>
               {/*<CategoryCard {...item} />*/}
-              {cardType === "category" ? <CategoryCard {...item} /> : <RecipeCard {...item}/>}
+              {cardType === "category" ? (
+                <CategoryCard
+                  id={item.id}
+                  imageUrl={item.image.url}
+                  title={item.title}
+                />
+              ) : (
+                <RecipeCard {...item} />
+              )}
             </div>
           ))}
         </div>
       </div>
-
-      <button onClick={nextSlide} className="carousel-button">
-        <box-icon name="chevron-right" color="rgba(0, 0, 0, .5)" size="40px"></box-icon>
-      </button>
     </div>
   );
 }

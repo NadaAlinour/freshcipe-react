@@ -70,6 +70,7 @@ nav {
   overflow: hidden;
   background-color: var(--backgroundLight);
   outline: none;
+  border: .75px solid var(--grey900);
 
 }
 
@@ -247,7 +248,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .profile-image-container {
-  border: 1px solid var(--grey900);
+  border: .75px solid var(--grey900);
   width: 45px;
   height: 45px;
   display: flex;
