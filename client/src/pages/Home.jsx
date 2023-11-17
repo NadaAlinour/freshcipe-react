@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "boxicons";
 import { fetchVendor, fetchRecipes } from "../utils/http";
 import RecipeCard from "../components/RecipeCard";
-import MealImage from "../assets/images/backgrounds/mealimage.jpg"
 
 
 export default function Home() {
@@ -67,7 +66,7 @@ export default function Home() {
       <MainCarousel items={features} />
       <div className="home-categories-section">
         <div className="home-section-header">
-          <h2>Browse our categories</h2>
+          <h2>Our categories</h2>
         </div>
         {!isCatsLoading && <Carousel items={cats} cardType="category"/>}
         <div className="home-link-chevron-container">

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "tags",
+  "collectionName": "sub_tags",
   "info": {
-    "singularName": "tag",
-    "pluralName": "tags",
-    "displayName": "Tag",
+    "singularName": "sub-tag",
+    "pluralName": "sub-tags",
+    "displayName": "Sub-Tag",
     "description": ""
   },
   "options": {
@@ -16,14 +16,14 @@
       "type": "string",
       "required": true,
       "unique": true,
-      "minLength": 2,
-      "maxLength": 50
+      "maxLength": 50,
+      "minLength": 2
     },
     "products": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::product.product",
-      "inversedBy": "tags"
+      "inversedBy": "sub_tags"
     },
     "image": {
       "type": "media",
@@ -37,13 +37,13 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "tags"
+      "inversedBy": "sub_tags"
     },
-    "sub_tags": {
+    "tag": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::sub-tag.sub-tag",
-      "mappedBy": "tag"
+      "relation": "manyToOne",
+      "target": "api::tag.tag",
+      "inversedBy": "sub_tags"
     }
   }
 }

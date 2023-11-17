@@ -117,6 +117,12 @@
       "relation": "oneToOne",
       "target": "api::favourite.favourite",
       "inversedBy": "user"
+    },
+    "sub_tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sub-tag.sub-tag",
+      "mappedBy": "vendor"
     }
   }
 }

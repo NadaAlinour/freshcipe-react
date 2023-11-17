@@ -186,7 +186,7 @@
 }
 
 .home-deals-section {
-  margin-top: 50px;
+  margin-top: 75px;
   height: 300px;
   width: 100%;
   display: flex;
@@ -247,8 +247,3 @@
   margin: 30px 50px 0px 50px;
 }
 
-.mealimage-home {
-  width: 85%;
-  margin-top: 50px;
-  margin-bottom: 75px;
-}

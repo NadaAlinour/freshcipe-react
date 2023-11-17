@@ -62,6 +62,12 @@
     },
     "weight": {
       "type": "string"
+    },
+    "sub_tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sub-tag.sub-tag",
+      "mappedBy": "products"
     }
   }
 }
