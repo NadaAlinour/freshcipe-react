@@ -61,6 +61,11 @@ const AppRoutes = () => {
       />
 
       <Route
+        path="/:productId/:product"
+        element={<ProductDetails />}
+      />
+
+      <Route
         path="/products/:categoryId/:category"
         element={<ProductCollection />}
       />
@@ -77,6 +82,12 @@ const AppRoutes = () => {
 
       <Route
         path="products/search"
+        element={<ProductCollection />}
+        queryParam="text"
+      />
+
+      <Route
+        path="/products/:categoryId/:title/search"
         element={<ProductCollection />}
         queryParam="text"
       />

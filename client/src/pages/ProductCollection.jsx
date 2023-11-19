@@ -3,7 +3,12 @@ import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Pagination from "../components/Pagination";
-import { fetchVendorCatsProducts, fetchAllProducts, searchProducts } from "../utils/http";
+import {
+  fetchVendorCatsProducts,
+  fetchAllProducts,
+  searchProducts,
+  filterProducts
+} from "../utils/http";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -15,26 +20,28 @@ export default function ProductCollection() {
   //console.log('user id is: ', userId)
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isSearch, setIsSearch] = useState(false);
-
+  const [searchText, setSearchText] = useState('');
+  const [path, setPath] = useState();
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
   // check if search query
-  console.log(pathArray);
+  //console.log(pathArray);
 
   const isQuery = pathArray.includes("search");
-  console.log(isQuery);
+  //console.log(isQuery);
 
-  let searchText = "";
+
+  // idk how to make this re-render
+  // maybe a list of selected filters as state?
+  // but this is a productFilter kind thang
   useEffect(() => {
     if (isQuery) {
-      searchText = searchParams.get('query');
-      console.log(searchText)
-      setIsSearch(true);
+      setSearchText(searchParams.get("query"));
+      console.log("hi ", searchText);
+      console.log('sisdfsad', searchText);
     }
-  }, [isQuery]);
-  
+  }, [path]);
 
   const idFromUrl = pathArray[pathArray.length - 2];
 
@@ -46,7 +53,6 @@ export default function ProductCollection() {
   const [pageCount, setPageCount] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-
   const updatePage = () => {
     if (page < pageCount) {
       let pageNum = page + 1;
@@ -54,28 +60,52 @@ export default function ProductCollection() {
     }
   };
 
- /* useEffect(() => {
+
+  // this is not re-rending when the query changes help meeee
+   /*useEffect(() => {
     const getSearchedProducts = async () => {
       try {
-        const data = await searchProducts(searchText, page, maxPageSize);
-        console.log('response ', data);
-        setProducts((prevProducts) => [...prevProducts, ...data.data]);
+        const data = await filterProducts(searchText);
+        console.log('response ', data.data[0].attributes.products.data);
+        setProducts(data.data[0].attributes.products.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getSearchedProducts();
+    console.log("are we even doing this")
+  }, [searchText]);*/
+
+ 
+
+  // separate get products and load more products
+  useEffect(() => {
+    const getProducts = async () => {
+      setPage((prevPage) => 1);
+      setProducts([]);
+      setTotalProducts();
+      setPageCount();
+      setpageSize(0);
+
+      try {
+        const data = await fetchVendorCatsProducts(idFromUrl, "1", maxPageSize);
         setProducts(data.data);
         setTotalProducts(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
         setpageSize((prevPageSize) => prevPageSize + data.data.length);
         setIsLoading(false);
-
-
       } catch (error) {
         console.log(error);
       }
     };
-    if (isQuery) getSearchedProducts();
-  }, [page, searchText]);*/
+    if(!isQuery) getProducts();
+    console.log("from get products using id: ", page);
+  }, [idFromUrl]);
 
+  // load more products
   useEffect(() => {
-    const getProducts = async () => {
+    const loadMoreProducts = async () => {
       try {
         const data = await fetchVendorCatsProducts(
           idFromUrl,
@@ -91,16 +121,13 @@ export default function ProductCollection() {
         console.log(error);
       }
     };
-    if (idFromUrl && !isQuery) getProducts();
-  }, [page, location.pathname]);
-
-
-  // separate get products and load more products
-
+    if (page > 1) loadMoreProducts();
+    console.log("from load more: ", page);
+  }, [page]);
 
   return (
     <>
-      {!isSearch && <Breadcrumbs />}
+      {!searchText && <Breadcrumbs />}
       <div className="product-collection-page">
         <div className="product-filter-container">
           <ProductFilter />

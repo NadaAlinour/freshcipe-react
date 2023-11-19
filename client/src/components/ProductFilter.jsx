@@ -8,7 +8,9 @@ export default function ProductFilter() {
   const navigate = useNavigate();
   const location = useLocation();
   const pathArray = location.pathname.split("/");
-  const idFromUrl = pathArray[pathArray.length - 2];
+  const idFromUrl = pathArray[2];
+  const categoryFromUrl = decodeURI(pathArray[pathArray.length - 1]);
+  console.log(categoryFromUrl)
   const [isStoreHidden, setIsStoreHidden] = useState(false);
   const [isCategoryHidden, setIsCategoryHidden] = useState(false);
 
@@ -99,7 +101,7 @@ export default function ProductFilter() {
           {!isSubCatsLoading &&
             subCats.map((cat) => {
               return (
-                <li key={cat.id}>
+                <li key={cat.id} onClick={() => navigate(`/products/${idFromUrl}/${categoryFromUrl}/search?query=${cat.attributes.title}`)}>
                   <div className="ingredient-checkbox-container">
                     <box-icon name="checkbox" size="28px" color="#474643" />
                   </div>

@@ -105,9 +105,10 @@ export async function fetchSubCats(catId) {
 // get products by category by vendor
 export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
   const response = await axios.get(
-    `http://localhost:1337/api/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
+    `http://localhost:1337/api/products?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
       categoryId
   );
+  console.log("page from http req: ", page);
   return response.data;
 }
 
@@ -137,16 +138,16 @@ export async function fetchRecipeTags() {
 // get recipes
 export async function fetchRecipes(page, pageSize) {
   const response = await axios.get(
-    `http://localhost:1337/api/recipes?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+    `http://localhost:1337/api/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   );
   return response.data;
 }
 
 // get recipes by recipe tag
-export async function fetchRecipesByTag(tagId) {
+export async function fetchRecipesByTag(tagId, page, pageSize) {
+  console.log('PAGE FROM HTTP.JS: ', page);
   const response = await axios.get(
-    "http://localhost:1337/api/recipes?populate[0]=image&filters[recipe_tags][id][$eq]=" +
-      tagId
+    `http://localhost:1337/api/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
   );
   return response.data;
 }
@@ -322,7 +323,15 @@ export async function fetchUser(token, userId) {
 // search
 export async function searchProducts(searchText, page, pageSize) {
   const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[title][$containsi]=${searchText}`
+    `${BASE_URL}/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[title][$containsi]=${searchText}`
+  );
+  return response.data;
+}
+
+// get products by subtag (concatenate later)
+export async function filterProducts(searchText) {
+  const response = await axios.get(
+    `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image&filters[title][$containsi]=${searchText}`
   );
   return response.data;
 }
