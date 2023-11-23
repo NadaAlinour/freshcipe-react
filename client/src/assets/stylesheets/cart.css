@@ -69,7 +69,6 @@
   /* border: 1px solid white;*/
   background-color: var(--backgroundLight);
 
-
   min-height: 250px;
   padding: 20px;
   border-radius: 5px;
@@ -193,7 +192,7 @@ textarea[name="enter_request"] {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  width: 78%;
+  width: 86%;
   justify-content: end;
 }
 
@@ -223,25 +222,27 @@ textarea[name="enter_request"] {
   list-style: none;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
 }
 
 .item_row {
   display: flex;
   align-items: center;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   padding: 15px;
   /*margin: 10px 0;*/
-  width: 700px;
+  width: 85%;
   height: 125px;
   line-height: 25px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: var(--backgroundLight);
+  border-radius: 5px;
 }
 
 .item_row img {
   height: 90px;
   width: 100px;
+ 
 }
 
 .item_row .product_info {
@@ -251,6 +252,49 @@ textarea[name="enter_request"] {
 
 .item_row .product_info h3 {
   margin: 0;
+  font-weight: lighter;
+  letter-spacing: .5px;
+}
+
+.item_row .cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0px 20px 0px 20px;
+}
+
+.cart-item-quantity-container {
+  background-color: white;
+  height: 35px;
+  width: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.cart-item-increase-button {
+  background-color: var(--primary500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+}
+
+.cart-item-decrease-button {
+  background-color: var(--backgroundLight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--primary500);
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
 }
 
 .item_row .quantity_controls {
@@ -259,19 +303,14 @@ textarea[name="enter_request"] {
   gap: 10px;
 }
 
-.item_row .quantity_controls button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
 .item_row .quantity_controls button:hover {
-  background-color: var(--background);
+  opacity: 0.75;
+  cursor: pointer;
 }
 
 .item_row .price {
   font-weight: bold;
-  margin-right: 20px;
+  margin-top: 5px;
 }
 
 .item_row .remove-button {

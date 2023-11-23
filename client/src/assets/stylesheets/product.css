@@ -115,6 +115,10 @@
   gap: 10px;
 }
 
+.filter-selected-category-p {
+  color: var(--primary500);
+}
+
 
 .product-filter-container h4 {
   letter-spacing: 1px;

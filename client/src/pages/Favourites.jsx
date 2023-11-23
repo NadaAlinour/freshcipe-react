@@ -30,7 +30,7 @@ export default function Favourites() {
   return (
     <div className="favourites-page-container">
       <div className="favourites-header">
-        <h2>Your Favourite Recipes</h2>
+        <h2>My Favourite Recipes</h2>
       </div>
       <ul className="favourites-list">
         {favourites.map((favourite) => (

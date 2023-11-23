@@ -32,15 +32,7 @@ export default function CartPage() {
         console.log(error);
       }
     });
-    /* while (cartItems) {
-      try {
-        const response = await deleteCartItem(cartId, userToken);
-        console.log(response.data);
-        dispatch(setCart({ cart: [] }));
-      } catch (error) {
-        console.log(error);
-      }
-    }*/
+   
   };
 
   const calculateSubTotal = () => {
@@ -81,7 +73,7 @@ export default function CartPage() {
     <div className="cart_page">
       <div className="cart_products_container">
         <div className="cart_items">
-          <h2>Your Cart</h2>
+          <h2>My Cart</h2>
           <ul className="cart-products-list">
             {cartItems.length > 0 &&
               cartItems.map((item) => {

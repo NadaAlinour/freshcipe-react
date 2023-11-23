@@ -84,7 +84,7 @@ export default function ProductFilter() {
                     })
                   }
                 >
-                  <p>
+                  <p className={cat.id == idFromUrl ? "filter-selected-category-p" : ""}>
                     {cat.title} - {cat.products.length}
                   </p>
                 </li>
@@ -93,7 +93,7 @@ export default function ProductFilter() {
         </ul>
       </div>
 
-      <div className="filter-block-container">
+      {!isLoading && subCats.length > 0 && <div className="filter-block-container">
         <div className="filter-block-header">
           <h3>Type</h3>
         </div>
@@ -112,7 +112,7 @@ export default function ProductFilter() {
               );
             })}
         </ul>
-      </div>
+      </div>}
 
       <div className="filter-block-container">
         <div className="filter-block-header">

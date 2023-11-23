@@ -145,7 +145,7 @@ export async function fetchRecipes(page, pageSize) {
 
 // get recipes by recipe tag
 export async function fetchRecipesByTag(tagId, page, pageSize) {
-  console.log('PAGE FROM HTTP.JS: ', page);
+  console.log("PAGE FROM HTTP.JS: ", page);
   const response = await axios.get(
     `http://localhost:1337/api/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
   );
@@ -208,29 +208,24 @@ export async function getCartWithItems(userId, token) {
   return response.data;
 }
 
-// Delete Cart Item
-/*export async function deleteCartItem(cartItemId, token) {
-  const response = await axios.delete(`${BASE_URL}/cart-items/${cartItemId}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-}*/
-
-// Add Items to Cart
-/*{
-    "data": {
-        "product": 12,
-        "quantity": 2,
-        "cart": 1
-    }
-}*/
 export async function addItemToCart(cartItemData, token) {
   const response = await axios.post(
     `${BASE_URL}/cart-items?populate[0]=product&populate[1]=product.image`,
     cartItemData,
     {
       method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
+export async function updateCartItem(cartItemId, token, data) {
+  const response = await axios.put(
+    `${BASE_URL}/cart-items/${cartItemId}`,
+    data,
+    {
+      method: "PUT",
       headers: { Authorization: `Bearer ${token}` },
     }
   );
