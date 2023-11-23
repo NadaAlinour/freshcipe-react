@@ -11,6 +11,7 @@ import ProfileImage from "./ProfileImage";
 
 export default function Navbar() {
   const [isHover, setIsHover] = useState(false);
+  const [cartQuantity, setCartQuantity] = useState();
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
@@ -21,6 +22,16 @@ export default function Navbar() {
 
   const { cartItems } = useSelector((state) => state.cart);
   const { username } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    let count = 0;
+    cartItems.forEach(item => {
+      count += item.attributes.quantity;
+    });
+    console.log(count);
+    setCartQuantity(count);
+  }, [cartItems]);
+  
 
   // navbar for login/signup screens
   let navbar = (
@@ -73,7 +84,7 @@ export default function Navbar() {
         <li>
           <Link to="/cart">
             {cartItems.length > 0 && (
-              <div className="navbar-cart-count">{cartItems.length}</div>
+              <div className="navbar-cart-count">{cartQuantity}</div>
             )}
             <div
               className="cart-icon"

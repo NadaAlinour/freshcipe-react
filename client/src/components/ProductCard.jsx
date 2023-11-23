@@ -1,8 +1,8 @@
 import "boxicons";
 import { useNavigate } from "react-router-dom";
-import { addItemToCart } from "../utils/http";
+import { addItemToCart, updateCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCart } from "../store/cartSlice";
+import { updateCart, updateQuantity } from "../store/cartSlice";
 
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
@@ -10,27 +10,48 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const { cartItems } = useSelector((state) => state.cart);
 
   const addToCart = async (productId, quantity) => {
-    const data = {
-      data: {
-        product: productId,
-        quantity: quantity,
-        cart: cartId,
-      },
-    };
     // console.log(data);
 
-    if (userToken) {
+    // check if item already exists in cart to update it accordingly if so
+    console.log(cartItems);
+    const isExists = cartItems.find(
+      (item) => item.attributes.product.data.id == id
+    );
+
+    // update item quantity in cart
+    if (userToken && isExists != undefined) {
+      const data1 = {
+        data: {
+          quantity: isExists.attributes.quantity + 1,
+        },
+      };
       try {
-        const response = await addItemToCart(data, userToken);
+        const response = await updateCartItem(isExists.id, userToken, data1);
+        dispatch(updateQuantity({ cartItemId: isExists.id, quantity: isExists.attributes.quantity + 1 }));
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(cartItems);
+    } else if (userToken && isExists == undefined) {
+      // add to cart as a new cart item
+      try {
+        const data2 = {
+          data: {
+            product: productId,
+            quantity: quantity,
+            cart: cartId,
+          },
+        };
+        const response = await addItemToCart(data2, userToken);
         console.log("test: ", response.data);
         console.log(response.data);
         dispatch(updateCart({ cart: response.data }));
       } catch (error) {
         console.log(error);
       }
-      console.log(cartItems);
     } else {
-      console.log("local cart but idk yet");
+      console.log("not logged in, cant add items to cart for now");
     }
   };
 

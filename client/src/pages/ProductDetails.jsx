@@ -2,8 +2,8 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Overlay from "../components/Overlay";
-import { fetchProduct, addItemToCart } from "../utils/http";
-import { updateCart } from "../store/cartSlice";
+import { fetchProduct, addItemToCart, updateCartItem } from "../utils/http";
+import { updateCart, updateQuantity } from "../store/cartSlice";
 import CartAdd from "../assets/images/addcart.png";
 import "boxicons";
 
@@ -13,7 +13,7 @@ export default function ProductDetails({ route }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
-
+  const { cartItems } = useSelector((state) => state.cart);
   // temporarily
   const cartTemp = localStorage.getItem("cartId");
 
@@ -54,24 +54,53 @@ export default function ProductDetails({ route }) {
       console.log("user not logged in");
       handleOverlay();
     }
-    const data = {
-      data: {
-        product: productId,
-        quantity: quantity,
-        cart: cartTemp,
-      },
-    };
-    console.log(data);
-    try {
-      const response = await addItemToCart(data, userToken);
-      dispatch(updateCart({ cart: response.data }));
 
-      console.log(response);
-    } catch (error) {
-      console.log(error.response);
-      if (error.response.status == 403) {
-        handleOverlay();
-        return;
+    const isExists = cartItems.find(
+      (item) => item.attributes.product.data.id == idFromUrl
+    );
+
+    if (userToken && isExists != undefined) {
+      const data1 = {
+        data: {
+          quantity: isExists.attributes.quantity + 1,
+        },
+      };
+      try {
+        const response = await updateCartItem(isExists.id, userToken, data1);
+        dispatch(
+          updateQuantity({
+            cartItemId: isExists.id,
+            quantity: isExists.attributes.quantity + 1,
+          })
+        );
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+        if (error.response.status == 403) {
+          handleOverlay();
+          return;
+        }
+      }
+    } else if (userToken && isExists == undefined) {
+      // add to cart as a new cart item
+      try {
+        const data2 = {
+          data: {
+            product: productId,
+            quantity: quantity,
+            cart: cartId,
+          },
+        };
+        const response = await addItemToCart(data2, userToken);
+        console.log("test: ", response.data);
+        console.log(response.data);
+        dispatch(updateCart({ cart: response.data }));
+      } catch (error) {
+        console.log(error);
+        if (error.response.status == 403) {
+          handleOverlay();
+          return;
+        }
       }
     }
   };
@@ -136,7 +165,6 @@ export default function ProductDetails({ route }) {
 
               <div className="product-info-price-button">
                 {!isLoading && (
-                  
                   <div className="product-info-price-container">
                     <p className="product-info-price-whole">
                       {product.attributes.price.toString().split(".")[0]}.
