@@ -231,9 +231,19 @@
   padding: 5px;
 }
 
+.product-card-add-icon-container-disabled {
+  background-color: var(--primary600);
+}
+
+
+
 .product-card-add-icon-container:hover {
   cursor: pointer;
   opacity: 0.75;
+}
+
+.product-card-add-icon-container-disabled:hover {
+  cursor: auto;
 }
 
 .product-card-price-quantity-container {

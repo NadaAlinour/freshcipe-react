@@ -357,3 +357,11 @@ footer ul {
   color: darkcyan;
   padding-top: 20px;
 }
+
+.button-disabled {
+  background-color: var(--primary600);
+}
+
+.button-disabled:hover {
+  cursor: auto;
+}

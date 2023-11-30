@@ -3,13 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { addItemToCart, updateCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart, updateQuantity } from "../store/cartSlice";
+import { useState } from "react";
 
 export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
+  const [isAddEnabled, setIsAddEnabled] = useState(true);
+
   const addToCart = async (productId, quantity) => {
+    setIsAddEnabled(false);
     // console.log(data);
 
     // check if item already exists in cart to update it accordingly if so
@@ -53,6 +57,7 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
     } else {
       console.log("not logged in, cant add items to cart for now");
     }
+    setIsAddEnabled(true);
   };
 
   const stringPrice = price.toString();
@@ -65,21 +70,7 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
 
   return (
     <div className="product-card-container">
-      {/*id === "p1" && (
-        <div className="product-card-discount-tag">
-          <p>30% Off</p>
-        </div>
-      )}
-      {id === "p7" && (
-        <div className="product-card-discount-tag">
-          <p>30% Off</p>
-        </div>
-      )}{" "}
-      {id === "p9" && (
-        <div className="product-card-discount-tag">
-          <p>30% Off</p>
-        </div>
-      )*/}
+   
       <div
         className="product-card-image-container"
         onClick={handleClick.bind(this, id, title)}
@@ -100,8 +91,8 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
       <div className="product-card-title-add-container">
         <h3 onClick={handleClick.bind(this, id, title)}>{title}</h3>
         <div
-          className="product-card-add-icon-container"
-          onClick={addToCart.bind(this, id, 1)}
+          className={isAddEnabled ? "product-card-add-icon-container" : "product-card-add-icon-container product-card-add-icon-container-disabled"}
+          onClick={isAddEnabled ? addToCart.bind(this, id, 1) : ()=>console.log('cant add yet')}
         >
           <box-icon name="plus" color="white" />
         </div>

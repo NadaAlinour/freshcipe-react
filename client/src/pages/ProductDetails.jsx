@@ -21,6 +21,8 @@ export default function ProductDetails({ route }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalShowing, setIsModalShowing] = useState(false);
 
+  const [isAddEnabled, setIsAddEnabled] = useState(true);
+
   const currentPath = location.pathname;
   console.log(currentPath);
   const pathArray = currentPath.split("/");
@@ -50,6 +52,7 @@ export default function ProductDetails({ route }) {
   };
 
   const addToCart = async (productId, quantity) => {
+    setIsAddEnabled(false);
     if (!userToken) {
       console.log("user not logged in");
       handleOverlay();
@@ -103,6 +106,7 @@ export default function ProductDetails({ route }) {
         }
       }
     }
+    setIsAddEnabled(true);
   };
 
   useEffect(() => {
@@ -177,8 +181,8 @@ export default function ProductDetails({ route }) {
 
                 <div className="product-info-button-container">
                   <button
-                    className="solid-button"
-                    onClick={addToCart.bind(this, idFromUrl, 1)}
+                    className={isAddEnabled ? "solid-button" : "solid-button button-disabled"}
+                    onClick={isAddEnabled ? addToCart.bind(this, idFromUrl, 1) : ()=>console.log("cant add yet")}
                   >
                     Add To Cart <box-icon name="plus" color="white"></box-icon>
                   </button>

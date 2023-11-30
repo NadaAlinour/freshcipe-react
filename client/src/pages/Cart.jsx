@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../assets/stylesheets/cart.css";
-import ProductCard from "../components/ProductCard.jsx";
 import CartItem from "../components/CartItem";
 import { deleteCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, setCart } from "../store/cartSlice.js";
 import EmptyCartImage from "../assets/images/empty-cart.png";
-import TestCart from "../assets/images/test-cart.png"
+import TestCart from "../assets/images/test-cart.png";
 export default function CartPage() {
   // check whether user is logged in or now
   // if logged in, get user stuff
@@ -15,6 +14,27 @@ export default function CartPage() {
 
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
+
+  // bill stuff
+  const [subTotal, setSubTotal] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    
+    // subTotal
+    var calculatedSubTotal = 0;
+    cartItems.forEach(item => {
+      calculatedSubTotal += item.attributes.quantity * item.attributes.product.data.attributes.price;
+    });
+
+    setSubTotal(calculatedSubTotal.toFixed(2));
+
+    // total amount
+    var calculatedTotal = 0;
+    calculatedTotal = calculatedSubTotal;
+    setTotal(calculatedTotal.toFixed(2));
+
+  }, [cartItems]);
 
   const dispatch = useDispatch();
 
@@ -32,14 +52,9 @@ export default function CartPage() {
         console.log(error);
       }
     });
-   
   };
 
-  const calculateSubTotal = () => {
-    /*return cartItems.reduce((total, item) => {
-      return total + item.quantity * item.basePrice;
-    }, 0);*/
-  };
+
 
   const calculateTaxFee = () => {
     /* return cartItems.reduce((total, item) => {
@@ -50,14 +65,14 @@ export default function CartPage() {
   const calculateTotalAmount = () => {
     /* const subTotal = calculateSubTotal();
     const deliveryFees = 10.0;
-    const productDiscount = 7.0;
+    const productDiscount = 0.0;
     const taxFee = calculateTaxFee();
 
     return subTotal + deliveryFees + taxFee - productDiscount;*/
   };
 
-  const subTotal = calculateSubTotal();
-  const totalAmount = calculateTotalAmount();
+  /*const subTotal = calculateSubTotal();
+  const totalAmount = calculateTotalAmount();*/
 
   const updatePrice = (itemId, newQuantity) => {
     /*const updatedCart = cartItems.map((item) => {
@@ -121,9 +136,17 @@ export default function CartPage() {
             </div>
           ) : (
             <div className="empty-cart-placeholder">
-              <img src={TestCart} style={{width:"330px", marginBottom:"15px"}}></img>
+              <img
+                src={TestCart}
+                style={{ width: "330px", marginBottom: "15px" }}
+              ></img>
               <p className="empty-cart-text">Your cart is currently empty.</p>
-              <p className="empty-cart-text-2">Click here to <Link to='/products' className="link-text">start shopping.</Link></p>
+              <p className="empty-cart-text-2">
+                Click here to{" "}
+                <Link to="/products" className="link-text">
+                  start shopping.
+                </Link>
+              </p>
             </div>
           )}
         </div>
@@ -139,7 +162,7 @@ export default function CartPage() {
 
             <div className="bill_item">
               <span>SubTotal</span>
-              <span>EGP {/*subTotal.toFixed(2)*/}</span>
+              <span>EGP {subTotal}</span>
             </div>
 
             <div className="bill_item">
@@ -159,7 +182,7 @@ export default function CartPage() {
 
             <div className="bill_item total">
               <span>Total Amount</span>
-              <span>EGP {/*totalAmount.toFixed(2)*/}</span>
+              <span>EGP {total}</span>
             </div>
           </div>
 
@@ -185,63 +208,7 @@ export default function CartPage() {
         </div>
       </div>
 
-      {/* <div className="suggested_products_container">
-        <div className="suggested_products_title">
-          <h2>Discover more products</h2>
-          <div className="suggested_products">
-            <div className="suggested_images">
-              <ProductCard
-                className="product_card"
-                id="p9"
-                imageUrl="https://img.freepik.com/free-photo/close-up-bunch-grapes_1149-761.jpg?w=1480&t=st=1695927945~exp=1695928545~hmac=8853a7a2b7df1c474dd2ef73623f369ccb693f14cdab9ae2406437a40e88752a"
-                title="Grapes"
-                price="3.55"
-                quantity="200"
-              />
-              <ProductCard
-                className="product_card"
-                id="p10"
-                imageUrl="https://img.freepik.com/free-photo/red-apple-with-green-leaf-white-background_1232-3290.jpg?2&w=2000&t=st=1695864963~exp=1695865563~hmac=bc3dcf4882ad5e8a9fc0e7116cc05ef8c6451ceb7ecc911dbca386bdf93fff77"
-                title="Apples"
-                price="3.55"
-                quantity="200"
-              />
-              <ProductCard
-                className="product_card"
-                id="p11"
-                imageUrl="https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg?w=2000&t=st=1695927637~exp=1695928237~hmac=7842355a2d062382efcd2c35101f80650572a7e15ca0d7dae9be2613096199b1"
-                title="Bananas"
-                price="3.55"
-                quantity="200"
-              />
-              <ProductCard
-                className="product_card"
-                id="p12"
-                imageUrl="https://img.freepik.com/free-photo/green-cucumber_144627-21625.jpg?w=2000&t=st=1695927673~exp=1695928273~hmac=113b5255409c2570934d4de88a10753e117ccf4a61e8557b22172efdb37b4e0e"
-                title="Cucumber"
-                price="3.55"
-                quantity="200"
-              />
-              <ProductCard
-                className="product_card"
-                id="p14"
-                imageUrl="https://img.freepik.com/free-photo/bell-pepper_1339-1594.jpg?w=2000&t=st=1695927825~exp=1695928425~hmac=2ba78653f1ad589d23a381803516f66fc188553782b9e78bcbcaa60940a103e5"
-                title="Bell Pepper"
-                price="3.55"
-                quantity="200"
-              />
-              <ProductCard
-                className="product_card"
-                id="p2"
-                imageUrl="https://img.freepik.com/free-photo/raw-salmon_144627-33848.jpg?w=2000&t=st=1695865095~exp=1695865695~hmac=f2ff4a7472bb3cccc83997c784b1bc0cd6f63ca8bdd0d2ae78d11b96fe11fdd8"
-                title="Salmon"
-                price="20.99"
-                quantity="200"
-              />
-            </div>
-          </div>
-          </div>
-          </div>*/}
+    
     </div>
   );
 }
