@@ -18,20 +18,34 @@ export default function CartPage() {
   // bill stuff
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [taxFee, setTaxFee] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
     
     // subTotal
     var calculatedSubTotal = 0;
+    var calculatedTaxFee = 0;
     cartItems.forEach(item => {
       calculatedSubTotal += item.attributes.quantity * item.attributes.product.data.attributes.price;
+      calculatedTaxFee += item.attributes.product.data.attributes.price * 0.14 * item.attributes.quantity;
     });
 
     setSubTotal(calculatedSubTotal.toFixed(2));
+    setTaxFee(calculatedTaxFee.toFixed(2));
+
+    // delivery fee
+    var calculatedDeliveryFee = 10.0;
+    setDeliveryFee(calculatedDeliveryFee.toFixed(2));
+  
+    // temp
+    var calculatedDiscount = 0.0;
+    setDiscount(calculatedDiscount.toFixed(2));
 
     // total amount
     var calculatedTotal = 0;
-    calculatedTotal = calculatedSubTotal;
+    calculatedTotal = calculatedSubTotal + calculatedDeliveryFee + calculatedTaxFee - calculatedDiscount;
     setTotal(calculatedTotal.toFixed(2));
 
   }, [cartItems]);
@@ -54,35 +68,6 @@ export default function CartPage() {
     });
   };
 
-
-
-  const calculateTaxFee = () => {
-    /* return cartItems.reduce((total, item) => {
-      return total + item.basePrice * 0.14 * item.quantity;
-    }, 0);*/
-  };
-
-  const calculateTotalAmount = () => {
-    /* const subTotal = calculateSubTotal();
-    const deliveryFees = 10.0;
-    const productDiscount = 0.0;
-    const taxFee = calculateTaxFee();
-
-    return subTotal + deliveryFees + taxFee - productDiscount;*/
-  };
-
-  /*const subTotal = calculateSubTotal();
-  const totalAmount = calculateTotalAmount();*/
-
-  const updatePrice = (itemId, newQuantity) => {
-    /*const updatedCart = cartItems.map((item) => {
-      if (item.id === itemId) {
-        item.quantity = newQuantity;
-      }
-      return item;
-    });
-    setCartItems(updatedCart);*/
-  };
 
   return (
     <div className="cart_page">
@@ -155,34 +140,34 @@ export default function CartPage() {
           <h2>Order Details</h2>
 
           <div className="bill_details">
-            <div className="bill_item">
+            {/*<div className="bill_item">
               <span>ETA</span>
               <span>30 minutes</span>
-            </div>
+          </div>*/}
 
             <div className="bill_item">
               <span>SubTotal</span>
-              <span>EGP {subTotal}</span>
+              <span>{subTotal}</span>
             </div>
 
             <div className="bill_item">
               <span>Delivery Fees</span>
-              <span>EGP 10.00</span>
+              <span>{deliveryFee}</span>
             </div>
 
             <div className="bill_item">
               <span>Tax Fees</span>
-              <span>EGP {/*calculateTaxFee().toFixed(2)*/}</span>
+              <span>{taxFee}</span>
             </div>
 
-            <div className="bill_item">
+            <div className="bill_item" style={{color: '#ed8453'}}>
               <span>Product Discount</span>
-              <span>-EGP 7.00</span>
+              <span>{discount}</span>
             </div>
 
             <div className="bill_item total">
               <span>Total Amount</span>
-              <span>EGP {total}</span>
+              <span>{total}</span>
             </div>
           </div>
 

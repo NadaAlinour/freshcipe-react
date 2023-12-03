@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AppRoutes from "./pages/router/AppRoutes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "./store/authSlice";
 import { setFavourites } from "./store/favouritesSlice";
 import { setCart, setLocalCart } from "./store/cartSlice";
@@ -14,6 +14,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { useEffect } from "react";
 
 function App() {
+  const { userToken } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const savedToken = localStorage.getItem("token");
   const savedUserId = localStorage.getItem("userId");
@@ -51,7 +53,7 @@ function App() {
 
     if (savedToken) fetchCartWithItems();
     //else setLocalCartItems();
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     const getFavourites = async () => {
@@ -65,7 +67,7 @@ function App() {
       }
     };
     if (savedToken) getFavourites();
-  }, []);
+  }, [userToken]);
 
   return (
     <>

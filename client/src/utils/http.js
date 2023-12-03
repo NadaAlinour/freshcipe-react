@@ -131,7 +131,7 @@ export async function fetchProduct(productId) {
 
 // get recipe tags
 export async function fetchRecipeTags() {
-  const response = await axios.get("http://localhost:1337/api/recipe-tags");
+  const response = await axios.get("http://localhost:1337/api/recipe-tags?populate[0]=recipes");
   return response.data;
 }
 

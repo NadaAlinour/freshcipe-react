@@ -192,7 +192,7 @@ textarea[name="enter_request"] {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  width: 86%;
+  width: 100%;
   justify-content: end;
 }
 
@@ -222,8 +222,12 @@ textarea[name="enter_request"] {
   list-style: none;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 17px;
   gap: 10px;
+  background-color: var(--backgroundLight);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+
 }
 
 .item_row {
@@ -231,12 +235,12 @@ textarea[name="enter_request"] {
   align-items: center;
   padding: 15px;
   /*margin: 10px 0;*/
-  width: 85%;
+  width: 95%;
+  margin: auto;
   height: 125px;
   line-height: 25px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background-color: var(--backgroundLight);
-  border-radius: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
 }
 
 .item_row img {

@@ -43,9 +43,14 @@ export default function Recipes() {
     const getRecipeTags = async () => {
       try {
         const data = await fetchRecipeTags();
-        setRecipeTags(data.data);
+
+        // filter data.data to keep tags with recipes
+        const filteredTags = data.data.filter(tag => tag.attributes.recipes.data.length > 0);
+        console.log("im tags", data.data);
+        console.log("im filtered tags", filteredTags);
+
+        setRecipeTags(filteredTags);
         setIsTagsLoading(false);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -171,7 +176,7 @@ export default function Recipes() {
             <Tag selectedTag={selectedTag}>All</Tag>
           </li>
           {!isTagsLoading &&
-            recipeTags.map((tag) => (
+            recipeTags.map((tag) => ( 
               <li
                 key={tag.id}
                 onClick={handleTagClick.bind(

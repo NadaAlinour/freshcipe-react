@@ -235,8 +235,6 @@
   background-color: var(--primary600);
 }
 
-
-
 .product-card-add-icon-container:hover {
   cursor: pointer;
   opacity: 0.75;
