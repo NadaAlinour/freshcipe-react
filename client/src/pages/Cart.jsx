@@ -23,6 +23,10 @@ export default function CartPage() {
   const [discount, setDiscount] = useState(0);
   const [checkoutLink, setCheckoutLink] = useState();
 
+  const [note, setNote] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+
   useEffect(() => {
     console.log(cartItems);
     // subTotal
@@ -32,9 +36,9 @@ export default function CartPage() {
       calculatedSubTotal +=
         item.attributes.quantity *
         item.attributes.product.data.attributes.price;
-      calculatedTaxFee +=
+      /*calculatedTaxFee +=
         item.attributes.product.data.attributes.price *
-        0.14 *
+        0.14 **/
         item.attributes.quantity;
     });
 
@@ -42,7 +46,7 @@ export default function CartPage() {
     setTaxFee(calculatedTaxFee.toFixed(2));
 
     // delivery fee
-    var calculatedDeliveryFee = 10.0;
+    var calculatedDeliveryFee = 0.0;
     setDeliveryFee(calculatedDeliveryFee.toFixed(2));
 
     // temp
@@ -51,11 +55,12 @@ export default function CartPage() {
 
     // total amount
     var calculatedTotal = 0;
-    calculatedTotal =
+    /*calculatedTotal =
       calculatedSubTotal +
       calculatedDeliveryFee +
       calculatedTaxFee -
-      calculatedDiscount;
+      calculatedDiscount;*/
+      calculatedTotal += calculatedSubTotal;
     setTotal(calculatedTotal.toFixed(2));
   }, [cartItems]);
 
@@ -77,8 +82,6 @@ export default function CartPage() {
     });
   };
 
-  
-
   const handleCheckout = async () => {
     setCheckoutLink("");
     console.log("creating order");
@@ -88,7 +91,9 @@ export default function CartPage() {
       items.push({
         product: cartItems[i].attributes.product.data.id,
         quantity: cartItems[i].attributes.quantity,
-        price: Math.floor(cartItems[i].attributes.product.data.attributes.price)
+        price: Math.floor(
+          cartItems[i].attributes.product.data.attributes.price
+        ),
       });
     }
 
@@ -98,13 +103,15 @@ export default function CartPage() {
       data: {
         vendor: 25,
         customer: parseInt(userId),
-        desiredFrom: "00:00:00",
-        desiredTo: "23:00:00",
+        desiredFrom: `${startTime}:00`,
+        desiredTo: `${endTime}:00`,
         items: items,
+        note: note,
       },
     };
 
     console.log("my order", order);
+    console.log(startTime, "  ", endTime);
     try {
       const data = await createOrder(userToken, order);
       console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
@@ -117,8 +124,7 @@ export default function CartPage() {
       console.log(error);
     }
 
-   // if(checkoutLink != undefined) window.location.assign(checkoutLink);
-
+    // if(checkoutLink != undefined) window.location.assign(checkoutLink);
   };
 
   return (
@@ -238,7 +244,22 @@ export default function CartPage() {
                 cols="30"
                 rows="3"
                 placeholder="Add a Note..."
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
               ></textarea>
+            </div>
+          </div>
+
+          <div className="cart-delivery-window-container">
+          <h2>Delivery Window</h2>
+            <div className="cart-delivery-window">
+              <input type="time" className="form-input"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}></input>
+              <h2 style={{fontSize:'21px'}}>to</h2>
+              <input type="time" className="form-input"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}></input>
             </div>
           </div>
 

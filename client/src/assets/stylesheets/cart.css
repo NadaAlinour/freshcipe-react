@@ -376,3 +376,21 @@ textarea[name="enter_request"] {
 .empty-cart-text-2 {
   font-size: 17px;
 }
+
+.cart-delivery-window {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 20px;
+}
+
+.cart-delivery-window-container {
+  margin-bottom: 30px;
+}
+
+input[type="time"] {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  background-color: var(--backgroundLight);
+  color: var(--grey900);
+}
