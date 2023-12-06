@@ -244,6 +244,16 @@ export async function deleteCartItem(cartId, itemId, token) {
   return response.data;
 }
 
+// create order
+export async function createOrder(token, order) {
+  console.log("order from http.js", order)
+  const response = await axios.post(`${BASE_URL}/orders`, order, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
 /*export async function deleteAllCartItems(cartId, token) {
   const response = await axios.delete(
     `${BASE_URL}/cart-items/${cartId}`,

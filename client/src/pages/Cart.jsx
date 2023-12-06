@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../assets/stylesheets/cart.css";
 import CartItem from "../components/CartItem";
-import { deleteCartItem } from "../utils/http";
+import { deleteCartItem, createOrder } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, setCart } from "../store/cartSlice.js";
 import EmptyCartImage from "../assets/images/empty-cart.png";
@@ -21,15 +21,21 @@ export default function CartPage() {
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [taxFee, setTaxFee] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const [checkoutLink, setCheckoutLink] = useState();
 
   useEffect(() => {
-    
+    console.log(cartItems);
     // subTotal
     var calculatedSubTotal = 0;
     var calculatedTaxFee = 0;
-    cartItems.forEach(item => {
-      calculatedSubTotal += item.attributes.quantity * item.attributes.product.data.attributes.price;
-      calculatedTaxFee += item.attributes.product.data.attributes.price * 0.14 * item.attributes.quantity;
+    cartItems.forEach((item) => {
+      calculatedSubTotal +=
+        item.attributes.quantity *
+        item.attributes.product.data.attributes.price;
+      calculatedTaxFee +=
+        item.attributes.product.data.attributes.price *
+        0.14 *
+        item.attributes.quantity;
     });
 
     setSubTotal(calculatedSubTotal.toFixed(2));
@@ -38,16 +44,19 @@ export default function CartPage() {
     // delivery fee
     var calculatedDeliveryFee = 10.0;
     setDeliveryFee(calculatedDeliveryFee.toFixed(2));
-  
+
     // temp
     var calculatedDiscount = 0.0;
     setDiscount(calculatedDiscount.toFixed(2));
 
     // total amount
     var calculatedTotal = 0;
-    calculatedTotal = calculatedSubTotal + calculatedDeliveryFee + calculatedTaxFee - calculatedDiscount;
+    calculatedTotal =
+      calculatedSubTotal +
+      calculatedDeliveryFee +
+      calculatedTaxFee -
+      calculatedDiscount;
     setTotal(calculatedTotal.toFixed(2));
-
   }, [cartItems]);
 
   const dispatch = useDispatch();
@@ -68,13 +77,62 @@ export default function CartPage() {
     });
   };
 
+  
+
+  const handleCheckout = async () => {
+    setCheckoutLink("");
+    console.log("creating order");
+    // get items from cart
+    let items = [];
+    for (let i = 0; i < cartItems.length; i++) {
+      items.push({
+        product: cartItems[i].attributes.product.data.id,
+        quantity: cartItems[i].attributes.quantity,
+        price: Math.floor(cartItems[i].attributes.product.data.attributes.price)
+      });
+    }
+
+    console.log("my itemsssss", items);
+
+    const order = {
+      data: {
+        vendor: 25,
+        customer: parseInt(userId),
+        desiredFrom: "00:00:00",
+        desiredTo: "23:00:00",
+        items: items,
+      },
+    };
+
+    console.log("my order", order);
+    try {
+      const data = await createOrder(userToken, order);
+      console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
+      //setCheckoutLink(data.data.attributes.checkoutLink);
+      window.location.assign(data.data.attributes.checkoutLink);
+
+      // redirect to stripe page
+      console.log("redirect to stripe using checkout link");
+    } catch (error) {
+      console.log(error);
+    }
+
+   // if(checkoutLink != undefined) window.location.assign(checkoutLink);
+
+  };
 
   return (
     <div className="cart_page">
       <div className="cart_products_container">
         <div className="cart_items">
           <h2>My Cart</h2>
-          <ul className="cart-products-list">
+          <ul
+            className={
+              cartItems.length > 0
+                ? "cart-products-list"
+                : "cart-products-list no-border"
+            }
+          >
             {cartItems.length > 0 &&
               cartItems.map((item) => {
                 return (
@@ -160,7 +218,7 @@ export default function CartPage() {
               <span>{taxFee}</span>
             </div>
 
-            <div className="bill_item" style={{color: '#ed8453'}}>
+            <div className="bill_item" style={{ color: "#ed8453" }}>
               <span>Product Discount</span>
               <span>{discount}</span>
             </div>
@@ -185,15 +243,15 @@ export default function CartPage() {
           </div>
 
           <div className="checkout_button_div">
-            <button className="checkout-button">Go To Checkout</button>
+            <button className="checkout-button" onClick={handleCheckout}>
+              Go To Checkout
+            </button>
           </div>
           {/*(cartItems.length === 0 || totalAmount < 40.0) && (
             <p className="no-items-message">Minimum Charge is EGP 40.00</p>
           )*/}
         </div>
       </div>
-
-    
     </div>
   );
 }

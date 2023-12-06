@@ -227,7 +227,16 @@ textarea[name="enter_request"] {
   background-color: var(--backgroundLight);
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
+}
 
+.cart-products-list li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  width: 95%;
+  margin: auto;
+}
+
+.cart-products-list li:last-child {
+  border: none;
 }
 
 .item_row {
@@ -235,12 +244,15 @@ textarea[name="enter_request"] {
   align-items: center;
   padding: 15px;
   /*margin: 10px 0;*/
-  width: 95%;
-  margin: auto;
+  width: 100%;
   height: 125px;
   line-height: 25px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
 
+
+
+.no-border {
+  border: none;
 }
 
 .item_row img {
