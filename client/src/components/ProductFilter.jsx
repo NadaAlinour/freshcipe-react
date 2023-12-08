@@ -9,19 +9,20 @@ export default function ProductFilter() {
   const location = useLocation();
   const pathArray = location.pathname.split("/");
   const idFromUrl = pathArray[2];
-  const categoryFromUrl = decodeURI(pathArray[pathArray.length - 1]);
-  console.log(categoryFromUrl)
-  const [isStoreHidden, setIsStoreHidden] = useState(false);
+  const categoryFromUrl = decodeURI(pathArray[3]);
+  console.log(categoryFromUrl);
   const [isCategoryHidden, setIsCategoryHidden] = useState(false);
 
-  const [vendors, setVendors] = useState();
   const [categories, setCategories] = useState(); // all cats
   const [subCats, setSubCats] = useState(); // subcats of current category
   const [isLoading, setIsLoading] = useState(true);
   const [isSubCatsLoading, setIsSubCatsLoading] = useState(true);
-  const [selectedTags, setSelectedTags] = useState();
+  const [selectedFilters, setSelectedFilters] = useState();
 
-  useEffect(() => {}, [idFromUrl]);
+  useEffect(() => {
+    console.log("ID FROM URL: ", idFromUrl);
+    console.log("CAT FROM URL: ", categoryFromUrl);
+  }, [idFromUrl, pathArray]);
 
   const handleFilterClick = async () => {
     // add query i guess
@@ -84,7 +85,11 @@ export default function ProductFilter() {
                     })
                   }
                 >
-                  <p className={cat.id == idFromUrl ? "filter-selected-category-p" : ""}>
+                  <p
+                    className={
+                      cat.id == idFromUrl ? "filter-selected-category-p" : ""
+                    }
+                  >
                     {cat.title} - {cat.products.length}
                   </p>
                 </li>
@@ -93,75 +98,83 @@ export default function ProductFilter() {
         </ul>
       </div>
 
-      {!isLoading && subCats.length > 0 && <div className="filter-block-container">
-        <div className="filter-block-header">
-          <h3>Type</h3>
+      {!isLoading && subCats.length > 0 && (
+        <div className="filter-block-container">
+          <div className="filter-block-header">
+            <h3>Type</h3>
+          </div>
+          <ul className="filter-cats-list">
+            {!isSubCatsLoading &&
+              subCats.map((cat) => {
+                return (
+                  <li
+                    key={cat.id}
+                    onClick={() =>
+                      navigate(
+                        `/products/${idFromUrl}/${categoryFromUrl}/search?query=${cat.attributes.title}`
+                      )
+                    }
+                  >
+                    <div className="ingredient-checkbox-container">
+                      <box-icon name="checkbox" size="28px" color="#474643" />
+                    </div>
+                    <div className="ingredient-label-container">
+                      <label>{cat.attributes.title}</label>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
         </div>
-        <ul className="filter-cats-list">
-          {!isSubCatsLoading &&
-            subCats.map((cat) => {
-              return (
-                <li key={cat.id} onClick={() => navigate(`/products/${idFromUrl}/${categoryFromUrl}/search?query=${cat.attributes.title}`)}>
-                  <div className="ingredient-checkbox-container">
-                    <box-icon name="checkbox" size="28px" color="#474643" />
-                  </div>
-                  <div className="ingredient-label-container">
-                    <label>{cat.attributes.title}</label>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
-      </div>}
+      )}
 
       <div className="filter-block-container">
         <div className="filter-block-header">
           <h3>Price</h3>
-          </div>
-          <ul>
-            <li>
-              <div className="ingredient-checkbox-container">
-                <box-icon name="checkbox" size="28px" color="#474643" />
-              </div>
-              <div className="ingredient-label-container">
-                <label>Under 10E£</label>
-              </div>
-            </li>
-            <li>
-              <div className="ingredient-checkbox-container">
-                <box-icon name="checkbox" size="28px" color="#474643" />
-              </div>
-              <div className="ingredient-label-container">
-                <label>10E£ to 50E£</label>
-              </div>
-            </li>
-            <li>
-              <div className="ingredient-checkbox-container">
-                <box-icon name="checkbox" size="28px" color="#474643" />
-              </div>
-              <div className="ingredient-label-container">
-                <label>50E£ to 100E£</label>
-              </div>
-            </li>
-            <li>
-              <div className="ingredient-checkbox-container">
-                <box-icon name="checkbox" size="28px" color="#474643" />
-              </div>
-              <div className="ingredient-label-container">
-                <label>100E£ to 200E£</label>
-              </div>
-            </li>
-            <li>
-              <div className="ingredient-checkbox-container">
-                <box-icon name="checkbox" size="28px" color="#474643" />
-              </div>
-              <div className="ingredient-label-container">
-                <label>200E£ and Above</label>
-              </div>
-            </li>
-          </ul>
         </div>
-
+        <ul>
+          <li>
+            <div className="ingredient-checkbox-container">
+              <box-icon name="checkbox" size="28px" color="#474643" />
+            </div>
+            <div className="ingredient-label-container">
+              <label>Under 10E£</label>
+            </div>
+          </li>
+          <li>
+            <div className="ingredient-checkbox-container">
+              <box-icon name="checkbox" size="28px" color="#474643" />
+            </div>
+            <div className="ingredient-label-container">
+              <label>10E£ to 50E£</label>
+            </div>
+          </li>
+          <li>
+            <div className="ingredient-checkbox-container">
+              <box-icon name="checkbox" size="28px" color="#474643" />
+            </div>
+            <div className="ingredient-label-container">
+              <label>50E£ to 100E£</label>
+            </div>
+          </li>
+          <li>
+            <div className="ingredient-checkbox-container">
+              <box-icon name="checkbox" size="28px" color="#474643" />
+            </div>
+            <div className="ingredient-label-container">
+              <label>100E£ to 200E£</label>
+            </div>
+          </li>
+          <li>
+            <div className="ingredient-checkbox-container">
+              <box-icon name="checkbox" size="28px" color="#474643" />
+            </div>
+            <div className="ingredient-label-container">
+              <label>200E£ and Above</label>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

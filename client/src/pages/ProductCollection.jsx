@@ -29,7 +29,7 @@ export default function ProductCollection() {
   //console.log(pathArray);
 
   const isQuery = pathArray.includes("search");
-  //console.log(isQuery);
+  console.log(isQuery);
 
 
   // idk how to make this re-render
