@@ -92,11 +92,11 @@ export default function Home() {
           <box-icon name="chevron-right" size="30px" color="#ce6332" />
         </div>
       </div>
-      <div className="home-deals-section">
+     {/* <div className="home-deals-section">
         <div className="home-deal-card">deal 1</div>
         <div className="home-deal-card">deal 2</div>
       </div>
-
+  */}
       <div className="home-recipes-section">
         <div className="home-recipes-intro">
           <h2>Our recipes</h2>

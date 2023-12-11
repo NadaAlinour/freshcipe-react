@@ -328,10 +328,13 @@ export async function fetchUser(token, userId) {
 }
 
 // search
+//sort=title:asc
 export async function searchProducts(searchText, page, pageSize) {
+  //console.log('FROM HTTPS SEARCHTEXT IS: ', searchText)
   const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[title][$containsi]=${searchText}`
+    `${BASE_URL}/products?populate[0]=image&filters[title][$containsi]=${searchText}`
   );
+  //console.log('FROM HTTPS: ', response.data);
   return response.data;
 }
 

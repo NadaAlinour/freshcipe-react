@@ -186,7 +186,7 @@ export default function CartPage() {
           ) : (
             <div className="empty-cart-placeholder">
               <img
-                src={TestCart}
+                src={EmptyCartImage}
                 style={{ width: "330px", marginBottom: "15px" }}
               ></img>
               <p className="empty-cart-text">Your cart is currently empty.</p>

@@ -28,7 +28,7 @@ export default function Navbar() {
     cartItems.forEach(item => {
       count += item.attributes.quantity;
     });
-    console.log(count);
+    //console.log(count);
     setCartQuantity(count);
   }, [cartItems]);
   

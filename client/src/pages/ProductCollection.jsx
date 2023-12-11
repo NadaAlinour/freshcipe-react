@@ -16,8 +16,6 @@ export default function ProductCollection() {
   const location = useLocation();
 
   const { userToken, userId } = useSelector((state) => state.auth);
-  //console.log('user token is: ', userToken)
-  //console.log('user id is: ', userId)
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchText, setSearchText] = useState("");
@@ -29,19 +27,11 @@ export default function ProductCollection() {
   // check if search query
   //console.log(pathArray);
 
-  const isQuery = pathArray.includes("search");
-  console.log(isQuery);
+  let isQuery = pathArray.includes("search");
+  let tempSearchText;
+  //console.log(isQuery);
 
-  // idk how to make this re-render
-  // maybe a list of selected filters as state?
-  // but this is a productFilter kind thang
-  useEffect(() => {
-    if (isQuery) {
-      setSearchText(searchParams.get("query"));
-      console.log("hi ", searchText);
-      console.log("sisdfsad", searchText);
-    }
-  }, [path]);
+
 
   const idFromUrl = pathArray[pathArray.length - 2];
 
@@ -60,21 +50,42 @@ export default function ProductCollection() {
     }
   };
 
-  // this is not re-rending when the query changes help meeee
-  /*useEffect(() => {
-    const getSearchedProducts = async () => {
+
+
+  useEffect(() => {
+    const getSearchedProducts = async (searchText) => {
       try {
-        const data = await filterProducts(searchText);
-        console.log('response ', data.data[0].attributes.products.data);
-        setProducts(data.data[0].attributes.products.data);
+        const data = await searchProducts(searchText);
+        console.log("search response: ", data);
+        setProducts(data.data);
+        //setProducts(data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    getSearchedProducts();
-    console.log("are we even doing this")
-  }, [searchText]);*/
+
+    //isQuery = pathArray.includes("search");
+    //console.log(isQuery);
+
+    if (isQuery) {
+      console.log('WE ARE IN LESGO QUERY');
+      setSearchText(searchParams.get("query"));
+      tempSearchText = searchParams.get('query');
+      console.log("search text: ", searchParams.get('query'));
+      setSearchText(searchParams.get('query'));
+      getSearchedProducts(tempSearchText);
+    }
+  }, [isQuery, searchParams.get('query')]);
+
+  useEffect(() => {
+    console.log('PRODUTCS EYO: ', products);
+    console.log(isLoading)
+  }, [products]);
+
+  const updateProductsByPrice = () => {
+    console.log("do nothing");
+  }
 
   const updateProducts = async (selectedFilters) => {
     console.log(
@@ -86,6 +97,7 @@ export default function ProductCollection() {
       setAllUnselected("false");
       try {
         const data = await filterProducts(selectedFilters);
+        console.log("EHY THE FUCK AM I BEING CALLED")
         console.log(data);
         let filteredProducts = [];
         for (let i = 0; i < data.data.length; i++) {
@@ -130,8 +142,10 @@ export default function ProductCollection() {
     if (allUnselected === "true") {
       getProducts();
     }
+
+    let isQuery = pathArray.includes("search"); 
     if (!isQuery) getProducts();
-    console.log("from get products using id: ", page);
+    //console.log("from get products using id: ", page);
   }, [idFromUrl]);
 
   useEffect(() => {
@@ -176,7 +190,7 @@ export default function ProductCollection() {
       }
     };
     if (page > 1) loadMoreProducts();
-    console.log("from load more: ", page);
+    //console.log("from load more: ", page);
   }, [page]);
 
   return (
@@ -184,7 +198,10 @@ export default function ProductCollection() {
       {!searchText && <Breadcrumbs />}
       <div className="product-collection-page">
         <div className="product-filter-container">
-          <ProductFilter updateCollection={updateProducts} />
+          <ProductFilter
+            updateCollection={updateProducts}
+            updateByPrice={updateProductsByPrice}
+          />
         </div>
         <div>
           <div className="product-list-container">
