@@ -131,7 +131,9 @@ export async function fetchProduct(productId) {
 
 // get recipe tags
 export async function fetchRecipeTags() {
-  const response = await axios.get("http://localhost:1337/api/recipe-tags?populate[0]=recipes");
+  const response = await axios.get(
+    "http://localhost:1337/api/recipe-tags?populate[0]=recipes"
+  );
   return response.data;
 }
 
@@ -246,7 +248,7 @@ export async function deleteCartItem(cartId, itemId, token) {
 
 // create order
 export async function createOrder(token, order) {
-  console.log("order from http.js", order)
+  console.log("order from http.js", order);
   const response = await axios.post(`${BASE_URL}/orders`, order, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -334,9 +336,19 @@ export async function searchProducts(searchText, page, pageSize) {
 }
 
 // get products by subtag (concatenate later)
-export async function filterProducts(searchText) {
+export async function filterProducts(ids) {
+  console.log("IDS FROM HTTP: ", ids);
+
+  let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image`;
+  for(let i = 0; i < ids.length; i++) {
+    newUrl += `&filters[id][$in][${i}]=${ids[i]}`;
+  }
+
+  console.log("CONSTRUCTED URL FROM HTTP: ", newUrl);
+
   const response = await axios.get(
-    `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image&filters[title][$containsi]=${searchText}`
+    newUrl
   );
+
   return response.data;
 }

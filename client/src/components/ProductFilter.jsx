@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { fetchSubCats, fetchVendor } from "../utils/http";
 //import { fetchVendors, fetchVendorCats } from "../utils/http";
 
-export default function ProductFilter() {
+export default function ProductFilter({ updateCollection }) {
   const navigate = useNavigate();
   const location = useLocation();
   const pathArray = location.pathname.split("/");
@@ -17,15 +17,50 @@ export default function ProductFilter() {
   const [subCats, setSubCats] = useState(); // subcats of current category
   const [isLoading, setIsLoading] = useState(true);
   const [isSubCatsLoading, setIsSubCatsLoading] = useState(true);
-  const [selectedFilters, setSelectedFilters] = useState();
+  const [selectedFilters, setSelectedFilters] = useState([]);
 
   useEffect(() => {
     console.log("ID FROM URL: ", idFromUrl);
     console.log("CAT FROM URL: ", categoryFromUrl);
   }, [idFromUrl, pathArray]);
 
-  const handleFilterClick = async () => {
-    // add query i guess
+  /*useEffect(() => {
+    setSelectedFilters([]);
+  }, [idFromUrl])*/
+
+  const handleFilterClick = (catId) => {
+ 
+    // check if id already exists in selectedFilters
+    const exists = selectedFilters.find((id) => id == catId);
+    if (exists) {
+      console.log("id already selected");
+      // remove it
+      if (selectedFilters.length > 1) {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newArray = prevSelectedFilters.filter((id) => id != catId);
+          updateCollection(newArray);
+          return newArray;
+        });
+      } else {
+        setSelectedFilters((prevSelectedFilters) => {
+          const newArray = [];
+          updateCollection(newArray);
+          return newArray;
+        });
+      
+      }
+     
+    } else {
+      // push id to selectedFilters
+      //selectedFilters.push(catId);
+      setSelectedFilters((prevSelectedFilters) => {
+        const newArray = [...prevSelectedFilters, catId];
+        updateCollection(newArray);
+        return newArray;
+      });
+    }
+    // console.log(selectedFilters);
+    //updateCollection(selectedFilters);
   };
 
   useEffect(() => {
@@ -98,7 +133,7 @@ export default function ProductFilter() {
         </ul>
       </div>
 
-      {!isLoading && subCats.length > 0 && (
+      {!isLoading && subCats && subCats.length > 0 && (
         <div className="filter-block-container">
           <div className="filter-block-header">
             <h3>Type</h3>
@@ -109,14 +144,18 @@ export default function ProductFilter() {
                 return (
                   <li
                     key={cat.id}
-                    onClick={() =>
-                      navigate(
-                        `/products/${idFromUrl}/${categoryFromUrl}/search?query=${cat.attributes.title}`
-                      )
-                    }
+                    onClick={handleFilterClick.bind(this, cat.id)}
                   >
                     <div className="ingredient-checkbox-container">
-                      <box-icon name="checkbox" size="28px" color="#474643" />
+                      <box-icon
+                        name={
+                          selectedFilters.find((id) => id == cat.id)
+                            ? "checkbox-checked"
+                            : "checkbox"
+                        }
+                        size="28px"
+                        color="#474643"
+                      />
                     </div>
                     <div className="ingredient-label-container">
                       <label>{cat.attributes.title}</label>
@@ -138,7 +177,7 @@ export default function ProductFilter() {
               <box-icon name="checkbox" size="28px" color="#474643" />
             </div>
             <div className="ingredient-label-container">
-              <label>Under 10E£</label>
+              <label>Under 50E£</label>
             </div>
           </li>
           <li>
@@ -146,7 +185,7 @@ export default function ProductFilter() {
               <box-icon name="checkbox" size="28px" color="#474643" />
             </div>
             <div className="ingredient-label-container">
-              <label>10E£ to 50E£</label>
+              <label>50E£ to 200E£</label>
             </div>
           </li>
           <li>
@@ -154,25 +193,10 @@ export default function ProductFilter() {
               <box-icon name="checkbox" size="28px" color="#474643" />
             </div>
             <div className="ingredient-label-container">
-              <label>50E£ to 100E£</label>
+              <label>200E£ and above</label>
             </div>
           </li>
-          <li>
-            <div className="ingredient-checkbox-container">
-              <box-icon name="checkbox" size="28px" color="#474643" />
-            </div>
-            <div className="ingredient-label-container">
-              <label>100E£ to 200E£</label>
-            </div>
-          </li>
-          <li>
-            <div className="ingredient-checkbox-container">
-              <box-icon name="checkbox" size="28px" color="#474643" />
-            </div>
-            <div className="ingredient-label-container">
-              <label>200E£ and Above</label>
-            </div>
-          </li>
+         
         </ul>
       </div>
     </div>

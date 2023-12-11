@@ -7,7 +7,7 @@ import {
   fetchVendorCatsProducts,
   fetchAllProducts,
   searchProducts,
-  filterProducts
+  filterProducts,
 } from "../utils/http";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -20,8 +20,9 @@ export default function ProductCollection() {
   //console.log('user id is: ', userId)
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [path, setPath] = useState();
+  const [allUnselected, setAllUnselected] = useState(null);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
@@ -31,7 +32,6 @@ export default function ProductCollection() {
   const isQuery = pathArray.includes("search");
   console.log(isQuery);
 
-
   // idk how to make this re-render
   // maybe a list of selected filters as state?
   // but this is a productFilter kind thang
@@ -39,7 +39,7 @@ export default function ProductCollection() {
     if (isQuery) {
       setSearchText(searchParams.get("query"));
       console.log("hi ", searchText);
-      console.log('sisdfsad', searchText);
+      console.log("sisdfsad", searchText);
     }
   }, [path]);
 
@@ -60,9 +60,8 @@ export default function ProductCollection() {
     }
   };
 
-
   // this is not re-rending when the query changes help meeee
-   /*useEffect(() => {
+  /*useEffect(() => {
     const getSearchedProducts = async () => {
       try {
         const data = await filterProducts(searchText);
@@ -77,7 +76,36 @@ export default function ProductCollection() {
     console.log("are we even doing this")
   }, [searchText]);*/
 
- 
+  const updateProducts = async (selectedFilters) => {
+    console.log(
+      "temp but update products in ProductCollection from ProductFilter"
+    );
+    console.log("SELECTEDFILTERS FROM PRODUCT COLLECTION: ", selectedFilters);
+
+    if (selectedFilters.length > 0) {
+      setAllUnselected("false");
+      try {
+        const data = await filterProducts(selectedFilters);
+        console.log(data);
+        let filteredProducts = [];
+        for (let i = 0; i < data.data.length; i++) {
+          console.log("filtered products loop, ", filteredProducts);
+          filteredProducts = [
+            ...filteredProducts,
+            ...data.data[i].attributes.products.data,
+          ];
+        }
+        console.log("FILTERED PRODUCTS ", filteredProducts);
+        setProducts(filteredProducts);
+
+        // bit of a eeeeeeh
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setAllUnselected("true");
+    }
+  };
 
   // separate get products and load more products
   useEffect(() => {
@@ -99,9 +127,35 @@ export default function ProductCollection() {
         console.log(error);
       }
     };
-    if(!isQuery) getProducts();
+    if (allUnselected === "true") {
+      getProducts();
+    }
+    if (!isQuery) getProducts();
     console.log("from get products using id: ", page);
   }, [idFromUrl]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      setPage((prevPage) => 1);
+      setProducts([]);
+      setTotalProducts();
+      setPageCount();
+      setpageSize(0);
+
+      try {
+        const data = await fetchVendorCatsProducts(idFromUrl, "1", maxPageSize);
+        setProducts(data.data);
+        setTotalProducts(data.meta.pagination.total);
+        setPageCount(data.meta.pagination.pageCount);
+        setpageSize((prevPageSize) => prevPageSize + data.data.length);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (allUnselected === "true") getProducts();
+  }, [allUnselected]);
 
   // load more products
   useEffect(() => {
@@ -130,7 +184,7 @@ export default function ProductCollection() {
       {!searchText && <Breadcrumbs />}
       <div className="product-collection-page">
         <div className="product-filter-container">
-          <ProductFilter />
+          <ProductFilter updateCollection={updateProducts} />
         </div>
         <div>
           <div className="product-list-container">
@@ -154,11 +208,13 @@ export default function ProductCollection() {
             </ul>
           </div>
           <div className="product-pagination-container">
-            <Pagination
-              newPage={updatePage}
-              currentNum={pageSize}
-              totalNum={totalProducts}
-            />
+            {allUnselected !== "false" && (
+              <Pagination
+                newPage={updatePage}
+                currentNum={pageSize}
+                totalNum={totalProducts}
+              />
+            )}
           </div>
         </div>
       </div>
