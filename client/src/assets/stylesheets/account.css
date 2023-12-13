@@ -1,9 +1,226 @@
+/* Personal details */
+.personaldetails {
+  background-color: white;
+  width: 50%;
+  margin: 50px auto;
+  padding: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 5px;
+  box-shadow: 12px 12px 4px -4px rgba(0, 0, 0, 0.3);
+}
+
+.personaldetails h2 {
+  text-align: left;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.inputPersonal {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.inputPersonal label {
+  font-size: 18px;
+}
+
+.inputPersonal, .buttonPersonal {
+  width: 100%;
+  padding: 15px 15px 15px 10px;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  border-style: double;
+}
+
+.inputPersonal:hover,
+.inputPersonal:focus {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+.buttonPersonal {
+  background-color: var(--primary500);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+}
+
+.buttonPersonal:hover {
+  background-color: var(--primary600);
+}
+
+/* Responsive layout */
+/*@media (max-width: 600px) {
+  .personaldetails {
+    width: 90%;
+  }
+}*/
+
+/* myOrders*/
+.my-orders-container {
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.order-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 12px 12px 4px -4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-right: 350px;
+  position: relative;
+  margin: 30px 35px 50px 55px;
+  width: 53%;
+  background-color: var(--backgroundDark);
+}
+
+.my-orders-container h1 {
+  font-weight: lighter;
+  font-size: 28px;
+  letter-spacing: .5px;
+  margin-bottom: 20px;
+  padding-left: 55px;
+  margin-top: 30px;
+}
+
+.order-card h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.order-card p {
+  margin: 5px 0;
+  font-size: larger;
+}
+
+.showButton {
+  background-color: #ed8453;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.showButton:hover {
+  background-color: #ff0000;
+}
+
+.ordered-items-window {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 10px);;
+  width: 300px; /* Set the width as needed */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-right: 350px;
+  border-radius: 8px;
+  box-shadow: 12px 12px 4px -4px rgba(0, 0, 0, 0.3);
+  background-color: var(--primary300);
+
+}
+
+.ordered-items-window ul {
+  margin: 30px 35px 50px 20px;
+  list-style:square;
+  gap: 30px;
+}
+
+.ordered-items-window,
+.ordered-items-window:hover {
+  display: block;
+}
+
+/*Adding Reviews*/
+.review-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 6px 5px -2px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.review-modal h2 {
+  margin-bottom: 10px;
+}
+
+.review-modal label {
+  display: block;
+  margin-top: 10px;
+}
+
+.review-modal input,
+.review-modal textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.review-modal button {
+  background-color: #ed8453;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.review-modal button:hover {
+  background-color: #ff0000;
+}
+
+/*Reviews Page*/
+
+.reviews-container {
+  padding: 20px;
+}
+
+.review-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.review-box h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.review-box p {
+  margin: 8px 0;
+}
+
 /* account navbar */
 /* sidebar */
 
 
 
-.account-placeholder-text {
+/*.account-placeholder-text {
   text-align: center;
   color: darkcyan;
   padding-top: 20px;
@@ -11,7 +228,7 @@
 
 /*accountnav*/
 
-.menu-bars {
+/*.menu-bars {
   margin-left: 2rem;
   font-size: 2rem;
   background: none;
@@ -73,38 +290,11 @@
 
 span {
   margin-left: 10px;
-}
-
-/*personal details*/
-.personaldetails {
-  background-color: #e9f1ee;
-  width: 500px;
-  padding: 25px;
-  margin: 25px auto 0;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
-}
-
-.personaldetails h1 {
-  background-color: rgb(236, 240, 229);
-  color: rgb(14, 14, 14);
-  font-size: 24px;
-  padding: 10px;
-  margin-bottom: 20px;
-  text-align: center;
-  border: 1px dotted #333;
-}
-
-.input {
-  margin-bottom: 8px;
-  width: 100%;
-  position: relative;
-  flex-direction: row;
-  padding: 5px 0;
-}
+}*/
 
 /*payment details*/
 
-.main-content{
+/*.main-content{
   position: relative;
   min-height: 100vh;
   top: 0;
@@ -137,4 +327,4 @@ span {
     position: relative;
     flex-direction: row;
     padding: 5px 0;
-}
+}*/

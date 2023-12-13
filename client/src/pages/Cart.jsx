@@ -18,9 +18,9 @@ export default function CartPage() {
   // bill stuff
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [taxFee, setTaxFee] = useState(0);
-  const [discount, setDiscount] = useState(0);
+  //const [deliveryFee, setDeliveryFee] = useState(0);
+  //const [taxFee, setTaxFee] = useState(0);
+  //const [discount, setDiscount] = useState(0);
   const [checkoutLink, setCheckoutLink] = useState();
 
   const [note, setNote] = useState();
@@ -31,7 +31,7 @@ export default function CartPage() {
     console.log(cartItems);
     // subTotal
     var calculatedSubTotal = 0;
-    var calculatedTaxFee = 0;
+    //var calculatedTaxFee = 0;
     cartItems.forEach((item) => {
       calculatedSubTotal +=
         item.attributes.quantity *
@@ -43,15 +43,15 @@ export default function CartPage() {
     });
 
     setSubTotal(calculatedSubTotal.toFixed(2));
-    setTaxFee(calculatedTaxFee.toFixed(2));
+    //setTaxFee(calculatedTaxFee.toFixed(2));
 
     // delivery fee
-    var calculatedDeliveryFee = 0.0;
-    setDeliveryFee(calculatedDeliveryFee.toFixed(2));
+   // var calculatedDeliveryFee = 0.0;
+  //setDeliveryFee(calculatedDeliveryFee.toFixed(2));
 
     // temp
-    var calculatedDiscount = 0.0;
-    setDiscount(calculatedDiscount.toFixed(2));
+   // var calculatedDiscount = 0.0;
+   // setDiscount(calculatedDiscount.toFixed(2));
 
     // total amount
     var calculatedTotal = 0;
@@ -209,12 +209,12 @@ export default function CartPage() {
               <span>30 minutes</span>
           </div>*/}
 
-            <div className="bill_item">
+            {/* <div className="bill_item">
               <span>SubTotal</span>
               <span>{subTotal}</span>
             </div>
 
-            <div className="bill_item">
+           <div className="bill_item">
               <span>Delivery Fees</span>
               <span>{deliveryFee}</span>
             </div>
@@ -227,7 +227,7 @@ export default function CartPage() {
             <div className="bill_item" style={{ color: "#ed8453" }}>
               <span>Product Discount</span>
               <span>{discount}</span>
-            </div>
+            </div>*/}
 
             <div className="bill_item total">
               <span>Total Amount</span>
