@@ -127,7 +127,7 @@ export default function CartPage() {
       const data = await createOrder(userToken, order);
       console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
       //setCheckoutLink(data.data.attributes.checkoutLink);
-      window.location.assign(data.data.attributes.checkoutLink);
+      //window.location.assign(data.data.attributes.checkoutLink);
 
       // redirect to stripe page
       console.log("redirect to stripe using checkout link");
