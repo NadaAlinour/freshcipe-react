@@ -68,6 +68,9 @@
       "relation": "manyToMany",
       "target": "api::sub-tag.sub-tag",
       "mappedBy": "products"
+    },
+    "times_sold": {
+      "type": "biginteger"
     }
   }
 }

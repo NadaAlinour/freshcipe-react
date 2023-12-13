@@ -120,6 +120,14 @@ export async function fetchAllProducts(page, pageSize) {
   return response.data;
 }
 
+// get top 5 bestsellers
+export async function fetchBestsellers() {
+  const response = await axios.get(
+    `http://localhost:1337/api/products?sort=times_sold:desc&populate[0]=image&pagination[page]=1&pagination[pageSize]=5`
+  );
+  return response.data;
+}
+
 // get product in productDetails page
 export async function fetchProduct(productId) {
   const response = await axios.get(
@@ -249,10 +257,52 @@ export async function deleteCartItem(cartId, itemId, token) {
 // create order
 export async function createOrder(token, order) {
   console.log("order from http.js", order);
+
   const response = await axios.post(`${BASE_URL}/orders`, order, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
   });
+
+  // update product count
+  for (let i = 0; i < order.data.items.length; i++) {
+    console.log(order.data.items[i]);
+
+    let productId = order.data.items[i].product;
+    let count = order.data.items[i].quantity;
+    let oldCount;
+
+    // get old count of product
+    let response2 = await axios.get(`${BASE_URL}/products/${productId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("PRODUCT DATA: ", response2.data);
+
+    console.log("TIMES SOLD: ", response2.data.data.attributes.times_sold);
+    if (response2.data.data.attributes.times_sold) {
+      oldCount = parseInt(response2.data.data.attributes.times_sold);
+    } else oldCount = 0;
+
+    console.log("FIRST OLDCOUT: ", oldCount);
+    console.log("quantity: ", count);
+    oldCount += parseInt(count);
+
+    console.log("NEW OLDCOUNT: ", oldCount);
+
+    // update count of product
+    let data = {
+      data: {
+        times_sold: oldCount,
+      },
+    };
+    console.log("DATA TO UPDATE: ", data);
+    let response3 = await axios.put(`${BASE_URL}/products/${productId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   return response.data;
 }
 
@@ -343,15 +393,13 @@ export async function filterProducts(ids) {
   console.log("IDS FROM HTTP: ", ids);
 
   let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image`;
-  for(let i = 0; i < ids.length; i++) {
+  for (let i = 0; i < ids.length; i++) {
     newUrl += `&filters[id][$in][${i}]=${ids[i]}`;
   }
 
   console.log("CONSTRUCTED URL FROM HTTP: ", newUrl);
 
-  const response = await axios.get(
-    newUrl
-  );
+  const response = await axios.get(newUrl);
 
   return response.data;
 }

@@ -2,12 +2,21 @@ import MainCarousel from "../components/MainCarousel";
 import Carousel from "../components/Carousel";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 import "boxicons";
-import { fetchVendor, fetchRecipes, fetchAllProducts } from "../utils/http";
+import {
+  fetchVendor,
+  fetchRecipes,
+  fetchAllProducts,
+  fetchBestsellers,
+} from "../utils/http";
 import RecipeCard from "../components/RecipeCard";
 import ProductCard from "../components/ProductCard";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const { userToken, userId, cartId } = useSelector((state) => state.auth);
+
   /*const [vendors, setVendors] = useState([]);*/
   const [isCatsLoading, setIsCatsLoading] = useState(true);
   const [cats, setCats] = useState();
@@ -63,13 +72,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-
     const getProducts = async () => {
       try {
-        const data = await fetchAllProducts(6, 5);
+        const data = await fetchBestsellers();
         console.log(data.data);
         setProducts(data.data);
-        setIsProductsLoading(false);
+        setIsProductsLoading(false);     
       } catch (error) {
         console.log(error);
       }
@@ -92,7 +100,7 @@ export default function Home() {
           <box-icon name="chevron-right" size="30px" color="#ce6332" />
         </div>
       </div>
-     {/* <div className="home-deals-section">
+      {/* <div className="home-deals-section">
         <div className="home-deal-card">deal 1</div>
         <div className="home-deal-card">deal 2</div>
       </div>
@@ -129,7 +137,7 @@ export default function Home() {
 
       <div className="home-products-section">
         <div className="home-section-header">
-          <h2>Our products</h2>
+          <h2>Our bestsellers</h2>
         </div>
         <ul className="home-products-list">
           {!isProductsLoading &&
