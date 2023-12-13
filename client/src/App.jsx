@@ -22,17 +22,20 @@ function App() {
   const savedUsername = localStorage.getItem("username");
   const savedCartId = localStorage.getItem("cartId");
   const savedFavouritesId = localStorage.getItem("favouritesId");
-  if (savedToken) {
-    dispatch(
-      loginUser({
-        token: savedToken,
-        userId: savedUserId,
-        username: savedUsername,
-        cartId: savedCartId,
-        favouritesId: savedFavouritesId,
-      })
-    );
-  }
+  useEffect(() => {
+    if (savedToken) {
+      dispatch(
+        loginUser({
+          token: savedToken,
+          userId: savedUserId,
+          username: savedUsername,
+          cartId: savedCartId,
+          favouritesId: savedFavouritesId,
+        })
+      );
+    }
+  }, []);
+  
 
   useEffect(() => {
     const fetchCartWithItems = async () => {

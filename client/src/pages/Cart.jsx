@@ -39,7 +39,7 @@ export default function CartPage() {
       /*calculatedTaxFee +=
         item.attributes.product.data.attributes.price *
         0.14 **/
-        item.attributes.quantity;
+      item.attributes.quantity;
     });
 
     setSubTotal(calculatedSubTotal.toFixed(2));
@@ -60,7 +60,7 @@ export default function CartPage() {
       calculatedDeliveryFee +
       calculatedTaxFee -
       calculatedDiscount;*/
-      calculatedTotal += calculatedSubTotal;
+    calculatedTotal += calculatedSubTotal;
     setTotal(calculatedTotal.toFixed(2));
   }, [cartItems]);
 
@@ -99,12 +99,23 @@ export default function CartPage() {
 
     console.log("my itemsssss", items);
 
+    let start;
+    let end;
+
+    if (startTime) {
+      start = `${startTime}:00`;
+    } else start = null;
+
+    if (endTime) {
+      end = `${endTime}:00`;
+    } else end = null;
+
     const order = {
       data: {
         vendor: 25,
         customer: parseInt(userId),
-        desiredFrom: `${startTime}:00`,
-        desiredTo: `${endTime}:00`,
+        desiredFrom: start,
+        desiredTo: end,
         items: items,
         note: note,
       },
@@ -116,7 +127,7 @@ export default function CartPage() {
       const data = await createOrder(userToken, order);
       console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
       //setCheckoutLink(data.data.attributes.checkoutLink);
-      window.location.assign(data.data.attributes.checkoutLink);
+      //window.location.assign(data.data.attributes.checkoutLink);
 
       // redirect to stripe page
       console.log("redirect to stripe using checkout link");
@@ -186,7 +197,7 @@ export default function CartPage() {
           ) : (
             <div className="empty-cart-placeholder">
               <img
-                src={TestCart}
+                src={EmptyCartImage}
                 style={{ width: "330px", marginBottom: "15px" }}
               ></img>
               <p className="empty-cart-text">Your cart is currently empty.</p>
@@ -251,15 +262,21 @@ export default function CartPage() {
           </div>
 
           <div className="cart-delivery-window-container">
-          <h2>Delivery Window</h2>
+            <h2>Delivery Window</h2>
             <div className="cart-delivery-window">
-              <input type="time" className="form-input"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}></input>
-              <h2 style={{fontSize:'21px'}}>to</h2>
-              <input type="time" className="form-input"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}></input>
+              <input
+                type="time"
+                className="form-input"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              ></input>
+              <h2 style={{ fontSize: "21px" }}>to</h2>
+              <input
+                type="time"
+                className="form-input"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              ></input>
             </div>
           </div>
 

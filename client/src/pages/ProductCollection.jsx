@@ -7,7 +7,7 @@ import {
   fetchVendorCatsProducts,
   fetchAllProducts,
   searchProducts,
-  filterProducts
+  filterProducts,
 } from "../utils/http";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -16,32 +16,22 @@ export default function ProductCollection() {
   const location = useLocation();
 
   const { userToken, userId } = useSelector((state) => state.auth);
-  //console.log('user token is: ', userToken)
-  //console.log('user id is: ', userId)
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [path, setPath] = useState();
+  const [allUnselected, setAllUnselected] = useState(null);
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
   // check if search query
   //console.log(pathArray);
 
-  const isQuery = pathArray.includes("search");
-  console.log(isQuery);
+  let isQuery = pathArray.includes("search");
+  let tempSearchText;
+  //console.log(isQuery);
 
 
-  // idk how to make this re-render
-  // maybe a list of selected filters as state?
-  // but this is a productFilter kind thang
-  useEffect(() => {
-    if (isQuery) {
-      setSearchText(searchParams.get("query"));
-      console.log("hi ", searchText);
-      console.log('sisdfsad', searchText);
-    }
-  }, [path]);
 
   const idFromUrl = pathArray[pathArray.length - 2];
 
@@ -61,23 +51,73 @@ export default function ProductCollection() {
   };
 
 
-  // this is not re-rending when the query changes help meeee
-   /*useEffect(() => {
-    const getSearchedProducts = async () => {
+
+  useEffect(() => {
+    const getSearchedProducts = async (searchText) => {
       try {
-        const data = await filterProducts(searchText);
-        console.log('response ', data.data[0].attributes.products.data);
-        setProducts(data.data[0].attributes.products.data);
+        const data = await searchProducts(searchText);
+        console.log("search response: ", data);
+        setProducts(data.data);
+        //setProducts(data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    getSearchedProducts();
-    console.log("are we even doing this")
-  }, [searchText]);*/
 
- 
+    //isQuery = pathArray.includes("search");
+    //console.log(isQuery);
+
+    if (isQuery) {
+      console.log('WE ARE IN LESGO QUERY');
+      setSearchText(searchParams.get("query"));
+      tempSearchText = searchParams.get('query');
+      console.log("search text: ", searchParams.get('query'));
+      setSearchText(searchParams.get('query'));
+      getSearchedProducts(tempSearchText);
+    }
+  }, [isQuery, searchParams.get('query')]);
+
+  useEffect(() => {
+    console.log('PRODUTCS EYO: ', products);
+    console.log(isLoading)
+  }, [products]);
+
+  const updateProductsByPrice = () => {
+    console.log("do nothing");
+  }
+
+  const updateProducts = async (selectedFilters) => {
+    console.log(
+      "temp but update products in ProductCollection from ProductFilter"
+    );
+    console.log("SELECTEDFILTERS FROM PRODUCT COLLECTION: ", selectedFilters);
+
+    if (selectedFilters.length > 0) {
+      setAllUnselected("false");
+      try {
+        const data = await filterProducts(selectedFilters);
+        console.log("EHY THE FUCK AM I BEING CALLED")
+        console.log(data);
+        let filteredProducts = [];
+        for (let i = 0; i < data.data.length; i++) {
+          console.log("filtered products loop, ", filteredProducts);
+          filteredProducts = [
+            ...filteredProducts,
+            ...data.data[i].attributes.products.data,
+          ];
+        }
+        console.log("FILTERED PRODUCTS ", filteredProducts);
+        setProducts(filteredProducts);
+
+        // bit of a eeeeeeh
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setAllUnselected("true");
+    }
+  };
 
   // separate get products and load more products
   useEffect(() => {
@@ -99,9 +139,37 @@ export default function ProductCollection() {
         console.log(error);
       }
     };
-    if(!isQuery) getProducts();
-    console.log("from get products using id: ", page);
+    if (allUnselected === "true") {
+      getProducts();
+    }
+
+    let isQuery = pathArray.includes("search"); 
+    if (!isQuery) getProducts();
+    //console.log("from get products using id: ", page);
   }, [idFromUrl]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      setPage((prevPage) => 1);
+      setProducts([]);
+      setTotalProducts();
+      setPageCount();
+      setpageSize(0);
+
+      try {
+        const data = await fetchVendorCatsProducts(idFromUrl, "1", maxPageSize);
+        setProducts(data.data);
+        setTotalProducts(data.meta.pagination.total);
+        setPageCount(data.meta.pagination.pageCount);
+        setpageSize((prevPageSize) => prevPageSize + data.data.length);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (allUnselected === "true") getProducts();
+  }, [allUnselected]);
 
   // load more products
   useEffect(() => {
@@ -122,7 +190,7 @@ export default function ProductCollection() {
       }
     };
     if (page > 1) loadMoreProducts();
-    console.log("from load more: ", page);
+    //console.log("from load more: ", page);
   }, [page]);
 
   return (
@@ -130,7 +198,10 @@ export default function ProductCollection() {
       {!searchText && <Breadcrumbs />}
       <div className="product-collection-page">
         <div className="product-filter-container">
-          <ProductFilter />
+          <ProductFilter
+            updateCollection={updateProducts}
+            updateByPrice={updateProductsByPrice}
+          />
         </div>
         <div>
           <div className="product-list-container">
@@ -154,11 +225,13 @@ export default function ProductCollection() {
             </ul>
           </div>
           <div className="product-pagination-container">
-            <Pagination
-              newPage={updatePage}
-              currentNum={pageSize}
-              totalNum={totalProducts}
-            />
+            {allUnselected !== "false" && (
+              <Pagination
+                newPage={updatePage}
+                currentNum={pageSize}
+                totalNum={totalProducts}
+              />
+            )}
           </div>
         </div>
       </div>

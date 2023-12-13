@@ -120,6 +120,14 @@ export async function fetchAllProducts(page, pageSize) {
   return response.data;
 }
 
+// get top 5 bestsellers
+export async function fetchBestsellers() {
+  const response = await axios.get(
+    `http://localhost:1337/api/products?sort=times_sold:desc&populate[0]=image&pagination[page]=1&pagination[pageSize]=5`
+  );
+  return response.data;
+}
+
 // get product in productDetails page
 export async function fetchProduct(productId) {
   const response = await axios.get(
@@ -131,7 +139,9 @@ export async function fetchProduct(productId) {
 
 // get recipe tags
 export async function fetchRecipeTags() {
-  const response = await axios.get("http://localhost:1337/api/recipe-tags?populate[0]=recipes");
+  const response = await axios.get(
+    "http://localhost:1337/api/recipe-tags?populate[0]=recipes"
+  );
   return response.data;
 }
 
@@ -246,12 +256,85 @@ export async function deleteCartItem(cartId, itemId, token) {
 
 // create order
 export async function createOrder(token, order) {
-  console.log("order from http.js", order)
+  console.log("order from http.js", order);
+
   const response = await axios.post(`${BASE_URL}/orders`, order, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
   });
+
+  // update product count
+  /* for (let i = 0; i < order.data.items.length; i++) {
+    console.log(order.data.items[i]);
+
+    let productId = order.data.items[i].product;
+    let count = order.data.items[i].quantity;
+    let oldCount;
+
+    // get old count of product
+    let response2 = await axios.get(`${BASE_URL}/products/${productId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response2.data.data.attributes.times_sold) {
+      oldCount = parseInt(response2.data.data.attributes.times_sold);
+    } else oldCount = 0;
+
+    oldCount += parseInt(count);
+
+
+    // update count of product
+    let data = {
+      data: {
+        times_sold: oldCount,
+      },
+    };
+    let response3 = await axios.put(`${BASE_URL}/products/${productId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }*/
+
+  // no await so it doesn't seem slow?
+  updateTimesSold(order, token);
+
   return response.data;
+}
+
+async function updateTimesSold(order, token) {
+  for (let i = 0; i < order.data.items.length; i++) {
+    console.log(order.data.items[i]);
+
+    let productId = order.data.items[i].product;
+    let count = order.data.items[i].quantity;
+    let oldCount;
+
+    // get old count of product
+    let response2 = await axios.get(`${BASE_URL}/products/${productId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response2.data.data.attributes.times_sold) {
+      oldCount = parseInt(response2.data.data.attributes.times_sold);
+    } else oldCount = 0;
+
+    oldCount += parseInt(count);
+
+    // update count of product
+    let data = {
+      data: {
+        times_sold: oldCount,
+      },
+    };
+    let response3 = axios.put(`${BASE_URL}/products/${productId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
 
 /*export async function deleteAllCartItems(cartId, token) {
@@ -326,17 +409,28 @@ export async function fetchUser(token, userId) {
 }
 
 // search
+//sort=title:asc
 export async function searchProducts(searchText, page, pageSize) {
+  //console.log('FROM HTTPS SEARCHTEXT IS: ', searchText)
   const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[title][$containsi]=${searchText}`
+    `${BASE_URL}/products?populate[0]=image&filters[title][$containsi]=${searchText}`
   );
+  //console.log('FROM HTTPS: ', response.data);
   return response.data;
 }
 
 // get products by subtag (concatenate later)
-export async function filterProducts(searchText) {
-  const response = await axios.get(
-    `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image&filters[title][$containsi]=${searchText}`
-  );
+export async function filterProducts(ids) {
+  console.log("IDS FROM HTTP: ", ids);
+
+  let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image`;
+  for (let i = 0; i < ids.length; i++) {
+    newUrl += `&filters[id][$in][${i}]=${ids[i]}`;
+  }
+
+  console.log("CONSTRUCTED URL FROM HTTP: ", newUrl);
+
+  const response = await axios.get(newUrl);
+
   return response.data;
 }
