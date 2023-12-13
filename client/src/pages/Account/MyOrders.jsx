@@ -7,13 +7,13 @@ import ReviewModal from '../../components/ReviewModal.jsx';
 function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [showOrderedItems, setShowOrderedItems] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewedOrders, setReviewedOrders] = useState([]);
-  const [reviewAttempted, setReviewAttempted] = useState(false);
   const { userToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    axios
+    axios //change the userid in this url to your user id
       .get('http://localhost:1337/api/orders?populate[0]=order_items&populate[1]=order_items.product&filters[customer][id][$eq]=33', {
         headers: {
           Authorization: `Bearer ${userToken}`,
@@ -30,21 +30,21 @@ function MyOrders() {
 
   const handleShowItems = (order) => {
     setSelectedOrder(order);
+    setShowOrderedItems(true);
   };
 
   const handleCloseItems = () => {
+    setShowOrderedItems(false);
     setSelectedOrder(null);
   };
 
   const handleShowReviewModal = (order) => {
     if (!reviewedOrders.includes(order.id)) {
       setSelectedOrder(order);
-      setReviewAttempted(false);
+      setShowOrderedItems(false);
       setShowReviewModal(true);
     } else {
       console.log('Review already submitted for this order.');
-      setReviewAttempted(true);
-      setSelectedOrder(order);
       setShowReviewModal(false);
     }
   };
@@ -59,10 +59,10 @@ function MyOrders() {
       console.error('Selected order is null or does not have an id.');
       return;
     }
-    
+
     try {
       await axios.post(
-        `http://localhost:1337/api/ratings/reviews/vendor:${selectedOrder.vendorId}`,
+        `http://localhost:1337/api/ratings/reviews/orders:${selectedOrder.id}`,
         {
           score: Number(score),
           comment,
@@ -79,7 +79,7 @@ function MyOrders() {
       setReviewedOrders([...reviewedOrders, selectedOrder.id]);
       localStorage.setItem('reviewedOrders', JSON.stringify([...reviewedOrders, selectedOrder.id]));
 
-      handleCloseReviewModal();
+      handleCloseItems();
     } catch (error) {
       console.error('Error saving review:', error);
     }
@@ -98,13 +98,7 @@ function MyOrders() {
 
           <button className='showButton' onClick={() => handleShowItems(order)}>Show Ordered Items</button>
 
-          <button className='showButton' onClick={() => handleShowReviewModal(order)}>Add Review</button>
-          
-          {reviewAttempted && selectedOrder && selectedOrder.id === order.id && (
-            <p className="error-message">Review already submitted for this order.</p>
-          )}
-
-          {selectedOrder && selectedOrder.id === order.id && (
+          {selectedOrder && selectedOrder.id === order.id && showOrderedItems && (
             <div className="ordered-items-window">
               <h2>Ordered Items for Order ID: {selectedOrder.id}</h2>
               <ul>
@@ -117,15 +111,21 @@ function MyOrders() {
               <button className='showButton' onClick={handleCloseItems}>Close</button>
             </div>
           )}
+
+          <button className='showButton' onClick={() => handleShowReviewModal(order)}>Add Review</button>
+
+          {showReviewModal && selectedOrder && selectedOrder.id === order.id && (
+            <ReviewModal
+              onClose={handleCloseReviewModal}
+              onSave={(score, comment) => handleSaveReview(score, comment)}
+            />
+          )}
+
+          {showReviewModal && reviewedOrders.includes(order.id) && (
+            <p className="error-message">Review already submitted for this order.</p>
+          )}
         </div>
       ))}
-
-{showReviewModal && selectedOrder && (
-  <ReviewModal
-    onClose={handleCloseReviewModal}
-    onSave={(score, comment) => handleSaveReview(score, comment)}
-  />
-)}
     </div>
   );
 }

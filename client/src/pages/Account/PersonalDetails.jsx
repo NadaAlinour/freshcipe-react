@@ -14,6 +14,7 @@ function PersonalDetails() {
   });
 
   useEffect(() => {
+    //change the userid in this url to your user id
     axios.get('http://localhost:1337/api/users/33', {
       headers: {
         Authorization: `Bearer ${userToken}`,
