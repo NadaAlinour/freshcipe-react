@@ -263,40 +263,6 @@ export async function createOrder(token, order) {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  // update product count
-  /* for (let i = 0; i < order.data.items.length; i++) {
-    console.log(order.data.items[i]);
-
-    let productId = order.data.items[i].product;
-    let count = order.data.items[i].quantity;
-    let oldCount;
-
-    // get old count of product
-    let response2 = await axios.get(`${BASE_URL}/products/${productId}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (response2.data.data.attributes.times_sold) {
-      oldCount = parseInt(response2.data.data.attributes.times_sold);
-    } else oldCount = 0;
-
-    oldCount += parseInt(count);
-
-
-    // update count of product
-    let data = {
-      data: {
-        times_sold: oldCount,
-      },
-    };
-    let response3 = await axios.put(`${BASE_URL}/products/${productId}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  }*/
-
   // no await so it doesn't seem slow?
   updateTimesSold(order, token);
 
