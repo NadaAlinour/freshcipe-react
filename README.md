@@ -10,6 +10,7 @@ To run the client:
 To run the server:
 - npm install
 - npm run develop
+(currently server is remote so no need to run strapi-server)
 
 
 ## Temporary Preview
