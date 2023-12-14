@@ -77,7 +77,23 @@ export default function Home() {
         const data = await fetchBestsellers();
         console.log(data.data);
         setProducts(data.data);
-        setIsProductsLoading(false);     
+        setIsProductsLoading(false);  
+        /*const data = await fetchAllProducts(1, 100);
+        for (let i = 0; i < data.data.length; i++) {
+          // update each product lol
+          let productId = data.data[i].id;
+          let data2 = {
+            data: {
+              times_sold: 0
+            }
+          }
+          let response3 = axios.put(`https://shop-ykb6.onrender.com/api/products/${productId}`, data2, {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          });
+        }*/
+        console.log(data);  
       } catch (error) {
         console.log(error);
       }

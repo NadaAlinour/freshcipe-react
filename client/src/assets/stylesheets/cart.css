@@ -69,7 +69,7 @@
   /* border: 1px solid white;*/
   background-color: var(--backgroundLight);
 
-  min-height: 250px;
+  min-height: 185px;
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -83,12 +83,11 @@
 
 .bill_item.total {
   font-weight: bold;
-  font-size: xx-large;
   color: #ed8453;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-top: 15px;
-  /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .suggested_products {
