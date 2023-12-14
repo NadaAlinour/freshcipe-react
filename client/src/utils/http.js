@@ -1,12 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:1337/api";
+//const BASE_URL = "http://localhost:1337/api";
+const BASE_URL = "https://shop-ykb6.onrender.com/api";
 
 // signup
 export async function signup(userData) {
   console.log(userData);
   const response = await axios.post(
-    "http://localhost:1337/api/auth/local/register",
+    `${BASE_URL}/auth/local/register`,
     userData
   );
   return response.data;
@@ -15,7 +16,7 @@ export async function signup(userData) {
 // login
 export async function login(userData) {
   const response = await axios.post(
-    "http://localhost:1337/api/auth/local",
+    `${BASE_URL}/auth/local`,
     userData
   );
   return response.data;
@@ -26,7 +27,7 @@ export async function fetchUserInfo(user, token) {
   console.log(user);
   console.log(token);
   const response = await axios.get(
-    "http://localhost:1337/api/users/me?populate[0]=cart",
+    `${BASE_URL}/users/me?populate[0]=cart`,
     user,
     {
       method: "GET",
@@ -45,7 +46,7 @@ export async function contact(formData) {
   };
   console.log(data);
   const response = await axios.post(
-    "http://localhost:1337/api/contact-forms",
+    `${BASE_URL}/contact-forms`,
     data
   );
   return response.data;
@@ -57,7 +58,7 @@ export async function sendPasswordResetLink(formData) {
     email: formData,
   };
   const response = await axios.post(
-    "http://localhost:1337/api/auth/forgot-password",
+    `${BASE_URL}/auth/forgot-password`,
     data
   );
   return response.data;
@@ -71,7 +72,7 @@ export async function sendPasswordResetLink(formData) {
 }*/
 export async function resetPassword(formData) {
   const response = await axios.post(
-    "http://localhost:1337/api/auth/reset-password",
+    `${BASE_URL}/auth/reset-password`,
     formData
   );
   return response.data;
@@ -80,7 +81,7 @@ export async function resetPassword(formData) {
 // get vendors
 export async function fetchVendor() {
   const response = await axios.get(
-    "http://localhost:1337/api/users?populate[0]=role&populate[1]=image&populate[2]=tags&populate[3]=tags.image&populate[4]=tags.products&filters[role][name][$containsi]=vendor"
+    `${BASE_URL}/users?populate[0]=role&populate[1]=image&populate[2]=tags&populate[3]=tags.image&populate[4]=tags.products&filters[role][name][$containsi]=vendor`
   );
   return response.data;
 }
@@ -88,7 +89,7 @@ export async function fetchVendor() {
 // get cats subcats
 export async function fetchSubCats(catId) {
   const response = await axios.get(
-    "http://localhost:1337/api/sub-tags?filters[tag][id][$eq]=" + catId
+    `${BASE_URL}/sub-tags?filters[tag][id][$eq]=` + catId
   );
   return response.data;
 }
@@ -105,7 +106,7 @@ export async function fetchSubCats(catId) {
 // get products by category by vendor
 export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
   const response = await axios.get(
-    `http://localhost:1337/api/products?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
+    `${BASE_URL}/products?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
       categoryId
   );
   console.log("page from http req: ", page);
@@ -115,7 +116,7 @@ export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
 // get all products
 export async function fetchAllProducts(page, pageSize) {
   const response = await axios.get(
-    `http://localhost:1337/api/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+    `${BASE_URL}/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   );
   return response.data;
 }
@@ -123,7 +124,7 @@ export async function fetchAllProducts(page, pageSize) {
 // get top 5 bestsellers
 export async function fetchBestsellers() {
   const response = await axios.get(
-    `http://localhost:1337/api/products?sort=times_sold:desc&populate[0]=image&pagination[page]=1&pagination[pageSize]=5`
+    `${BASE_URL}/products?sort=times_sold:desc&populate[0]=image&pagination[page]=1&pagination[pageSize]=5`
   );
   return response.data;
 }
@@ -131,8 +132,7 @@ export async function fetchBestsellers() {
 // get product in productDetails page
 export async function fetchProduct(productId) {
   const response = await axios.get(
-    "http://localhost:1337/api/products?populate[0]=image&filters[id][$eq]=" +
-      productId
+    `${BASE_URL}/products?populate[0]=image&filters[id][$eq]=${productId}`
   );
   return response.data;
 }
@@ -140,7 +140,7 @@ export async function fetchProduct(productId) {
 // get recipe tags
 export async function fetchRecipeTags() {
   const response = await axios.get(
-    "http://localhost:1337/api/recipe-tags?populate[0]=recipes"
+    `${BASE_URL}/recipe-tags?populate[0]=recipes`
   );
   return response.data;
 }
@@ -148,7 +148,7 @@ export async function fetchRecipeTags() {
 // get recipes
 export async function fetchRecipes(page, pageSize) {
   const response = await axios.get(
-    `http://localhost:1337/api/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   );
   return response.data;
 }
@@ -157,7 +157,7 @@ export async function fetchRecipes(page, pageSize) {
 export async function fetchRecipesByTag(tagId, page, pageSize) {
   console.log("PAGE FROM HTTP.JS: ", page);
   const response = await axios.get(
-    `http://localhost:1337/api/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
+    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
   );
   return response.data;
 }
@@ -165,8 +165,7 @@ export async function fetchRecipesByTag(tagId, page, pageSize) {
 // get recipe by id
 export async function fetchRecipe(recipeId) {
   const response = await axios.get(
-    "http://localhost:1337/api/recipes?populate[0]=image&filters[id][$eq]=" +
-      recipeId
+    `${BASE_URL}/recipes?populate[0]=image&filters[id][$eq]=${recipeId}`
   );
   return response.data;
 }
