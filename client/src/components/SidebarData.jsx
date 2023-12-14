@@ -18,45 +18,9 @@ export const SidebarData = [
         className: 'nav-text'
     },
     {
-        title: 'Delivery Addresses',
-        path: '/deliveryAddresses',
-        icon: <IconScooter />,
-        className: 'nav-text'
-    },
-    {
         title: 'Payment Details',
         path: '/paymentDetails',
         icon: <IconWallet />,
-        className: 'nav-text'
-    },
-    {
-        title: 'My Orders',
-        path: '/myOrders',
-        icon: <IconChecklist />,
-        className: 'nav-text'
-    },
-    {
-        title: 'Subscriptions',
-        path: '/subscriptions',
-        icon: <IconArrowBearRight />,
-        className: 'nav-text'
-    },
-    {
-        title: 'Reviews',
-        path: '/reviews',
-        icon: <IconSticker />,
-        className: 'nav-text'
-    },
-    {
-        title: 'Settings',
-        path: '/settings',
-        icon: <IconSettings />,
-        className: 'nav-text'
-    },
-    {
-        title: 'Log Out',
-        path: '/login',
-        icon: <IconDoorExit />,
         className: 'nav-text'
     },
 ]
