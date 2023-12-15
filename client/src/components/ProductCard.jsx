@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateCart, updateQuantity } from "../store/cartSlice";
 import { useState } from "react";
 
-export default function ProductCard({ id, imageUrl, title, price, quantity }) {
+export default function ProductCard({ id, imageUrl, title, price, quantity, color }) {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
@@ -69,10 +69,10 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
   };
 
   return (
-    <div className="product-card-container">
+    <div className="product-card-container" style={color && {backgroundColor:'#f4e7da', boxShadow:'none'}}>
    
       <div
-        className="product-card-image-container"
+        className="product-card-image-container" style={color && {backgroundColor:'#f4e7da'}}
         onClick={handleClick.bind(this, id, title)}
       >
         <img src={imageUrl} />
@@ -88,7 +88,7 @@ export default function ProductCard({ id, imageUrl, title, price, quantity }) {
           <p className="product-card-quantity">{quantity}</p>
         </div>
       </div>
-      <div className="product-card-title-add-container">
+      <div className="product-card-title-add-container" style={color && {backgroundColor:'#f4e7da', border:'none'}}>
         <h3 onClick={handleClick.bind(this, id, title)}>{title}</h3>
         <div
           className={isAddEnabled ? "product-card-add-icon-container" : "product-card-add-icon-container product-card-add-icon-container-disabled"}

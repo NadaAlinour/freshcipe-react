@@ -29,12 +29,12 @@ export default function Searchbar() {
     navigate(`products/search?query=${searchText}`);
   };
 
-  /*const handleEnter = (event) => {
-    event.preventDefault();
+  const handleKeyDown = (event) => {
+    console.log("key pressed: ", event.key)
     if (event.key == "Enter") {
       handleSearch();
     }
-  };*/
+  };
 
   // console.log(searchText);
   return (
@@ -47,6 +47,7 @@ export default function Searchbar() {
         placeholder="What are you looking for?"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
+        onKeyDown={handleKeyDown}
       ></input>
       {searchText !== "" && (
         <div className="search-clear-icon-container" onClick={handleClear}>

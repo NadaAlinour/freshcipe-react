@@ -8,6 +8,7 @@ import {
   fetchAllProducts,
   searchProducts,
   filterProducts,
+  fetchBestsellers
 } from "../utils/http";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -22,6 +23,9 @@ export default function ProductCollection() {
   const [path, setPath] = useState();
   const [allUnselected, setAllUnselected] = useState(null);
 
+  const [bestsellers, setBestsellers] = useState([]);
+  const [isBestsellersLoading, setIsBestsellersLoading] = useState(true);
+
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
   // check if search query
@@ -30,8 +34,6 @@ export default function ProductCollection() {
   let isQuery = pathArray.includes("search");
   let tempSearchText;
   //console.log(isQuery);
-
-
 
   const idFromUrl = pathArray[pathArray.length - 2];
 
@@ -50,13 +52,11 @@ export default function ProductCollection() {
     }
   };
 
-
-
   useEffect(() => {
     const getSearchedProducts = async (searchText) => {
       try {
         const data = await searchProducts(searchText);
-        console.log("search response: ", data);
+        console.log("search response: ", data.data);
         setProducts(data.data);
         //setProducts(data.data);
         setIsLoading(false);
@@ -69,23 +69,23 @@ export default function ProductCollection() {
     //console.log(isQuery);
 
     if (isQuery) {
-      console.log('WE ARE IN LESGO QUERY');
+      console.log("WE ARE IN LESGO QUERY");
       setSearchText(searchParams.get("query"));
-      tempSearchText = searchParams.get('query');
-      console.log("search text: ", searchParams.get('query'));
-      setSearchText(searchParams.get('query'));
+      tempSearchText = searchParams.get("query");
+      console.log("search text: ", searchParams.get("query"));
+      setSearchText(searchParams.get("query"));
       getSearchedProducts(tempSearchText);
     }
-  }, [isQuery, searchParams.get('query')]);
+  }, [isQuery, searchParams.get("query")]);
 
   useEffect(() => {
-    console.log('PRODUTCS EYO: ', products);
-    console.log(isLoading)
+    console.log("PRODUTCS EYO: ", products);
+    console.log(isLoading);
   }, [products]);
 
   const updateProductsByPrice = () => {
     console.log("do nothing");
-  }
+  };
 
   const updateProducts = async (selectedFilters) => {
     console.log(
@@ -97,7 +97,7 @@ export default function ProductCollection() {
       setAllUnselected("false");
       try {
         const data = await filterProducts(selectedFilters);
-        console.log("EHY THE FUCK AM I BEING CALLED")
+        console.log("EHY THE FUCK AM I BEING CALLED");
         console.log(data);
         let filteredProducts = [];
         for (let i = 0; i < data.data.length; i++) {
@@ -143,7 +143,7 @@ export default function ProductCollection() {
       getProducts();
     }
 
-    let isQuery = pathArray.includes("search"); 
+    let isQuery = pathArray.includes("search");
     if (!isQuery) getProducts();
     //console.log("from get products using id: ", page);
   }, [idFromUrl]);
@@ -193,46 +193,110 @@ export default function ProductCollection() {
     //console.log("from load more: ", page);
   }, [page]);
 
+  useEffect(() => {
+    const getBestsellers = async () => {
+      try {
+        const data = await fetchBestsellers();
+        console.log(data.data);
+        setBestsellers(data.data);
+        setIsBestsellersLoading(false);  
+     
+        console.log(data);  
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if(products.length < 1 && isQuery) getBestsellers();
+    console.log("HELP ME RHSE FUCK");
+    console.log(bestsellers)
+  }, [searchParams]);
+ 
+
+  let noResults = (
+    <>
+      <div className="no-search-results-container">
+        <div className="no-search-results-text">
+          <h2>No results found for "{searchText}".</h2>
+          <p> Please try a different query.</p>
+        </div>
+        <div className="no-search-results-products">
+          <h3 className="no-search-results-products-header">Popular products</h3>
+          <ul>
+            {!isBestsellersLoading && bestsellers.map(product => (
+              <li key={product.id}>
+              <ProductCard
+              color={true}
+                id={product.id}
+                title={product.attributes.title}
+                price={product.attributes.price}
+                quantity={product.attributes.weight}
+                imageUrl={
+                  product.attributes.image.data
+                    ? product.attributes.image.data.attributes.url
+                    : null
+                }
+              />
+            </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <>
       {!searchText && <Breadcrumbs />}
+      {products.length < 1 && isQuery && noResults}
       <div className="product-collection-page">
-        <div className="product-filter-container">
-          <ProductFilter
-            updateCollection={updateProducts}
-            updateByPrice={updateProductsByPrice}
-          />
-        </div>
+        {products.length >= 1 || !isQuery ? (
+          <div className="product-filter-container">
+            <ProductFilter
+              updateCollection={updateProducts}
+              updateByPrice={updateProductsByPrice}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div>
-          <div className="product-list-container">
-            <ul>
-              {!isLoading &&
-                products.map((product) => (
-                  <li key={product.id}>
-                    <ProductCard
-                      id={product.id}
-                      title={product.attributes.title}
-                      price={product.attributes.price}
-                      quantity={product.attributes.weight}
-                      imageUrl={
-                        product.attributes.image.data
-                          ? product.attributes.image.data.attributes.url
-                          : null
-                      }
-                    />
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <div className="product-pagination-container">
-            {allUnselected !== "false" && (
-              <Pagination
-                newPage={updatePage}
-                currentNum={pageSize}
-                totalNum={totalProducts}
-              />
-            )}
-          </div>
+          {products.length >= 1 || !isQuery ? (
+            <div className="product-list-container">
+              <ul>
+                {!isLoading &&
+                  products.map((product) => (
+                    <li key={product.id}>
+                      <ProductCard
+                        id={product.id}
+                        title={product.attributes.title}
+                        price={product.attributes.price}
+                        quantity={product.attributes.weight}
+                        imageUrl={
+                          product.attributes.image.data
+                            ? product.attributes.image.data.attributes.url
+                            : null
+                        }
+                      />
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
+          {products.length >= 1 || !isQuery ? (
+            <div className="product-pagination-container">
+              {allUnselected !== "false" && (
+                <Pagination
+                  newPage={updatePage}
+                  currentNum={pageSize}
+                  totalNum={totalProducts}
+                />
+              )}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

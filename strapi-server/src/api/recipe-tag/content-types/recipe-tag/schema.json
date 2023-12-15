@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipe_tags",
+  "info": {
+    "singularName": "recipe-tag",
+    "pluralName": "recipe-tags",
+    "displayName": "Recipe-Tag",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe",
+      "mappedBy": "recipe_tags"
+    }
+  }
+}

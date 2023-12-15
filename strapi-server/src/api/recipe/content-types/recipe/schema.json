@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipes",
+  "info": {
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "Recipe",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "recipe"
+    },
+    "recipe_tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe-tag.recipe-tag",
+      "inversedBy": "recipes"
+    },
+    "timeToPrepareInMinutes": {
+      "type": "integer",
+      "default": 0
+    },
+    "recipeData": {
+      "type": "json"
+    },
+    "description": {
+      "type": "text"
+    },
+    "favourite": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::favourite.favourite",
+      "inversedBy": "recipes"
+    }
+  }
+}
