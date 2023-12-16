@@ -6,20 +6,18 @@ import { deleteCartItem, createOrder } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, setCart } from "../store/cartSlice.js";
 import EmptyCartImage from "../assets/images/empty-cart.png";
-import TestCart from "../assets/images/test-cart.png";
-export default function CartPage() {
-  // check whether user is logged in or now
-  // if logged in, get user stuff
-  // else, get localStorage stuff (not added yet)
+import CartAdd from "../assets/images/addcart.png";
+import Overlay from "../components/Overlay";
 
+export default function CartPage() {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
+
+  const [isModalShowing, setIsModalShowing] = useState(false);
 
   // bill stuff
   const [subTotal, setSubTotal] = useState(0);
   const [total, setTotal] = useState(0);
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [taxFee, setTaxFee] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [checkoutLink, setCheckoutLink] = useState();
 
@@ -28,38 +26,44 @@ export default function CartPage() {
   const [endTime, setEndTime] = useState();
 
   useEffect(() => {
+    const handleOverlayStyle = () => {
+      if (isModalShowing) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    };
+
+    // Call the function when the component mounts or when isOverlayActive changes
+    handleOverlayStyle();
+
+    // Cleanup function to remove the style when the component is unmounted
+    return () => {
+      document.body.style.overflow = ""; // Remove the style to enable scrolling
+    };
+  }, [isModalShowing]); // Run the effect when isOverlayActive changes
+
+  const handleOverlayClose = () => {
+    setIsModalShowing(!isModalShowing);
+  };
+
+  useEffect(() => {
     console.log(cartItems);
     // subTotal
     var calculatedSubTotal = 0;
-    var calculatedTaxFee = 0;
     cartItems.forEach((item) => {
       calculatedSubTotal +=
         item.attributes.quantity *
         item.attributes.product.data.attributes.price;
-      /*calculatedTaxFee +=
-        item.attributes.product.data.attributes.price *
-        0.14 **/
+
       item.attributes.quantity;
     });
 
     setSubTotal(calculatedSubTotal.toFixed(2));
-    setTaxFee(calculatedTaxFee.toFixed(2));
-
-    // delivery fee
-    var calculatedDeliveryFee = 0.0;
-    setDeliveryFee(calculatedDeliveryFee.toFixed(2));
-
-    // temp
-    var calculatedDiscount = 0.0;
-    setDiscount(calculatedDiscount.toFixed(2));
 
     // total amount
     var calculatedTotal = 0;
-    /*calculatedTotal =
-      calculatedSubTotal +
-      calculatedDeliveryFee +
-      calculatedTaxFee -
-      calculatedDiscount;*/
+
     calculatedTotal += calculatedSubTotal;
     setTotal(calculatedTotal.toFixed(2));
   }, [cartItems]);
@@ -67,82 +71,99 @@ export default function CartPage() {
   const dispatch = useDispatch();
 
   const clearCart = async () => {
-    //setCartItems([]);
     console.log(cartItems);
     console.log("clearing cart");
 
-    cartItems.forEach(async (item) => {
-      try {
-        const response = await deleteCartItem(cartId, item.id, userToken);
-        console.log(response);
+    if (userToken) {
+      cartItems.forEach(async (item) => {
+        try {
+          const response = await deleteCartItem(cartId, item.id, userToken);
+          console.log(response);
+          dispatch(removeFromCart({ id: item.id }));
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    } else {
+      cartItems.forEach((item) => {
         dispatch(removeFromCart({ id: item.id }));
-      } catch (error) {
-        console.log(error);
-      }
-    });
+        localStorage.removeItem("localcart");
+      });
+    }
   };
 
   const handleCheckout = async () => {
-    setCheckoutLink("");
-    console.log("creating order");
-    // get items from cart
-    let items = [];
-    for (let i = 0; i < cartItems.length; i++) {
-      items.push({
-        product: cartItems[i].attributes.product.data.id,
-        quantity: cartItems[i].attributes.quantity,
-        price: Math.floor(
-          cartItems[i].attributes.product.data.attributes.price
-        ),
-      });
+    if (!userToken) {
+      console.log("pls log in to be able to checkout");
+      setIsModalShowing(true);
+    } else {
+      setCheckoutLink("");
+      console.log("creating order");
+      // get items from cart
+      let items = [];
+      for (let i = 0; i < cartItems.length; i++) {
+        items.push({
+          product: cartItems[i].attributes.product.data.id,
+          quantity: cartItems[i].attributes.quantity,
+          price: Math.floor(
+            cartItems[i].attributes.product.data.attributes.price
+          ),
+        });
+      }
+
+      console.log("my itemsssss", items);
+
+      let start;
+      let end;
+
+      if (startTime) {
+        start = `${startTime}:00`;
+      } else start = null;
+
+      if (endTime) {
+        end = `${endTime}:00`;
+      } else end = null;
+
+      const order = {
+        data: {
+          vendor: 25,
+          customer: parseInt(userId),
+          desiredFrom: start,
+          desiredTo: end,
+          items: items,
+          note: note,
+        },
+      };
+
+      console.log("my order", order);
+      console.log(startTime, "  ", endTime);
+      try {
+        const data = await createOrder(userToken, order);
+        console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
+        //setCheckoutLink(data.data.attributes.checkoutLink);
+        window.location.assign(data.data.attributes.checkoutLink);
+
+        // redirect to stripe page
+        console.log("redirect to stripe using checkout link");
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-    console.log("my itemsssss", items);
-
-    let start;
-    let end;
-
-    if (startTime) {
-      start = `${startTime}:00`;
-    } else start = null;
-
-    if (endTime) {
-      end = `${endTime}:00`;
-    } else end = null;
-
-    const order = {
-      data: {
-        vendor: 25,
-        customer: parseInt(userId),
-        desiredFrom: start,
-        desiredTo: end,
-        items: items,
-        note: note,
-      },
-    };
-
-    console.log("my order", order);
-    console.log(startTime, "  ", endTime);
-    try {
-      const data = await createOrder(userToken, order);
-      console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
-      //setCheckoutLink(data.data.attributes.checkoutLink);
-      window.location.assign(data.data.attributes.checkoutLink);
-
-      // redirect to stripe page
-      console.log("redirect to stripe using checkout link");
-    } catch (error) {
-      console.log(error);
-    }
-
-    // if(checkoutLink != undefined) window.location.assign(checkoutLink);
   };
 
   return (
     <div className="cart_page">
+      {isModalShowing && (
+        <Overlay
+          onClose={handleOverlayClose}
+          title="Login to Checkout"
+          description="Create an account or login no to proceed to checkout."
+          icon={CartAdd}
+        />
+      )}
       <div className="cart_products_container">
         <div className="cart_items">
-          <h2>My Cart</h2>
+          {userToken ? <h2>My Cart</h2> : <h2>Local Cart</h2>}
           <ul
             className={
               cartItems.length > 0
@@ -190,9 +211,6 @@ export default function CartPage() {
               >
                 Clear Cart
               </button>
-              {/*<button className="cart_button" type="button">
-              Add More Items
-            </button>*/}
             </div>
           ) : (
             <div className="empty-cart-placeholder">
@@ -215,25 +233,10 @@ export default function CartPage() {
           <h2>Order Details</h2>
 
           <div className="bill_details">
-            {/*<div className="bill_item">
-              <span>ETA</span>
-              <span>30 minutes</span>
-          </div>*/}
-
             <div className="bill_item">
               <span>SubTotal</span>
               <span>{subTotal}</span>
             </div>
-
-            {/*<div className="bill_item">
-              <span>Delivery Fees</span>
-              <span>{deliveryFee}</span>
-            </div>*/}
-
-            {/*<div className="bill_item">
-              <span>Tax Fees</span>
-              <span>{taxFee}</span>
-            </div>*/}
 
             <div className="bill_item" style={{ color: "#ed8453" }}>
               <span>Product Discount</span>
@@ -285,9 +288,6 @@ export default function CartPage() {
               Go To Checkout
             </button>
           </div>
-          {/*(cartItems.length === 0 || totalAmount < 40.0) && (
-            <p className="no-items-message">Minimum Charge is EGP 40.00</p>
-          )*/}
         </div>
       </div>
     </div>

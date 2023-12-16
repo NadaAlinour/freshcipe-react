@@ -24,6 +24,7 @@ const cartSlice = createSlice({
         (item) => item.id == action.payload.cartItemId
       );
       state.cartItems[itemIndex].attributes.quantity = action.payload.quantity;
+
     },
 
     removeFromCart: (state, action) => {

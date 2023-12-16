@@ -59,7 +59,6 @@ export default function RecipeDetails({ route }) {
     setIsIngredientsModalShowing(!isIngredientsModalShowing);
   }
 
-  
 
   const handleIngredientClick = (productId) => {
     console.log(productId);
@@ -90,6 +89,10 @@ export default function RecipeDetails({ route }) {
           cart: cartTemp,
         },
       };
+
+      if (!userToken) {
+        console.log('user is not logged in');
+      }
 
       try {
         const response = await addItemToCart(data, userToken);
@@ -327,8 +330,8 @@ export default function RecipeDetails({ route }) {
               </ul>
             )}
 
-            <div className="ingredients-btn-container">
-              <button onClick={addToCart}>Add to Cart</button>
+            <div className="ingredients-btn-container" >
+              <button onClick={addToCart} style={{fontSize:'1rem'}}>Add to Cart</button>
             </div>
           </div>
 

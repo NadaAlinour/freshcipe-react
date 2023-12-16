@@ -1,10 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Overlay from "../components/Overlay";
 import { fetchProduct, addItemToCart, updateCartItem } from "../utils/http";
 import { updateCart, updateQuantity } from "../store/cartSlice";
-import CartAdd from "../assets/images/addcart.png";
+import { v4 as uuidv4 } from "uuid";
 import "boxicons";
 
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -12,14 +11,10 @@ import Breadcrumbs from "../components/Breadcrumbs";
 export default function ProductDetails({ route }) {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { userToken, userId, cartId } = useSelector((state) => state.auth); // cart id not saved in state for some reason
+  const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
-  // temporarily
-  const cartTemp = localStorage.getItem("cartId");
-
   const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalShowing, setIsModalShowing] = useState(false);
 
   const [isAddEnabled, setIsAddEnabled] = useState(true);
 
@@ -29,33 +24,77 @@ export default function ProductDetails({ route }) {
   const idFromUrl = pathArray[pathArray.length - 2];
   console.log(idFromUrl);
 
-  useEffect(() => {
-    const handleOverlayStyle = () => {
-      if (isModalShowing) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "";
-      }
-    };
-
-    // Call the function when the component mounts or when isOverlayActive changes
-    handleOverlayStyle();
-
-    // Cleanup function to remove the style when the component is unmounted
-    return () => {
-      document.body.style.overflow = ""; // Remove the style to enable scrolling
-    };
-  }, [isModalShowing]); // Run the effect when isOverlayActive changes
-
-  const handleOverlay = () => {
-    setIsModalShowing(!isModalShowing);
-  };
-
   const addToCart = async (productId, quantity) => {
     setIsAddEnabled(false);
     if (!userToken) {
       console.log("user not logged in");
-      handleOverlay();
+      // localcart stuff
+      // fetch the product using its id
+      // change to json and store in localstorage array or sum idk
+      //check if product already exists in cart
+      if (
+        !cartItems.find((item) => item.attributes.product.data.id == productId)
+      ) {
+        let localCartItems;
+        if (JSON.parse(localStorage.getItem("localcart"))) {
+          localCartItems = JSON.parse(localStorage.getItem("localcart"));
+        } else localCartItems = [];
+        try {
+          const response2 = await fetchProduct(productId);
+          console.log(response2.data[0]);
+          let uniqueId = uuidv4();
+          localCartItems = [
+            ...localCartItems,
+            {
+              id: uniqueId,
+              attributes: {
+                quantity: 1,
+                product: {
+                  data: response2.data[0],
+                },
+              },
+            },
+          ];
+          let newItem = {
+            id: uniqueId,
+            attributes: {
+              quantity: 1,
+              product: {
+                data: response2.data[0],
+              },
+            },
+          };
+          console.log(localCartItems);
+          dispatch(updateCart({ cart: newItem }));
+
+          let myjson = JSON.stringify(localCartItems);
+          localStorage.setItem("localcart", myjson);
+          console.log("myjson, ", myjson);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("or elseee");
+        // increase quantity
+        let existingItem = cartItems.find(
+          (item) => item.attributes.product.data.id == productId
+        );
+        dispatch(
+          updateQuantity({
+            cartItemId: existingItem.id,
+            quantity: existingItem.attributes.quantity + 1,
+          })
+        );
+        let tempItems = JSON.parse(localStorage.getItem("localcart"));
+        let newTempItems = tempItems.map((item) => {
+          if (item.id == productId) {
+            item.attributes.quantity = item.attributes.quantity + 1;
+          }
+          return item;
+        });
+        console.log(newTempItems);
+        localStorage.setItem("localcart", JSON.stringify(newTempItems));
+      }
     }
 
     const isExists = cartItems.find(
@@ -95,15 +134,10 @@ export default function ProductDetails({ route }) {
           },
         };
         const response = await addItemToCart(data2, userToken);
-        console.log("test: ", response.data);
         console.log(response.data);
         dispatch(updateCart({ cart: response.data }));
       } catch (error) {
         console.log(error);
-        if (error.response.status == 403) {
-          handleOverlay();
-          return;
-        }
       }
     }
     setIsAddEnabled(true);
@@ -114,16 +148,11 @@ export default function ProductDetails({ route }) {
       try {
         const data = await fetchProduct(idFromUrl);
         setProduct(data.data[0]);
-        /*const price = data.data[0].attributes.price;
-        console.log(price)
-        const stringPrice = price.toString();
-        const priceSplit = stringPrice.split(".");*/
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-
     getProduct();
     console.log(product);
   }, [isLoading]);
@@ -131,14 +160,6 @@ export default function ProductDetails({ route }) {
   return (
     <>
       {/*<Breadcrumbs />*/}
-      {isModalShowing && (
-        <Overlay
-          onClose={handleOverlay}
-          title="Add this product to cart"
-          description="Add this product to your cart and access it anywhere by logging in now."
-          icon={CartAdd}
-        />
-      )}
       <div className="product-info-parent">
         <div className="product-info-container">
           <div className="product-info-img-container">
@@ -181,8 +202,16 @@ export default function ProductDetails({ route }) {
 
                 <div className="product-info-button-container">
                   <button
-                    className={isAddEnabled ? "solid-button" : "solid-button button-disabled"}
-                    onClick={isAddEnabled ? addToCart.bind(this, idFromUrl, 1) : ()=>console.log("cant add yet")}
+                    className={
+                      isAddEnabled
+                        ? "solid-button"
+                        : "solid-button button-disabled"
+                    }
+                    onClick={
+                      isAddEnabled
+                        ? addToCart.bind(this, idFromUrl, 1)
+                        : () => console.log("cant add yet")
+                    }
                   >
                     Add To Cart <box-icon name="plus" color="white"></box-icon>
                   </button>

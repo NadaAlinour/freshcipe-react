@@ -59,6 +59,20 @@ function App() {
   }, [userToken]);
 
   useEffect(() => {
+    // set state with localcart
+    if (!userToken) {
+
+      let localCartItems;
+      if (JSON.parse(localStorage.getItem('localcart'))) {
+        localCartItems = JSON.parse(localStorage.getItem('localcart'));
+        dispatch(setCart({ cart: localCartItems }));
+      } else localCartItems = []
+     
+    }
+   
+  }, [userToken])
+
+  useEffect(() => {
     const getFavourites = async () => {
       try {
         const data = await fetchFavourites(savedUserId, savedToken);

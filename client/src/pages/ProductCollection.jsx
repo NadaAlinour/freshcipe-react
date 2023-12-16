@@ -207,7 +207,6 @@ export default function ProductCollection() {
       }
     };
     if(products.length < 1 && isQuery) getBestsellers();
-    console.log("HELP ME RHSE FUCK");
     console.log(bestsellers)
   }, [searchParams]);
  
@@ -225,7 +224,7 @@ export default function ProductCollection() {
             {!isBestsellersLoading && bestsellers.map(product => (
               <li key={product.id}>
               <ProductCard
-              color={true}
+                color={true}
                 id={product.id}
                 title={product.attributes.title}
                 price={product.attributes.price}

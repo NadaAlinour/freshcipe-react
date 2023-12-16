@@ -13,23 +13,22 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
   const handleRemove = async () => {
     console.log(id);
 
-    try {
-      const response = await deleteCartItem(cartId, id, userToken);
-      console.log(response);
+    if (userToken) {
+      try {
+        const response = await deleteCartItem(cartId, id, userToken);
+        console.log(response);
+        dispatch(removeFromCart({ id: id }));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
       dispatch(removeFromCart({ id: id }));
-    } catch (error) {
-      console.log(error);
+      let tempItems = JSON.parse(localStorage.getItem("localcart"));
+      console.log(tempItems);
+      let newTempItems = tempItems.filter((item) => item.id != id);
+      localStorage.setItem("localcart", JSON.stringify(newTempItems));
+      console.log("hihihi");
     }
-
-    /*deleteCartItem(cartItemId)
-        .then((data) => {
-          const updatedCart = cartItems.filter((item) => item.id !== cartItemId);
-          setCartItems(updatedCart);
-          fetchCartWithItems(data);
-        })
-        .catch((error) => {
-          console.error("Error deleting cart item:", error);
-        });*/
   };
 
   const decreaseQuantity = async () => {
@@ -40,17 +39,37 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
           quantity: quantity - 1,
         },
       };
-      try {
-        const response = await updateCartItem(id, userToken, data);
+      if (userToken) {
+        try {
+          const response = await updateCartItem(id, userToken, data);
+          dispatch(updateQuantity({ cartItemId: id, quantity: quantity - 1 }));
+          console.log(response);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
         dispatch(updateQuantity({ cartItemId: id, quantity: quantity - 1 }));
-        console.log(response);
-      } catch (error) {
-        console.log(error);
+        let tempItems = JSON.parse(localStorage.getItem("localcart"));
+        let newTempItems = tempItems.map((item) => {
+          if (item.id == id) {
+            item.attributes.quantity = item.attributes.quantity - 1;
+          }
+          return item;
+        });
+        console.log(newTempItems);
+        localStorage.setItem("localcart", JSON.stringify(newTempItems));
       }
     } else {
       // removeItem(id);
-      console.log("deleting item");
-      await handleRemove();
+      if (userToken) {
+        console.log("deleting item");
+        await handleRemove();
+      } else {
+        handleRemove();
+        let tempItems = JSON.parse(localStorage.getItem("localcart"));
+        let newTempItems = tempItems.filter((item) => item.id != id);
+        localStorage.setItem("localcart", JSON.stringify(newTempItems));
+      }
     }
   };
 
@@ -58,18 +77,31 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
     // updatePrice(id, quantity + 1);
     console.log("current quantity: ", quantity);
     console.log("current cart: ", cartItems);
+
     const data = {
       data: {
         quantity: quantity + 1,
       },
     };
-    try {
-      const response = await updateCartItem(id, userToken, data);
+    if (userToken) {
+      try {
+        const response = await updateCartItem(id, userToken, data);
+        dispatch(updateQuantity({ cartItemId: id, quantity: quantity + 1 }));
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
       dispatch(updateQuantity({ cartItemId: id, quantity: quantity + 1 }));
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+      let tempItems = JSON.parse(localStorage.getItem("localcart"));
+      let newTempItems = tempItems.map((item) => {
+        if (item.id == id) {
+          item.attributes.quantity = item.attributes.quantity + 1;
+        }
+        return item;
+      });
+      console.log(newTempItems)
+      localStorage.setItem("localcart", JSON.stringify(newTempItems));
     }
   };
 
@@ -82,11 +114,7 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
       </div>
       <div className="cart-item-controls">
         <div className="remove-button" onClick={handleRemove}>
-          <box-icon
-            name="trash"
-            color="#7D7B78"
-            size="28px"
-          ></box-icon>
+          <box-icon name="trash" color="#7D7B78" size="28px"></box-icon>
         </div>
         <div className="quantity_controls">
           <button
