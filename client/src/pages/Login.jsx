@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validateLogin } from "../features/validateForm";
+import Overlay from "../components/Overlay";
 import "../assets/stylesheets/form.css";
 import LoginIcon from "../assets/images/icons/log-in-regular-24.png";
+import AddCart from "../assets/images/addcart.png";
+
 import "boxicons";
 import {
   login,
@@ -10,6 +13,7 @@ import {
   createCart,
   createFavourites,
   fetchFavourites,
+  addItemToCart
 } from "../utils/http";
 
 import { useDispatch } from "react-redux";
@@ -23,11 +27,35 @@ export default function Login() {
     password: "",
   });
 
+  const [isOverlayShowing, setIsOverlayShowing] = useState(false);
+
   // for fields red borders
   const [identifierErr, setIdentifierErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
+
+  useEffect(() => {
+    const handleOverlayStyle = () => {
+      if (isOverlayShowing) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    };
+
+    // Call the function when the component mounts or when isOverlayActive changes
+    handleOverlayStyle();
+
+    // Cleanup function to remove the style when the component is unmounted
+    return () => {
+      document.body.style.overflow = ""; // Remove the style to enable scrolling
+    };
+  }, [isOverlayShowing]); // Run the effect when isOverlayActive changes
+
+  const handleOverlay = () => {
+    setIsOverlayShowing(!isOverlayShowing);
+  };
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -66,59 +94,96 @@ export default function Login() {
 
     let cartId = "";
     let favouritesId = "";
+    let products = [];
 
     if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
       try {
         const response = await login(loginForm);
-        //console.log(response);
-
-        // check if cart exists
-        const response2 = await getCartWithItems(
-          response.user.id,
-          response.jwt
-        );
-
-        console.log(response2);
-        cartId = response2.data.id;
-
-        if (response2.data.length === 0) {
-          // create cart
-          const response3 = await createCart(response.user.id, response.jwt);
-          cartId = response3.data.id;
-        } else {
-          // get cart id
-          console.log("cart id: ", response2.data[0].id);
-          cartId = response2.data[0].id;
+        if (localStorage.getItem("localcart")) {
+          // merge carts
+          let localCartItems = JSON.parse(localStorage.getItem("localcart"));
+          console.log(localCartItems);
+          products = localCartItems.map((item) => {
+            return {
+              id: item.attributes.product.data.id,
+              quantity: item.attributes.quantity,
+            };
+          });
+          console.log(products);
         }
-
-        const response4 = await fetchFavourites(response.user.id, response.jwt);
-        console.log(response4);
-        if (response4.data.length === 0) {
-          // create favourites
-          const response5 = await createFavourites(
+        //console.log(response);
+        // check if cart exists
+           const response2 = await getCartWithItems(
             response.user.id,
             response.jwt
           );
-          favouritesId = response5.data[0].id;
-          console.log(response5);
-        } else {
-          console.log("user already has favourites");
-          favouritesId = response4.data[0].id;
-        }
-        dispatch(
-          loginUser({
-            token: response.jwt,
-            userId: response.user.id,
-            username: response.user.username,
-            cartId: cartId,
-            favouritesId: favouritesId,
+
+          console.log(response2);
+          cartId = response2.data.id;
+
+          if (response2.data.length === 0) {
+            // create cart
+            const response3 = await createCart(response.user.id, response.jwt);
+            cartId = response3.data.id;
+          } else {
+            // get cart id
+            console.log("cart id: ", response2.data[0].id);
+            cartId = response2.data[0].id;
+          }
+
+          products.forEach(async product => {
+            try {
+              const data2 = {
+                data: {
+                  product: product.id,
+                  quantity: product.quantity,
+                  cart: cartId,
+                },
+              };
+
+              const response5 = await addItemToCart(data2, response.jwt);
+              console.log("test: ", response5.data);
+            } catch (error) {
+              console.log(error);
+            }
           })
-        );
+          
+
+
+        const response4 = await fetchFavourites(
+            response.user.id,
+            response.jwt
+          );
+          console.log(response4);
+          if (response4.data.length === 0) {
+            // create favourites
+            const response5 = await createFavourites(
+              response.user.id,
+              response.jwt
+            );
+            favouritesId = response5.data[0].id;
+            console.log(response5);
+          } else {
+            console.log("user already has favourites");
+            favouritesId = response4.data[0].id;
+          }
+          dispatch(
+            loginUser({
+              token: response.jwt,
+              userId: response.user.id,
+              username: response.user.username,
+              cartId: cartId,
+              favouritesId: favouritesId,
+            })
+          );  
+
+          
+        
       } catch (error) {
         console.log(error);
-        setErrMsg(error.response.data.error.message);
+        setErrMsg(error.response);
         return;
       }
 
@@ -129,6 +194,14 @@ export default function Login() {
 
   return (
     <div className="form-page-container">
+      {isOverlayShowing && (
+        <Overlay
+          onClose={handleOverlay}
+          title="Merge Carts"
+          description="Would you like to merge local cart with your remote cart?"
+          icon={AddCart}
+        />
+      )}
       <form className="form-container" onSubmit={submitHandler}>
         <div className="form-header-container">
           <p>Login</p>

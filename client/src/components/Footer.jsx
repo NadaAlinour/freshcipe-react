@@ -26,12 +26,6 @@ export default function Footer() {
               <li>
                 <Link to='/recipes'>Recipes</Link>
               </li>
-              <li>
-                <Link>placeholder</Link>
-              </li>
-              <li>
-                <Link>placeholder</Link>
-              </li>
             </ul>
           </div>
 
@@ -44,13 +38,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="footer-list-container">
-            <h3>About Us</h3>
-            <ul>
-              <li>placeholder</li>
-              <li>placeholder</li>
-            </ul>
-          </div>
+          
         </div>
         <div className="footer-socials-container">
           <img src={FacebookLogo} />
