@@ -13,6 +13,8 @@ function MyOrders() {
   const { userToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    console.log('User Token:', userToken);
+
     axios //change the userid in this url to your user id
       .get('http://localhost:1337/api/orders?populate[0]=order_items&populate[1]=order_items.product&filters[customer][id][$eq]=33', {
         headers: {

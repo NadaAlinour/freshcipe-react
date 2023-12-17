@@ -40,8 +40,9 @@ const AppRoutes = () => {
       <Route path="deliveryAddresses" element={<DeliveryAddresses />}></Route>
       <Route path="paymentDetails" element={<PaymentDetails />}></Route>
       <Route path="myOrders" element={<MyOrders />}></Route>
+      <Route path="Reviews" element={<Reviews />}></Route>
       <Route path="subscriptions" element={<Subscriptions />}></Route>
-      <Route path="reviews" element={<Reviews />}></Route>
+      {/*<Route path="reviews" element={<Reviews />}></Route>*/}
       <Route path="settings" element={<Settings />}></Route>
       <Route
         path="login/reset-password-link"
