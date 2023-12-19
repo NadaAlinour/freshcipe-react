@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import '../../assets/stylesheets/account.css';
 import ReviewModal from '../../components/ReviewModal.jsx';
+import Reviews from './Reviews.jsx';
 
 function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -10,6 +11,8 @@ function MyOrders() {
   const [showOrderedItems, setShowOrderedItems] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewedOrders, setReviewedOrders] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [userReview, setUserReview] = useState(null);
   const { userToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -40,7 +43,7 @@ function MyOrders() {
     setSelectedOrder(null);
   };
 
-  const handleShowReviewModal = (order) => {
+  const handleShowReviewModal = async (order) => {
     if (!reviewedOrders.includes(order.id)) {
       setSelectedOrder(order);
       setShowOrderedItems(false);
@@ -49,7 +52,30 @@ function MyOrders() {
       console.log('Review already submitted for this order.');
       setShowReviewModal(false);
     }
+  
+    try {
+      console.log('Fetching reviews for order:', order.id);
+      const response = await axios.get(`http://localhost:1337/api/ratings/reviews/orders:${order.id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+  
+      const { userReview, reviews } = response.data;
+  
+      console.log('Fetched reviews successfully:', { userReview, reviews });
+  
+      setShowReviewModal(true);
+      setUserReview(userReview);
+      setReviews(reviews);  // Set the reviews state
+      console.log('API Response:', response);
+
+  
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
   };
+  
 
   const handleCloseReviewModal = () => {
     setShowReviewModal(false);
@@ -114,18 +140,24 @@ function MyOrders() {
             </div>
           )}
 
-          <button className='showButton' onClick={() => handleShowReviewModal(order)}>Add Review</button>
+          <button className='showButton' onClick={() => handleShowReviewModal(order)}>
+            {reviewedOrders.includes(order.id) ? 'Show Review' : 'Add Review'}
+          </button>
 
           {showReviewModal && selectedOrder && selectedOrder.id === order.id && (
             <ReviewModal
-              onClose={handleCloseReviewModal}
-              onSave={(score, comment) => handleSaveReview(score, comment)}
-            />
+                onClose={handleCloseReviewModal}
+                onSave={(score, comment) => handleSaveReview(score, comment)}
+            >
+              
+              <Reviews orderId={selectedOrder.id} reviews={reviews} setReviews={setReviews} />
+            </ReviewModal>
           )}
 
-          {showReviewModal && reviewedOrders.includes(order.id) && (
+         {/* {showReviewModal && reviewedOrders.includes(order.id) && (
             <p className="error-message">Review already submitted for this order.</p>
-          )}
+         )}*/}
+         
         </div>
       ))}
     </div>

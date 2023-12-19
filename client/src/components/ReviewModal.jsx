@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ReviewModal({ onClose, onSave }) {
+function ReviewModal({ onClose, onSave, reviews }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
