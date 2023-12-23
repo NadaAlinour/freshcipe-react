@@ -13,20 +13,23 @@ function MyOrders() {
   const [reviewedOrders, setReviewedOrders] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [userReview, setUserReview] = useState(null);
-  const { userToken } = useSelector((state) => state.auth);
+  const { userToken, userId } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log('User Token:', userToken);
+    if (!userId) {
+      console.error('User ID is undefined.');
+      return;
+    }
 
-    axios //change the userid in this url to your user id
-      .get('http://localhost:1337/api/orders?populate[0]=order_items&populate[1]=order_items.product&filters[customer][id][$eq]=33', {
+    axios
+      .get(`http://localhost:1337/api/orders?populate[0]=order_items&populate[1]=order_items.product&filters[customer][id][$eq]=${userId}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       })
       .then((response) => setOrders(response.data.data))
       .catch((error) => console.error('Error fetching user orders:', error));
-  }, [userToken]);
+  }, [userId, userToken]);
 
   useEffect(() => {
     const storedReviewedOrders = JSON.parse(localStorage.getItem('reviewedOrders')) || [];
@@ -45,7 +48,7 @@ function MyOrders() {
 
   const handleShowReviewModal = async (order) => {
     setSelectedOrder(order);
-  
+
     try {
       console.log('Fetching reviews for order:', order.id);
       const response = await axios.get(`http://localhost:1337/api/ratings/reviews/orders:${order.id}`, {
@@ -53,22 +56,22 @@ function MyOrders() {
           Authorization: `Bearer ${userToken}`,
         },
       });
-  
+
       const { userReview, reviews } = response.data;
-  
+
       console.log('Fetched reviews successfully:', { userReview, reviews });
-  
+
       setUserReview(userReview);
       setReviews(reviews);
-  
+
       console.log('API Response:', response);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
-  
+
     setShowReviewModal(true);
   };
-  
+
   const handleCloseReviewModal = () => {
     setShowReviewModal(false);
   };
@@ -131,7 +134,7 @@ function MyOrders() {
               <button className='showButton' onClick={handleCloseItems}>Close</button>
             </div>
           )}
-          
+
           <button className='showButton' onClick={() => handleShowReviewModal(order)}>
             {reviewedOrders.includes(order.id) ? 'Show Review' : 'Add Review'}
           </button>
@@ -142,10 +145,9 @@ function MyOrders() {
               onSave={(score, comment) => handleSaveReview(score, comment)}
               userReview={userReview}
             >
-            <Reviews orderId={selectedOrder.id} reviews={reviews} setReviews={setReviews} />
+              <Reviews orderId={selectedOrder.id} reviews={reviews} setReviews={setReviews} />
             </ReviewModal>
           )}
-
         </div>
       ))}
     </div>
