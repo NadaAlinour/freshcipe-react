@@ -44,14 +44,7 @@ function MyOrders() {
   };
 
   const handleShowReviewModal = async (order) => {
-    if (!reviewedOrders.includes(order.id)) {
-      setSelectedOrder(order);
-      setShowOrderedItems(false);
-      setShowReviewModal(true);
-    } else {
-      console.log('Review already submitted for this order.');
-      setShowReviewModal(false);
-    }
+    setSelectedOrder(order);
   
     try {
       console.log('Fetching reviews for order:', order.id);
@@ -65,18 +58,17 @@ function MyOrders() {
   
       console.log('Fetched reviews successfully:', { userReview, reviews });
   
-      setShowReviewModal(true);
       setUserReview(userReview);
-      setReviews(reviews);  // Set the reviews state
-      console.log('API Response:', response);
-
+      setReviews(reviews);
   
+      console.log('API Response:', response);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
+  
+    setShowReviewModal(true);
   };
   
-
   const handleCloseReviewModal = () => {
     setShowReviewModal(false);
   };
@@ -139,25 +131,21 @@ function MyOrders() {
               <button className='showButton' onClick={handleCloseItems}>Close</button>
             </div>
           )}
-
+          
           <button className='showButton' onClick={() => handleShowReviewModal(order)}>
             {reviewedOrders.includes(order.id) ? 'Show Review' : 'Add Review'}
           </button>
 
           {showReviewModal && selectedOrder && selectedOrder.id === order.id && (
             <ReviewModal
-                onClose={handleCloseReviewModal}
-                onSave={(score, comment) => handleSaveReview(score, comment)}
+              onClose={handleCloseReviewModal}
+              onSave={(score, comment) => handleSaveReview(score, comment)}
+              userReview={userReview}
             >
-              
-              <Reviews orderId={selectedOrder.id} reviews={reviews} setReviews={setReviews} />
+            <Reviews orderId={selectedOrder.id} reviews={reviews} setReviews={setReviews} />
             </ReviewModal>
           )}
 
-         {/* {showReviewModal && reviewedOrders.includes(order.id) && (
-            <p className="error-message">Review already submitted for this order.</p>
-         )}*/}
-         
         </div>
       ))}
     </div>
