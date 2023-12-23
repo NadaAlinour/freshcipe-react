@@ -238,10 +238,10 @@ export default function CartPage() {
               <span>{subTotal}</span>
             </div>
 
-            <div className="bill_item" style={{ color: "#ed8453" }}>
+            {/*<div className="bill_item" style={{ color: "#ed8453" }}>
               <span>Product Discount</span>
               <span>{discount}</span>
-            </div>
+            </div>*/}
 
             <div className="bill_item total">
               <span>Total Amount</span>

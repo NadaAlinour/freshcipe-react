@@ -33,14 +33,14 @@ export default function NavbarDropdown() {
           >
             My Account
           </li>
-          <li
+          {/*<li
             className={userToken ? "" : "item-disable"}
             onClick={() => {
               if (userToken) navigate("/Reviews");
             }}
           >
             Reviews
-          </li>
+          </li>*/}
 
           <li
             className={userToken ? "" : "item-disable"}
@@ -58,11 +58,11 @@ export default function NavbarDropdown() {
           >
             My Orders
           </li>
-          <li className={userToken ? "" : "item-disable"}>
+          {/*<li className={userToken ? "" : "item-disable"}>
             Delivery Addresses
           </li>
           <li className={userToken ? "" : "item-disable"}>My Discounts</li>
-          <li>Settings</li>
+          <li>Settings</li>*/}
           {option}
         </ul>
       </div>
