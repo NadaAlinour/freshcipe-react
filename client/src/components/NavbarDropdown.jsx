@@ -33,14 +33,24 @@ export default function NavbarDropdown() {
           >
             My Account
           </li>
+
           <li
+            className={userToken ? "" : "item-disable"}
+            onClick={() => {
+              if (userToken) navigate("/cart");
+            }}
+          >
+            My Cart
+          </li>
+
+          {/* <li
             className={userToken ? "" : "item-disable"}
             onClick={() => {
               if (userToken) navigate("/Reviews");
             }}
           >
             Reviews
-          </li>
+          </li>*/}
 
           <li
             className={userToken ? "" : "item-disable"}
@@ -51,18 +61,15 @@ export default function NavbarDropdown() {
           >
             My Favourites
           </li>
-          <li className={userToken ? "" : "item-disable"}
+          <li
+            className={userToken ? "" : "item-disable"}
             onClick={() => {
               if (userToken) navigate("/MyOrders");
             }}
           >
             My Orders
           </li>
-          <li className={userToken ? "" : "item-disable"}>
-            Delivery Addresses
-          </li>
-          <li className={userToken ? "" : "item-disable"}>My Discounts</li>
-          <li>Settings</li>
+
           {option}
         </ul>
       </div>

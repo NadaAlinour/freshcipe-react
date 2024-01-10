@@ -100,6 +100,7 @@ export default function Login() {
       console.log("cannot proceed, client side validation errors exist");
     } else {
       try {
+        console.log(loginForm)
         const response = await login(loginForm);
         if (localStorage.getItem("localcart")) {
           // merge carts

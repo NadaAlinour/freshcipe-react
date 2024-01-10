@@ -39,10 +39,8 @@ const AppRoutes = () => {
       <Route path="personalDetails" exact element={<PersonalDetails />}></Route>
       <Route path="deliveryAddresses" element={<DeliveryAddresses />}></Route>
       <Route path="paymentDetails" element={<PaymentDetails />}></Route>
-      <Route path="myOrders" element={<MyOrders />}></Route>
       <Route path="Reviews" element={<Reviews />}></Route>
       <Route path="subscriptions" element={<Subscriptions />}></Route>
-      {/*<Route path="reviews" element={<Reviews />}></Route>*/}
       <Route path="settings" element={<Settings />}></Route>
       <Route
         path="login/reset-password-link"
@@ -50,18 +48,13 @@ const AppRoutes = () => {
       ></Route>
       <Route path="reset-password" element={<ResetPasswordAfter />}></Route>
 
-      {/*<Route path=":vendorId/:vendor" element={<ProductCategories />}></Route>*/}
-      {/*<Route
-        path=":vendorId/:vendor/:categoryId/:category"
-        element={<ProductCollection />}
-      ></Route>*/}
+
+      <Route path="/:productId/:product" element={<ProductDetails />} />
 
       <Route
         path="products/:categoryId/:category/:productId/:product"
         element={<ProductDetails />}
       />
-
-      <Route path="/:productId/:product" element={<ProductDetails />} />
 
       <Route
         path="/products/:categoryId/:category"
@@ -70,13 +63,6 @@ const AppRoutes = () => {
 
       <Route path="products" element={<ProductCategories />} />
 
-      {/*<Route path="product-details" element={<ProductDetails/>}/>
-      <Route path="productDetails/:product/:productId/:productCategory" element={<ProductDetails/>}></Route>*/}
-
-      {/*<Route
-        path=":vendorId/:vendor/:categoryId/:category/:productId/:product"
-        element={<ProductDetails />}
-    />*/}
 
       <Route
         path="products/search"
@@ -117,8 +103,17 @@ const AppRoutes = () => {
       <Route
         path="favourites"
         element={
-          <Protected isAuth={userToken}>
+          <Protected isAuth={localStorage.getItem("token")}>
             <Favourites />
+          </Protected>
+        }
+      ></Route>
+
+      <Route
+        path="MyOrders"
+        element={
+          <Protected isAuth={localStorage.getItem("token")}>
+            <MyOrders />
           </Protected>
         }
       ></Route>

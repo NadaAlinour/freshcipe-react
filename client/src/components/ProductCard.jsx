@@ -149,7 +149,7 @@ export default function ProductCard({
   //console.log(priceSplit);
   const navigate = useNavigate();
   const handleClick = (id, title) => {
-    navigate(id + "/" + title);
+    navigate("/" + id + "/" + title);
   };
 
   return (

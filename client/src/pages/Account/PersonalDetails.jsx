@@ -6,7 +6,7 @@ import { IconMenu2, IconX } from '@tabler/icons-react';
 
 function PersonalDetails() {
   const dispatch = useDispatch();
-  const { userToken } = useSelector((state) => state.auth);
+  const { userToken, userId } = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState({
     username: '',
@@ -15,7 +15,7 @@ function PersonalDetails() {
 
   useEffect(() => {
     //change the userid in this url to your user id
-    axios.get('http://localhost:1337/api/users/33', {
+    axios.get('http://localhost:1337/api/users/' + userId, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
@@ -32,7 +32,7 @@ function PersonalDetails() {
   const handleSave = (e) => {
     e.preventDefault();
 
-    axios.put('http://localhost:1337/api/users/33', userData, {
+    axios.put('http://localhost:1337/api/users/' + userId, userData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,

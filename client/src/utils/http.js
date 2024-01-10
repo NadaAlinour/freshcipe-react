@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const BASE_URL = "http://localhost:1337/api";
-const BASE_URL = "https://shop-ykb6.onrender.com/api";
+const BASE_URL = "http://localhost:1337/api";
+//const BASE_URL = "https://shop-ykb6.onrender.com/api";
 
 // signup
 export async function signup(userData) {
