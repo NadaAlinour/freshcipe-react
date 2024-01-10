@@ -13,16 +13,22 @@ function PersonalDetails() {
     email: '',
   });
 
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+
   useEffect(() => {
-    //change the userid in this url to your user id
-    axios.get('http://localhost:1337/api/users/' + userId, {
+    if (!userId) {
+      console.error('User ID is undefined.');
+      return;
+    }
+
+    axios.get(`http://localhost:1337/api/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
     })
       .then((response) => setUserData(response.data))
       .catch((error) => console.error('Error fetching user data:', error));
-  }, [userToken]);
+  }, [userId, userToken]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,28 +38,22 @@ function PersonalDetails() {
   const handleSave = (e) => {
     e.preventDefault();
 
-    axios.put('http://localhost:1337/api/users/' + userId, userData, {
+    axios.put(`http://localhost:1337/api/users/${userId}`, userData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
     })
-      .then((response) => console.log('User data updated:', response.data))
+      .then((response) => {
+        console.log('User data updated:', response.data);
+        setShowConfirmationPopup(true);
+      })
       .catch((error) => console.error('Error updating user data:', error));
   };
 
-  /*const handleDeleteAccount = () => {
-    axios.delete('', {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-      .then((response) => {
-        console.log('User account deleted:', response.data);
-        //redirect to the login page or perform other actions after account deletion
-      })
-      .catch((error) => console.error('Error deleting user account:', error));
-  };*/
+  const closeConfirmationPopup = () => {
+    setShowConfirmationPopup(false);
+  };
 
   return (
     <div>
@@ -82,7 +82,12 @@ function PersonalDetails() {
             </div>
           </div>
         </form>
-        {/*<button className='buttonPersonal' onClick={handleDeleteAccount}>Delete Account</button>*/}
+        {showConfirmationPopup && (
+          <div className="confirmation-popup">
+            <p>Changes saved successfully!</p>
+            <button onClick={closeConfirmationPopup}>OK</button>
+          </div>
+        )}
       </div>
     </div>
   );
