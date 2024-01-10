@@ -1,8 +1,9 @@
 import MainCarousel from "../components/MainCarousel";
 import Carousel from "../components/Carousel";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios'
+import { Link, useNavigate } from "react-router-dom";
+import Bowl from "../assets/bowl.png";
+import axios from "axios";
 import "boxicons";
 import {
   fetchVendor,
@@ -16,6 +17,7 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   /*const [vendors, setVendors] = useState([]);*/
   const [isCatsLoading, setIsCatsLoading] = useState(true);
@@ -77,7 +79,7 @@ export default function Home() {
         const data = await fetchBestsellers();
         console.log(data.data);
         setProducts(data.data);
-        setIsProductsLoading(false);  
+        setIsProductsLoading(false);
         /*const data = await fetchAllProducts(1, 100);
         for (let i = 0; i < data.data.length; i++) {
           // update each product lol
@@ -93,7 +95,7 @@ export default function Home() {
             },
           });
         }*/
-        console.log(data);  
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -103,7 +105,25 @@ export default function Home() {
 
   return (
     <div className="home-page-container">
-      <MainCarousel items={features} />
+      {/*<MainCarousel items={features} />*/}
+      <div className="home-page-hero-container">
+        <div className="hero-left">
+          <h1>Fresh Groceries. Delicious Recipes.</h1>
+          <p>
+            Browse through different products and recipes and get the freshest
+            ingredients delivered to your doorstep.
+          </p>
+          <div className="hero-buttons">
+            <button className="hero-btn solid" onClick={() => navigate('/products')}>Shop Now</button>
+            <button className="hero-btn" onClick={() => navigate('/contact')}>Contact Us</button>
+          </div>
+        </div>
+        <div className="hero-right">
+          <div className="hero-image-container">
+            <img src={Bowl} />
+          </div>
+        </div>
+      </div>
       <div className="home-categories-section">
         <div className="home-section-header">
           <h2>Our categories</h2>

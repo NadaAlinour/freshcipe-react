@@ -1,7 +1,9 @@
 nav {
   background-color: var(--background);
+  background-color: #ebd1b8;
+
   height: 85px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
   padding: 15px;
 }
 
@@ -136,7 +138,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .navbar-dropdown-outer {
   position: absolute;
   right: 60px;
-  top: 60px;
+  top: 65px;
   width: 65px;
   direction: rtl;
   z-index: 5;

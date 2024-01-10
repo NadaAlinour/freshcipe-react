@@ -16,23 +16,6 @@ function MyOrders() {
   const { userToken, userId } = useSelector((state) => state.auth);
 
   useEffect(() => {
-<<<<<<< HEAD
-    console.log("User Token:", userToken);
-
-    axios //change the userid in this url to your user id
-      .get(
-        `http://localhost:1337/api/orders?populate[0]=order_items&populate[1]=order_items.product&filters[customer][id][$eq]=${userId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      )
-      .then((response) => setOrders(response.data.data))
-      .catch((error) => console.error("Error fetching user orders:", error));
-  }, [userToken]);
-=======
     if (!userId) {
       console.error('User ID is undefined.');
       return;
@@ -47,7 +30,6 @@ function MyOrders() {
       .then((response) => setOrders(response.data.data))
       .catch((error) => console.error('Error fetching user orders:', error));
   }, [userId, userToken]);
->>>>>>> ae93566e6f0b04019d9956a7cbe9845935abe13d
 
   useEffect(() => {
     const storedReviewedOrders =
@@ -66,36 +48,6 @@ function MyOrders() {
   };
 
   const handleShowReviewModal = async (order) => {
-<<<<<<< HEAD
-    if (!reviewedOrders.includes(order.id)) {
-      setSelectedOrder(order);
-      setShowOrderedItems(false);
-      setShowReviewModal(true);
-    } else {
-      console.log("Review already submitted for this order.");
-      setShowReviewModal(false);
-    }
-
-    try {
-      console.log("Fetching reviews for order:", order.id);
-      const response = await axios.get(
-        `http://localhost:1337/api/ratings/reviews/orders:${order.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
-
-      const { userReview, reviews } = response.data;
-
-      console.log("Fetched reviews successfully:", { userReview, reviews });
-
-      setShowReviewModal(true);
-      setUserReview(userReview);
-      setReviews(reviews); // Set the reviews state
-      console.log("API Response:", response);
-=======
     setSelectedOrder(order);
 
     try {
@@ -114,7 +66,6 @@ function MyOrders() {
       setReviews(reviews);
 
       console.log('API Response:', response);
->>>>>>> ae93566e6f0b04019d9956a7cbe9845935abe13d
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
@@ -178,52 +129,6 @@ function MyOrders() {
             Show Ordered Items
           </button>
 
-<<<<<<< HEAD
-          {selectedOrder &&
-            selectedOrder.id === order.id &&
-            showOrderedItems && (
-              <div className="ordered-items-window">
-                <h2>Ordered Items for Order ID: {selectedOrder.id}</h2>
-                <ul>
-                  {selectedOrder.attributes.order_items.data.map((item) => (
-                    <li key={item.id}>
-                      {item.attributes.quantity} x{" "}
-                      {item.attributes.product.data.attributes.title}
-                    </li>
-                  ))}
-                </ul>
-                <button className="showButton" onClick={handleCloseItems}>
-                  Close
-                </button>
-              </div>
-            )}
-
-          <button
-            className="showButton"
-            onClick={() => handleShowReviewModal(order)}
-          >
-            {reviewedOrders.includes(order.id) ? "Show Review" : "Add Review"}
-          </button>
-
-          {showReviewModal &&
-            selectedOrder &&
-            selectedOrder.id === order.id && (
-              <ReviewModal
-                onClose={handleCloseReviewModal}
-                onSave={(score, comment) => handleSaveReview(score, comment)}
-              >
-                <Reviews
-                  orderId={selectedOrder.id}
-                  reviews={reviews}
-                  setReviews={setReviews}
-                />
-              </ReviewModal>
-            )}
-
-          {/* {showReviewModal && reviewedOrders.includes(order.id) && (
-            <p className="error-message">Review already submitted for this order.</p>
-         )}*/}
-=======
           {showReviewModal && selectedOrder && selectedOrder.id === order.id && (
             <ReviewModal
               onClose={handleCloseReviewModal}
@@ -233,7 +138,6 @@ function MyOrders() {
               <Reviews orderId={selectedOrder.id} reviews={reviews} setReviews={setReviews} />
             </ReviewModal>
           )}
->>>>>>> ae93566e6f0b04019d9956a7cbe9845935abe13d
         </div>
       ))}
     </div>

@@ -68,8 +68,7 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   /* border: 1px solid white;*/
   background-color: var(--backgroundLight);
-
-  min-height: 185px;
+  min-height: 150px;
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 15px;
