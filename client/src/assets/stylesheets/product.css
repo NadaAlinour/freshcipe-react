@@ -111,10 +111,11 @@
 }
 
 .product-filter-container {
-  width: 21%;
+  min-width: 21%;
   min-height: 100vh;
   margin-top: 20px;
   margin-left: 10px;
+  flex-shrink: 0;
 }
 
 .product-filter-contents {
@@ -181,10 +182,17 @@
   list-style: none;
   align-self: flex-start;
   display: grid;
-  grid-template-columns: 275px 275px 275px 275px;
+  /*grid-template-columns: 275px 275px 275px 275px;*/
+  grid-template-columns: repeat(4, 275px);
   column-gap: 15px;
   row-gap: 60px;
   margin: 0px 20px 0px 20px;
+}
+
+@media (max-width: 1500px) {
+  .product-list-container ul {
+    grid-template-columns: repeat(3, 275px);
+  }
 }
 
 .product-filter-checkbox-p-container {

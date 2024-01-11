@@ -3,6 +3,9 @@ import Carousel from "../components/Carousel";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Bowl from "../assets/bowl.png";
+import OfferOne from "../assets/offerone.jpg";
+import OfferTwo from "../assets/offertwo.jpg";
+
 import axios from "axios";
 import "boxicons";
 import {
@@ -114,8 +117,15 @@ export default function Home() {
             ingredients delivered to your doorstep.
           </p>
           <div className="hero-buttons">
-            <button className="hero-btn solid" onClick={() => navigate('/products')}>Shop Now</button>
-            <button className="hero-btn" onClick={() => navigate('/contact')}>Contact Us</button>
+            <button
+              className="hero-btn solid"
+              onClick={() => navigate("/products")}
+            >
+              Shop Now
+            </button>
+            <button className="hero-btn" onClick={() => navigate("/contact")}>
+              Contact Us
+            </button>
           </div>
         </div>
         <div className="hero-right">
@@ -136,11 +146,39 @@ export default function Home() {
           <box-icon name="chevron-right" size="30px" color="#ce6332" />
         </div>
       </div>
-      {/* <div className="home-deals-section">
-        <div className="home-deal-card">deal 1</div>
-        <div className="home-deal-card">deal 2</div>
+      <div className="home-deals-section">
+        <div className="home-deal-card left-offer">
+          <div className="offer-one-text-container">
+            <p className="offer-one-header">
+              Sale <span className="offer-one-percentage">25%</span>
+            </p>
+            <p className="offer-one-subheader">Vegetable & Fruit</p>
+            <button
+              className="hero-btn offer-btn"
+              onClick={() => navigate("/products/24/Fruits%20and%20vegetables")}
+            >
+              Shop Now <box-icon name="right-arrow-alt"></box-icon>
+            </button>
+          </div>
+          <img src={OfferOne}></img>
+        </div>
+        <div className="home-deal-card right-offer">
+          <div className="offer-one-text-container right">
+            <p className="offer-one-header">
+              Eat Healthy & Live Well
+            </p>
+            <button
+              className="hero-btn offer-btn solid"
+              style={{border: '1.5px solid white'}}
+              onClick={() => navigate("/recipes")}
+            >
+              Recipes <box-icon name="right-arrow-alt" color="white"></box-icon>
+            </button>
+          </div>
+          <img src={OfferTwo}></img>
+        </div>
       </div>
-  */}
+
       <div className="home-recipes-section">
         <div className="home-recipes-intro">
           <h2>Our recipes</h2>

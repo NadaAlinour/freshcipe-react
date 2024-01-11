@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Rubik&display=swap");
+
 .home-page-container {
   background-color: var(--grey300);
   min-height: 100vh;
@@ -272,9 +274,9 @@
 }
 
 .home-deals-section {
-  margin-top: 75px;
-  height: 300px;
-  width: 100%;
+  margin-top: 120px;
+  height: 345px;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -282,13 +284,84 @@
 }
 
 .home-deal-card {
-  border: 1px solid black;
   height: 70%;
   width: 610px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
+  overflow: hidden;
+}
+
+.home-deal-card img {
+  width: 100%;
+}
+
+.home-deal-card.left-offer {
+  position: relative;
+}
+
+.offer-one-text-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: 200px;
+  color: white;
+  left: 20px;
+  line-height: 40px;
+  padding: 20px;
+}
+
+.offer-one-header {
+  font-weight: 800;
+  font-size: 50px;
+  font-family: Rubik, Arial, Helvetica;
+
+}
+
+.offer-one-percentage {
+  color: #d0f0c0;
+  font-family: Rubik, Arial, Helvetica;
+
+}
+
+.offer-one-subheader {
+  margin-bottom: 35px;
+  font-family: Rubik, Arial, Helvetica;
+  font-size: 25px;
+}
+
+.hero-btn.offer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 200px;
+}
+
+.home-deal-card.right-offer {
+  overflow: hidden;
+  position: relative;
+}
+
+.offer-one-text-container.right {
+  background-color:#d0f0c0e9;
+  color: var(--grey900);
+  position: absolute;
+  width: 50%;
+}
+
+.offer-one-text-container.right .offer-one-header {
+  width: 60%;
+}
+
+.offer-one-text-container.right button {
+  position: absolute;
+  right: -250px;
+  top: 137px;
+}
+
+
+.home-deal-card.right-offer img {
+  margin-top: 125px;
 }
 
 .home-recipes-section {

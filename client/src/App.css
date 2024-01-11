@@ -39,7 +39,7 @@ body {
 }
 
 .logo-header-container h4 {
-  font-family: "allura";
+  font-family: "allura" !important;
   font-size: 40px;
   letter-spacing: 1px;
 }
