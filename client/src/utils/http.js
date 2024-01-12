@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const BASE_URL = "http://localhost:1337/api";
-const BASE_URL = "https://shop-ykb6.onrender.com/api";
+const BASE_URL = "http://localhost:1337/api";
+//const BASE_URL = "https://shop-ykb6.onrender.com/api";
 
 // signup
 export async function signup(userData) {
@@ -15,10 +15,7 @@ export async function signup(userData) {
 
 // login
 export async function login(userData) {
-  const response = await axios.post(
-    `${BASE_URL}/auth/local`,
-    userData
-  );
+  const response = await axios.post(`${BASE_URL}/auth/local`, userData);
   return response.data;
 }
 
@@ -45,10 +42,7 @@ export async function contact(formData) {
     },
   };
   console.log(data);
-  const response = await axios.post(
-    `${BASE_URL}/contact-forms`,
-    data
-  );
+  const response = await axios.post(`${BASE_URL}/contact-forms`, data);
   return response.data;
 }
 
@@ -57,10 +51,7 @@ export async function sendPasswordResetLink(formData) {
   const data = {
     email: formData,
   };
-  const response = await axios.post(
-    `${BASE_URL}/auth/forgot-password`,
-    data
-  );
+  const response = await axios.post(`${BASE_URL}/auth/forgot-password`, data);
   return response.data;
 }
 
@@ -106,7 +97,7 @@ export async function fetchSubCats(catId) {
 // get products by category by vendor
 export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
   const response = await axios.get(
-    `${BASE_URL}/products?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
+    `${BASE_URL}/products?sort=title:asc&populate[0]=image&populate[1]=tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
       categoryId
   );
   console.log("page from http req: ", page);
@@ -116,7 +107,7 @@ export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
 // get all products
 export async function fetchAllProducts(page, pageSize) {
   const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+    `${BASE_URL}/products?populate[0]=image&populate[1]=tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   );
   return response.data;
 }
@@ -211,7 +202,7 @@ export async function createCart(userId, token) {
 // Get Cart with Items
 export async function getCartWithItems(userId, token) {
   const response = await axios.get(
-    `${BASE_URL}/carts?populate[0]=cart_items&populate[1]=cart_items.product&populate[2]=cart_items.product.image&filters[user][id][$eq]=${userId}`,
+    `${BASE_URL}/carts?populate[0]=cart_items&populate[1]=cart_items.product&populate[2]=cart_items.product.image&populate[3]=cart_items.product.tags&filters[user][id][$eq]=${userId}`,
     { method: "GET", headers: { Authorization: `Bearer ${token}` } }
   );
   return response.data;

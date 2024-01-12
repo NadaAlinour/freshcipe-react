@@ -49,6 +49,17 @@ export default function CartPage() {
 
   useEffect(() => {
     console.log(cartItems);
+
+    var calculatedDiscount = 0;
+    cartItems.forEach((item) => {
+      if (item.attributes.product.data.attributes.tags.data[0].id == 24) {
+        calculatedDiscount +=
+          (item.attributes.product.data.attributes.price * 0.25) * item.attributes.quantity;
+      }
+    });
+
+    setDiscount(calculatedDiscount.toFixed(2));
+
     // subTotal
     var calculatedSubTotal = 0;
     cartItems.forEach((item) => {
@@ -65,7 +76,7 @@ export default function CartPage() {
     var calculatedTotal = 0;
 
     calculatedTotal += calculatedSubTotal;
-    setTotal(calculatedTotal.toFixed(2));
+    setTotal((calculatedTotal - calculatedDiscount).toFixed(2));
   }, [cartItems]);
 
   const dispatch = useDispatch();
@@ -111,7 +122,6 @@ export default function CartPage() {
         });
       }
 
-      console.log("my itemsssss", items);
 
       let start;
       let end;
@@ -150,6 +160,8 @@ export default function CartPage() {
       }
     }
   };
+
+
 
   return (
     <div className="cart_page">
@@ -197,6 +209,12 @@ export default function CartPage() {
                       updatePrice={(newQuantity) =>
                         updatePrice(item.id, newQuantity)
                       }
+                      isDiscount={
+                        item.attributes.product.data.attributes.tags.data[0]
+                          .id == 24
+                          ? "true"
+                          : ""
+                      }
                     />
                   </li>
                 );
@@ -238,10 +256,10 @@ export default function CartPage() {
               <span>{subTotal}</span>
             </div>
 
-            {/*<div className="bill_item" style={{ color: "#ed8453" }}>
-              <span>Product Discount</span>
+            <div className="bill_item" style={{ color: "#ed8453" }}>
+              <span>Discount</span>
               <span>{discount}</span>
-            </div>*/}
+            </div>
 
             <div className="bill_item total">
               <span>Total Amount</span>

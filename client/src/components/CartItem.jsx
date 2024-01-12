@@ -4,8 +4,21 @@ import { removeFromCart, updateQuantity } from "../store/cartSlice";
 import { deleteCartItem, updateCartItem } from "../utils/http";
 import "../assets/stylesheets/cart.css";
 
-function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
+function CartItem({
+  id,
+  name,
+  image,
+  basePrice,
+  quantity,
+  updatePrice,
+  isDiscount,
+}) {
   const totalPrice = quantity * basePrice;
+  if (isDiscount) {
+    var oldPrice = basePrice;
+    var newPrice = (oldPrice - oldPrice * 0.25).toFixed(2);
+  }
+
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -100,7 +113,7 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
         }
         return item;
       });
-      console.log(newTempItems)
+      console.log(newTempItems);
       localStorage.setItem("localcart", JSON.stringify(newTempItems));
     }
   };
@@ -110,7 +123,13 @@ function CartItem({ id, name, image, basePrice, quantity, updatePrice }) {
       <img src={image} alt={name} height={70} />
       <div className="product_info">
         <h3>{name}</h3>
-        <p className="price">EGP {basePrice.toFixed(2)}</p>
+        {!isDiscount ? (
+          <p className="price">EGP {basePrice.toFixed(2)}</p>
+        ) : (
+          <p>
+            EGP <s>{oldPrice.toFixed(2)}</s> {newPrice}
+          </p>
+        )}
       </div>
       <div className="cart-item-controls">
         <div className="remove-button" onClick={handleRemove}>

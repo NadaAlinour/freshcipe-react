@@ -8,7 +8,7 @@ import {
   fetchAllProducts,
   searchProducts,
   filterProducts,
-  fetchBestsellers
+  fetchBestsellers,
 } from "../utils/http";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -199,17 +199,16 @@ export default function ProductCollection() {
         const data = await fetchBestsellers();
         console.log(data.data);
         setBestsellers(data.data);
-        setIsBestsellersLoading(false);  
-     
-        console.log(data);  
+        setIsBestsellersLoading(false);
+
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
-    if(products.length < 1 && isQuery) getBestsellers();
-    console.log(bestsellers)
+    if (products.length < 1 && isQuery) getBestsellers();
+    console.log(bestsellers);
   }, [searchParams]);
- 
 
   let noResults = (
     <>
@@ -219,24 +218,27 @@ export default function ProductCollection() {
           <p> Please try a different query.</p>
         </div>
         <div className="no-search-results-products">
-          <h3 className="no-search-results-products-header">Popular products</h3>
+          <h3 className="no-search-results-products-header">
+            Popular products
+          </h3>
           <ul>
-            {!isBestsellersLoading && bestsellers.map(product => (
-              <li key={product.id}>
-              <ProductCard
-                color={true}
-                id={product.id}
-                title={product.attributes.title}
-                price={product.attributes.price}
-                quantity={product.attributes.weight}
-                imageUrl={
-                  product.attributes.image.data
-                    ? product.attributes.image.data.attributes.url
-                    : null
-                }
-              />
-            </li>
-            ))}
+            {!isBestsellersLoading &&
+              bestsellers.map((product) => (
+                <li key={product.id}>
+                  <ProductCard
+                    color={true}
+                    id={product.id}
+                    title={product.attributes.title}
+                    price={product.attributes.price}
+                    quantity={product.attributes.weight}
+                    imageUrl={
+                      product.attributes.image.data
+                        ? product.attributes.image.data.attributes.url
+                        : null
+                    }
+                  />
+                </li>
+              ))}
           </ul>
         </div>
       </div>
@@ -275,6 +277,7 @@ export default function ProductCollection() {
                             ? product.attributes.image.data.attributes.url
                             : null
                         }
+                        isDiscount={product.attributes.tags.data[0].id == 24 ? 'true' : ''}
                       />
                     </li>
                   ))}

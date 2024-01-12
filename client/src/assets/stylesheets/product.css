@@ -351,10 +351,11 @@
   position: absolute;
   min-width: 90px;
   overflow: hidden;
-  background-color: var(--primary500);
+  background-color: var(--accent500);
   text-align: center;
   border-radius: 2px;
   z-index: 1;
+  color: white;
 }
 
 .product-card-discount-tag p {
@@ -435,6 +436,7 @@
   transform: translateX(-65%);
 }
 
+
 .product-info-price-fraction {
   font-weight: bold;
   position: absolute;
@@ -443,6 +445,28 @@
   left: 25px;
   transform: translateY(10%);
 }
+
+.discounted-price-container {
+  font-size: 17px;
+  line-height: 20px;
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.discounted-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  width: 75%;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+
+
 
 .popular-product-card-search {
 
@@ -458,6 +482,7 @@
   font-size: 10px;
   color: rgba(0, 0, 0, 0.6);
 }
+
 
 .product-info-price-button {
   display: flex;

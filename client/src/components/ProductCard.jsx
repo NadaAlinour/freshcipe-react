@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { addItemToCart, fetchProduct, updateCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart, updateQuantity } from "../store/cartSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ProductCard({
@@ -13,6 +13,7 @@ export default function ProductCard({
   price,
   quantity,
   color,
+  isDiscount,
 }) {
   const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -144,8 +145,25 @@ export default function ProductCard({
     setIsAddEnabled(true);
   };
 
-  const stringPrice = price.toString();
-  let priceSplit = stringPrice.split(".");
+  useEffect(() => {
+    console.log(price);
+  }, []);
+
+  // this part demonstrates how everything will look and behave when a product is discounted
+  // the values are the same in the database though but ofc they ought to be updated.
+  let newPrice = price;
+  if (isDiscount) {
+    var oldPrice = price;
+    newPrice = (newPrice - newPrice * 0.25).toFixed(2);
+    var newStringPrice = newPrice.toString();
+    var newPriceSplit = newStringPrice.split(".");
+    var oldStringPrice = oldPrice.toString();
+    var oldPriceSplit = oldStringPrice.split(".");
+  } else {
+    const stringPrice = newPrice.toString();
+    var priceSplit = stringPrice.split(".");
+  }
+
   //console.log(priceSplit);
   const navigate = useNavigate();
   const handleClick = (id, title) => {
@@ -180,10 +198,24 @@ export default function ProductCard({
           }
         >
           <div className="product-card-price-container">
-            <p className="product-card-price-whole">{priceSplit[0]}</p>
+            <p className="product-card-price-whole">
+              {isDiscount ? (
+                <div className="discounted-price-container">
+                  <div className="discounted-price">
+                    <div className="old-price">{oldPriceSplit[0]}.{oldPriceSplit[1]}</div> <div>{newPriceSplit[0]}.
+                    {newPriceSplit[1]}</div>
+                  </div>
+                  <p className="currency-text">EGP</p>
+                </div>
+              ) : (
+                priceSplit[0]
+              )}
+            </p>
             <div className="product-card-fraction-currency-container">
-              <p className="product-card-price-fraction">.{priceSplit[1]}</p>
-              <p className="currency-text">EGP</p>
+              <p className="product-card-price-fraction">
+                {!isDiscount && <p>.{priceSplit[1]}</p>}
+              </p>
+              {!isDiscount && <p className="currency-text">EGP</p>}
             </div>
           </div>
           <p className="product-card-quantity">{quantity}</p>
@@ -214,6 +246,7 @@ export default function ProductCard({
           <box-icon name="plus" color="white" />
         </div>
       </div>
+      {isDiscount && <div className="product-card-discount-tag">25% Off</div>}
     </div>
   );
 }
