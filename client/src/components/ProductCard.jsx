@@ -198,23 +198,25 @@ export default function ProductCard({
           }
         >
           <div className="product-card-price-container">
-            <p className="product-card-price-whole">
+            <div className="product-card-price-whole">
               {isDiscount ? (
                 <div className="discounted-price-container">
                   <div className="discounted-price">
-                    <div className="old-price">{oldPriceSplit[0]}.{oldPriceSplit[1]}</div> <div>{newPriceSplit[0]}.
-                    {newPriceSplit[1]}</div>
+                    <div className="old-price">
+                      {oldPriceSplit[0]}.{oldPriceSplit[1]}
+                    </div>{" "}
+                    <div>
+                      {newPriceSplit[0]}.{newPriceSplit[1]}
+                    </div>
                   </div>
                   <p className="currency-text">EGP</p>
                 </div>
               ) : (
                 priceSplit[0]
               )}
-            </p>
+            </div>
             <div className="product-card-fraction-currency-container">
-              <p className="product-card-price-fraction">
-                {!isDiscount && <p>.{priceSplit[1]}</p>}
-              </p>
+              {!isDiscount && <p>.{priceSplit[1]}</p>}
               {!isDiscount && <p className="currency-text">EGP</p>}
             </div>
           </div>

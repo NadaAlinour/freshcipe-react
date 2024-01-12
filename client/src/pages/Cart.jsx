@@ -54,7 +54,9 @@ export default function CartPage() {
     cartItems.forEach((item) => {
       if (item.attributes.product.data.attributes.tags.data[0].id == 24) {
         calculatedDiscount +=
-          (item.attributes.product.data.attributes.price * 0.25) * item.attributes.quantity;
+          item.attributes.product.data.attributes.price *
+          0.25 *
+          item.attributes.quantity;
       }
     });
 
@@ -122,7 +124,6 @@ export default function CartPage() {
         });
       }
 
-
       let start;
       let end;
 
@@ -160,8 +161,6 @@ export default function CartPage() {
       }
     }
   };
-
-
 
   return (
     <div className="cart_page">

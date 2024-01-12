@@ -123,7 +123,7 @@ export async function fetchBestsellers() {
 // get product in productDetails page
 export async function fetchProduct(productId) {
   const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&filters[id][$eq]=${productId}`
+    `${BASE_URL}/products?populate[0]=image&populate[1]=tags&filters[id][$eq]=${productId}`
   );
   return response.data;
 }
