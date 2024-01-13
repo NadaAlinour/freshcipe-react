@@ -10,11 +10,9 @@ export default function NavbarDropdown() {
   const { userToken } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    console.log("logging out");
     dispatch(clearFavourites());
     dispatch(clearCart());
     dispatch(logoutUser());
-    //window.location.reload();
   };
 
   let option = <li onClick={() => navigate("/login")}>Login</li>;
@@ -33,20 +31,11 @@ export default function NavbarDropdown() {
           >
             My Account
           </li>
-          {/*<li
-            className={userToken ? "" : "item-disable"}
-            onClick={() => {
-              if (userToken) navigate("/Reviews");
-            }}
-          >
-            Reviews
-          </li>*/}
 
           <li
             className={userToken ? "" : "item-disable"}
             onClick={() => {
               userToken && navigate("/favourites");
-              //window.location.reload();
             }}
           >
             My Favourites
@@ -59,11 +48,6 @@ export default function NavbarDropdown() {
           >
             My Orders
           </li>
-          {/*<li className={userToken ? "" : "item-disable"}>
-            Delivery Addresses
-          </li>
-          <li className={userToken ? "" : "item-disable"}>My Discounts</li>
-          <li>Settings</li>*/}
           {option}
         </ul>
       </div>

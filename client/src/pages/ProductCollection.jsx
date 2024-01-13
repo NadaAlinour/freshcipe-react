@@ -25,8 +25,7 @@ export default function ProductCollection() {
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
-  // check if search query
-  //console.log(pathArray);
+
 
   let isQuery = pathArray.includes("search");
   let tempSearchText;
@@ -53,32 +52,22 @@ export default function ProductCollection() {
     const getSearchedProducts = async (searchText) => {
       try {
         const data = await searchProducts(searchText);
-       // console.log("search response: ", data.data);
         setProducts(data.data);
-        //setProducts(data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
 
-    //isQuery = pathArray.includes("search");
-    //console.log(isQuery);
 
     if (isQuery) {
-      console.log("WE ARE IN LESGO QUERY");
       setSearchText(searchParams.get("query"));
       tempSearchText = searchParams.get("query");
-      console.log("search text: ", searchParams.get("query"));
       setSearchText(searchParams.get("query"));
       getSearchedProducts(tempSearchText);
     }
   }, [isQuery, searchParams.get("query")]);
 
-
-  const updateProductsByPrice = () => {
-    console.log("do nothing");
-  };
 
   const updateProducts = async (selectedFilters) => {
   
@@ -86,16 +75,13 @@ export default function ProductCollection() {
       setAllUnselected("false");
       try {
         const data = await filterProducts(selectedFilters);
-        //console.log(data);
         let filteredProducts = [];
         for (let i = 0; i < data.data.length; i++) {
-          console.log("filtered products loop, ", filteredProducts);
           filteredProducts = [
             ...filteredProducts,
             ...data.data[i].attributes.products.data,
           ];
         }
-       // console.log("FILTERED PRODUCTS ", filteredProducts);
         setProducts(filteredProducts);
 
       } catch (error) {
@@ -182,17 +168,13 @@ export default function ProductCollection() {
     const getBestsellers = async () => {
       try {
         const data = await fetchBestsellers();
-        console.log(data.data);
         setBestsellers(data.data);
         setIsBestsellersLoading(false);
-
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
     if (products.length < 1 && isQuery) getBestsellers();
-    console.log(bestsellers);
   }, [searchParams]);
 
   let noResults = (
@@ -239,7 +221,6 @@ export default function ProductCollection() {
           <div className="product-filter-container">
             <ProductFilter
               updateCollection={updateProducts}
-              updateByPrice={updateProductsByPrice}
             />
           </div>
         ) : (

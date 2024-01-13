@@ -4,32 +4,19 @@ import { removeFromCart, updateQuantity } from "../store/cartSlice";
 import { deleteCartItem, updateCartItem } from "../utils/http";
 import "../assets/stylesheets/cart.css";
 
-function CartItem({
-  id,
-  name,
-  image,
-  basePrice,
-  quantity,
-  updatePrice,
-  isDiscount,
-}) {
-  const totalPrice = quantity * basePrice;
+function CartItem({ id, name, image, basePrice, quantity, isDiscount }) {
   if (isDiscount) {
     var oldPrice = basePrice;
     var newPrice = (oldPrice - oldPrice * 0.25).toFixed(2);
   }
 
-  const { userToken, userId, cartId } = useSelector((state) => state.auth);
-  const { cartItems } = useSelector((state) => state.cart);
+  const { userToken, cartId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleRemove = async () => {
-    console.log(id);
-
     if (userToken) {
       try {
         const response = await deleteCartItem(cartId, id, userToken);
-        console.log(response);
         dispatch(removeFromCart({ id: id }));
       } catch (error) {
         console.log(error);
@@ -37,16 +24,13 @@ function CartItem({
     } else {
       dispatch(removeFromCart({ id: id }));
       let tempItems = JSON.parse(localStorage.getItem("localcart"));
-      console.log(tempItems);
       let newTempItems = tempItems.filter((item) => item.id != id);
       localStorage.setItem("localcart", JSON.stringify(newTempItems));
-      console.log("hihihi");
     }
   };
 
   const decreaseQuantity = async () => {
     if (quantity > 1) {
-      // updatePrice(id, quantity - 1);
       const data = {
         data: {
           quantity: quantity - 1,
@@ -56,7 +40,6 @@ function CartItem({
         try {
           const response = await updateCartItem(id, userToken, data);
           dispatch(updateQuantity({ cartItemId: id, quantity: quantity - 1 }));
-          console.log(response);
         } catch (error) {
           console.log(error);
         }
@@ -69,13 +52,11 @@ function CartItem({
           }
           return item;
         });
-        console.log(newTempItems);
         localStorage.setItem("localcart", JSON.stringify(newTempItems));
       }
     } else {
       // removeItem(id);
       if (userToken) {
-        console.log("deleting item");
         await handleRemove();
       } else {
         handleRemove();
@@ -87,10 +68,6 @@ function CartItem({
   };
 
   const increaseQuantity = async () => {
-    // updatePrice(id, quantity + 1);
-    console.log("current quantity: ", quantity);
-    console.log("current cart: ", cartItems);
-
     const data = {
       data: {
         quantity: quantity + 1,
@@ -100,7 +77,6 @@ function CartItem({
       try {
         const response = await updateCartItem(id, userToken, data);
         dispatch(updateQuantity({ cartItemId: id, quantity: quantity + 1 }));
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -113,7 +89,6 @@ function CartItem({
         }
         return item;
       });
-      console.log(newTempItems);
       localStorage.setItem("localcart", JSON.stringify(newTempItems));
     }
   };

@@ -2,9 +2,8 @@ import "boxicons";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { fetchSubCats, fetchVendor } from "../utils/http";
-//import { fetchVendors, fetchVendorCats } from "../utils/http";
 
-export default function ProductFilter({ updateCollection, updateByPrice }) {
+export default function ProductFilter({ updateCollection }) {
   const navigate = useNavigate();
   const location = useLocation();
   const pathArray = location.pathname.split("/");
@@ -18,33 +17,11 @@ export default function ProductFilter({ updateCollection, updateByPrice }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubCatsLoading, setIsSubCatsLoading] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [selectedPrices, setSelectedPrices] = useState([]);
-
-
-  const handlePriceClick = (rangeId, startValue, endValue) => {
-    console.log("PRICES: ", typeof selectedPrices);
-     const exists = selectedPrices.find((id) => id == rangeId);
-    if (exists) {
-      setSelectedPrices((prevSelectedPrices) => {
-        const newArray = prevSelectedPrices.filter((id) => id != rangeId);
-        updateByPrice(newArray);
-        return newArray;
-      });
-    } else {
-      setSelectedPrices((prevSelectedPrices) => {
-        const newArray = [...prevSelectedPrices, rangeId];
-        updateByPrice(newArray);
-        return newArray;
-      });
-    }
-  
-  };
 
   const handleFilterClick = (catId) => {
     // check if id already exists in selectedFilters
     const exists = selectedFilters.find((id) => id == catId);
     if (exists) {
-      //console.log("id already selected");
       // remove it
       if (selectedFilters.length > 1) {
         setSelectedFilters((prevSelectedFilters) => {
@@ -61,22 +38,18 @@ export default function ProductFilter({ updateCollection, updateByPrice }) {
       }
     } else {
       // push id to selectedFilters
-      //selectedFilters.push(catId);
       setSelectedFilters((prevSelectedFilters) => {
         const newArray = [...prevSelectedFilters, catId];
         updateCollection(newArray);
         return newArray;
       });
     }
-    // console.log(selectedFilters);
-    //updateCollection(selectedFilters);
   };
 
   useEffect(() => {
     const getCats = async () => {
       try {
         const data = await fetchVendor();
-        //console.log(data[0]);
         setCategories(data[0].tags);
         setIsLoading(false);
       } catch (error) {
@@ -90,14 +63,13 @@ export default function ProductFilter({ updateCollection, updateByPrice }) {
     const getSubCats = async () => {
       try {
         const data = await fetchSubCats(idFromUrl);
-        //console.log(data.data);
         setSubCats(data.data);
         setIsSubCatsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    if(idFromUrl != 'search') getSubCats();
+    if (idFromUrl != "search") getSubCats();
   }, [idFromUrl]);
 
   return (
@@ -175,38 +147,6 @@ export default function ProductFilter({ updateCollection, updateByPrice }) {
           </ul>
         </div>
       )}
-
-     {/*  <div className="filter-block-container">
-        <div className="filter-block-header">
-          <h3>Price</h3>
-        </div>
-       <ul>
-          <li onClick={handlePriceClick.bind(this, 1, 0, 50)}>
-            <div className="ingredient-checkbox-container">
-              <box-icon name="checkbox" size="28px" color="#474643" />
-            </div>
-            <div className="ingredient-label-container">
-              <label>Under 50E£</label>
-            </div>
-          </li>
-          <li onClick={handlePriceClick.bind(this, 2, 50, 200)}>
-            <div className="ingredient-checkbox-container">
-              <box-icon name="checkbox" size="28px" color="#474643" />
-            </div>
-            <div className="ingredient-label-container">
-              <label>50E£ to 200E£</label>
-            </div>
-          </li>
-          <li onClick={handlePriceClick.bind(this, 3, 200, 10000)}>
-            <div className="ingredient-checkbox-container">
-              <box-icon name="checkbox" size="28px" color="#474643" />
-            </div>
-            <div className="ingredient-label-container">
-              <label>200E£ and above</label>
-            </div>
-          </li>
-            </ul>
-      </div>*/}
-            </div>
+    </div>
   );
 }

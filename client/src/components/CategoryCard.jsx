@@ -4,7 +4,6 @@ export default function CategoryCard({ id, imageUrl, title}) {
   const navigate = useNavigate();
 
   const handleClick = (id, title) => {
-    console.log("market card clicked");
     navigate('/products/' + id + '/' + title, { state: { categoryId: id } });
   };
 
