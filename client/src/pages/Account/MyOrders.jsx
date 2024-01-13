@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import "../../assets/stylesheets/account.css";
-import ReviewModal from "../../components/ReviewModal.jsx";
-import Reviews from "./Reviews.jsx";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import '../../assets/stylesheets/account.css';
+import ReviewModal from '../../components/ReviewModal.jsx';
+import Reviews from './Reviews.jsx';
 
 function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -32,8 +32,7 @@ function MyOrders() {
   }, [userId, userToken]);
 
   useEffect(() => {
-    const storedReviewedOrders =
-      JSON.parse(localStorage.getItem("reviewedOrders")) || [];
+    const storedReviewedOrders = JSON.parse(localStorage.getItem('reviewedOrders')) || [];
     setReviewedOrders(storedReviewedOrders);
   }, []);
 
@@ -67,7 +66,7 @@ function MyOrders() {
 
       console.log('API Response:', response);
     } catch (error) {
-      console.error("Error fetching reviews:", error);
+      console.error('Error fetching reviews:', error);
     }
 
     setShowReviewModal(true);
@@ -78,9 +77,9 @@ function MyOrders() {
   };
 
   const handleSaveReview = async (score, comment) => {
-    console.log("Review data:", { score, comment });
+    console.log('Review data:', { score, comment });
     if (!selectedOrder || !selectedOrder.id) {
-      console.error("Selected order is null or does not have an id.");
+      console.error('Selected order is null or does not have an id.');
       return;
     }
 
@@ -98,17 +97,14 @@ function MyOrders() {
         }
       );
 
-      console.log("Review saved.");
+      console.log('Review saved.');
 
       setReviewedOrders([...reviewedOrders, selectedOrder.id]);
-      localStorage.setItem(
-        "reviewedOrders",
-        JSON.stringify([...reviewedOrders, selectedOrder.id])
-      );
+      localStorage.setItem('reviewedOrders', JSON.stringify([...reviewedOrders, selectedOrder.id]));
 
       handleCloseItems();
     } catch (error) {
-      console.error("Error saving review:", error);
+      console.error('Error saving review:', error);
     }
   };
 
@@ -119,14 +115,28 @@ function MyOrders() {
         <div key={order.id} className="order-card">
           <h2>Order ID: {order.id}</h2>
           <h3>Delivery Window</h3>
-          <p>
-            {order.attributes.desiredFrom} - {order.attributes.desiredTo}
-          </p>
+          <p>{order.attributes.desiredFrom} - {order.attributes.desiredTo}</p>
           <h3>Grand Total:</h3>
           <p>{order.attributes.grandTotal}</p>
 
-          <button className="showButton" onClick={() => handleShowItems(order)}>
-            Show Ordered Items
+          <button className='showButton' onClick={() => handleShowItems(order)}>Show Ordered Items</button>
+
+          {selectedOrder && selectedOrder.id === order.id && showOrderedItems && (
+            <div className="ordered-items-window">
+              <h2>Ordered Items for Order ID: {selectedOrder.id}</h2>
+              <ul>
+                {selectedOrder.attributes.order_items.data.map((item) => (
+                  <li key={item.id}>
+                    {item.attributes.quantity} x {item.attributes.product.data.attributes.title}
+                  </li>
+                ))}
+              </ul>
+              <button className='showButton' onClick={handleCloseItems}>Close</button>
+            </div>
+          )}
+
+          <button className='showButton' onClick={() => handleShowReviewModal(order)}>
+            {reviewedOrders.includes(order.id) ? 'Show Review' : 'Add Review'}
           </button>
 
           {showReviewModal && selectedOrder && selectedOrder.id === order.id && (
