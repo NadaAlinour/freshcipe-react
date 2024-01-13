@@ -22,8 +22,8 @@ export default function CartPage() {
   const [checkoutLink, setCheckoutLink] = useState();
 
   const [note, setNote] = useState();
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
 
   useEffect(() => {
     const handleOverlayStyle = () => {
@@ -48,8 +48,6 @@ export default function CartPage() {
   };
 
   useEffect(() => {
-    //console.log(cartItems);
-
     var calculatedDiscount = 0;
     cartItems.forEach((item) => {
       if (item.attributes.product.data.attributes.tags.data[0].id == 24) {
@@ -84,8 +82,6 @@ export default function CartPage() {
   const dispatch = useDispatch();
 
   const clearCart = async () => {
-   // console.log(cartItems);
-   // console.log("clearing cart");
 
     if (userToken) {
       cartItems.forEach(async (item) => {
@@ -111,7 +107,7 @@ export default function CartPage() {
       setIsModalShowing(true);
     } else {
       setCheckoutLink("");
-     // console.log("creating order");
+      console.log("creating order");
       // get items from cart
       let items = [];
       for (let i = 0; i < cartItems.length; i++) {
@@ -147,6 +143,7 @@ export default function CartPage() {
       };
 
       try {
+        console.log(order)
         const data = await createOrder(userToken, order);
         // redirect to stripe page
         window.location.assign(data.data.attributes.checkoutLink);

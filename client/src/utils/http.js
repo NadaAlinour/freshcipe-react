@@ -96,7 +96,7 @@ export async function fetchAllProducts(page, pageSize) {
 // get top 5 bestsellers
 export async function fetchBestsellers() {
   const response = await axios.get(
-    `${BASE_URL}/products?sort=times_sold:desc&populate[0]=image&pagination[page]=1&pagination[pageSize]=5`
+    `${BASE_URL}/products?sort=times_sold:desc&populate[0]=image&populate[1]=tags&pagination[page]=1&pagination[pageSize]=5`
   );
   return response.data;
 }

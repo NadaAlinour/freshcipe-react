@@ -61,7 +61,7 @@ function App() {
 
   useEffect(() => {
     // set state with localcart
-    if (!userToken) {
+    if (!savedToken) {
 
       let localCartItems;
       if (JSON.parse(localStorage.getItem('localcart'))) {
