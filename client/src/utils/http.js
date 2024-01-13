@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const BASE_URL = "http://localhost:1337/api";
-const BASE_URL = "https://shop-ykb6.onrender.com/api";
+const BASE_URL = "http://localhost:1337/api";
+//const BASE_URL = "https://shop-ykb6.onrender.com/api";
 
 // signup
 export async function signup(userData) {
@@ -190,7 +190,7 @@ export async function getCartWithItems(userId, token) {
 
 export async function addItemToCart(cartItemData, token) {
   const response = await axios.post(
-    `${BASE_URL}/cart-items?populate[0]=product&populate[1]=product.image`,
+    `${BASE_URL}/cart-items?populate[0]=product&populate[1]=product.image&populate[2]=product.tags`,
     cartItemData,
     {
       method: "POST",

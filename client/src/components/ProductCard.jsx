@@ -59,7 +59,7 @@ export default function ProductCard({
             },
           };
           const response = await addItemToCart(data2, userToken);
-         
+         // console.log(response)
           dispatch(updateCart({ cart: response.data }));
         } catch (error) {
           console.log(error);

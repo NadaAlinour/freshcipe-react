@@ -48,6 +48,7 @@ export default function CartPage() {
   };
 
   useEffect(() => {
+    console.log(cartItems);
     var calculatedDiscount = 0;
     cartItems.forEach((item) => {
       if (item.attributes.product.data.attributes.tags.data[0].id == 24) {
@@ -200,8 +201,7 @@ export default function CartPage() {
                         updatePrice(item.id, newQuantity)
                       }
                       isDiscount={
-                        item.attributes.product.data.attributes.tags.data[0]
-                          .id == 24
+                        item.attributes.product.data.attributes.tags.data[0].id == 24
                           ? "true"
                           : ""
                       }
