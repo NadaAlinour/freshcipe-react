@@ -10,12 +10,8 @@ import PageNotFound from "../PageNotFound";
 import LoginProtected from "./LoginProtected";
 import Protected from "./Protected";
 import PersonalDetails from "../Account/PersonalDetails";
-import DeliveryAddresses from "../Account/DeliveryAddresses";
-import PaymentDetails from "../Account/PaymentDetails";
 import MyOrders from "../Account/MyOrders";
-import Subscriptions from "../Account/Subscriptions";
 import Reviews from "../Account/Reviews";
-import Settings from "../Account/Settings";
 
 import Recipes from "../Recipes";
 import RecipeDetails from "../RecipeDetails";
@@ -34,11 +30,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="contact" element={<Contact />}></Route>
-      <Route path="deliveryAddresses" element={<DeliveryAddresses />}></Route>
-      <Route path="paymentDetails" element={<PaymentDetails />}></Route>
       <Route path="Reviews" element={<Reviews />}></Route>
-      <Route path="subscriptions" element={<Subscriptions />}></Route>
-      <Route path="settings" element={<Settings />}></Route>
       <Route
         path="login/reset-password-link"
         element={<ResetPassword />}
