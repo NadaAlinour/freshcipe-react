@@ -352,13 +352,14 @@ export async function searchProducts(searchText) {
 // get products by subtag (concatenate later)
 export async function filterProducts(ids) {
 
-  let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image`;
+  let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image&populate[2]=products.tags`;
   for (let i = 0; i < ids.length; i++) {
     newUrl += `&filters[id][$in][${i}]=${ids[i]}`;
   }
 
 
   const response = await axios.get(newUrl);
+  console.log(response);
 
   return response.data;
 }

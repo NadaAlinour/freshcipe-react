@@ -68,7 +68,6 @@ export default function Login() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log("submit clicked");
     setErrMsg("");
     setIdentifierErr(false);
     setPasswordErr(false);
@@ -80,7 +79,7 @@ export default function Login() {
       password
     );
 
-    console.log(identifierError, passwordError);
+    //console.log(identifierError, passwordError);
 
     if (identifierError) {
       setIdentifierErr(true);
@@ -98,15 +97,15 @@ export default function Login() {
     let userId = "";
 
     if (identifierError || passwordError) {
-      console.log("cannot proceed, client side validation errors exist");
+    //  console.log("cannot proceed, client side validation errors exist");
     } else {
       try {
-        console.log(loginForm);
+      //  console.log(loginForm);
 
         try {
           var response = await login(loginForm);
         } catch (error) {
-          console.log(error.response.data.error.message);
+        //  console.log(error.response.data.error.message);
           setErrMsg(error.response.data.error.message);
         }
 
@@ -114,14 +113,14 @@ export default function Login() {
         if (localStorage.getItem("localcart")) {
           // merge carts
           let localCartItems = JSON.parse(localStorage.getItem("localcart"));
-          console.log(localCartItems);
+        //  console.log(localCartItems);
           products = localCartItems.map((item) => {
             return {
               id: item.attributes.product.data.id,
               quantity: item.attributes.quantity,
             };
           });
-          console.log(products);
+        //  console.log(products);
         }
         //console.log(response);
         // check if cart exists
@@ -136,7 +135,7 @@ export default function Login() {
           cartId = response3.data.id;
         } else {
           // get cart id
-          console.log("cart id: ", response2.data[0].id);
+         // console.log("cart id: ", response2.data[0].id);
           cartId = response2.data[0].id;
         }
 
@@ -151,25 +150,23 @@ export default function Login() {
             };
 
             const response5 = await addItemToCart(data2, response.jwt);
-            console.log("test: ", response5.data);
+          //  console.log("test: ", response5.data);
           } catch (error) {
             console.log(error);
           }
         });
 
         const response4 = await fetchFavourites(userId, response.jwt);
-        console.log(response4);
+     //   console.log(response4);
         if (response4.data.length === 0) {
           // create favourites
           const response5 = await createFavourites(
             response.user.id,
             response.jwt
           );
-          console.log("RESPONSE 5: ", response5);
           favouritesId = response5.data.id;
-          console.log(response5);
         } else {
-          console.log("user already has favourites");
+        //  console.log("user already has favourites");
           favouritesId = response4.data[0].id;
         }
         dispatch(
@@ -186,8 +183,6 @@ export default function Login() {
         return;
       }
 
-      // console.log('user id is: ', userId)
-      // console.log('user token is: ', userToken)
     }
   };
 
