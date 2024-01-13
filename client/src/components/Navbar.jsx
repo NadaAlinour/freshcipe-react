@@ -35,7 +35,7 @@ export default function Navbar() {
 
   // navbar for login/signup screens
   let navbar = (
-    <div className="main-navbar">
+    <div className="main-navbar no-print">
       <ul>
         <li>
           <Link to="/" className="logo-header-link">

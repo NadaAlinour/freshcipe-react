@@ -5,7 +5,6 @@ const BASE_URL = "https://shop-ykb6.onrender.com/api";
 
 // signup
 export async function signup(userData) {
-  console.log(userData);
   const response = await axios.post(
     `${BASE_URL}/auth/local/register`,
     userData
@@ -21,8 +20,6 @@ export async function login(userData) {
 
 // get user info
 export async function fetchUserInfo(user, token) {
-  console.log(user);
-  console.log(token);
   const response = await axios.get(
     `${BASE_URL}/users/me?populate[0]=cart`,
     user,
@@ -41,7 +38,6 @@ export async function contact(formData) {
       ...formData,
     },
   };
-  console.log(data);
   const response = await axios.post(`${BASE_URL}/contact-forms`, data);
   return response.data;
 }
@@ -55,12 +51,6 @@ export async function sendPasswordResetLink(formData) {
   return response.data;
 }
 
-// reset password
-/*{
-    "code": "", // code contained in the reset link of step 3.
-    "password": "NEW PASS",
-    "passwordConfirmation": "NEW PASS"
-}*/
 export async function resetPassword(formData) {
   const response = await axios.post(
     `${BASE_URL}/auth/reset-password`,
@@ -85,14 +75,6 @@ export async function fetchSubCats(catId) {
   return response.data;
 }
 
-// get categories by vendor
-/*export async function fetchVendorCats(vendorId) {
-  const response = await axios.get(
-    "http://localhost:1337/api/tags?populate[0]=image&filters[vendor][id][$eq]=" +
-      vendorId
-  );
-  return response.data;
-}*/
 
 // get products by category by vendor
 export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
@@ -100,7 +82,6 @@ export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
     `${BASE_URL}/products?sort=title:asc&populate[0]=image&populate[1]=tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[tags][id][$eq]=` +
       categoryId
   );
-  console.log("page from http req: ", page);
   return response.data;
 }
 
@@ -115,7 +96,7 @@ export async function fetchAllProducts(page, pageSize) {
 // get top 5 bestsellers
 export async function fetchBestsellers() {
   const response = await axios.get(
-    `${BASE_URL}/products?sort=times_sold:desc&populate[0]=image&pagination[page]=1&pagination[pageSize]=5`
+    `${BASE_URL}/products?sort=times_sold:desc&populate[0]=image&populate[1]=tags&pagination[page]=1&pagination[pageSize]=5`
   );
   return response.data;
 }
@@ -146,7 +127,6 @@ export async function fetchRecipes(page, pageSize) {
 
 // get recipes by recipe tag
 export async function fetchRecipesByTag(tagId, page, pageSize) {
-  console.log("PAGE FROM HTTP.JS: ", page);
   const response = await axios.get(
     `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
   );
@@ -246,7 +226,6 @@ export async function deleteCartItem(cartId, itemId, token) {
 
 // create order
 export async function createOrder(token, order) {
-  console.log("order from http.js", order);
 
   const response = await axios.post(`${BASE_URL}/orders`, order, {
     method: "POST",
@@ -261,7 +240,6 @@ export async function createOrder(token, order) {
 
 async function updateTimesSold(order, token) {
   for (let i = 0; i < order.data.items.length; i++) {
-    console.log(order.data.items[i]);
 
     let productId = order.data.items[i].product;
     let count = order.data.items[i].quantity;
@@ -334,13 +312,11 @@ export async function fetchFavourites(userId, token) {
 // update includes deleting something from the favourites array
 // items is an array of favourite items stored in global state
 export async function updateFavourites(favouritesId, token, items) {
-  console.log("items: ", items);
   const data = {
     data: {
       recipes: items,
     },
   };
-  console.log("data: ", data);
   const response = await axios.put(
     `${BASE_URL}/favourites/${favouritesId}`,
     data,
@@ -366,25 +342,21 @@ export async function fetchUser(token, userId) {
 
 // search
 //sort=title:asc
-export async function searchProducts(searchText, page, pageSize) {
-  //console.log('FROM HTTPS SEARCHTEXT IS: ', searchText)
+export async function searchProducts(searchText) {
   const response = await axios.get(
     `${BASE_URL}/products?populate[0]=image&filters[title][$containsi]=${searchText}`
   );
-  //console.log('FROM HTTPS: ', response.data);
   return response.data;
 }
 
 // get products by subtag (concatenate later)
 export async function filterProducts(ids) {
-  console.log("IDS FROM HTTP: ", ids);
 
-  let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image`;
+  let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image&populate[2]=products.tags`;
   for (let i = 0; i < ids.length; i++) {
     newUrl += `&filters[id][$in][${i}]=${ids[i]}`;
   }
 
-  console.log("CONSTRUCTED URL FROM HTTP: ", newUrl);
 
   const response = await axios.get(newUrl);
 

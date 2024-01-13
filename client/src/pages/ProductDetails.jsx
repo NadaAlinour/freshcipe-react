@@ -11,7 +11,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 export default function ProductDetails({ route }) {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { userToken, userId, cartId } = useSelector((state) => state.auth);
+  const { userToken, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
   const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -19,15 +19,15 @@ export default function ProductDetails({ route }) {
   const [isAddEnabled, setIsAddEnabled] = useState(true);
 
   const currentPath = location.pathname;
-  console.log(currentPath);
+  //console.log(currentPath);
   const pathArray = currentPath.split("/");
   const idFromUrl = pathArray[pathArray.length - 2];
-  console.log(idFromUrl);
+  //console.log(idFromUrl);
 
   const addToCart = async (productId, quantity) => {
     setIsAddEnabled(false);
     if (!userToken) {
-      console.log("user not logged in");
+      //console.log("user not logged in");
       // localcart stuff
       // fetch the product using its id
       // change to json and store in localstorage array or sum idk
@@ -64,17 +64,15 @@ export default function ProductDetails({ route }) {
               },
             },
           };
-          console.log(localCartItems);
           dispatch(updateCart({ cart: newItem }));
 
           let myjson = JSON.stringify(localCartItems);
           localStorage.setItem("localcart", myjson);
-          console.log("myjson, ", myjson);
+          //console.log("myjson, ", myjson);
         } catch (error) {
           console.log(error);
         }
       } else {
-        console.log("or elseee");
         // increase quantity
         let existingItem = cartItems.find(
           (item) => item.attributes.product.data.id == productId
@@ -92,7 +90,6 @@ export default function ProductDetails({ route }) {
           }
           return item;
         });
-        console.log(newTempItems);
         localStorage.setItem("localcart", JSON.stringify(newTempItems));
       }
     }
@@ -115,7 +112,6 @@ export default function ProductDetails({ route }) {
             quantity: isExists.attributes.quantity + 1,
           })
         );
-        console.log(response);
       } catch (error) {
         console.log(error);
         if (error.response.status == 403) {
@@ -134,7 +130,6 @@ export default function ProductDetails({ route }) {
           },
         };
         const response = await addItemToCart(data2, userToken);
-        console.log(response.data);
         dispatch(updateCart({ cart: response.data }));
       } catch (error) {
         console.log(error);
@@ -154,7 +149,6 @@ export default function ProductDetails({ route }) {
       }
     };
     getProduct();
-    console.log(product);
   }, [isLoading]);
 
   return (

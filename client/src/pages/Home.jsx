@@ -1,4 +1,3 @@
-import MainCarousel from "../components/MainCarousel";
 import Carousel from "../components/Carousel";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,23 +5,18 @@ import Bowl from "../assets/bowl.png";
 import OfferOne from "../assets/offerone.jpg";
 import OfferTwo from "../assets/offertwo.jpg";
 
-import axios from "axios";
 import "boxicons";
 import {
   fetchVendor,
   fetchRecipes,
-  fetchAllProducts,
   fetchBestsellers,
 } from "../utils/http";
 import RecipeCard from "../components/RecipeCard";
 import ProductCard from "../components/ProductCard";
-import { useSelector } from "react-redux";
 
 export default function Home() {
-  const { userToken, userId, cartId } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  /*const [vendors, setVendors] = useState([]);*/
   const [isCatsLoading, setIsCatsLoading] = useState(true);
   const [cats, setCats] = useState();
   const [isRecipesLoading, setIsRecipesLoading] = useState(true);
@@ -30,23 +24,6 @@ export default function Home() {
   const [isProductsLoading, setIsProductsLoading] = useState(true);
   const [products, setProducts] = useState();
 
-  const features = [
-    {
-      color: "cornflowerblue",
-      title: "feature one",
-      imageUrl: "/src/assets/images/backgrounds/mealimage.jpg",
-    },
-    {
-      color: "green",
-      title: "feature two",
-      imageUrl: "/src/assets/images/backgrounds/mealimage.jpg",
-    },
-    {
-      color: "palevioletred",
-      title: "feature three",
-      imageUrl: "/src/assets/images/backgrounds/mealimage.jpg",
-    },
-  ];
 
   useEffect(() => {
     const getCategories = async () => {
@@ -54,7 +31,7 @@ export default function Home() {
         const data = await fetchVendor();
         setCats(data[0].tags);
         setIsCatsLoading(false);
-        console.log(data[0].tags);
+        //console.log(data[0].tags);
       } catch (error) {
         console.log(error);
       }
@@ -66,7 +43,7 @@ export default function Home() {
     const getRecipes = async () => {
       try {
         const data = await fetchRecipes(1, 4);
-        console.log(data.data);
+        //console.log(data.data);
         setRecipes(data.data);
         setIsRecipesLoading(false);
       } catch (error) {
@@ -80,25 +57,11 @@ export default function Home() {
     const getProducts = async () => {
       try {
         const data = await fetchBestsellers();
-        console.log(data.data);
+        //console.log(data.data);
         setProducts(data.data);
         setIsProductsLoading(false);
-        /*const data = await fetchAllProducts(1, 100);
-        for (let i = 0; i < data.data.length; i++) {
-          // update each product lol
-          let productId = data.data[i].id;
-          let data2 = {
-            data: {
-              times_sold: 0
-            }
-          }
-          let response3 = axios.put(`https://shop-ykb6.onrender.com/api/products/${productId}`, data2, {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          });
-        }*/
-        console.log(data);
+    
+        //console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -108,7 +71,6 @@ export default function Home() {
 
   return (
     <div className="home-page-container">
-      {/*<MainCarousel items={features} />*/}
       <div className="home-page-hero-container">
         <div className="hero-left">
           <h1>Fresh Groceries. Delicious Recipes.</h1>

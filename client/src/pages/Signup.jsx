@@ -23,7 +23,6 @@ export default function Signup() {
 
   const [errMsg, setErrMsg] = useState("");
 
-  //console.log(signupForm)
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -84,13 +83,9 @@ export default function Signup() {
       passwordError ||
       isNotValidEmail
     ) {
-      console.log("cannot proceed, client side validation errors exist");
     } else {
-      console.log("helelelelel");
       try {
         const response = await signup(signupForm);
-        console.log(response);
-        console.log("successful signup, navigate to login page");
         navigate("/login");
       } catch (error) {
         console.log(error.response.data.error.message);

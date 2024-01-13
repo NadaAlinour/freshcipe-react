@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import '../../assets/stylesheets/account.css';
-import { IconMenu2, IconX } from '@tabler/icons-react';
 
 function PersonalDetails() {
   const dispatch = useDispatch();

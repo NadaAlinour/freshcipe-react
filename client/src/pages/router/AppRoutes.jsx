@@ -6,17 +6,12 @@ import Login from "../Login";
 import Signup from "../Signup";
 import Cart from "../Cart";
 import Favourites from "../Favourites";
-import AccountNav from "../../components/AccountNav";
 import PageNotFound from "../PageNotFound";
 import LoginProtected from "./LoginProtected";
 import Protected from "./Protected";
 import PersonalDetails from "../Account/PersonalDetails";
-import DeliveryAddresses from "../Account/DeliveryAddresses";
-import PaymentDetails from "../Account/PaymentDetails";
 import MyOrders from "../Account/MyOrders";
-import Subscriptions from "../Account/Subscriptions";
 import Reviews from "../Account/Reviews";
-import Settings from "../Account/Settings";
 
 import Recipes from "../Recipes";
 import RecipeDetails from "../RecipeDetails";
@@ -35,19 +30,12 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="contact" element={<Contact />}></Route>
-      <Route path="account/personal-details" element={<AccountNav />}></Route>
-      <Route path="personalDetails" exact element={<PersonalDetails />}></Route>
-      <Route path="deliveryAddresses" element={<DeliveryAddresses />}></Route>
-      <Route path="paymentDetails" element={<PaymentDetails />}></Route>
       <Route path="Reviews" element={<Reviews />}></Route>
-      <Route path="subscriptions" element={<Subscriptions />}></Route>
-      <Route path="settings" element={<Settings />}></Route>
       <Route
         path="login/reset-password-link"
         element={<ResetPassword />}
       ></Route>
       <Route path="reset-password" element={<ResetPasswordAfter />}></Route>
-
 
       <Route path="/:productId/:product" element={<ProductDetails />} />
 
@@ -62,7 +50,6 @@ const AppRoutes = () => {
       />
 
       <Route path="products" element={<ProductCategories />} />
-
 
       <Route
         path="products/search"
@@ -103,8 +90,18 @@ const AppRoutes = () => {
       <Route
         path="favourites"
         element={
-          <Protected isAuth={localStorage.getItem("token")}>
+          <Protected isAuth={userToken}>
             <Favourites />
+          </Protected>
+        }
+      ></Route>
+
+
+      <Route
+        path="personalDetails"
+        element={
+          <Protected isAuth={userToken}>
+            <PersonalDetails />
           </Protected>
         }
       ></Route>
@@ -112,7 +109,7 @@ const AppRoutes = () => {
       <Route
         path="MyOrders"
         element={
-          <Protected isAuth={localStorage.getItem("token")}>
+          <Protected isAuth={userToken}>
             <MyOrders />
           </Protected>
         }

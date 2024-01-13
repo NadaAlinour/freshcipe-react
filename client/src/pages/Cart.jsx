@@ -4,7 +4,7 @@ import "../assets/stylesheets/cart.css";
 import CartItem from "../components/CartItem";
 import { deleteCartItem, createOrder } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, setCart } from "../store/cartSlice.js";
+import { removeFromCart} from "../store/cartSlice.js";
 import EmptyCartImage from "../assets/images/empty-cart.png";
 import CartAdd from "../assets/images/addcart.png";
 import Overlay from "../components/Overlay";
@@ -22,8 +22,8 @@ export default function CartPage() {
   const [checkoutLink, setCheckoutLink] = useState();
 
   const [note, setNote] = useState();
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
 
   useEffect(() => {
     const handleOverlayStyle = () => {
@@ -48,8 +48,6 @@ export default function CartPage() {
   };
 
   useEffect(() => {
-    console.log(cartItems);
-
     var calculatedDiscount = 0;
     cartItems.forEach((item) => {
       if (item.attributes.product.data.attributes.tags.data[0].id == 24) {
@@ -84,14 +82,12 @@ export default function CartPage() {
   const dispatch = useDispatch();
 
   const clearCart = async () => {
-    console.log(cartItems);
-    console.log("clearing cart");
 
     if (userToken) {
       cartItems.forEach(async (item) => {
         try {
           const response = await deleteCartItem(cartId, item.id, userToken);
-          console.log(response);
+         // console.log(response);
           dispatch(removeFromCart({ id: item.id }));
         } catch (error) {
           console.log(error);
@@ -107,7 +103,7 @@ export default function CartPage() {
 
   const handleCheckout = async () => {
     if (!userToken) {
-      console.log("pls log in to be able to checkout");
+      //console.log("pls log in to be able to checkout");
       setIsModalShowing(true);
     } else {
       setCheckoutLink("");
@@ -146,16 +142,11 @@ export default function CartPage() {
         },
       };
 
-      console.log("my order", order);
-      console.log(startTime, "  ", endTime);
       try {
+        console.log(order)
         const data = await createOrder(userToken, order);
-        console.log("RETURNED DATA ALO: ", data.data.attributes.checkoutLink);
-        //setCheckoutLink(data.data.attributes.checkoutLink);
-        window.location.assign(data.data.attributes.checkoutLink);
-
         // redirect to stripe page
-        console.log("redirect to stripe using checkout link");
+        window.location.assign(data.data.attributes.checkoutLink);
       } catch (error) {
         console.log(error);
       }

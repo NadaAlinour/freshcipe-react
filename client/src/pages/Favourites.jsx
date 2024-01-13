@@ -1,10 +1,8 @@
 import "../assets/stylesheets/favourites.css";
 import "boxicons";
-
 import RecipeCard from "../components/RecipeCard";
 import { useSelector, useDispatch } from "react-redux";
 import { updateFavourites } from "../utils/http";
-
 import { addFavourites } from "../store/favouritesSlice";
 
 export default function Favourites() {
@@ -13,7 +11,7 @@ export default function Favourites() {
   const dispatch = useDispatch();
 
   const handleDelete = async (id) => {
-    console.log(id);
+   // console.log(id);
 
     let newData = favourites;
     newData = newData.filter((item) => item.id != id);
@@ -21,7 +19,7 @@ export default function Favourites() {
 
     try {
       const data = await updateFavourites(favouritesId, userToken, newData);
-      console.log(data);
+      //console.log(data);
     } catch (error) {
       console.log(error);
     }

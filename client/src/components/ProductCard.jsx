@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { addItemToCart, fetchProduct, updateCartItem } from "../utils/http";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCart, updateQuantity } from "../store/cartSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ProductCard({
@@ -15,7 +15,7 @@ export default function ProductCard({
   color,
   isDiscount,
 }) {
-  const { userToken, userId, cartId } = useSelector((state) => state.auth);
+  const { userToken, cartId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -23,11 +23,9 @@ export default function ProductCard({
 
   const addToCart = async (productId, quantity) => {
     setIsAddEnabled(false);
-    // console.log(data);
 
     if (userToken) {
       // check if item already exists in cart to update it accordingly if so
-      console.log(cartItems);
       const isExists = cartItems.find(
         (item) => item.attributes.product.data.id == id
       );
@@ -47,11 +45,9 @@ export default function ProductCard({
               quantity: isExists.attributes.quantity + 1,
             })
           );
-          console.log(response);
         } catch (error) {
           console.log(error);
         }
-        console.log(cartItems);
       } else if (userToken && isExists == undefined) {
         // add to cart as a new cart item
         try {
@@ -63,17 +59,16 @@ export default function ProductCard({
             },
           };
           const response = await addItemToCart(data2, userToken);
-          console.log("test: ", response.data);
-          console.log(response.data);
+         
           dispatch(updateCart({ cart: response.data }));
         } catch (error) {
           console.log(error);
         }
       } else {
-        console.log("not logged in, cant add items to cart for now");
+       // console.log("not logged in, cant add items to cart for now");
       }
     } else if (!userToken) {
-      console.log("user not logged in");
+      //console.log("user not logged in");
       // localcart stuff
       // fetch the product using its id
       // change to json and store in localstorage array or sum idk
@@ -87,7 +82,6 @@ export default function ProductCard({
         } else localCartItems = [];
         try {
           const response2 = await fetchProduct(productId);
-          console.log(response2.data[0]);
           let uniqueId = uuidv4();
           localCartItems = [
             ...localCartItems,
@@ -110,17 +104,14 @@ export default function ProductCard({
               },
             },
           };
-          console.log(localCartItems);
           dispatch(updateCart({ cart: newItem }));
 
           let myjson = JSON.stringify(localCartItems);
           localStorage.setItem("localcart", myjson);
-          console.log("myjson, ", myjson);
         } catch (error) {
           console.log(error);
         }
       } else {
-        console.log("or elseee");
         // increase quantity
         let existingItem = cartItems.find(
           (item) => item.attributes.product.data.id == productId
@@ -138,16 +129,13 @@ export default function ProductCard({
           }
           return item;
         });
-        console.log(newTempItems);
+       // console.log(newTempItems);
         localStorage.setItem("localcart", JSON.stringify(newTempItems));
       }
     }
     setIsAddEnabled(true);
   };
 
-  useEffect(() => {
-    console.log(price);
-  }, []);
 
   // this part demonstrates how everything will look and behave when a product is discounted
   // the values are the same in the database though but ofc they ought to be updated.

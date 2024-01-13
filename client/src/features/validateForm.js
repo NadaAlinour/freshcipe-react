@@ -1,4 +1,3 @@
-import UserMock from "../data/userData.js";
 
 const validateEmailFormat = (email) => {
   var validEmailRegex =

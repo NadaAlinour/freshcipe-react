@@ -1,7 +1,6 @@
 # Freshcipe
 
-(graduation project)
-E-commerce web application using Reactjs.
+In progress e-commerce web application using Reactjs.
 
 To run the client:
 - npm install
@@ -12,6 +11,7 @@ To run the server:
 - npm run develop
 (currently server is remote so no need to run strapi-server)
 
+:star:[Live Demo](https://freshcipe.netlify.app/)
 
 ## Temporary Preview
 

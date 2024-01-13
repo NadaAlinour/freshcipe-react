@@ -1,22 +1,19 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import ProductFilter from "../components/ProductFilter";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Pagination from "../components/Pagination";
 import {
   fetchVendorCatsProducts,
-  fetchAllProducts,
   searchProducts,
   filterProducts,
   fetchBestsellers,
 } from "../utils/http";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
 export default function ProductCollection() {
   const location = useLocation();
 
-  const { userToken, userId } = useSelector((state) => state.auth);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchText, setSearchText] = useState("");
@@ -28,8 +25,7 @@ export default function ProductCollection() {
 
   const currentPath = location.pathname;
   const pathArray = currentPath.split("/");
-  // check if search query
-  //console.log(pathArray);
+
 
   let isQuery = pathArray.includes("search");
   let tempSearchText;
@@ -56,61 +52,38 @@ export default function ProductCollection() {
     const getSearchedProducts = async (searchText) => {
       try {
         const data = await searchProducts(searchText);
-        console.log("search response: ", data.data);
         setProducts(data.data);
-        //setProducts(data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
 
-    //isQuery = pathArray.includes("search");
-    //console.log(isQuery);
 
     if (isQuery) {
-      console.log("WE ARE IN LESGO QUERY");
       setSearchText(searchParams.get("query"));
       tempSearchText = searchParams.get("query");
-      console.log("search text: ", searchParams.get("query"));
       setSearchText(searchParams.get("query"));
       getSearchedProducts(tempSearchText);
     }
   }, [isQuery, searchParams.get("query")]);
 
-  useEffect(() => {
-    console.log("PRODUTCS EYO: ", products);
-    console.log(isLoading);
-  }, [products]);
-
-  const updateProductsByPrice = () => {
-    console.log("do nothing");
-  };
 
   const updateProducts = async (selectedFilters) => {
-    console.log(
-      "temp but update products in ProductCollection from ProductFilter"
-    );
-    console.log("SELECTEDFILTERS FROM PRODUCT COLLECTION: ", selectedFilters);
-
+  
     if (selectedFilters.length > 0) {
       setAllUnselected("false");
       try {
         const data = await filterProducts(selectedFilters);
-        console.log("EHY THE FUCK AM I BEING CALLED");
-        console.log(data);
         let filteredProducts = [];
         for (let i = 0; i < data.data.length; i++) {
-          console.log("filtered products loop, ", filteredProducts);
           filteredProducts = [
             ...filteredProducts,
             ...data.data[i].attributes.products.data,
           ];
         }
-        console.log("FILTERED PRODUCTS ", filteredProducts);
         setProducts(filteredProducts);
 
-        // bit of a eeeeeeh
       } catch (error) {
         console.log(error);
       }
@@ -145,7 +118,6 @@ export default function ProductCollection() {
 
     let isQuery = pathArray.includes("search");
     if (!isQuery) getProducts();
-    //console.log("from get products using id: ", page);
   }, [idFromUrl]);
 
   useEffect(() => {
@@ -190,24 +162,19 @@ export default function ProductCollection() {
       }
     };
     if (page > 1) loadMoreProducts();
-    //console.log("from load more: ", page);
   }, [page]);
 
   useEffect(() => {
     const getBestsellers = async () => {
       try {
         const data = await fetchBestsellers();
-        console.log(data.data);
         setBestsellers(data.data);
         setIsBestsellersLoading(false);
-
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
     if (products.length < 1 && isQuery) getBestsellers();
-    console.log(bestsellers);
   }, [searchParams]);
 
   let noResults = (
@@ -254,7 +221,6 @@ export default function ProductCollection() {
           <div className="product-filter-container">
             <ProductFilter
               updateCollection={updateProducts}
-              updateByPrice={updateProductsByPrice}
             />
           </div>
         ) : (
