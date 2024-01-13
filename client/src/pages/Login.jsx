@@ -13,7 +13,7 @@ import {
   createCart,
   createFavourites,
   fetchFavourites,
-  addItemToCart
+  addItemToCart,
 } from "../utils/http";
 
 import { useDispatch } from "react-redux";
@@ -95,14 +95,21 @@ export default function Login() {
     let cartId = "";
     let favouritesId = "";
     let products = [];
-    let userId = '';
+    let userId = "";
 
     if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
     } else {
       try {
-        console.log(loginForm)
-        const response = await login(loginForm);
+        console.log(loginForm);
+
+        try {
+          var response = await login(loginForm);
+        } catch (error) {
+          console.log(error.response.data.error.message);
+          setErrMsg(error.response.data.error.message);
+        }
+
         userId = response.user.id;
         if (localStorage.getItem("localcart")) {
           // merge carts
@@ -118,74 +125,64 @@ export default function Login() {
         }
         //console.log(response);
         // check if cart exists
-           const response2 = await getCartWithItems(
+        const response2 = await getCartWithItems(
+          response.user.id,
+          response.jwt
+        );
+
+        if (response2.data.length === 0) {
+          // create cart
+          const response3 = await createCart(response.user.id, response.jwt);
+          cartId = response3.data.id;
+        } else {
+          // get cart id
+          console.log("cart id: ", response2.data[0].id);
+          cartId = response2.data[0].id;
+        }
+
+        products.forEach(async (product) => {
+          try {
+            const data2 = {
+              data: {
+                product: product.id,
+                quantity: product.quantity,
+                cart: cartId,
+              },
+            };
+
+            const response5 = await addItemToCart(data2, response.jwt);
+            console.log("test: ", response5.data);
+          } catch (error) {
+            console.log(error);
+          }
+        });
+
+        const response4 = await fetchFavourites(userId, response.jwt);
+        console.log(response4);
+        if (response4.data.length === 0) {
+          // create favourites
+          const response5 = await createFavourites(
             response.user.id,
             response.jwt
           );
-
-
-          if (response2.data.length === 0) {
-            // create cart
-            const response3 = await createCart(response.user.id, response.jwt);
-            cartId = response3.data.id;
-          } else {
-            // get cart id
-            console.log("cart id: ", response2.data[0].id);
-            cartId = response2.data[0].id;
-          }
-
-          products.forEach(async product => {
-            try {
-              const data2 = {
-                data: {
-                  product: product.id,
-                  quantity: product.quantity,
-                  cart: cartId,
-                },
-              };
-
-              const response5 = await addItemToCart(data2, response.jwt);
-              console.log("test: ", response5.data);
-            } catch (error) {
-              console.log(error);
-            }
+          console.log("RESPONSE 5: ", response5);
+          favouritesId = response5.data.id;
+          console.log(response5);
+        } else {
+          console.log("user already has favourites");
+          favouritesId = response4.data[0].id;
+        }
+        dispatch(
+          loginUser({
+            token: response.jwt,
+            userId: response.user.id,
+            username: response.user.username,
+            cartId: cartId,
+            favouritesId: favouritesId,
           })
-          
-
-
-        const response4 = await fetchFavourites(
-            userId,
-            response.jwt
-          );
-          console.log(response4);
-          if (response4.data.length === 0) {
-            // create favourites
-            const response5 = await createFavourites(
-              response.user.id,
-              response.jwt
-            );
-            console.log('RESPONSE 5: ', response5);
-            favouritesId = response5.data.id;
-            console.log(response5);
-          } else {
-            console.log("user already has favourites");
-            favouritesId = response4.data[0].id;
-          }
-          dispatch(
-            loginUser({
-              token: response.jwt,
-              userId: response.user.id,
-              username: response.user.username,
-              cartId: cartId,
-              favouritesId: favouritesId,
-            })
-          );  
-
-          
-        
+        );
       } catch (error) {
         console.log(error);
-        setErrMsg(error.response);
         return;
       }
 
