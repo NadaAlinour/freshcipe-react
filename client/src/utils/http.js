@@ -359,7 +359,6 @@ export async function filterProducts(ids) {
 
 
   const response = await axios.get(newUrl);
-  console.log(response);
 
   return response.data;
 }
