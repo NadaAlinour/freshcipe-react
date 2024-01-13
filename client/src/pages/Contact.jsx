@@ -10,7 +10,7 @@ export default function Contact() {
     mobile: "", //change to number i guess? mobile format idk
   });
 
-  console.log(contactForm);
+ // console.log(contactForm);
 
   const changeHandler = (e) => {
     setContactForm({
@@ -23,7 +23,7 @@ export default function Contact() {
 
     try {
     const response = await contact(contactForm);
-    console.log(response);
+    //console.log(response);
     } catch (error) {
       console.log(error.response.data.error.message)
     }

@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <div className="footer-main-content-container">
+        <div className="footer-main-content-container no-print">
           <div className="footer-logo-container">
             <FreshcipeLogo color="white" />
             <p>Fresh groceries delivered on time.</p>

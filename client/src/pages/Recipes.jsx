@@ -25,13 +25,6 @@ export default function Recipes() {
   const [isTagsLoading, setIsTagsLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  // add deselect tag
-
-  /*const catId = route.params.categoryId;
-  const displayedMeals = MEALS.filter(mealsItem => {
-    return mealsItem.categoryIds.indexOf(catId) >= 0;
-  });*/
-
   const updatePage = () => {
     if (page < pageCount) {
       let pageNum = page + 1;
@@ -46,9 +39,6 @@ export default function Recipes() {
 
         // filter data.data to keep tags with recipes
         const filteredTags = data.data.filter(tag => tag.attributes.recipes.data.length > 0);
-        console.log("im tags", data.data);
-        console.log("im filtered tags", filteredTags);
-
         setRecipeTags(filteredTags);
         setIsTagsLoading(false);
       } catch (error) {
@@ -68,7 +58,7 @@ export default function Recipes() {
     setPageCount();
     setpageSize(0);
 
-    console.log(selectedTagId)
+   // console.log(selectedTagId)
 
     const getInitialRecipes = async () => {
       try {
@@ -78,7 +68,7 @@ export default function Recipes() {
         setTotalRecipes(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
         setpageSize((prevPageSize) => prevPageSize + data.data.length);
-        console.log(recipes);
+        //console.log(recipes);
       } catch (error) {
         console.log(error);
       }
@@ -87,8 +77,7 @@ export default function Recipes() {
     const getRecipesByTag = async () => {
       try {
         const data = await fetchRecipesByTag(selectedTagId, 1, maxPageSize);
-        console.log(data.data);
-        //setRecipes((prevRecipes) => [...prevRecipes, ...data.data]);
+        //console.log(data.data);
         setRecipes(data.data);
         setTotalRecipes(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
@@ -99,7 +88,7 @@ export default function Recipes() {
       }
     };
 
-    console.log("PAGE: ", page);
+   // console.log("PAGE: ", page);
 
     if (selectedTagId == 0) getInitialRecipes();
     else getRecipesByTag();
@@ -115,7 +104,7 @@ export default function Recipes() {
         setTotalRecipes(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
         setpageSize((prevPageSize) => prevPageSize + data.data.length);
-        console.log(recipes);
+       // console.log(recipes);
       } catch (error) {
         console.log(error);
       }
@@ -129,7 +118,7 @@ export default function Recipes() {
         setTotalRecipes(data.meta.pagination.total);
         setPageCount(data.meta.pagination.pageCount);
         setpageSize((prevPageSize) => prevPageSize + data.data.length);
-        console.log(recipes);
+        //.log(recipes);
       } catch (error) {
         console.log(error);
       }
@@ -140,31 +129,10 @@ export default function Recipes() {
   }, [page]);
 
   const handleTagClick = async (id, title) => {
-    console.log("tag with id " + id + " clicked");
+    //console.log("tag with id " + id + " clicked");
     setSelectedTag(title);
     setSelectedTagId(id);
-    /*console.log(page)
-    setPage(1);
-    setRecipes();
-    setSelectedTag(title);
-    setSelectedTagId(id);
-    setIsLoading(true);
 
-    try {
-      const data = await fetchRecipesByTag(id);
-      console.log(data.data);
-      //setRecipes((prevRecipes) => [...prevRecipes, ...data.data]);
-      setRecipes(data.data);
-      setTotalRecipes(data.meta.pagination.total);
-      setPageCount(data.meta.pagination.pageCount);
-      //setpageSize((prevPageSize) => prevPageSize + data.data.length);
-      setpageSize(data.data.length);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log("new recipes", recipes);*/
   };
 
   return (

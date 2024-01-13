@@ -95,6 +95,7 @@ export default function Login() {
     let cartId = "";
     let favouritesId = "";
     let products = [];
+    let userId = '';
 
     if (identifierError || passwordError) {
       console.log("cannot proceed, client side validation errors exist");
@@ -102,6 +103,7 @@ export default function Login() {
       try {
         console.log(loginForm)
         const response = await login(loginForm);
+        userId = response.user.id;
         if (localStorage.getItem("localcart")) {
           // merge carts
           let localCartItems = JSON.parse(localStorage.getItem("localcart"));
@@ -121,8 +123,6 @@ export default function Login() {
             response.jwt
           );
 
-          console.log(response2);
-          cartId = response2.data.id;
 
           if (response2.data.length === 0) {
             // create cart
@@ -154,7 +154,7 @@ export default function Login() {
 
 
         const response4 = await fetchFavourites(
-            response.user.id,
+            userId,
             response.jwt
           );
           console.log(response4);
@@ -164,7 +164,8 @@ export default function Login() {
               response.user.id,
               response.jwt
             );
-            favouritesId = response5.data[0].id;
+            console.log('RESPONSE 5: ', response5);
+            favouritesId = response5.data.id;
             console.log(response5);
           } else {
             console.log("user already has favourites");

@@ -1,5 +1,27 @@
 @media print {
   body {
     background-color: pink;
+    margin: 0;
+  }
+  .recipe-info-parent {
+    margin: 0;
+    padding: 0;
+  }
+  .no-print {
+    display: none;
+  }
+  .recipe-info {
+    box-shadow: none;
+    margin-top: 0;
+  }
+  .ingredients-steps-container {
+    display: block;
+    box-shadow: none;
+
+  }
+ 
+  .nutrition-values-container {
+    box-shadow: none;
+    margin-top: 200px;
   }
 }

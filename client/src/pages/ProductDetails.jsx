@@ -11,7 +11,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 export default function ProductDetails({ route }) {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { userToken, userId, cartId } = useSelector((state) => state.auth);
+  const { userToken, cartId } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
   const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(true);
