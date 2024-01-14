@@ -8,14 +8,8 @@ export default function RecipeCard({
   duration,
   recipeData,
   alt,
+  category
 }) {
-  /*const categories = dietCategories.map((cat) =>
-    RECIPE_CATEGORIES.find((item) => item.id == cat)
-  );*/
-
-  // yo i didn't fix categories yet lol
-  // get tags and use the first one
-  const categories = ["vegan"];
 
   const navigate = useNavigate();
 
@@ -47,8 +41,8 @@ export default function RecipeCard({
           </div>
 
           <div className="recipe-card-detail-container recipe-detail-right">
-            <p className="recipe-card-detail-label">Diet</p>
-            <p className="recipe-card-detail-value">{categories[0]}</p>
+            <p className="recipe-card-detail-label">Type</p>
+            <p className="recipe-card-detail-value">{category}</p>
           </div>
         </div>
       </div>
@@ -81,8 +75,8 @@ export default function RecipeCard({
         </div>
 
         <div className="recipe-card-diet-alt">
-          <p className="recipe-card-label-alt">Diet:</p>
-          <p className="recipe-card-detail-value">{categories[0]}</p>
+          <p className="recipe-card-label-alt">Type:</p>
+          <p className="recipe-card-detail-value">{category}</p>
         </div>
       </div>
     </div>

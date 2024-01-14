@@ -120,7 +120,7 @@ export async function fetchRecipeTags() {
 // get recipes
 export async function fetchRecipes(page, pageSize) {
   const response = await axios.get(
-    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&populate[1]=recipe_tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
   );
   return response.data;
 }

@@ -63,6 +63,7 @@ export default function Recipes() {
     const getInitialRecipes = async () => {
       try {
         const data = await fetchRecipes(1, maxPageSize);
+        console.log(data)
         setIsLoading(false);
         setRecipes(data.data);
         setTotalRecipes(data.meta.pagination.total);
@@ -172,6 +173,7 @@ export default function Recipes() {
                         : ""
                     }
                     recipeData={recipe.attributes.recipeData}
+                    category={recipe.attributes.recipe_tags.data[0].attributes.title}
                   />
                 </li>
               ))}
