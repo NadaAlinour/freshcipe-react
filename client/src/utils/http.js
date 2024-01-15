@@ -345,7 +345,7 @@ export async function fetchUser(token, userId) {
 //sort=title:asc
 export async function searchProducts(searchText) {
   const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&filters[title][$containsi]=${searchText}`
+    `${BASE_URL}/products?populate[0]=image&populate[1]=tags&filters[title][$containsi]=${searchText}`
   );
   return response.data;
 }
