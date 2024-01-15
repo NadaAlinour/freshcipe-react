@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = "http://localhost:1337/api";
-const BASE_URL = "https://shop-ykb6.onrender.com/api";
+const BASE_URL = "http://localhost:1337/api";
+//const BASE_URL = "https://shop-ykb6.onrender.com/api";
 
 // signup
 export async function signup(userData) {
@@ -128,8 +128,9 @@ export async function fetchRecipes(page, pageSize) {
 // get recipes by recipe tag
 export async function fetchRecipesByTag(tagId, page, pageSize) {
   const response = await axios.get(
-    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
+    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&populate[1]=recipe_tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[recipe_tags][id][$eq]=${tagId}`
   );
+  console.log("resposne: ", response.data);
   return response.data;
 }
 
