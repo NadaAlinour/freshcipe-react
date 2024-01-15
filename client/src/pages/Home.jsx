@@ -159,6 +159,8 @@ export default function Home() {
                   title={recipe.attributes.title}
                   duration={recipe.attributes.timeToPrepareInMinutes}
                   recipeData={recipe.attributes.recipeData}
+                  category={recipe.attributes.recipe_tags.data[0].attributes.title}
+
                 />
               );
             })}
