@@ -18,6 +18,7 @@ export default function RecipeDetails({ route }) {
   const location = useLocation();
   const { userToken, favouritesId } = useSelector((state) => state.auth);
   const { favourites } = useSelector((state) => state.favourites);
+  const {cartId} = useSelector(state => state.auth);
 
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -81,7 +82,7 @@ export default function RecipeDetails({ route }) {
         data: {
           product: selectedIngredient,
           quantity: 1,
-          cart: cartTemp,
+          cart: cartId,
         },
       };
 
