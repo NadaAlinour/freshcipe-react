@@ -57,7 +57,7 @@ function App() {
 
     if (savedToken) fetchCartWithItems();
     //else setLocalCartItems();
-  }, [userToken]);
+  }, [savedToken]);
 
   useEffect(() => {
     // set state with localcart
@@ -71,7 +71,7 @@ function App() {
      
     }
    
-  }, [userToken])
+  }, [savedToken])
 
   useEffect(() => {
     const getFavourites = async () => {

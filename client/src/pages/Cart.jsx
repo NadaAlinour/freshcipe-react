@@ -146,8 +146,13 @@ export default function CartPage() {
       try {
         console.log(order)
         const data = await createOrder(userToken, order);
+        console.log(cartItems)
+        clearCart();
+        console.log(cartItems)
+
+
         // redirect to stripe page
-        window.location.assign(data.data.attributes.checkoutLink);
+       // window.location.assign(data.data.attributes.checkoutLink);
       } catch (error) {
         console.log(error);
       }
