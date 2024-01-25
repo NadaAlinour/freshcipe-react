@@ -50,7 +50,7 @@ For the frontend:
 
 For the backend:
 - Implement a backend server using Ruby on Rails.
-- Create functions in the backend that implement getting the bestsellers as it is currently done in the frontend in a way that slows down speed.
+- Create functions in the backend that implement getting the bestsellers as it is currently done in the frontend in a way that slows down performance.
 - Integrate Stripe for secure checkout.
 - Create a database using PostgreSQL.
 - Deploy the backend.
