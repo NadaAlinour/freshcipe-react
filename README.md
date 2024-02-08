@@ -51,10 +51,10 @@ For the frontend:
 - Incorporate a loading skeleton
 
 For the backend:
-- Implement a backend server using Ruby on Rails.
+- Implement a backend server using ASP.NET Core.
 - Create functions in the backend that implement getting the bestsellers as it is currently done in the frontend in a way that slows down performance.
 - Integrate Stripe for secure checkout.
-- Create a database using PostgreSQL.
+- Create a database using MySQL.
 - Deploy the backend.
 
 Additional features:
