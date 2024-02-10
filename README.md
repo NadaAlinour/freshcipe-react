@@ -38,7 +38,6 @@ To run the server:
 
 ## Deployemnt
 The frontend application is deployed using Netlify
-=> [Live Demo](https://freshcipe.netlify.app/)
 
 > **_NOTE:_**  The deployed backend is currently slow sometimes, so it might take a while for the website to load required data or services from the backend server. You can run this application locally to avoid this.
 
