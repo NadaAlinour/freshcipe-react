@@ -43,19 +43,6 @@ The frontend application is deployed using Netlify: [Demo](https://freshcipe.net
 
 ---
 
-## Future Plans
-For the frontend:
-- Refactor some parts of the code for better readability and maintainability.
-- Update styling to ensure responsiveness.
-- Incorporate a loading skeleton
-
-For the backend:
-- Implement a backend server using ASP.NET Core.
-- Create functions in the backend that implement getting the bestsellers as it is currently done in the frontend in a way that slows down performance.
-- Integrate Stripe for secure checkout.
-- Create a database using MySQL.
-- Deploy the backend.
-
 Additional features:
 - Implement a product recommendation system using Python and Machine Learning techniques.
 - Allow user to choose between different products that map to the same ingredient in the recipe details page.
