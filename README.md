@@ -2,7 +2,7 @@
 
 An e-commerce application that allows the user to browse through product categories, a product catalog with filtering, search for products and add products to a local or remote cart. The user can also browse through recipes, view a recipe's description, ingredients, steps and nutritional values, as well as select needed products directly from the ingredients' list to conveniently add to cart. Additionally, the user is able to create orders where they are then directed to a Stripe form for checkout, and to view past orders along with adding reviews or viewing a review if available.
 
- > **_NOTE:_**  This is part of my and my teammates graduation project. My role was to develop the frontend and to perform API integration along with my teammates. For practice and for more flexibility with improving/adding features, a new backend will be implemented in ASP.Net Core. It was initially created using Strapi by my teammates who were working on the backend.
+ > **_NOTE:_**  This is part of my and my teammates graduation project. My role was to develop the frontend and to perform API integration along with my teammates. For practice and for more flexibility with improving/adding features, a new backend will be implemented in Node.js and Express. It was initially created using Strapi by my teammates who were working on the backend.
 
 
 ## Getting Started
@@ -22,31 +22,11 @@ To run the client:
 - Run "npm install" to install dependencies
 - Run "npm run dev" to start the server
 
-To run the server:
-- Navigate to the strapi-server directory
-- Run "npm install"
-- Run "npm run develop" to start the server
-> **_NOTE:_**  The database is currently deployed and the strapi server requires logging in to be able to manage the data in the database.
-
 ---
 
 ## Built With
 * [Reactjs](https://react.dev/) - The frontend library used
 * [Redux Toolkit](https://redux-toolkit.js.org/) - The state management library used
-
----
-
-## Deployemnt
-The frontend application is deployed using Netlify: [Demo](https://freshcipe.netlify.app/)
-
-> **_NOTE:_**  The deployed backend is currently slow sometimes, so it might take a while for the website to load required data or services from the backend server. You can run this application locally to avoid this.
-
----
-
-Additional features:
-- Implement a product recommendation system using Python and Machine Learning techniques.
-- Allow user to choose between different products that map to the same ingredient in the recipe details page.
-- Use a publicly available dataset with the appropriate license for the demo products and recipes.
 
 ---
 
