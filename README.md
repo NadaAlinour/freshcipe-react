@@ -1,6 +1,6 @@
 # Freshcipe - E-commerce Application
 
-An e-commerce application that allows the user to browse through product categories, a product catalog with filtering, search for products and add products to a local or remote cart. The user can also browse through recipes, view a recipe's description, ingredients, steps and nutritional values, as well as select needed products directly from the ingredients' list to conveniently add to cart. Additionally, the user is able to create orders and is directed to a Stripe form for checkout, and to view past orders along with adding reviews or viewing a review if available.
+An e-commerce application that allows the user to browse through product categories, a product catalog with filtering, search for products and add products to a local or remote cart. The user can also browse through recipes, view a recipe's description, ingredients, steps and nutritional values, as well as select needed products directly from the ingredients' list to conveniently add to cart. Additionally, the user is able to create orders and is directed to a Stripe form for checkout, and is able to view past orders along with adding reviews or viewing a review if available.
 
 > **_UPDATE:_** The backend for this project (hosted on Supabase) seems to have expired so it's currently not functional.
 
