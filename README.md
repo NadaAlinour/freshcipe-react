@@ -2,9 +2,9 @@
 
 An e-commerce application that allows the user to browse through product categories, a product catalog with filtering, search for products and add products to a local or remote cart. The user can also browse through recipes, view a recipe's description, ingredients, steps and nutritional values, as well as select needed products directly from the ingredients' list to conveniently add to cart. Additionally, the user is able to create orders where they are then directed to a Stripe form for checkout, and to view past orders along with adding reviews or viewing a review if available.
 
-> **_Update:_** The backend for this project (hosted on Supabase) seems to have expired so it's currently not functional.
+> **_UPDATE:_** The backend for this project (hosted on Supabase) seems to have expired so it's currently not functional.
 
- > **_NOTE 1:_**  This is part of my and my teammates graduation project. My role was to develop the frontend and to perform API integration along with my teammates. For practice and for more flexibility with improving/adding features, a new backend will be implemented in Node.js and Express. It was initially created using Strapi by my teammates who were working on the backend.
+ > **_NOTE:_**  This is part of my and my teammates graduation project. My role was to develop the frontend and to perform API integration along with my teammates. For practice and for more flexibility with improving/adding features, a new backend will be implemented in Node.js and Express. It was initially created using Strapi by my teammates who were working on the backend.
 
 
 ## Getting Started
