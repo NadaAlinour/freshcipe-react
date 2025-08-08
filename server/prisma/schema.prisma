@@ -39,37 +39,72 @@ model Category {
   id       Int       @id @default(autoincrement())
   title    String
   imageUrl String
-  slug        String   @unique
+  slug     String    @unique
   // product belongs to category
   // one to many
   products Product[]
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   title       String
+  price       Decimal
+  quantity    String  // in litres/grams for a product
   imageUrl    String
   description String
-  slug        String   @unique
+  slug        String     @unique
   // category
   categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category   @relation(fields: [categoryId], references: [id])
   // cart Item
-  cartItems CartItem[]
+  cartItems   CartItem[]
+  // ingredient
+  ingredients Ingredient[]
+
+  // productTypes for filtering
 }
 
 model CartItem {
-  id       Int      @id @default(autoincrement())
-  quantity Int
+  id        Int     @id @default(autoincrement())
+  quantity  Int
   // cart
-  cartId Int
-  cart Cart @relation(fields: [cartId], references: [id])
+  cartId    Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  // product
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Recipe {
+  id          Int    @id @default(autoincrement())
+  title       String
+  imageUrl    String
+  calories    String
+  duration    String
+  description String
+  slug        String @unique
+  steps       String[]
+
+  // ingredients
+  ingredients Ingredient[]
+  // and also the amount for each ingredient (each product)
+  // recipeTypes for filtering
+}
+
+model Ingredient {
+  id Int @id @default(autoincrement())
+  amount String
   // product
   productId Int
   product Product @relation(fields: [productId], references: [id])
-  
+  //recipes
+  recipeId Int
+  recipe Recipe @relation(fields: [recipeId], references: [id])
 }
 
+// attributes for filtering (type? idk mayne)
+
+// and Recipes lmao
 // Favourites
 // Orders
 // Reviews
