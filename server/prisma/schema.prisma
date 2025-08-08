@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// models
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String
+  email    String @unique
+  password String
+  phone    String
+  cart     Cart?
+}
+
+model Cart {
+  id     Int  @id @default(autoincrement())
+  // cart belongs to user
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+
+  //cartItem
+  cartItems CartItem[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  title    String
+  imageUrl String
+  slug        String   @unique
+  // product belongs to category
+  // one to many
+  products Product[]
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String
+  imageUrl    String
+  description String
+  slug        String   @unique
+  // category
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+  // cart Item
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id       Int      @id @default(autoincrement())
+  quantity Int
+  // cart
+  cartId Int
+  cart Cart @relation(fields: [cartId], references: [id])
+  // product
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
+  
+}
+
+// Favourites
+// Orders
+// Reviews
