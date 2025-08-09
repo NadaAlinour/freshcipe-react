@@ -13,6 +13,10 @@ dist
 dist-ssr
 *.local
 
+
+
+
+
 # Editor directories and files
 .vs/
 .vscode/*
@@ -94,7 +98,7 @@ $RECYCLE.BIN/
 
 .tmp
 *.log
-*.sql
+
 *.sqlite
 *.sqlite3
 
@@ -141,3 +145,4 @@ build
 .strapi-updater.json
 
 .env
+*/generated/prisma
