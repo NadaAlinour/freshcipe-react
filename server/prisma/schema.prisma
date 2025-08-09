@@ -87,8 +87,8 @@ model Recipe {
 
   // ingredients
   ingredients Ingredient[]
-  // and also the amount for each ingredient (each product)
   // recipeTypes for filtering
+  // nutritional value
 }
 
 model Ingredient {
@@ -104,7 +104,6 @@ model Ingredient {
 
 // attributes for filtering (type? idk mayne)
 
-// and Recipes lmao
 // Favourites
 // Orders
 // Reviews
