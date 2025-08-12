@@ -1,6 +1,12 @@
-const authService = require("../services/authService");
+import * as authService from "../services/authService.js";
+import { validationResult } from "express-validator";
 
 async function createUser(req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const { username, email, password, phone } = req.body;
 
@@ -13,9 +19,10 @@ async function createUser(req, res) {
 
     res.status(201).json(user);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+   // res.status(400).json({ error: err.message });
+   console.log("nothing")
   }
 }
 
+export {createUser}
 
-module.exports = { createUser };

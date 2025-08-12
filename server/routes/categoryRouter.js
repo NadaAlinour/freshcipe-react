@@ -1,7 +1,7 @@
-const { Router } = require("express");
+import { Router } from "express";
 
 const categoryRouter = Router();
 
 categoryRouter.get("/", (req, res) => res.send('get category route'));
 
-module.exports = categoryRouter;
+export default categoryRouter;
