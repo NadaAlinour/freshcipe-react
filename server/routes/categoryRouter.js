@@ -1,7 +1,8 @@
 import { Router } from "express";
+import * as categoryController from "../controllers/categoryController.js"
 
 const categoryRouter = Router();
 
-categoryRouter.get("/", (req, res) => res.send('get category route'));
+categoryRouter.get("/", categoryController.getCategories);
 
 export default categoryRouter;
