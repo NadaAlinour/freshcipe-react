@@ -58,12 +58,25 @@ export async function resetPassword(formData) {
   return response.data;
 }
 
+
 // get vendors
 export async function fetchVendor() {
   const response = await axios.get(
     `${BASE_URL}/users?populate[0]=role&populate[1]=image&populate[2]=tags&populate[3]=tags.image&populate[4]=tags.products&filters[role][name][$containsi]=vendor`
   );
   return response.data;
+}
+  
+
+// get categories
+export async function fetchCategories() {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories/`);
+    console.log("RESPONSE", response)
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // get cats subcats
@@ -73,7 +86,6 @@ export async function fetchSubCats(catId) {
   );
   return response.data;
 }
-
 
 // get products by category by vendor
 export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
@@ -226,7 +238,6 @@ export async function deleteCartItem(cartId, itemId, token) {
 
 // create order
 export async function createOrder(token, order) {
-
   const response = await axios.post(`${BASE_URL}/orders`, order, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
@@ -240,7 +251,6 @@ export async function createOrder(token, order) {
 
 async function updateTimesSold(order, token) {
   for (let i = 0; i < order.data.items.length; i++) {
-
     let productId = order.data.items[i].product;
     let count = order.data.items[i].quantity;
     let oldCount;
@@ -351,12 +361,10 @@ export async function searchProducts(searchText) {
 
 // get products by subtag (concatenate later)
 export async function filterProducts(ids) {
-
   let newUrl = `${BASE_URL}/sub-tags?populate[0]=products&populate[1]=products.image&populate[2]=products.tags`;
   for (let i = 0; i < ids.length; i++) {
     newUrl += `&filters[id][$in][${i}]=${ids[i]}`;
   }
-
 
   const response = await axios.get(newUrl);
 

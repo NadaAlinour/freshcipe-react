@@ -1,6 +1,6 @@
 import CategoryCard from "../components/CategoryCard";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { fetchVendor } from "../utils/http";
+import { fetchCategories } from "../utils/http";
 import { useEffect, useState } from "react";
 
 export default function ProductCategories() {
@@ -9,19 +9,18 @@ export default function ProductCategories() {
 
   useEffect(() => {
   
-    const getVendorWithCats = async () => {
+    const getCats = async () => {
       try {
-        const data = await fetchVendor();
-        //console.log('vendor: ', data[0].tags);
-        setCats(data[0].tags);
+        const data = await fetchCategories();
+        console.log(data.categories);
+        setCats(data.categories);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
 
-    getVendorWithCats();
-    //console.log(cats);
+    getCats();
   }, []);
 
   return (
@@ -36,7 +35,7 @@ export default function ProductCategories() {
                   <CategoryCard
                     id={cat.id}
                     title={cat.title}
-                    imageUrl={cat.image.url}
+                    imageUrl={cat.imageUrl}
                   />
                 </li>
               ))}
