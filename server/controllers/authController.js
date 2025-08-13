@@ -19,10 +19,25 @@ async function createUser(req, res) {
 
     res.status(201).json(user);
   } catch (err) {
-   // res.status(400).json({ error: err.message });
-   console.log("nothing")
+    // res.status(400).json({ error: err.message });
+    console.log("nothing");
   }
 }
 
-export {createUser}
 
+// not for auth since we're using passport and authService i think
+async function getUser(req, res) {
+  try {
+    const { email, password } = req.body;
+    const user = await authService.getUser({
+      email: email,
+      password: password,
+    });
+
+    return res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export { createUser, getUser };
