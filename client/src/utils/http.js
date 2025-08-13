@@ -59,20 +59,11 @@ export async function resetPassword(formData) {
 }
 
 
-// get vendors
-export async function fetchVendor() {
-  const response = await axios.get(
-    `${BASE_URL}/users?populate[0]=role&populate[1]=image&populate[2]=tags&populate[3]=tags.image&populate[4]=tags.products&filters[role][name][$containsi]=vendor`
-  );
-  return response.data;
-}
-  
 
 // get categories
 export async function fetchCategories() {
   try {
     const response = await axios.get(`${BASE_URL}/categories/`);
-    console.log("RESPONSE", response)
     return response.data;
   } catch (err) {
     console.log(err);

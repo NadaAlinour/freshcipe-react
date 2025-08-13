@@ -7,7 +7,7 @@ import OfferTwo from "../assets/offertwo.jpg";
 
 import "boxicons";
 import {
-  fetchVendor,
+  fetchCategories,
   fetchRecipes,
   fetchBestsellers,
 } from "../utils/http";
@@ -28,10 +28,9 @@ export default function Home() {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const data = await fetchVendor();
-        setCats(data[0].tags);
+        const data = await fetchCategories();
+        setCats(data.categories);
         setIsCatsLoading(false);
-        //console.log(data[0].tags);
       } catch (error) {
         console.log(error);
       }
