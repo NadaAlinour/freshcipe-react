@@ -87,12 +87,18 @@ export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
   return response.data;
 }
 
+export async function fetchVendor() {
+  return 0;
+}
+
 // get all products
-export async function fetchAllProducts(page, pageSize) {
-  const response = await axios.get(
-    `${BASE_URL}/products?populate[0]=image&populate[1]=tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
-  );
-  return response.data;
+export async function fetchAllProducts() {
+   try {
+    const response = await axios.get(`${BASE_URL}/products/`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // get top 5 bestsellers
@@ -120,11 +126,13 @@ export async function fetchRecipeTags() {
 }
 
 // get recipes
-export async function fetchRecipes(page, pageSize) {
-  const response = await axios.get(
-    `${BASE_URL}/recipes?sort=title:asc&populate[0]=image&populate[1]=recipe_tags&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
-  );
-  return response.data;
+export async function fetchRecipes() {
+   try {
+    const response = await axios.get(`${BASE_URL}/recipes/`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // get recipes by recipe tag
