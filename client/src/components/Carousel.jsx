@@ -1,6 +1,6 @@
 import CategoryCard from "./CategoryCard";
 import RecipeCard from "./RecipeCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "boxicons";
 export default function Carousel({ items, cardType }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,7 +41,7 @@ export default function Carousel({ items, cardType }) {
               {cardType === "category" ? (
                 <CategoryCard
                   id={item.id}
-                  imageUrl={item.image.url}
+                  imageUrl={item.imageUrl}
                   title={item.title}
                 />
               ) : (

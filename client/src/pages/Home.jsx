@@ -7,7 +7,7 @@ import OfferTwo from "../assets/offertwo.jpg";
 
 import "boxicons";
 import {
-  fetchVendor,
+  fetchCategories,
   fetchRecipes,
   fetchBestsellers,
 } from "../utils/http";
@@ -28,10 +28,9 @@ export default function Home() {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const data = await fetchVendor();
-        setCats(data[0].tags);
+        const data = await fetchCategories();
+        setCats(data.categories);
         setIsCatsLoading(false);
-        //console.log(data[0].tags);
       } catch (error) {
         console.log(error);
       }
@@ -42,9 +41,9 @@ export default function Home() {
   useEffect(() => {
     const getRecipes = async () => {
       try {
-        const data = await fetchRecipes(1, 4);
-        //console.log(data.data);
-        setRecipes(data.data);
+       // const data = await fetchRecipes(1, 4);
+        const data = await fetchRecipes();
+        setRecipes(data.recipes);
         setIsRecipesLoading(false);
       } catch (error) {
         console.log(error);
@@ -53,6 +52,7 @@ export default function Home() {
     getRecipes();
   }, []);
 
+  /*
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -68,6 +68,7 @@ export default function Home() {
     };
     getProducts();
   }, []);
+  */
 
   return (
     <div className="home-page-container">
@@ -141,6 +142,7 @@ export default function Home() {
         </div>
       </div>
 
+
       <div className="home-recipes-section">
         <div className="home-recipes-intro">
           <h2>Our recipes</h2>
@@ -155,11 +157,11 @@ export default function Home() {
                 <RecipeCard
                   key={recipe.id}
                   id={recipe.id}
-                  imageUrl={recipe.attributes.image.data.attributes.url}
-                  title={recipe.attributes.title}
-                  duration={recipe.attributes.timeToPrepareInMinutes}
-                  recipeData={recipe.attributes.recipeData}
-                  category={recipe.attributes.recipe_tags.data[0].attributes.title}
+                  imageUrl={recipe.imageUrl}
+                  title={recipe.title}
+                  duration={recipe.duration}
+                  recipeData={recipe}
+                  /*category={recipe.attributes.recipe_tags.data[0].attributes.title}*/
 
                 />
               );
@@ -172,6 +174,8 @@ export default function Home() {
           <box-icon name="chevron-right" size="30px" color="#ce6332" />
         </div>
       </div>
+
+      {/*
 
       <div className="home-products-section">
         <div className="home-section-header">
@@ -200,6 +204,7 @@ export default function Home() {
           <box-icon name="chevron-right" size="30px" color="#ce6332" />
         </div>
       </div>
+      */}
     </div>
   );
 }

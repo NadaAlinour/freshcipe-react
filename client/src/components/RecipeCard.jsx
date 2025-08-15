@@ -8,9 +8,8 @@ export default function RecipeCard({
   duration,
   recipeData,
   alt,
-  category
+  //category
 }) {
-
   const navigate = useNavigate();
 
   const handleRecipeClick = (id, title) => {
@@ -31,7 +30,7 @@ export default function RecipeCard({
           <h4>{title}</h4>
         </div>
         <div className="recipe-card-header-p">
-          <p>{recipeData.nutritionalValues[0].value}</p>
+          <p>{recipeData.calories} kcal</p>
         </div>
 
         <div className="recipe-card-time-diet-container">
@@ -39,11 +38,12 @@ export default function RecipeCard({
             <p className="recipe-card-detail-label">Time</p>
             <p className="recipe-card-detail-value">{duration} mins</p>
           </div>
-
+          {/*
           <div className="recipe-card-detail-container recipe-detail-right">
             <p className="recipe-card-detail-label">Type</p>
             <p className="recipe-card-detail-value">{category}</p>
           </div>
+          */}
         </div>
       </div>
     </>
@@ -64,9 +64,7 @@ export default function RecipeCard({
         </div>
         <div className="recipe-card-header-p-alt">
           <p className="recipe-card-label-alt">Calories:</p>
-          <p className="recipe-card-detail-value">
-            {recipeData.nutritionalValues[0].value}
-          </p>
+          <p className="recipe-card-detail-value">{recipeData.calories}</p>
         </div>
 
         <div className="recipe-card-duration-alt">
@@ -74,10 +72,11 @@ export default function RecipeCard({
           <p className="recipe-card-detail-value">{duration} mins</p>
         </div>
 
-        <div className="recipe-card-diet-alt">
+        {/*  <div className="recipe-card-diet-alt">
           <p className="recipe-card-label-alt">Type:</p>
           <p className="recipe-card-detail-value">{category}</p>
         </div>
+        */}
       </div>
     </div>
   );
