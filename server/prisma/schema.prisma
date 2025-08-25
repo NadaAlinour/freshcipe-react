@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -60,8 +56,9 @@ model Product {
   cartItems   CartItem[]
   // ingredient
   ingredients Ingredient[]
-
-  // productTypes for filtering
+  // productTag for filtering
+  tagId Int?
+  tag ProductTag? @relation(fields: [tagId], references: [id])
 }
 
 model CartItem {
@@ -87,7 +84,10 @@ model Recipe {
 
   // ingredients
   ingredients Ingredient[]
-  // recipeTypes for filtering
+  // recipeTags for filtering
+  tagId Int?
+  tag RecipeTag? @relation(fields: [tagId], references: [id])
+
   // nutritional value
 }
 
@@ -103,6 +103,21 @@ model Ingredient {
 }
 
 // attributes for filtering (type? idk mayne)
+model ProductTag {
+  id Int @id @default(autoincrement())
+  title String
+  // one tag many products
+  productId Int
+  products Product[]
+}
+
+model RecipeTag {
+  id Int @id @default(autoincrement())
+  title String
+  // one tag many recipes
+  recipeId Int
+  recipes Recipe[]
+}
 
 // Favourites
 // Orders
