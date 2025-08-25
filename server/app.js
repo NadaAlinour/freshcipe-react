@@ -6,6 +6,7 @@ import cors from "cors";
 import express from "express";
 import session from "express-session";
 import passport from "./middlewares/passport.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 import authRouter from "./routes/authRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
@@ -16,7 +17,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: false,
   })
@@ -34,6 +35,9 @@ app.use("/auth", authRouter);
 app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/recipes", recipeRouter);
+
+// must be the last middleware
+app.use(errorHandler);
 
 const port = process.env.PORT;
 

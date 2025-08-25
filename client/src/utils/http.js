@@ -87,9 +87,6 @@ export async function fetchVendorCatsProducts(categoryId, page, pageSize) {
   return response.data;
 }
 
-export async function fetchVendor() {
-  return 0;
-}
 
 // get all products
 export async function fetchAllProducts() {

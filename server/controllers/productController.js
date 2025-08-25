@@ -12,7 +12,6 @@ export async function getProducts(req, res) {
     }
     res.status(200).json({ products });
   } catch (err) {
-    console.error("Error in fetching products controller: ", err);
-    res.status(500).json({ error: "Failed to fetch products" });
+    next(err);
   }
 }
